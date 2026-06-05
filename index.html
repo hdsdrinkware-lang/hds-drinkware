@@ -1097,10 +1097,12 @@
             <div class="lead-hook-card">
               <h3>📚 Download 2026 Product Catalog</h3>
               <p>Get instant access to our latest OEM/ODM drinkware catalog (PDF) featuring 100+ hot-selling custom bottles, tumblers, and mugs.</p>
-              <form class="lead-hook-form" name="catalog-download" action="https://api.web3forms.com/submit" method="POST">
-                <input type="hidden" name="access_key" value="45e7b7c2-d1c6-4019-a627-1d3f6bbadbab" />
-                <input type="hidden" name="subject" value="📚 HDS Catalog Download Request" />
-                <input type="hidden" name="from_name" value="HDS Drinkware Catalog Request" />
+              <form class="lead-hook-form" name="catalog-download" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                <input type="hidden" name="form-name" value="catalog-download" />
+                <input type="hidden" name="subject" value="Catalog Download Request from hdsdrinkware.com" />
+                <p class="hidden-field" style="display: none;">
+                  <label>Do not fill this out <input name="bot-field" /></label>
+                </p>
                 <div class="micro-form-group">
                   <input type="email" name="email" placeholder="Enter corporate email" required />
                   <button type="submit">Download PDF</button>
@@ -1110,10 +1112,12 @@
             <div class="lead-hook-card">
               <h3>🎁 Request Free Stock Sample</h3>
               <p>Test our premium insulation and material quality first-hand. Request a free blank stock sample (pay shipping only).</p>
-              <form class="lead-hook-form" name="sample-request" action="https://api.web3forms.com/submit" method="POST">
-                <input type="hidden" name="access_key" value="45e7b7c2-d1c6-4019-a627-1d3f6bbadbab" />
-                <input type="hidden" name="subject" value="🎁 HDS Free Stock Sample Request" />
-                <input type="hidden" name="from_name" value="HDS Drinkware Sample Request" />
+              <form class="lead-hook-form" name="sample-request" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                <input type="hidden" name="form-name" value="sample-request" />
+                <input type="hidden" name="subject" value="Free Stock Sample Request from hdsdrinkware.com" />
+                <p class="hidden-field" style="display: none;">
+                  <label>Do not fill this out <input name="bot-field" /></label>
+                </p>
                 <div class="micro-form-group">
                   <input type="email" name="email" placeholder="Enter corporate email" required />
                   <button type="submit">Request Sample</button>
@@ -1122,10 +1126,15 @@
             </div>
           </div>
         </div>
-        <form class="quote-form" name="drinkware-inquiry" action="https://api.web3forms.com/submit" method="POST">
-          <input type="hidden" name="access_key" value="45e7b7c2-d1c6-4019-a627-1d3f6bbadbab" />
-          <input type="hidden" name="subject" value="📥 New HDS B2B Drinkware Inquiry" />
-          <input type="hidden" name="from_name" value="HDS Drinkware Website Inquiry" />
+        <form class="quote-form" name="drinkware-inquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="drinkware-inquiry" />
+          <input type="hidden" name="subject" value="New drinkware inquiry from hdsdrinkware.com" />
+          <p class="hidden-field">
+            <label>
+              Do not fill this out
+              <input name="bot-field" />
+            </label>
+          </p>
           <label>
             Name
             <input name="name" type="text" placeholder="Your name" required />

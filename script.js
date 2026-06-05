@@ -112,64 +112,38 @@ const buildMailtoUrl = (data) => {
   return `mailto:${salesEmail}?subject=${subject}&body=${body}`;
 };
 
-// Generic form submit handler for Web3Forms static hosting compatibility
-document.querySelectorAll("form").forEach((formElement) => {
-  formElement.addEventListener("submit", async (event) => {
-    event.preventDefault();
+form?.addEventListener("submit", async (event) => {
+  event.preventDefault();
 
-    const data = new FormData(formElement);
-    let statusText = "Sending your request...";
-    let successText = "Thank you! Your submission has been received successfully.";
+  const data = new FormData(form);
 
-    // Custom success texts based on form
-    if (formElement.name === "catalog-download") {
-      statusText = "Preparing your catalog...";
-      successText = "Thank you! Your download request has been received. We will email the catalog to you shortly.";
-    } else if (formElement.name === "sample-request") {
-      statusText = "Checking sample availability...";
-      successText = "Thank you! Your stock sample request has been received. We will contact you to coordinate shipping.";
-    } else if (formElement.name === "drinkware-inquiry") {
-      statusText = "Sending your inquiry...";
-      successText = "Thank you. Our sales team will contact you within 12 hours.";
+  formStatus?.classList.remove("is-error");
+  if (formStatus) {
+    formStatus.textContent = "Sending your inquiry...";
+  }
+
+  try {
+    const response = await fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(data).toString(),
+    });
+
+    if (!response.ok) {
+      throw new Error("Form submission failed");
     }
 
-    // Set status message
-    let statusDisplay = formElement.querySelector(".form-status");
-    if (!statusDisplay) {
-      statusDisplay = document.createElement("p");
-      statusDisplay.className = "form-status";
-      formElement.appendChild(statusDisplay);
+    form.reset();
+    if (formStatus) {
+      formStatus.textContent = "Thank you. Our sales team will contact you within 12 hours.";
     }
-    statusDisplay.classList.remove("is-error");
-    statusDisplay.style.color = "inherit";
-    statusDisplay.textContent = statusText;
-
-    try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: data
-      });
-
-      const result = await response.json();
-
-      if (!response.ok || !result.success) {
-        throw new Error("Form submission failed");
-      }
-
-      formElement.reset();
-      statusDisplay.textContent = successText;
-      statusDisplay.style.color = "var(--teal)";
-    } catch (error) {
-      statusDisplay.classList.add("is-error");
-      statusDisplay.style.color = "var(--coral)";
-      if (formElement.name === "drinkware-inquiry") {
-        statusDisplay.textContent = "Opening email as a backup. You can send the prepared inquiry directly.";
-        window.location.href = buildMailtoUrl(data);
-      } else {
-        statusDisplay.textContent = "Submission failed. Please email us directly at hds.drinkware@gmail.com";
-      }
+  } catch (error) {
+    if (formStatus) {
+      formStatus.classList.add("is-error");
+      formStatus.textContent = "Opening email as a backup. You can send the prepared inquiry directly.";
     }
-  });
+    window.location.href = buildMailtoUrl(data);
+  }
 });
 
 const revealItems = document.querySelectorAll(
