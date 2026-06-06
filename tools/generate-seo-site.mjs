@@ -435,7 +435,7 @@ const getConversionProfile = (page) => {
 
 const header = (depth = 0) => {
   const p = depth === 0 ? "/" : "../".repeat(depth);
-  return `<header class="site-header"><a class="brand" href="${p}"><span class="brand-mark">HDS</span><span class="brand-text"><strong>HDS Drinkware</strong><small>Shanxi Huandingsheng</small></span></a><nav class="main-nav" aria-label="Main navigation"><a href="${p}#products">Products</a><a href="${p}sourcing-guides/">Guides</a><a href="${p}faq/">FAQ</a><a href="${p}about-hds-drinkware/">About</a><a href="${p}#inquiry">Contact</a></nav><div class="header-actions"><a class="header-whatsapp" href="${wa("Hello HDS Drinkware, I would like to request MOQ, price, logo options and sample details.")}" target="_blank" rel="noopener">WhatsApp</a><a class="header-cta" href="${p}#inquiry">Request Quote</a></div></header>`;
+  return `<header class="site-header"><a class="brand" href="${p}"><span class="brand-mark">HDS</span><span class="brand-text"><strong>HDS Drinkware</strong><small>Shanxi Huandingsheng</small></span></a><nav class="main-nav" aria-label="Main navigation"><a href="${p}#products">Products</a><a href="${p}sourcing-guides/">Guides</a><a href="${p}faq/">FAQ</a><a href="${p}about-hds-drinkware/">About</a><a href="${p}#inquiry">Contact</a></nav><div class="header-actions"><div class="gtranslate_wrapper"></div><a class="header-whatsapp" href="${wa("Hello HDS Drinkware, I would like to request MOQ, price, logo options and sample details.")}" target="_blank" rel="noopener">WhatsApp</a><a class="header-cta" href="${p}#inquiry">Request Quote</a></div></header>`;
 };
 
 const breadcrumbSchema = (items) => ({
@@ -599,6 +599,8 @@ function pageShell({ title, meta, slug, h1, eyebrow, intro, body, schemas, depth
       </section>
       ${body}
     </main>
+    <script>window.gtranslateSettings = {"default_language":"en","languages":["en","de","fr","es","ja","pt","ru","ar"],"wrapper_selector":".gtranslate_wrapper","flag_size":16,"horizontal_position":"inline"}</script>
+    <script src="https://cdn.gtranslate.net/widgets/latest/dwf.js" defer></script>
   </body>
 </html>
 `;
