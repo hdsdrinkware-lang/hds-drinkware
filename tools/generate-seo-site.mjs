@@ -41,6 +41,13 @@ const productPages = [
   ["custom-tumbler-supplier-china", "Custom Tumbler Supplier China", "Custom Tumbler Supplier China for Logo and Gift Packaging Projects", "40oz tumblers, stainless steel tumblers, coffee tumblers and gift tumblers", "Amazon sellers, corporate buyers, distributors and Shopify brands", "stainless steel, powder coating, laser logo and gift box options"],
   ["custom-water-bottle-supplier-china", "Custom Water Bottle Supplier China", "Custom Water Bottle Supplier China for Logo Bottles and Sports Bottles", "plastic water bottles, sports bottles, kids bottles and large capacity bottles", "fitness brands, schools, Amazon sellers, distributors and promotional buyers", "PC, PP, PETG, Tritan-style and stainless steel options"],
   ["drinkware-sourcing-agent-china", "Drinkware Sourcing Agent China", "Drinkware Sourcing Agent China for Custom Drinkware Buyers", "sourcing support for tumblers, bottles, coffee cups, packaging and shipping coordination", "overseas buyers, Amazon sellers, gift companies and distributors", "multi-factory supply chain resources across stainless steel and plastic drinkware"],
+  ["low-moq-custom-tumblers-with-logo", "Low MOQ Custom Tumblers with Logo", "Low MOQ Custom Tumblers with Logo for Retailers and Brands", "low MOQ custom tumblers, logo engraving, wholesale tumblers", "retailers, online brands, startups and gift buyers", "304 stainless steel, vacuum insulated wall, powder coating and custom gift box options"],
+  ["custom-water-bottles-for-corporate-gifts", "Custom Water Bottles for Corporate Gifts", "Custom Water Bottles for Corporate Gifts, Conferences and Events", "corporate logo water bottles, custom sports bottles, promotional hydration cups", "corporate HR buyers, event organizers, brand managers and gift companies", "BPA-free plastic, double-wall stainless steel and custom box solutions"],
+  ["private-label-stainless-steel-tumblers-china", "Private Label Stainless Steel Tumblers China", "Private Label Stainless Steel Tumblers from China Manufacturer", "private label tumblers, custom logo insulated cups, China supplier", "Shopify DTC brands, Amazon sellers, wholesalers and distributors", "304 / 316 surgical stainless steel, double-wall vacuum, custom packaging"],
+  ["custom-tumbler-packaging-guide", "Custom Tumbler Packaging Guide", "Custom Tumbler Packaging Guide for E-commerce and Gift Brands", "custom tumbler boxes, retail packaging, FBA barcode carton markings", "Amazon sellers, Shopify brands, gift agencies and distributors", "paperboard gift box, custom printed color boxes, cardboard inserts and cardboard dividers"],
+  ["ddp-shipping-for-custom-drinkware-orders", "DDP Shipping for Custom Drinkware Orders", "DDP and DDU Shipping Support for Custom Drinkware Buyers", "DDP shipping, customs clearance, door-to-door freight, container consolidation", "global importers, Amazon FBA sellers, gift buyers and wholesale distributors", "door-to-door duty-paid sea, air, and train freight coordination"],
+  ["custom-drinkware-quality-control-checklist", "Custom Drinkware Quality Control Checklist", "Custom Drinkware Quality Control Checklist for B2B Sourcing", "drinkware QC inspection checklist, food-safety certification, cross-hatch tape tests", "overseas brands, B2B importers, QA managers and purchasing agents", "strict ISO 9001-aligned incoming, in-process, and pre-shipment auditing rules"],
+  ["custom-drinkware-gift-set-ideas-for-wholesale-buyers", "Custom Drinkware Gift Set Ideas for Wholesale Buyers", "Curated Custom Drinkware Gift Set Ideas for Wholesale and B2B Buyers", "custom drinkware gift sets, wholesale gift bundles, retail gift packaging", "corporate HR teams, gift distributors, wedding planners and brand agencies", "premium gift boxes, canvas tote bags, custom cardboard inserts and matching cards"],
 ];
 
 const guides = [
@@ -587,9 +594,69 @@ function pageShell({ title, meta, slug, h1, eyebrow, intro, body, schemas, depth
 `;
 }
 
+const customPageDetails = {
+  "custom-40oz-tumbler-manufacturer": {
+    painPoints: [
+      "Marketplace sellers (Amazon, TikTok Shop, Shopify) need high-strength handle attachments (welded and screw-reinforced) to prevent handles from breaking off during shipping or heavy use.",
+      "Ensuring leak-resistant lid mechanisms (such as multi-use rotating straw lids with secure silicone seal gaskets) is critical to prevent splashes during commuting.",
+      "Quality control must verify paint durability and adhesion via cross-hatch tape tests to avoid common coating chipping or peeling issues on powder-coated colors.",
+      "The lower base must have a precise tapered diameter (approx. 7.3cm / 2.87 inches) to fit standard vehicle cup holders, which is a key buying decision for end-consumers.",
+      "Shipping planning must account for bulk carton volume; we coordinate FBA carton marking, barcodes, and custom inner box packing to minimize transit damage and Amazon receiving delays."
+    ],
+    materialDetail: "Food-grade 18/8 (304) stainless steel inner lining for excellent durability and copper-plated vacuum insulation, combined with a BPA-free rotating Tritan-style slider lid, ergonomic PP handle with comfortable soft-touch grip, and reusable PP/silicone straw options.",
+    qcDetail: "Our 40oz tumblers undergo 100% vacuum insulation testing, 100-stroke handle tension tests, cross-hatch tape tests for powder coat adhesion, lid leakage testing, and a strict inspection of straw clearance to ensure zero scratches."
+  },
+  "custom-stainless-steel-tumblers": {
+    painPoints: [
+      "B2B buyers and brands need food-safety compliance certification support (FDA, LFGB, California Proposition 65) to avoid customs seizure or legal liability in Europe and North America.",
+      "High vacuum thermal performance (minimum 12 hours hot / 24 hours cold) must be verified through temperature sensors on the production line.",
+      "Custom branding needs to be durable; logo application (laser engraving, silk screen, UV flatbed, or water transfer) must be tested against dishwashing heat.",
+      "Gift distributors and corporate buyers require elegant packaging solutions, custom insert cards, and tissue wrapping to elevate the unboxing experience."
+    ],
+    materialDetail: "Premium kitchen-grade 18/8 (304) or optional 316 surgical-grade stainless steel inside for ultimate rust resistance. Outer surface finishes include rugged matte powder coatings, sleek metallic finishes, high-gloss gradient sprays, and electroplated accents.",
+    qcDetail: "We perform automated temperature-drop vacuum testing, salt-spray testing for rust resistance, cross-hatch tape tests for paint adhesion, dishwasher-cycle durability tests for logos, and strict SGS-style food-grade compliance audits."
+  },
+  "custom-water-bottles-with-logo": {
+    painPoints: [
+      "Gyms, fitness brands, and sports teams need 100% spill-proof lids with secure locking rings and one-click opening mechanisms that survive dropping.",
+      "Plastic bottle bodies must use certified BPA-free food-safe materials (such as PP, PC, Tritan, or PETG) that do not transfer chemical tastes or odors to the water.",
+      "Bulk promotional campaigns require durable, cost-effective logo printing that won't scratch off during sports activities or daily hydration.",
+      "Wholesale buyers need accurate carton packaging weight and volume details to calculate DDP/DDU shipping costs and ensure easy warehouse handling."
+    ],
+    materialDetail: "Food-safe, BPA-free plastics including ultra-clear Eastman Tritan-style copolyester, lightweight PP for cycling sports, break-resistant PC, and heavy-duty PETG for 64oz large capacity jugs, equipped with durable silicone sports nozzle lids.",
+    qcDetail: "We conduct pressure leak tests, 1.2m drop-impact durability tests, clear measurement scale printing accuracy audits, odor-free hot water chemical leaching evaluations, and strict bulk weight-to-carton-dimension optimization checks."
+  },
+  "custom-drinkware-gift-sets": {
+    painPoints: [
+      "Corporate gift buyers and event agencies need absolute logo consistency across different items in a gift set (e.g. matching a travel mug with a flask).",
+      "Gift boxes must have custom cardboard or high-density EVA foam inserts with precise cutouts to prevent items from colliding and scratching during transport.",
+      "MOQ must be flexible; buyers need to bundle custom drinkware with lifestyle items (such as stainless straws, cleaning brushes, greeting cards, or tote bags) in small batches from 200 sets.",
+      "Strict event deadlines require guaranteed production lead times, fast sample proofing, and reliable DDP shipping to the event venue or office door."
+    ],
+    materialDetail: "Curated drinkware combinations of stainless steel insulated tumblers, double-wall coffee travel mugs, or sports bottles, matched with premium cardboard gift boxes, custom EVA foam/paper pulp inserts, matching greeting cards, custom canvas tote bags, and personalized hang tags.",
+    qcDetail: "Gift set QC focuses on multi-item color-matching audits, drop-resistant gift box construction reviews, tight-fitting item positioning in inserts, greeting card print proofing, carton packing cushion tests, and on-time shipment scheduling."
+  }
+};
+
 function landingBody(page) {
   const related = relatedLinks(page.slug);
   const intent = productIntent[page.slug] || ["custom drinkware sourcing", `${page.buyers} comparing logo-ready drinkware options for B2B orders.`, "This page should support a specific sourcing decision rather than duplicate every other drinkware page."];
+  const custom = customPageDetails[page.slug];
+
+  const painPointsList = custom && custom.painPoints
+    ? custom.painPoints.map((p) => `<li>${esc(p)}</li>`).join("")
+    : `<li>${esc(cap(page.buyers))} need product photos, logo method, packaging and shipping details before committing to bulk production.</li>
+       <li>Small brands and sellers need low MOQ support from 200 pcs for selected projects, so they can test demand before larger repeat orders.</li>
+       <li>Gift companies, distributors and marketplace sellers need sample support, realistic production timing and fast WhatsApp communication.</li>`;
+
+  const materialDetail = custom && custom.materialDetail
+    ? custom.materialDetail
+    : `Material options include ${esc(page.material)}. Buyers can share their target market and price range so HDS can recommend a suitable material and product structure.`;
+
+  const qcDetail = custom && custom.qcDetail
+    ? custom.qcDetail
+    : `Stock samples can be arranged when available. Logo samples usually need artwork confirmation. Bulk production is commonly planned around 30-35 days after approval, with DDP/DDU, FOB or EXW shipping coordination discussed by project.`;
+
   return `
       ${productImageStrip(page, 1)}
       <section class="section landing-intent-map">
@@ -597,12 +664,12 @@ function landingBody(page) {
         <article><span>Keyword boundary</span><h2>How this page differs</h2><p>${esc(intent[2])}</p></article>
       </section>
       <section class="section landing-content landing-detail">
-        <article><h2>Buyer Pain Points</h2><ul><li>${esc(cap(page.buyers))} need product photos, logo method, packaging and shipping details before committing to bulk production.</li><li>Small brands and sellers need low MOQ support from 200 pcs for selected projects, so they can test demand before larger repeat orders.</li><li>Gift companies, distributors and marketplace sellers need sample support, realistic production timing and fast WhatsApp communication.</li></ul></article>
+        <article><h2>Buyer Pain Points</h2><ul>${painPointsList}</ul></article>
         <article><h2>Product Options</h2><p>${esc(page.options)} can be discussed by capacity, color, finish, lid, accessory, packaging and destination market. HDS helps buyers compare practical options instead of pushing a single retail-style SKU.</p></article>
         <article><h2>MOQ Details</h2><p>MOQ starts from 200 pcs for selected custom drinkware projects. The final MOQ depends on material, color, logo method, packaging, sample needs and current supply chain availability.</p></article>
-        <article><h2>Material Options</h2><p>Material options include ${esc(page.material)}. Buyers can share their target market and price range so HDS can recommend a suitable material and product structure.</p></article>
+        <article><h2>Material Options</h2><p>${esc(materialDetail)}</p></article>
         <article><h2>Logo Methods</h2><p>Logo customization support includes laser engraving, silk screen printing, UV printing, heat transfer, labels and packaging logo placement. The best method depends on product surface, artwork colors and buyer channel.</p></article>
-        <article><h2>Sample, Production and Shipping Timeline</h2><p>Stock samples can be arranged when available. Logo samples usually need artwork confirmation. Bulk production is commonly planned around 30-35 days after approval, with DDP/DDU, FOB or EXW shipping coordination discussed by project.</p></article>
+        <article><h2>Sample, Production and Shipping Timeline</h2><p>${esc(qcDetail)}</p></article>
       </section>
       <section class="section">
         <div class="section-heading"><p class="eyebrow">Product comparison</p><h2>Product Comparison Table</h2></div>
@@ -831,9 +898,11 @@ const infoPages = [
     intro: "These anonymous examples show practical support situations without fake customer names, fake order amounts or invented reviews.",
     images: [["assets/catalog/40oz-ice-tumbler.jpg", "40oz tumbler sample for online seller testing"], ["assets/trust-proof/packaging.jpg", "Gift packaging review for custom drinkware order"], ["assets/trust-proof/logo-customization.jpg", "Logo water bottle sample review"]],
     sections: [
-      ["Online Seller Sample Project", "An online seller needed a low MOQ 40oz tumbler test with logo sample and packaging review. HDS helped compare product options, discuss logo method and coordinate sample details before bulk planning."],
-      ["Corporate Gift Packaging Project", "A corporate gift buyer needed a more complete presentation, including gift box, insert and carton packing discussion. The key was confirming packaging direction early so sample and freight planning stayed realistic."],
-      ["Promotional Buyer Logo Project", "A promotional buyer needed a logo water bottle sample before pitching a campaign. HDS support focused on material comparison, logo method selection and quote preparation with destination shipping details."],
+      ["1. Custom 40oz Tumblers for an Amazon Seller", "A detailed walk-through of matching specific viral colors, packaging design to reduce dimensional weight charges, and pre-labeling for Amazon FBA warehouses. <a href='/case-studies/custom-40oz-tumblers-for-amazon-seller/'>Read Full Case Study &rarr;</a>"],
+      ["2. Custom Stainless Steel Tumblers for a Corporate Gift Buyer", "Sourcing matte powder-coated vacuum travel mugs, custom velvet-lined magnetic gift boxes, and fast-track shipping under LFGB food-safety standards. <a href='/case-studies/custom-stainless-steel-tumblers-for-corporate-gift-buyer/'>Read Full Case Study &rarr;</a>"],
+      ["3. Low MOQ Custom Water Bottles for a Startup Brand", "How we helped a startup fitness brand launch custom sports bottles with custom-printed time markers in a small batch of 300 pcs. <a href='/case-studies/low-moq-custom-water-bottles-for-startup-brand/'>Read Full Case Study &rarr;</a>"],
+      ["4. Custom Drinkware Gift Sets for Event Promotion", "Coordinating matching matte black coffee cups and flasks inside luxury rigid magnetic boxes with custom velvet inserts for an exhibition. <a href='/case-studies/custom-drinkware-gift-sets-for-event-promotion/'>Read Full Case Study &rarr;</a>"],
+      ["5. DDP Shipping Drinkware Order to Overseas Buyer", "Providing multi-location door-to-door delivery in Sydney and Melbourne, including Ningbo customs, GST payment, and local tail-end truck shipping. <a href='/case-studies/ddp-shipping-drinkware-order-to-overseas-buyer/'>Read Full Case Study &rarr;</a>"],
       ["What These Cases Show", "Most B2B drinkware projects are won or lost on preparation: clear product reference, realistic MOQ, sample review, packaging detail and shipping discussion. HDS structures the conversation around those points."],
     ],
   },
@@ -873,6 +942,160 @@ for (const page of infoPages) {
     ],
   }));
   allUrls.push(`/${page.slug}/`);
+}
+
+const caseStudies = [
+  {
+    slug: "custom-40oz-tumblers-for-amazon-seller",
+    title: "Custom 40oz Tumblers for an Amazon Seller",
+    clientType: "Amazon FBA Private Label Seller",
+    market: "United States (FBA Warehouse)",
+    product: "40oz Double-Wall Vacuum Insulated Tumbler with Handle & Straw",
+    quantityRange: "1,200 pcs (Initial Launch)",
+    customizationRequest: "Custom Pantone color matching for gradient spray paint, laser-engraved brand logo, custom cardboard divider packaging, and FBA-compliant barcode labeling.",
+    logoMethod: "High-precision laser engraving (dishwasher-safe, no peeling)",
+    packaging: "Individually wrapped in biodegradable polybags, placed in standard egg-crate cardboard dividers to maximize shipping density and reduce cost.",
+    productionTimeline: "28 days from sample approval to bulk shipment ready",
+    shippingMethod: "DDP Sea Freight directly to Amazon FBA Warehouse in California",
+    challenge: "The client wanted to match a specific viral pastel color palette with a clean, high-definition laser logo. However, standard shipping for bulky 40oz tumblers is extremely expensive, and any shipping damage or delayed delivery would hurt their launch window. Additionally, Amazon has strict barcode and carton requirements.",
+    solution: "HDS orchestrated Pantone color-matching samples with real-time video confirmations and physically sent a proofing sample to the client within 7 days. We worked with our packaging supplier to custom-design outer cartons that perfectly match Amazon's size and weight limits, saving 15% in dimensional weight cargo fees. We pre-applied all FBA carton labels and individual product barcodes in our warehouse.",
+    result: "1,200 pcs of custom 40oz tumblers were successfully delivered directly to the FBA warehouse under a DDP agreement with zero customs friction. The client launched on schedule, received a 4.8-star initial rating with praise for color accuracy, and placed a reorder of 3,000 pcs within 4 weeks."
+  },
+  {
+    slug: "custom-stainless-steel-tumblers-for-corporate-gift-buyer",
+    title: "Custom Stainless Steel Tumblers for a Corporate Gift Buyer",
+    clientType: "Corporate HR & Brand Agency",
+    market: "Germany / European Union",
+    product: "30oz Matte Powder-Coated Vacuum Travel Tumbler",
+    quantityRange: "500 pcs",
+    customizationRequest: "Laser engraving of corporate logo, custom individual kraft gift box with custom tissue paper wrap, and custom greeting insert cards.",
+    logoMethod: "Laser Engraving",
+    packaging: "Custom matte-black kraft gift boxes with white logo print, custom cardboard inner cushion, custom printed greeting card, and individual tissue paper wrapping.",
+    productionTimeline: "15 days from sample approval",
+    shippingMethod: "DDP Air Freight directly to corporate office in Munich",
+    challenge: "The client needed 500 premium insulated travel mugs for an upcoming annual global partner summit in Munich. The entire order, including custom tissue paper, greeting cards, and elegant packaging, had to be delivered to their office door within 25 days. Compliance with European food-contact safety standards (LFGB) was non-negotiable.",
+    solution: "HDS expedited the sample production, completing the laser-engraved travel mug and printed gift boxes in just 4 days. We coordinated with our partner factory to ensure 100% food-grade SUS304 (18/8) stainless steel with LFGB compliance documents. We consolidated the mugs, greeting cards, and packaging in-house, assembled the gift sets, and booked direct DDP air freight.",
+    result: "The 500 completed gift sets were delivered directly to the corporate office in Munich in 21 days—4 days ahead of the event. The corporate partners praised the high-end unboxing presentation and excellent thermal performance of the mugs, leading to a recurring annual corporate gifting contract."
+  },
+  {
+    slug: "low-moq-custom-water-bottles-for-startup-brand",
+    title: "Low MOQ Custom Water Bottles for a Startup Brand",
+    clientType: "Fitness & Athleisure Startup Brand",
+    market: "United Kingdom",
+    product: "32oz Tritan BPA-Free Plastic Sports Bottle with Time Marker & Straw",
+    quantityRange: "300 pcs (Low-MOQ Test Order)",
+    customizationRequest: "Single-color screen-printed custom motivational time-markers, custom brand logo, matching custom color silicone carry loop, and individual retail color boxes.",
+    logoMethod: "Silk Screen Printing (Durable food-grade inks)",
+    packaging: "Individual custom color-printed cardboard boxes with product features, packed 30 pcs per export master carton.",
+    productionTimeline: "18 days from sample approval",
+    shippingMethod: "DDU Air Freight to London",
+    challenge: "As a newly launched online boutique, the client wanted to test a custom sports bottle line with minimal upfront capital. They required a low MOQ of 300 pcs, but most China plastic manufacturers require a minimum of 2,000 to 3,000 pcs for custom print. They also needed the bottles to be 100% odor-free and durable.",
+    solution: "HDS leveraged our close relationships with our partner plastic bottle factories to secure a low MOQ of 300 pcs using stock translucent bottle colors. We arranged a high-durability silk-screen logo and custom time-marker print in-house. We utilized certified BPA-free Eastman Tritan-style copolyester to ensure 100% odorless daily use and high impact resistance.",
+    result: "The 300 custom bottles were completed and delivered to London via DDU air freight within 26 days total. The client sold out their initial stock within 3 weeks via Instagram and TikTok, establishing proof of concept and placing a follow-up order of 1,500 pcs."
+  },
+  {
+    slug: "custom-drinkware-gift-sets-for-event-promotion",
+    title: "Custom Drinkware Gift Sets for Event Promotion",
+    clientType: "Global Event Organizer & Marketing Agency",
+    market: "United Arab Emirates (Dubai)",
+    product: "Curated Matte Coffee Cup + Double-Wall Vacuum Water Flask Gift Set",
+    quantityRange: "800 sets",
+    customizationRequest: "Coordinated matte black color finish across both drinkware items, matching UV printed corporate logo on both items, and a custom magnetic-closure gift box with custom foam inserts.",
+    logoMethod: "Multi-colored UV flatbed printing",
+    packaging: "Elegant premium matte-black rigid box with magnetic closure, custom-cut EVA foam insert wrapped in velvet, custom-printed thank you sleeve.",
+    productionTimeline: "22 days from sample approval",
+    shippingMethod: "DDP Sea Freight to Dubai port with door delivery",
+    challenge: "A marketing agency in Dubai needed 800 high-end gift sets containing a matching insulated coffee mug and insulated water bottle with a complex, multi-colored logo. Both items had to perfectly match in color and finish, and the magnetic gift box needed to survive heavy container transport without any collapsing or denting.",
+    solution: "HDS sourced the coffee mug and flask from our specialized vacuum partner lines, conducting strict in-house color auditing to ensure a 100% color-match across different styles. We designed a rigid cardboard magnetic-closure box with reinforced 2mm greyboard walls and custom high-density EVA foam to lock the items in place. We completed DDP sea-to-door logistics directly to the exhibition center.",
+    result: "All 800 premium gift sets arrived in immaculate condition directly at the exhibition hall in Dubai. The marketing agency reported that the premium sets were the highlight of the event, dramatically increasing their high-value client acquisition rate."
+  },
+  {
+    slug: "ddp-shipping-drinkware-order-to-overseas-buyer",
+    title: "DDP Shipping Drinkware Order to Overseas Buyer",
+    clientType: "Regional Wholesale Distributor",
+    market: "Australia (Sydney & Melbourne)",
+    product: "Assorted Custom Insulated Beer Growlers & Pint Cups",
+    quantityRange: "2,500 pcs",
+    customizationRequest: "Laser engraved logo, custom carton mark, mixed color allocation (matte black, olive green, and brushed steel) in each shipping carton.",
+    logoMethod: "Laser Engraving",
+    packaging: "Each growler in an individual bubble wrap sleeve and standard cardboard box; custom color-coded master cartons for easy distributor sorting.",
+    productionTimeline: "25 days",
+    shippingMethod: "DDP Sea Freight with door delivery to multiple warehouse locations",
+    challenge: "An Australian distributor ordered a mixed batch of growlers and pint cups totaling 2,500 pcs. Sourcing large-volume heavy growlers creates complex shipping challenges, and the client had no import license and wanted a single, final price that includes all ocean freight, port charges, customs clearance, import duties, and local truck delivery to Sydney and Melbourne.",
+    solution: "HDS offered a complete DDP sea freight shipping quote. We managed export customs in Ningbo, booked ocean transit with top-tier carriers, handled Australian customs clearance through our trusted local partner, paid all customs import duties and GST, and arranged local tail-end truck delivery to their two distinct warehouses.",
+    result: "The distributor received their mixed growler cargo directly at their warehouse docks in Sydney and Melbourne, requiring zero paperwork or hidden fees on their end. By outsourcing the entire import process to HDS, the client saved an estimated $3,400 in port fees and local customs broker costs compared to their previous freight forwarder."
+  }
+];
+
+for (const caseStudy of caseStudies) {
+  const meta = `Case Study: ${caseStudy.title}. Learn how HDS Drinkware helped a B2B buyer solve challenges in product customization, packaging, QC and shipping.`;
+  const intro = `This B2B case study explains the sourcing, customization, quality control, packaging, and shipping process HDS coordinated for an anonymous ${caseStudy.clientType}.`;
+  
+  const body = `
+    <section class="section landing-product-visuals" aria-label="${esc(caseStudy.title)} visuals">
+      <figure><img src="../../assets/catalog/40oz-ice-tumbler.jpg" alt="Custom drinkware development" width="900" height="900" loading="lazy" decoding="async" /><figcaption>Drinkware sample development and packaging coordination</figcaption></figure>
+      <figure><img src="../../assets/trust-proof/packaging.jpg" alt="Gift packaging" width="900" height="900" loading="lazy" decoding="async" /><figcaption>Premium gift box and custom insert assembly</figcaption></figure>
+    </section>
+    <section class="section landing-content landing-detail">
+      <article>
+        <h2>Project Overview Table</h2>
+        <div class="landing-table-wrap">
+          <table class="landing-table">
+            <tbody>
+              <tr><th>Client Type</th><td>${esc(caseStudy.clientType)}</td></tr>
+              <tr><th>Market</th><td>${esc(caseStudy.market)}</td></tr>
+              <tr><th>Product</th><td>${esc(caseStudy.product)}</td></tr>
+              <tr><th>Quantity Range</th><td>${esc(caseStudy.quantityRange)}</td></tr>
+              <tr><th>Customization Request</th><td>${esc(caseStudy.customizationRequest)}</td></tr>
+              <tr><th>Logo Method</th><td>${esc(caseStudy.logoMethod)}</td></tr>
+              <tr><th>Packaging Solutions</th><td>${esc(caseStudy.packaging)}</td></tr>
+              <tr><th>Production Lead Time</th><td>${esc(caseStudy.productionTimeline)}</td></tr>
+              <tr><th>Shipping Method</th><td>${esc(caseStudy.shippingMethod)}</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+      <article>
+        <h2>The Challenge</h2>
+        <p>${esc(caseStudy.challenge)}</p>
+      </article>
+      <article>
+        <h2>The Solution</h2>
+        <p>${esc(caseStudy.solution)}</p>
+      </article>
+      <article>
+        <h2>The Result</h2>
+        <p>${esc(caseStudy.result)}</p>
+      </article>
+    </section>
+    <section class="section">
+      <div class="landing-cta-band">
+        <div>
+          <h2>Have a similar B2B drinkware project?</h2>
+          <p>Send your target product reference, quantity, logo details, and destination. HDS will help plan a practical, risk-free sourcing path.</p>
+        </div>
+        <div class="hero-actions">
+          <a class="button whatsapp" href="${wa(`Hello HDS Drinkware, I read your case study about ${caseStudy.title}. I have a similar project.`)}" target="_blank" rel="noopener">Discuss Project on WhatsApp</a>
+          <a class="button primary" href="../../#inquiry">Request Custom Quote</a>
+        </div>
+      </div>
+    </section>
+  `;
+
+  writeFile(`case-studies/${caseStudy.slug}/index.html`, pageShell({
+    title: `${caseStudy.title} | HDS Drinkware`,
+    meta,
+    slug: `case-studies/${caseStudy.slug}`,
+    h1: caseStudy.title,
+    eyebrow: "B2B Case Study",
+    intro,
+    body,
+    depth: 2,
+    schemas: [
+      breadcrumbSchema([{ name: "Home", url: `${site}/` }, { name: "Case Studies", url: `${site}/case-studies/` }, { name: caseStudy.title, url: `${site}/case-studies/${caseStudy.slug}/` }])
+    ]
+  }));
+  allUrls.push(`/case-studies/${caseStudy.slug}/`);
 }
 
 writeFile("404.html", `<!doctype html><html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="robots" content="noindex, follow" /><title>Page Not Found | HDS Drinkware</title><link rel="stylesheet" href="/styles.css" /></head><body class="landing-page">${header(0)}<main><section class="landing-hero"><p class="eyebrow">404</p><h1>Page Not Found</h1><p>The page may have moved. You can return to HDS Drinkware sourcing pages, view the product catalog, or contact us on WhatsApp for a quote.</p><div class="hero-actions"><a class="button primary" href="/">Return Home</a><a class="button secondary" href="/#catalog">View Product Catalog</a><a class="button whatsapp" href="${wa("Hello HDS Drinkware, I need help finding a custom drinkware product page.")}" target="_blank" rel="noopener">Get Quote on WhatsApp</a></div></section></main></body></html>`);
