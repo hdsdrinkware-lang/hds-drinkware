@@ -281,6 +281,16 @@ const productMedia = {
     ["assets/trust-proof/qc-inspection.jpg", "Drinkware QC inspection before export shipment"],
     ["assets/trust-proof/shipping-cartons.jpg", "Custom drinkware shipping cartons for export coordination"],
   ],
+  "low-moq-custom-tumblers-with-logo": [
+    ["https://sc02.alicdn.com/kf/H8a8ddd94712e422fbc822ac72646a077w.jpg", "Low MOQ custom logo tumblers packaged and labeled for shipping"],
+    ["assets/catalog/40oz-ice-tumbler.jpg", "Custom 40oz tumblers with logo sample"],
+    ["assets/trust-proof/packaging.jpg", "Logo tumblers packed in individual retail boxes"]
+  ],
+  "ddp-shipping-for-custom-drinkware-orders": [
+    ["https://sc02.alicdn.com/kf/Hc2dd8ffcd4ec4f529fce437a0ecd93deM.jpg", "Full container cargo truck with HMM container ready for DDP export delivery"],
+    ["https://sc02.alicdn.com/kf/Hd4c80ddf2a684a77a6d8d966173716a4r.jpg", "Pallets of custom drinkware cartons labeled and ready for container loading"],
+    ["https://sc02.alicdn.com/kf/H8a8ddd94712e422fbc822ac72646a077w.jpg", "FBA-compliant carton packing in delivery truck"]
+  ],
 };
 
 const defaultProductMedia = [
@@ -882,7 +892,7 @@ const infoPages = [
     title: "Drinkware Shipping Support",
     h1: "Shipping Support for Custom Drinkware Buyers",
     intro: "HDS can coordinate DDP, DDU, FOB, EXW, carton packing and shipment communication for custom drinkware orders.",
-    images: [["assets/trust-proof/shipping-cartons.jpg", "Carton packing for wholesale drinkware order"], ["assets/packing.webp", "Drinkware carton preparation before shipment"], ["assets/process-production-packing-qc.jpg", "Packing and shipment preparation for custom drinkware"]],
+    images: [["https://sc02.alicdn.com/kf/Hd4c80ddf2a684a77a6d8d966173716a4r.jpg", "Pallets of custom drinkware cartons labeled and ready for container loading"], ["https://sc02.alicdn.com/kf/H8a8ddd94712e422fbc822ac72646a077w.jpg", "FBA-compliant shipping cartons labeled in delivery truck"], ["https://sc02.alicdn.com/kf/Hc2dd8ffcd4ec4f529fce437a0ecd93deM.jpg", "Full container truck with cargo ready for export delivery"]],
     sections: [
       ["Shipping Terms", "Buyers can discuss DDP, DDU, FOB or EXW depending on order size, destination country and whether they already work with a forwarder. Each term changes cost responsibility and communication needs."],
       ["Carton Data", "Carton size, gross weight, packing quantity and destination address type are needed for practical shipping estimates. Packaging decisions should be settled before final shipping comparison."],
@@ -948,6 +958,10 @@ const caseStudies = [
   {
     slug: "custom-40oz-tumblers-for-amazon-seller",
     title: "Custom 40oz Tumblers for an Amazon Seller",
+    images: [
+      ["https://sc02.alicdn.com/kf/H8a8ddd94712e422fbc822ac72646a077w.jpg", "FBA-compliant carton labeling inside delivery truck"],
+      ["https://sc02.alicdn.com/kf/Hd4c80ddf2a684a77a6d8d966173716a4r.jpg", "Pallets of custom tumblers labeled for FBA shipping"]
+    ],
     clientType: "Amazon FBA Private Label Seller",
     market: "United States (FBA Warehouse)",
     product: "40oz Double-Wall Vacuum Insulated Tumbler with Handle & Straw",
@@ -1012,6 +1026,10 @@ const caseStudies = [
   {
     slug: "ddp-shipping-drinkware-order-to-overseas-buyer",
     title: "DDP Shipping Drinkware Order to Overseas Buyer",
+    images: [
+      ["https://sc02.alicdn.com/kf/Hc2dd8ffcd4ec4f529fce437a0ecd93deM.jpg", "Full container truck with cargo ready for export delivery with DDP terms"],
+      ["https://sc02.alicdn.com/kf/Hd4c80ddf2a684a77a6d8d966173716a4r.jpg", "Carton pallet loading for container shipping to Australia"]
+    ],
     clientType: "Regional Wholesale Distributor",
     market: "Australia (Sydney & Melbourne)",
     product: "Assorted Custom Insulated Beer Growlers & Pint Cups",
@@ -1031,11 +1049,17 @@ for (const caseStudy of caseStudies) {
   const meta = `Case Study: ${caseStudy.title}. Learn how HDS Drinkware helped a B2B buyer solve challenges in product customization, packaging, QC and shipping.`;
   const intro = `This B2B case study explains the sourcing, customization, quality control, packaging, and shipping process HDS coordinated for an anonymous ${caseStudy.clientType}.`;
   
+  const studyImages = caseStudy.images || [
+    ["assets/catalog/40oz-ice-tumbler.jpg", "Drinkware sample development and packaging coordination"],
+    ["assets/trust-proof/packaging.jpg", "Premium gift box and custom insert assembly"]
+  ];
+
+  const studyVisuals = `<section class="section landing-product-visuals" aria-label="${esc(caseStudy.title)} visuals">
+    ${studyImages.map(([src, alt]) => `<figure><img src="${src.startsWith("http") ? src : `../../${src}`}" alt="${esc(alt)}" width="900" height="900" loading="lazy" decoding="async" /><figcaption>${esc(alt)}</figcaption></figure>`).join("")}
+  </section>`;
+
   const body = `
-    <section class="section landing-product-visuals" aria-label="${esc(caseStudy.title)} visuals">
-      <figure><img src="../../assets/catalog/40oz-ice-tumbler.jpg" alt="Custom drinkware development" width="900" height="900" loading="lazy" decoding="async" /><figcaption>Drinkware sample development and packaging coordination</figcaption></figure>
-      <figure><img src="../../assets/trust-proof/packaging.jpg" alt="Gift packaging" width="900" height="900" loading="lazy" decoding="async" /><figcaption>Premium gift box and custom insert assembly</figcaption></figure>
-    </section>
+    ${studyVisuals}
     <section class="section landing-content landing-detail">
       <article>
         <h2>Project Overview Table</h2>
