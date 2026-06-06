@@ -1,12 +1,12 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const root = path.join(process.cwd(), "project_deploy");
+const root = process.cwd();
 const site = "https://www.hdsdrinkware.com";
 const email = "hds.drinkware@gmail.com";
 const whatsapp = "8613994271614";
 const displayPhone = "+86 13994271614";
-const updated = "2026-06-03";
+const updated = "2026-06-06";
 
 const wa = (text) => `https://wa.me/${whatsapp}?text=${encodeURIComponent(text)}`;
 const esc = (value) => String(value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -56,6 +56,8 @@ const guides = [
   ["custom-drinkware-production-timeline", "How Long Does Custom Drinkware Production Take?", "custom drinkware production timeline"],
   ["what-to-provide-before-requesting-quote", "What Information Should Buyers Provide Before Requesting a Custom Drinkware Quote?", "quote preparation for custom drinkware"],
   ["ddp-ddu-shipping-for-custom-drinkware", "DDP/DDU Shipping for Custom Drinkware Buyers: What to Know", "DDP and DDU shipping for drinkware"],
+  ["how-to-calculate-landed-cost-importing-drinkware-china", "How to Calculate Landed Cost of Importing Drinkware from China", "landed cost calculation for importing drinkware"],
+  ["understanding-fda-vs-lfgb-standards-stainless-steel-bottles", "FDA vs LFGB Food Grade Standards for Stainless Steel Bottles", "FDA and LFGB compliance for stainless steel drinkware"],
 ];
 
 const guideSeoTitles = {
@@ -140,26 +142,6 @@ const commonFaq = [
   ["What logo methods do you support?", "Common logo methods include laser engraving, silk screen printing, UV printing, heat transfer, labels, inserts and custom packaging branding."],
   ["Do you support DDP/DDU shipping coordination?", "Yes. HDS can coordinate DDP/DDU shipping options by project and destination market, while also supporting FOB or EXW discussions when needed."],
 ];
-
-const customFaqs = {
-  "custom-stainless-steel-tumblers": [
-    ["What grade of stainless steel is used for your custom tumblers?", "We use premium food-grade 18/8 (304) stainless steel for the inner wall of our vacuum tumblers to ensure 100% corrosion resistance, rust protection, and no metallic taste. Double-wall insulated structures keep beverages hot or cold for hours."],
-    ["Can you match custom Pantone colors for powder coating?", "Yes. We support precise Pantone color matching. You can choose from various surface finishes, including matte powder coating, glossy rubber painting, metallic plating, or gradient spray colors."],
-    ["How long do your vacuum insulated tumblers keep drinks hot or cold?", "Our double-wall vacuum insulated structure keeps beverages ice-cold for up to 24 hours and piping hot for up to 12 hours. We perform strict temperature retention checks during QC."],
-    ["What is the standard production lead time for custom tumblers?", "Standard mass production takes about 25 to 30 days after the pre-production sample is approved and deposit is received. Rush orders can be discussed based on our workshop scheduling."]
-  ],
-  "custom-40oz-tumbler-manufacturer": [
-    ["Is the handle of the 40oz tumbler customizable?", "Yes. The handle is made of durable, food-grade PP plastic. We can customize the handle color to match the tumbler body, or add custom silicone grip sleeves by request."],
-    ["Are your custom 40oz tumblers leak-proof?", "Our 40oz tumblers come with a multi-functional, BPA-free straw lid and a secure slider mechanism. While designed to prevent splashes and spills during daily travel, they are highly splash-resistant."],
-    ["Do your 40oz tumblers fit standard car cup holders?", "Yes. We specifically design the tapered lower base of our 40oz tumblers (approx. 7.3cm / 2.87 inches in diameter) to fit into almost all standard vehicle cup holders, making them ideal for commuting and road trips."],
-    ["What is the MOQ for custom color 40oz tumblers?", "The minimum order quantity (MOQ) for standard stock colors is 200 pcs with laser engraved logo. For fully customized Pantone colors, the MOQ starts from 1,000 pcs per color."]
-  ],
-  "custom-water-bottles-with-logo": [
-    ["What plastic materials are used in your sport bottles?", "We provide various premium food-grade plastics, including PC, PP, PETG, and Eastman Tritan. All materials are 100% BPA-free, odorless, and certified for food contact safety."],
-    ["Can you print full-wrap or multi-color logos on water bottles?", "Yes. For multi-color or complex full-wrap artwork, we support UV 3D printing and heat transfer printing. For simple 1-2 color logos, silk screen printing is the most cost-effective option."],
-    ["Do you provide customized retail packaging for sports bottles?", "Yes. We offer fully customized retail packaging solutions, including color display boxes, custom tags, hang cards, paper sleeves, and custom bundle master cartons with your Amazon barcode (FNSKU) applied."]
-  ]
-};
 
 const productMedia = {
   "custom-40oz-tumbler-manufacturer": [
@@ -635,7 +617,7 @@ function landingBody(page) {
         <article><h2>What to Prepare Before Requesting a Quote</h2><ul><li>Product reference photo, target capacity, material preference and buyer channel.</li><li>Quantity, with MOQ starting from 200 pcs for selected custom drinkware projects.</li><li>Logo file, logo size, logo position and preferred logo method if known.</li><li>Packaging request, such as standard box, color box, gift box, insert, label or carton marks.</li><li>Destination country, target timeline, sample request and shipping preference such as DDP, DDU, FOB or EXW.</li></ul></article>
       </section>
       ${quoteChecklist(page)}
-      <section class="section landing-faq" aria-label="${esc(page.h1)} FAQ">${(customFaqs[page.slug] || commonFaq).map(([q, a]) => `<article><h3>${esc(q)}</h3><p>${esc(a)}</p></article>`).join("")}<article><h3>Who is this page best for?</h3><p>This page is written for ${esc(page.buyers)} who need custom drinkware sourcing, logo customization, packaging support and export coordination from China.</p></article><article><h3>Can HDS support OEM/ODM projects?</h3><p>Yes. HDS can discuss OEM/ODM customization by product type, quantity, logo method, packaging requirements and production feasibility.</p></article></section>
+      <section class="section landing-faq" aria-label="${esc(page.h1)} FAQ">${commonFaq.map(([q, a]) => `<article><h3>${esc(q)}</h3><p>${esc(a)}</p></article>`).join("")}<article><h3>Who is this page best for?</h3><p>This page is written for ${esc(page.buyers)} who need custom drinkware sourcing, logo customization, packaging support and export coordination from China.</p></article><article><h3>Can HDS support OEM/ODM projects?</h3><p>Yes. HDS can discuss OEM/ODM customization by product type, quantity, logo method, packaging requirements and production feasibility.</p></article></section>
       <section class="section landing-copy-block"><article><h2>Related Sourcing Guides and Pages</h2><p>${related}</p></article></section>
       <section class="section"><div class="landing-cta-band"><div><h2>${esc(getConversionProfile(page).heading)}</h2><p>${esc(getConversionProfile(page).copy)}</p></div><div class="hero-actions"><a class="button whatsapp" href="${wa(getConversionProfile(page).message)}" target="_blank" rel="noopener">${esc(getConversionProfile(page).primary)}</a><a class="button primary" href="../#inquiry">${esc(getConversionProfile(page).secondary)}</a></div></div></section>`;
 }
@@ -675,7 +657,7 @@ for (const [slug, title, h1, options, buyers, material] of productPages) {
     schemas: [
       breadcrumbSchema([{ name: "Home", url: `${site}/` }, { name: h1, url: `${site}/${slug}/` }]),
       primaryLandingSchema(page),
-      faqSchema(customFaqs[slug] || commonFaq),
+      faqSchema(commonFaq),
     ],
   }));
   allUrls.push(`/${slug}/`);
