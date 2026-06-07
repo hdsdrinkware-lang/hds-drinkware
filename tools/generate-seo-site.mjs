@@ -8,7 +8,13 @@ const whatsapp = "8613994271614";
 const displayPhone = "+86 13994271614";
 const updated = "2026-06-06";
 
-const wa = (text) => `https://wa.me/${whatsapp}?text=${encodeURIComponent(text)}`;
+const wa = (text) => {
+  let msg = text;
+  if (!text || text.startsWith("Hello HDS Drinkware")) {
+    msg = "Hi, I’m interested in custom drinkware. Could you help quote based on my product photo, logo, quantity and shipping destination?";
+  }
+  return `https://wa.me/${whatsapp}?text=${encodeURIComponent(msg)}`;
+};
 const esc = (value) => String(value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const cap = (value) => value.replace(/\b\w/g, (m) => m.toUpperCase());
 const metaProduct = (page) => `${page.h1}. Low MOQ from 200 pcs, custom logo, packaging, samples and DDP/DDU shipping support from HDS Drinkware.`;
@@ -417,7 +423,7 @@ const defaultConversionProfile = {
   primary: "Request Custom Drinkware Quote",
   secondary: "Send Quote Details",
   heading: "Ready to request a custom drinkware quote?",
-  copy: "Send your product photo, quantity, logo requirement, packaging request and target market. HDS will review the details and reply with a practical sourcing path.",
+  copy: "Send your product photo, quantity, logo requirement, packaging request and destination country. HDS will help recommend suitable product options, logo methods, packaging solutions and shipping terms for your project.",
   message: "Hello HDS Drinkware, please quote this custom drinkware project. Product: , quantity: , logo: , packaging: , destination: .",
   checklistTitle: "What HDS needs to prepare an accurate B2B quote.",
   checklistIntro: "Send these details together and the sales team can compare realistic product, logo, packaging and shipping options faster.",
@@ -647,6 +653,16 @@ const customPageDetails = {
     ],
     materialDetail: "Curated drinkware combinations of stainless steel insulated tumblers, double-wall coffee travel mugs, or sports bottles, matched with premium cardboard gift boxes, custom EVA foam/paper pulp inserts, matching greeting cards, custom canvas tote bags, and personalized hang tags.",
     qcDetail: "Gift set QC focuses on multi-item color-matching audits, drop-resistant gift box construction reviews, tight-fitting item positioning in inserts, greeting card print proofing, carton packing cushion tests, and on-time shipment scheduling."
+  },
+  "low-moq-custom-tumblers-with-logo": {
+    painPoints: [
+      "New sellers and startups struggle to source custom branded tumblers without being forced into 1,000+ unit MOQs, limiting cash flow and market validation.",
+      "Custom color coatings, laser engraving, and retail cardboard boxes are often difficult to coordinate together at a lower entry volume from 200 pcs.",
+      "Unclear pricing breakdowns (such as hidden mold fees, setup costs, or shipping markups) can quickly kill a small brand's profitability on initial test orders.",
+      "Sellers need a reliable timeline (typically 5-7 days for samples, 20-25 days for production) to avoid running out of stock during critical launch windows."
+    ],
+    materialDetail: "Food-grade double-wall 18/8 (304) stainless steel inside, available in matte powder coatings, gradient finishes, or blank stock. Fully compatible with BPA-free slider lids, standard metal straws, and customized card stock packaging from 200 pcs.",
+    qcDetail: "Low-MOQ QC focuses on fast pre-production physical or HD photo sample approval, double-check alignment for laser-engraved logos, 100% vacuum temperature performance tests, and optimized carton weight and dimensions to secure the lowest sea/air DDP shipping rates."
   }
 };
 
@@ -672,8 +688,16 @@ function landingBody(page) {
   return `
       ${productImageStrip(page, 1)}
       <section class="section landing-intent-map">
-        <article><span>Primary search intent</span><h2>${esc(cap(intent[0]))}</h2><p>${esc(intent[1])}</p></article>
-        <article><span>Keyword boundary</span><h2>How this page differs</h2><p>${esc(intent[2])}</p></article>
+        <article>
+          <span>Sourcing Guarantee</span>
+          <h2>Low MOQ &amp; Sample Support</h2>
+          <p>We support small-batch custom logo orders starting from 200 pcs, offering physical pre-production samples to verify custom color coatings and logo engraving quality before bulk manufacturing.</p>
+        </article>
+        <article>
+          <span>Production Security</span>
+          <h2>Strict On-Site QC &amp; DDP Logistics</h2>
+          <p>Every order undergoes strict 100% double-wall vacuum testing, handle tension testing, and paint adhesion tests. We handle global customs clearance, offering seamless DDP/DDU delivery to your warehouse.</p>
+        </article>
       </section>
       <section class="section landing-content landing-detail">
         <article><h2>Buyer Pain Points</h2><ul>${painPointsList}</ul></article>
