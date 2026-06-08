@@ -476,6 +476,16 @@ const productSchema = (page) => ({
   category: "Custom drinkware",
   material: page.material,
   audience: { "@type": "BusinessAudience", audienceType: page.buyers },
+  offers: {
+    "@type": "AggregateOffer",
+    "priceCurrency": "USD",
+    "lowPrice": "1.00",
+    "highPrice": "15.00",
+    "offerCount": "100",
+    "priceValidUntil": "2027-12-31",
+    "availability": "https://schema.org/InStock",
+    "url": `${site}/${page.slug}/`
+  },
   additionalProperty: [
     { "@type": "PropertyValue", name: "MOQ", value: "From 200 pcs for selected projects" },
     { "@type": "PropertyValue", name: "Logo Methods", value: "Laser engraving, silk screen printing, UV printing, heat transfer, labels and packaging branding" },
