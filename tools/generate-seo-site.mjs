@@ -150,10 +150,10 @@ const guideFocus = {
 };
 
 const commonFaq = [
-  ["What is the MOQ for custom drinkware?", "The MOQ starts from 200 pcs for selected custom drinkware projects, depending on product type, logo method, packaging requirements and current material availability."],
-  ["Can I order samples before bulk production?", "Yes. Buyers can request stock samples or logo samples before bulk production. Sample timing depends on stock status, artwork, logo method and packaging complexity."],
-  ["What logo methods do you support?", "Common logo methods include laser engraving, silk screen printing, UV printing, heat transfer, labels, inserts and custom packaging branding."],
-  ["Do you support DDP/DDU shipping coordination?", "Yes. HDS can coordinate DDP/DDU shipping options by project and destination market, while also supporting FOB or EXW discussions when needed."],
+  ["What is the MOQ for custom drinkware?", "The standard MOQ for custom laser engraving and custom colors starts from 200 pieces for selected drinkware models. This low threshold is designed to help e-commerce startups, Shopify brands, and event buyers test colors and market demand with minimal upfront inventory risk. For custom packaging boxes or brand-new mold ODM projects, the MOQ may vary from 500 to 1,000 pcs."],
+  ["Can I order samples before bulk production?", "Yes. Blank stock color samples can be dispatched within 24 hours. Custom pre-production samples (featuring your laser-engraved or silk-screened logo, custom color coating, and custom packaging box mockup) take 5 to 7 days. Standard sample transit takes 4-6 days via international express (DHL or FedEx)."],
+  ["What logo methods do you support?", "We support laser engraving (ideal for premium metallic finish), silk-screen printing (highly cost-effective for 1-2 color logos), UV flatbed/3D printing (perfect for full-color, high-detail gradient artwork), and water/heat transfer (best for full-bottle seamless patterns)."],
+  ["Do you support DDP/DDU shipping coordination?", "Yes. HDS coordinates Delivered Duty Paid (DDP) and Delivered Duty Unpaid (DDU) door-to-door shipping via sea, air, or rail freight. If you do not have an import license, we handle Chinese port export, customs clearance, pay local duties/taxes, and deliver the cargo directly to your warehouse or Amazon FBA center."],
 ];
 
 const productMedia = {
@@ -699,7 +699,7 @@ function landingBody(page) {
       ${productImageStrip(page, 1)}
       <section class="section landing-intent-map">
         <article>
-          <span>Sourcing Guarantee</span>
+          <span>Sourcing Support</span>
           <h2>Low MOQ &amp; Sample Support</h2>
           <p>We support small-batch custom logo orders starting from 200 pcs, offering physical pre-production samples to verify custom color coatings and logo engraving quality before bulk manufacturing.</p>
         </article>
