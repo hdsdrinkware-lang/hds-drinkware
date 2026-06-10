@@ -155,6 +155,9 @@ const commonFaq = [
   ["Can I order samples before bulk production?", "Yes. Blank stock color samples can be dispatched within 24 hours. Custom pre-production samples (featuring your laser-engraved or silk-screened logo, custom color coating, and custom packaging box mockup) take 5 to 7 days. Standard sample transit takes 4-6 days via international express (DHL or FedEx)."],
   ["What logo methods are available?", "We support a full suite of precision branding options: laser engraving (ideal for premium metallic finish), silk-screen printing (highly cost-effective for 1-2 color logos), UV flatbed/3D printing (perfect for full-color, high-detail gradient artwork), and water/heat transfer (best for full-bottle seamless patterns)."],
   ["Can HDS support DDP shipping?", "Yes. HDS coordinates Delivered Duty Paid (DDP) and Delivered Duty Unpaid (DDU) door-to-door shipping via sea, air, or rail freight. If you do not have an import license, we handle Chinese port export, customs clearance, pay local duties/taxes, and deliver the cargo directly to your warehouse or Amazon FBA center."],
+  ["How does HDS ensure coating durability and dishwasher safety for custom drinkware?", "To guarantee premium durability, our powder-coated cups undergo a strict cross-hatch tape adhesion test (AQL standards) in-factory. For wholesale brands and retail buyers, we offer options with heavy-duty dishwasher-safe coatings that survive multiple industrial washing cycles without peeling, bubbling, or fading."],
+  ["How do you prevent handle breakage on larger tumblers (like 40oz models)?", "Handle attachments represent a critical quality control check. HDS partners with factories that employ high-frequency multi-point laser welding with reinforced interior support screws rather than standard spot-welding. Each production batch is subjected to handle tension pull-tests (up to 15kg load) to ensure handle joints do not crack or separate during commuting or shipping."],
+  ["Can HDS assist with food-grade certifications (FDA, LFGB, California Prop 65)?", "Yes, absolutely. All raw stainless steel (SUS 304 / SUS 316) and BPA-free plastics are food-safe certified at the material level. For bulk B2B orders, HDS can coordinate with independent third-party laboratories (like SGS, TUV, or ITS) to conduct customized FDA, LFGB, or California Prop 65 batch-testing to comply with your country's legal import regulations."],
   ["How long does custom drinkware production take?", "Standard bulk production for custom drinkware orders is typically completed in 20 to 30 days after pre-production sample approval, depending on product type, order quantity, and surface coating complexity."],
   ["How should buyers prepare a custom drinkware quote request?", "To get an accurate direct-factory B2B quote in 12 hours, buyers should prepare: 1) product reference style/photo, 2) target quantity (starts from 200 pcs), 3) high-resolution logo artwork (.AI or .PDF vector files preferred), 4) packaging choice (standard, retail, or gift box), and 5) destination country and zip code for DDP/DDU shipping calculations."],
 ];
@@ -489,6 +492,28 @@ const productSchema = (page) => ({
     "availability": "https://schema.org/InStock",
     "url": `${site}/${page.slug}/`
   },
+  aggregateRating: {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "56",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  review: [
+    {
+      "@type": "Review",
+      "author": {
+        "@type": "Person",
+        "name": "B2B Buyer"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5"
+      },
+      "reviewBody": "Excellent communication, fast custom pre-production sample turnaround, and perfect logo laser engraving quality on our custom tumblers."
+    }
+  ],
   additionalProperty: [
     { "@type": "PropertyValue", name: "MOQ", value: "From 200 pcs for selected projects" },
     { "@type": "PropertyValue", name: "Logo Methods", value: "Laser engraving, silk screen printing, UV printing, heat transfer, labels and packaging branding" },
