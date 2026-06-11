@@ -71,6 +71,7 @@ const guides = [
   ["ddp-ddu-shipping-for-custom-drinkware", "DDP/DDU Shipping for Custom Drinkware Buyers: What to Know", "DDP and DDU shipping for drinkware"],
   ["how-to-calculate-landed-cost-importing-drinkware-china", "How to Calculate Landed Cost of Importing Drinkware from China", "landed cost calculation for importing drinkware"],
   ["understanding-fda-vs-lfgb-standards-stainless-steel-bottles", "FDA vs LFGB Food Grade Standards for Stainless Steel Bottles", "FDA and LFGB compliance for stainless steel drinkware"],
+  ["how-to-comply-with-german-epr-lucid-for-drinkware", "How to Comply with German EPR & LUCID Packaging Laws when Sourcing Custom Drinkware", "German EPR and LUCID compliance for importing drinkware"],
 ];
 
 const guideSeoTitles = {
@@ -79,12 +80,13 @@ const guideSeoTitles = {
   "laser-engraving-vs-silk-screen-vs-uv-printing": "Laser vs Screen vs UV Printing",
   "custom-tumblers-for-amazon-sellers": "Low MOQ Custom Tumblers for Amazon",
   "artwork-preparation-for-custom-drinkware": "Prepare Artwork for Custom Drinkware",
-  "custom-drinkware-packaging-options": "Custom Drinkware Packaging Options",
+  "custom-drinkware-custom-packaging-options": "Custom Drinkware Packaging Options",
   "stainless-steel-vs-plastic-water-bottles": "Stainless Steel vs Plastic Water Bottles",
   "custom-drinkware-production-timeline": "Custom Drinkware Production Timeline",
   "what-to-provide-before-requesting-quote": "Custom Drinkware Quote Checklist",
   "ddp-ddu-shipping-for-custom-drinkware": "DDP/DDU Shipping for Drinkware Buyers",
   "custom-drinkware-for-corporate-gifts": "Custom Drinkware for Corporate Gifts: MOQ, Logo, Packaging and Shipping Guide",
+  "how-to-comply-with-german-epr-lucid-for-drinkware": "German EPR & LUCID Guide for Custom Drinkware",
 };
 
 const guideFocus = {
@@ -147,6 +149,15 @@ const guideFocus = {
     h2: "Shipping Discussion Points",
     text: "DDP and DDU shipping discussions depend on carton size, gross weight, destination country and delivery timing. Buyers should confirm whether they need door delivery, importer support, or their own forwarder before comparing options.",
     bullets: ["Ask for carton dimensions and gross weight after packing plan.", "Compare DDP/DDU with FOB if using your own forwarder.", "Confirm destination address type before final shipping quote."],
+  },
+  "how-to-comply-with-german-epr-lucid-for-drinkware": {
+    h2: "EPR Compliance Action Points",
+    text: "Importing to Germany requires strict registration under the VerpackG packaging laws via the LUCID system. To prevent your custom drinkware orders from being seized or fined at German customs, HDS provides complete physical carton dimensions, packing weights, and green-symbol printing support to make your compliance declaration seamless.",
+    bullets: [
+      "Request precise carton packing dimensions and net/gross weights from HDS.",
+      "Register your brand on the German LUCID database and obtain your registration number.",
+      "Confirm if your packaging needs the Green Dot (Grüner Punkt) symbol printed on individual gift boxes.",
+    ],
   },
 };
 
