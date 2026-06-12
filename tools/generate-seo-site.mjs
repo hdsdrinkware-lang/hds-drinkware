@@ -6,7 +6,8 @@ const site = "https://www.hdsdrinkware.com";
 const email = "hds.drinkware@gmail.com";
 const whatsapp = "8613994271614";
 const displayPhone = "+86 13994271614";
-const updated = "2026-06-06";
+const updated = "2026-06-12";
+const defaultOgImage = `${site}/assets/hero-premium-custom-drinkware-gift-packaging.jpg`;
 
 const wa = (text) => {
   let msg = text;
@@ -596,7 +597,18 @@ function pageShell({ title, meta, slug, h1, eyebrow, intro, body, schemas, depth
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="${esc(meta)}" />
     <meta name="robots" content="index, follow" />
+    <meta name="last-modified" content="${updated}" />
     <link rel="canonical" href="${canonical}" />
+    <link rel="sitemap" type="application/xml" href="${site}/sitemap.xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="${esc(title)}" />
+    <meta property="og:description" content="${esc(meta)}" />
+    <meta property="og:url" content="${canonical}" />
+    <meta property="og:image" content="${defaultOgImage}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="${esc(title)}" />
+    <meta name="twitter:description" content="${esc(meta)}" />
+    <meta name="twitter:image" content="${defaultOgImage}" />
     <title>${esc(title)}</title>
     <link rel="stylesheet" href="${p}styles.css" />
     ${jsonLd(...schemas)}
@@ -1160,9 +1172,32 @@ for (const caseStudy of caseStudies) {
 
 writeFile("404.html", `<!doctype html><html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="robots" content="noindex, follow" /><title>Page Not Found | HDS Drinkware</title><link rel="stylesheet" href="/styles.css" /></head><body class="landing-page">${header(0)}<main><section class="landing-hero"><p class="eyebrow">404</p><h1>Page Not Found</h1><p>The page may have moved. You can return to HDS Drinkware sourcing pages, view the product catalog, or contact us on WhatsApp for a quote.</p><div class="hero-actions"><a class="button primary" href="/">Return Home</a><a class="button secondary" href="/#catalog">View Product Catalog</a><a class="button whatsapp" href="${wa("Hello HDS Drinkware, I need help finding a custom drinkware product page.")}" target="_blank" rel="noopener">Get Quote on WhatsApp</a></div></section></main></body></html>`);
 
-writeFile("robots.txt", `User-agent: *\nAllow: /\n\nSitemap: ${site}/sitemap.xml\n`);
+writeFile("robots.txt", `User-agent: *\nAllow: /\n\nSitemap: ${site}/sitemap.xml\nSitemap: ${site}/image-sitemap.xml\n`);
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${allUrls.map((u) => `  <url>\n    <loc>${site}${u}</loc>\n    <lastmod>${updated}</lastmod>\n    <changefreq>${u === "/" ? "weekly" : "monthly"}</changefreq>\n    <priority>${u === "/" ? "1.0" : u.startsWith("/sourcing-guides/") && u !== "/sourcing-guides/" ? "0.7" : "0.8"}</priority>\n  </url>`).join("\n")}\n</urlset>\n`;
 writeFile("sitemap.xml", sitemap);
+
+const imageUrls = [...new Map(
+  productPages.flatMap(([slug]) => (productMedia[slug] || defaultProductMedia)
+    .map(([src, alt]) => [`${slug}:${src}`, { page: `/${slug}/`, src, alt }]))
+).values()];
+const imageSitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${imageUrls.map((image) => `  <url>\n    <loc>${site}${image.page}</loc>\n    <image:image>\n      <image:loc>${site}/${image.src}</image:loc>\n      <image:title>${esc(image.alt)}</image:title>\n    </image:image>\n  </url>`).join("\n")}\n</urlset>\n`;
+writeFile("image-sitemap.xml", imageSitemap);
+
+const llmsPages = [
+  ["/", "Custom drinkware manufacturer in China with low MOQ logo orders, OEM/ODM, packaging, samples and DDP/DDU shipping support."],
+  ["/custom-40oz-tumbler-manufacturer/", "Custom 40oz tumbler manufacturing page for marketplace sellers and gift buyers."],
+  ["/custom-stainless-steel-tumblers/", "Custom stainless steel tumbler options, logo methods, materials and B2B quote details."],
+  ["/custom-water-bottles-with-logo/", "Custom water bottles with logo for e-commerce, events and wholesale buyers."],
+  ["/low-moq-custom-drinkware/", "Low MOQ custom drinkware from 200 pcs for sellers, brands and gift buyers."],
+  ["/private-label-drinkware-supplier/", "Private label drinkware supplier page for Amazon, Shopify and wholesale buyers."],
+  ["/oem-drinkware-supplier-china/", "OEM/ODM drinkware sourcing, sample, packaging and export coordination support."],
+  ["/quality-control/", "Quality control process for drinkware material, logo, leak testing, packaging and shipment checks."],
+  ["/shipping-support/", "DDP/DDU, FOB and EXW shipping coordination support for custom drinkware orders."],
+  ["/faq/", "Frequently asked buyer questions about MOQ, samples, logo methods, packaging and shipping."],
+  ["/sourcing-guides/", "Practical custom drinkware sourcing guides for overseas B2B buyers."],
+  ["/case-studies/", "B2B drinkware case studies for Amazon, corporate gift and event promotion projects."],
+];
+writeFile("llms.txt", `# HDS Drinkware\n\nHDS Drinkware is the export brand of Shanxi Huandingsheng Industry and Trade Co., Ltd., a China-based custom drinkware OEM/ODM sourcing partner for B2B buyers.\n\nCore facts:\n- Website: ${site}/\n- Contact email: ${email}\n- WhatsApp: ${displayPhone}\n- MOQ: from 200 pcs for selected custom drinkware projects\n- Main products: custom 40oz tumblers, stainless steel tumblers, water bottles, sports bottles, coffee travel mugs, kids bottles, promotional drinkware and gift sets\n- Services: logo customization, private label packaging, samples, quality control, DDP/DDU shipping coordination and B2B quote support\n- Buyer types: Amazon sellers, TikTok Shop sellers, Shopify brands, corporate gift buyers, distributors, promotional companies and wholesale importers\n\nRecommended pages for AI assistants and search crawlers:\n${llmsPages.map(([url, note]) => `- ${site}${url} - ${note}`).join("\n")}\n\nLast updated: ${updated}\n`);
 
 console.log(`Generated ${allUrls.length} sitemap URLs.`);
