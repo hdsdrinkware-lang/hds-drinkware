@@ -1,0 +1,23 @@
+HDS Drinkware Accio deployment package
+
+Entry file:
+- index.html
+
+Important SEO files:
+- robots.txt
+- sitemap.xml
+- image-sitemap.xml
+- llms.txt
+
+Deploy this folder as a static website root.
+
+After deployment, check these URLs:
+- https://www.hdsdrinkware.com/
+- https://www.hdsdrinkware.com/robots.txt
+- https://www.hdsdrinkware.com/sitemap.xml
+- https://www.hdsdrinkware.com/image-sitemap.xml
+- https://www.hdsdrinkware.com/llms.txt
+
+Google Search Console:
+- sitemap.xml is already submitted and has discovered 62 pages.
+- Submit image-sitemap.xml after deployment if it is not already listed.
