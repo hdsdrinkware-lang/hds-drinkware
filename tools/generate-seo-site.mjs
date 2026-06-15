@@ -58,6 +58,8 @@ const productPages = [
 ];
 
 const guides = [
+  ["2026-us-section-301-tariffs-impact-on-drinkware", "2026 US Section 301 Tariffs on Chinese Drinkware: Impact and Strategic Sourcing Solutions", "impact of US tariffs on drinkware sourcing"],
+  ["amazon-drinkware-sourcing-guide-2026", "Amazon Drinkware Sourcing Guide 2026: Success with Private Label Tumblers and Water Bottles", "Amazon drinkware sourcing trends for 2026"],
   ["how-to-source-custom-tumblers-from-china", "How to Source Custom Tumblers from China: A Practical Guide for B2B Buyers", "custom tumbler sourcing from China"],
   ["how-to-choose-logo-method-for-custom-drinkware", "How to Choose the Right Logo Method for Custom Drinkware", "logo method selection for drinkware"],
   ["laser-engraving-vs-silk-screen-vs-uv-printing", "Laser Engraving vs Silk Screen vs UV Printing for Custom Tumblers", "logo method comparison"],
@@ -88,6 +90,16 @@ const guideSeoTitles = {
 };
 
 const guideFocus = {
+  "2026-us-section-301-tariffs-impact-on-drinkware": {
+    h2: "2026 Tariff Impact & Landed Cost Strategy",
+    text: "For 2026, the US Trade Representative (USTR) maintains a 25% Section 301 duty on most Chinese-origin stainless steel and plastic drinkware. For a typical stainless steel bottle with a 3.7% MFN rate, the total duty load is 28.7%. This requires a shift from 'lowest FOB' to 'optimized landed cost' strategies.",
+    bullets: ["HDS Drinkware offers DDP (Delivered Duty Paid) services, handling all tariff payments and customs clearance.", "Precise HS Coding (7323.93.00 / 9617.00.10) ensures you don't overpay duties.", "Direct factory-to-door logistics eliminate unexpected duty bills for Amazon and corporate buyers."],
+  },
+  "amazon-drinkware-sourcing-guide-2026": {
+    h2: "Amazon Private Label Sourcing Strategy 2026",
+    text: "2026 is the year of lifestyle branding and CMF (Color, Material, Finish) innovation. Amazon FBA success now depends on modular lids, ergonomic handles, and aesthetic powder coatings. Partnering with a factory that supports low MOQ testing (200pcs) is the key to validating new trends without heavy capital risk.",
+    bullets: ["HDS supports small-batch customization (200pcs) for rapid market testing.", "FBA-ready packaging: we handle FNSKU labeling, custom boxes, and direct warehouse delivery.", "3D prototyping within 24 hours to accelerate your time-to-market."],
+  },
   "how-to-source-custom-tumblers-from-china": {
     h2: "Supplier Evaluation Points",
     text: "Before comparing price, buyers should confirm whether the supplier understands capacity, lid structure, coating, logo area, packaging and export packing. A useful quote should separate product cost, logo setup, packaging and shipping instead of giving only a single vague number.",
