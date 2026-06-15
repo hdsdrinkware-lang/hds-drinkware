@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.hdsdrinkware.com/sitemap.xml
+Sitemap: https://www.hdsdrinkware.com/image-sitemap.xml
