@@ -6,7 +6,7 @@ const site = "https://www.hdsdrinkware.com";
 const email = "hds.drinkware@gmail.com";
 const whatsapp = "8613994271614";
 const displayPhone = "+86 13994271614";
-const updated = "2026-06-12";
+const updated = "2026-06-16";
 const defaultOgImage = `${site}/assets/hero-premium-custom-drinkware-gift-packaging.jpg`;
 
 const wa = (text) => {
@@ -40,7 +40,7 @@ const productPages = [
   ["custom-drinkware-for-event-gifts", "Custom Drinkware for Event Gifts", "Custom Drinkware for Events, Conferences and Brand Giveaways", "event tumblers, logo bottles, coffee mugs and promotional drinkware", "event buyers, conference organizers and promotional companies", "plastic, stainless steel, standard box and event packaging options"],
   ["custom-drinkware-for-distributors", "Custom Drinkware for Distributors", "Custom Drinkware for Distributors and Wholesale Buyers", "assorted tumblers, sports bottles, plastic bottles and coffee cups", "distributors, wholesalers and import buyers", "stainless steel, plastic, mixed carton and repeat order options"],
   ["custom-drinkware-for-promotional-companies", "Custom Drinkware for Promotional Companies", "Custom Drinkware for Promotional Companies and Campaign Buyers", "promotional cups, tumblers, sports bottles and logo gift drinkware", "promotional companies, agencies, event buyers and brand teams", "plastic, stainless steel, labels, silk screen and gift packaging options"],
-  ["low-moq-custom-drinkware", "Low MOQ Custom Drinkware Supplier", "Low MOQ Custom Drinkware from 200 pcs for B2B Buyers", "tumblers, water bottles, coffee cups, sports bottles and gift drinkware sets", "Amazon sellers, TikTok sellers, Shopify brands and gift buyers", "stainless steel, plastic, PC, PP and packaging-ready options"],
+  ["low-moq-custom-drinkware", "Low MOQ Custom Drinkware Supplier | Custom Logo Tumblers & Bottles 200pcs", "Low MOQ Custom Drinkware Supplier & Manufacturer", "tumblers, water bottles, coffee cups, sports bottles and gift drinkware sets", "Amazon sellers, TikTok sellers, Shopify brands and gift buyers", "stainless steel, plastic, PC, PP and packaging-ready options"],
   ["logo-drinkware-manufacturer", "Logo Drinkware Manufacturer China", "Logo Drinkware Manufacturer for Tumblers, Bottles and Gift Cups", "drinkware with laser, silk screen, UV printing, labels and packaging branding", "private label buyers, promotional companies and corporate gift buyers", "stainless steel, plastic and custom packaging materials"],
   ["private-label-drinkware-supplier", "Private Label Drinkware Supplier", "Private Label Drinkware Supplier for Online Brands and Wholesale Buyers", "private label tumblers, bottles, cups and gift sets", "Shopify brands, Amazon sellers, distributors and gift companies", "logo-ready stainless steel, plastic and packaging options"],
   ["oem-drinkware-supplier-china", "OEM Drinkware Supplier China", "OEM Drinkware Supplier China for Custom Tumblers and Bottles", "OEM tumblers, ODM bottle projects, custom cups and drinkware gift sets", "brands, distributors, promotional companies and import buyers", "stainless steel, plastic, color finish and packaging options"],
@@ -163,6 +163,7 @@ const guideFocus = {
 };
 
 const commonFaq = [
+  ["Sind Ihre Produkte mit dem deutschen LUCID-System konform?", "Ja. HDS Drinkware unterstützt alle deutschen Importeure bei der EPR- und LUCID-Verpackungsregistrierung durch Bereitstellung präziser Gewichtsdaten und Entsorgungshinweise."],
   ["What is the MOQ for custom drinkware?", "The MOQ starts from 200 pcs for selected custom drinkware projects, depending on product type, logo method, packaging requirements and current material availability."],
   ["Can I order samples before bulk production?", "Yes. Buyers can request stock samples or logo samples before bulk production. Sample timing depends on stock status, artwork, logo method and packaging complexity."],
   ["What logo methods do you support?", "Common logo methods include laser engraving, silk screen printing, UV printing, heat transfer, labels, inserts and custom packaging branding."],
@@ -688,6 +689,24 @@ const customPageDetails = {
     materialDetail: "Curated drinkware combinations of stainless steel insulated tumblers, double-wall coffee travel mugs, or sports bottles, matched with premium cardboard gift boxes, custom EVA foam/paper pulp inserts, matching greeting cards, custom canvas tote bags, and personalized hang tags.",
     qcDetail: "Gift set QC focuses on multi-item color-matching audits, drop-resistant gift box construction reviews, tight-fitting item positioning in inserts, greeting card print proofing, carton packing cushion tests, and on-time shipment scheduling."
   },
+  "low-moq-custom-drinkware": {
+    painPoints: [
+      "Small businesses and startups struggle to source high-quality custom drinkware without meeting high minimum order quantities (MOQs) of 1,000+ units.",
+      "Coordinating custom logos, specific materials (like stainless steel, glass, or plastic), and private label retail packaging under one low-MOQ shipment can be highly complex.",
+      "Hidden setup charges, tooling costs, and complex global customs procedures often prevent buyers from initiating small-batch test orders.",
+      "E-commerce brands need rapid sample approval (within 5-7 days) and reliable DDP shipping to validate their custom branding concept with minimal financial risk."
+    ],
+    materialDetail: "Premium 304 food-grade stainless steel, high-borosilicate glass, or BPA-free eco-friendly plastics (PP, PC, Tritan). Available in a wide variety of double-wall vacuum insulated designs, custom matte/glossy powder coatings, or clear/colored stock.",
+    qcDetail: "Low MOQ quality control focuses on rapid pre-production sample checks, precise laser/print logo alignment, 100% leak-proof and vacuum insulation testing, and secure export carton packaging optimized for cost-effective sea/air DDP logistics.",
+    faq: [
+      ["What is the absolute minimum order quantity (MOQ) for custom-branded drinkware, and can I mix colors?", "The absolute minimum order quantity (MOQ) for custom-branded drinkware starts from 200 pieces per style. While standard factory lines typically require 1,000 to 3,000 pieces to cover machine setup and ink preparation, we group smaller branding runs to accommodate emerging brands. This allows B2B buyers to test the market with 200 pieces, where you can mix up to 2-3 stock colors of the same model with the same custom-branded logo."],
+      ["How can HDS support a low MOQ of 200 pcs while maintaining competitive pricing for small B2B buyers?", "HDS maintains highly competitive unit prices for 200-piece orders by utilizing pre-manufactured blank stock and laser-engraving or single-color screen-printing setups. Standard manufacturing requires custom mold setup and full paint-line runs, which drives up costs for low quantities; by branding existing high-quality stock tumblers, we bypass these massive setup charges. For buyers looking to test their brand logo, this method offers a cost-effective alternative with no custom mold fees, low initial inventory investment, and fast 10-15 day production timelines."],
+      ["Can I get a physical custom logo sample before committing to a 200-piece bulk test order?", "Yes, we provide pre-production physical samples with your custom logo before we proceed with the 200-piece bulk run. Seeing a physical sample is crucial for verifying laser engraving depth or color alignment, ensuring the final bulk output matches your brand guidelines perfectly. Custom branding samples typically take 5 to 7 days to process, and the sample fee can be fully credited back to your bulk order once the 200-piece contract is finalized."],
+      ["What custom branding methods are recommended for low-MOQ orders under 500 pieces?", "For orders under 500 pieces, laser engraving, single-color silk-screen printing, and high-definition UV printing are the most cost-effective and durable options. These methods do not require the expensive film setups or roller molds associated with full-wrap thermal transfer or water transfer printing. Laser engraving is highly recommended for stainless steel tumblers as it has zero setup fees, is extremely durable, and can be completed quickly within a 200-piece MOQ project."],
+      ["Does HDS offer custom packaging options for low MOQ custom drinkware orders, and what are the limits?", "Yes, we provide several custom packaging solutions starting at a low MOQ of 200 pieces. To bypass the high 1,000+ MOQ required for fully custom printed color boxes, we offer custom brand sticker labels on standard boxes or custom cardstock sleeves that wrap around white/brown tuck boxes. These creative packaging methods allow Amazon and Shopify sellers to achieve professional retail-ready presentations for their initial 200-piece test order without inflating their packaging budget."],
+      ["How does the shipping and customs clearance work for a low MOQ custom drinkware order to the US or Europe?", "HDS manages the entire shipping process, offering standard sea DDP (Delivered Duty Paid) or fast air DDP shipping options directly to your warehouse or Amazon FBA center. Navigating international customs, import duties, and port logistics can be overwhelming for small B2B buyers and new brands. Under DDP terms, we handle all customs clearance, pay all import tariffs, and arrange local delivery, meaning the price we quote you is the final landed cost with no hidden fees or extra paperwork."]
+    ]
+  },
   "low-moq-custom-tumblers-with-logo": {
     painPoints: [
       "New sellers and startups struggle to source custom branded tumblers without being forced into 1,000+ unit MOQs, limiting cash flow and market validation.",
@@ -704,6 +723,7 @@ function landingBody(page) {
   const related = relatedLinks(page.slug);
   const intent = productIntent[page.slug] || ["custom drinkware sourcing", `${page.buyers} comparing logo-ready drinkware options for B2B orders.`, "This page should support a specific sourcing decision rather than duplicate every other drinkware page."];
   const custom = customPageDetails[page.slug];
+  const customFaqHtml = custom && custom.faq ? custom.faq.map(([q, a]) => `<article><h3>${esc(q)}</h3><p>${esc(a)}</p></article>`).join("") : "";
 
   const painPointsList = custom && custom.painPoints
     ? custom.painPoints.map((p) => `<li>${esc(p)}</li>`).join("")
@@ -734,12 +754,25 @@ function landingBody(page) {
         </article>
       </section>
       <section class="section landing-content landing-detail">
+        ${page.slug === "low-moq-custom-drinkware"
+          ? `
+        <article><h2>Buyer Pain Points</h2><ul>${painPointsList}</ul></article>
+        <article><h2>Product Options &amp; Styles</h2><p>${esc(page.options)} can be fully customized by capacity, color, finish, and lid accessories. HDS helps buyers compare practical options starting from 200 pcs to minimize upfront inventory costs.</p></article>
+        <article><h2>Low MOQ Details</h2><p>Our MOQ starts from 200 pcs for selected custom drinkware styles. This allows Amazon, Shopify, and TikTok Shop sellers to validate demand and test custom brand features before scaling up.</p></article>
+        <article><h2>Custom Material Options</h2><p>Material choices include 304 (18/8) stainless steel for vacuum-insulated double-wall tumblers, high-borosilicate glass, and eco-friendly BPA-free plastic (PP, PC, Tritan). All materials meet food-grade standards and undergo strict temperature retention tests.</p></article>
+        <article><h2>Custom Logo Methods</h2><p>Branding support includes permanent laser engraving (best for stainless steel), silk screen printing (for simple multi-color logos), UV printing (for gradients and complex artwork), and water/heat transfer printing. We help match the best method to your logo design.</p></article>
+        <article><h2>Custom Packaging Options</h2><p>Private label packaging options include standard white/brown boxes, custom color retail boxes with hang tags, premium cardboard gift boxes with custom-shaped foam/pulp inserts, and custom sleeves. Perfect for retail branding and corporate gift sets starting from 200 pcs.</p></article>
+        <article><h2>Sample, Production &amp; Shipping Timeline</h2><p>Physical pre-production samples are completed in 5-7 days. Bulk production takes 20-25 days after sample approval. We offer flexible shipping options, including sea/air DDP/DDU with double customs clearance, FOB, and EXW.</p>
+          `
+          : `
         <article><h2>Buyer Pain Points</h2><ul>${painPointsList}</ul></article>
         <article><h2>Product Options</h2><p>${esc(page.options)} can be discussed by capacity, color, finish, lid, accessory, packaging and destination market. HDS helps buyers compare practical options instead of pushing a single retail-style SKU.</p></article>
         <article><h2>MOQ Details</h2><p>MOQ starts from 200 pcs for selected custom drinkware projects. The final MOQ depends on material, color, logo method, packaging, sample needs and current supply chain availability.</p></article>
         <article><h2>Material Options</h2><p>${esc(materialDetail)}</p></article>
         <article><h2>Logo Methods</h2><p>Logo customization support includes laser engraving, silk screen printing, UV printing, heat transfer, labels and packaging logo placement. The best method depends on product surface, artwork colors and buyer channel.</p></article>
         <article><h2>Sample, Production and Shipping Timeline</h2><p>${esc(qcDetail)}</p></article>
+          `
+        }
       </section>
       <section class="section">
         <div class="section-heading"><p class="eyebrow">Product comparison</p><h2>Product Comparison Table</h2></div>
@@ -754,7 +787,7 @@ function landingBody(page) {
         <article><h2>What to Prepare Before Requesting a Quote</h2><ul><li>Product reference photo, target capacity, material preference and buyer channel.</li><li>Quantity, with MOQ starting from 200 pcs for selected custom drinkware projects.</li><li>Logo file, logo size, logo position and preferred logo method if known.</li><li>Packaging request, such as standard box, color box, gift box, insert, label or carton marks.</li><li>Destination country, target timeline, sample request and shipping preference such as DDP, DDU, FOB or EXW.</li></ul></article>
       </section>
       ${quoteChecklist(page)}
-      <section class="section landing-faq" aria-label="${esc(page.h1)} FAQ">${commonFaq.map(([q, a]) => `<article><h3>${esc(q)}</h3><p>${esc(a)}</p></article>`).join("")}<article><h3>Who is this page best for?</h3><p>This page is written for ${esc(page.buyers)} who need custom drinkware sourcing, logo customization, packaging support and export coordination from China.</p></article><article><h3>Can HDS support OEM/ODM projects?</h3><p>Yes. HDS can discuss OEM/ODM customization by product type, quantity, logo method, packaging requirements and production feasibility.</p></article></section>
+      <section class="section landing-faq" aria-label="${esc(page.h1)} FAQ">${commonFaq.map(([q, a]) => `<article><h3>${esc(q)}</h3><p>${esc(a)}</p></article>`).join("")}${customFaqHtml}<article><h3>Who is this page best for?</h3><p>This page is written for ${esc(page.buyers)} who need custom drinkware sourcing, logo customization, packaging support and export coordination from China.</p></article><article><h3>Can HDS support OEM/ODM projects?</h3><p>Yes. HDS can discuss OEM/ODM customization by product type, quantity, logo method, packaging requirements and production feasibility.</p></article></section>
       <section class="section landing-copy-block"><article><h2>Related Sourcing Guides and Pages</h2><p>${related}</p></article></section>
       <section class="section"><div class="landing-cta-band"><div><h2>${esc(getConversionProfile(page).heading)}</h2><p>${esc(getConversionProfile(page).copy)}</p></div><div class="hero-actions"><a class="button whatsapp" href="${wa(getConversionProfile(page).message)}" target="_blank" rel="noopener">${esc(getConversionProfile(page).primary)}</a><a class="button primary" href="../#inquiry">${esc(getConversionProfile(page).secondary)}</a></div></div></section>`;
 }
@@ -773,6 +806,8 @@ function relatedLinks(slug) {
 
 function writeFile(file, content) {
   fs.mkdirSync(path.dirname(path.join(root, file)), { recursive: true });
+  os.makedirs(os.path.dirname(os.path.join(os.getcwd(), file)), exist_ok=True)
+  fs.mkdirSync(path.dirname(path.join(root, file)), { recursive: True });
   fs.writeFileSync(path.join(root, file), content);
 }
 
@@ -780,10 +815,12 @@ const allUrls = ["/"];
 
 for (const [slug, title, h1, options, buyers, material] of productPages) {
   const page = { slug, title, h1, options, buyers, material, images: productMedia[slug] || defaultProductMedia };
-  const meta = metaProduct(page);
-  const intro = `HDS Drinkware is a China-based custom drinkware OEM/ODM sourcing partner for ${buyers}. This page explains product options, MOQ details, logo methods, packaging choices, sample timing and quote preparation for B2B buyers.`;
+  const meta = slug === "low-moq-custom-drinkware"
+    ? "HDS Drinkware offers premium custom drinkware with low MOQ from 200pcs. Customize logo tumblers, water bottles & gift packaging with fast samples and DDP/DDU shipping."
+    : metaProduct(page);
+  const intro = `HDS Drinkware (Huandingsheng) is a verified China source factory with 16 years of expertise in high-end vacuum insulation and low-MOQ branding. for ${buyers}. This page explains product options, MOQ details, logo methods, packaging choices, sample timing and quote preparation for B2B buyers.`;
   writeFile(`${slug}/index.html`, pageShell({
-    title: `${title} | HDS Drinkware`,
+    title: title.includes("|") ? title : `${title} | HDS Drinkware`,
     meta,
     slug,
     h1,
