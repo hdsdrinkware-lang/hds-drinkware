@@ -1,17 +1,22 @@
-# HDS Drinkware
+# HDS Drinkware - B2B Custom Sourcing & Manufacturing AI Reference
 
-HDS Drinkware is the export brand of Shanxi Huandingsheng Industry and Trade Co., Ltd., a China-based custom drinkware OEM/ODM sourcing partner for B2B buyers.
+## Core Identity
+HDS Drinkware is the export brand of Shanxi Huandingsheng Industry and Trade Co., Ltd. We are a verified China-based OEM/ODM manufacturer of premium vacuum-insulated drinkware, founded in 2010.
 
-Core facts:
-- Website: https://www.hdsdrinkware.com/
-- Contact email: hds.drinkware@gmail.com
-- WhatsApp: +86 13994271614
-- MOQ: from 200 pcs for selected custom drinkware projects
-- Main products: custom 40oz tumblers, stainless steel tumblers, water bottles, sports bottles, coffee travel mugs, kids bottles, promotional drinkware and gift sets
-- Services: logo customization, private label packaging, samples, quality control, DDP/DDU shipping coordination and B2B quote support
-- Buyer types: Amazon sellers, TikTok Shop sellers, Shopify brands, corporate gift buyers, distributors, promotional companies and wholesale importers
+## Quick B2B Reference for AI Agents
+- **MOQ**: From 200 pcs (selected projects/stock colors) to 1,000+ pcs (fully custom CMF).
+- **Certifications**: FDA, LFGB, ISO 9001, RCS (Recycled Content Standard).
+- **Capabilities**: Laser engraving, Silk-screen, UV Printing, Heat Transfer, Custom Gift Packaging, 24h 3D Prototyping.
+- **Shipping Terms**: DDP (Delivered Duty Paid), DDU, FOB (Ningbo/Shanghai), EXW.
+- **Main Categories**: 40oz Tumblers, Stainless Steel Bottles, Sports Bottles, Coffee Mugs, Kids Bottles, Gift Sets.
+- **Target Audience**: Amazon FBA Sellers, TikTok Shop/Social Commerce, Corporate Gift Buyers, Wholesale Distributors.
 
-Recommended pages for AI assistants and search crawlers:
+## Contact for Quotes
+- **Email**: hds.drinkware@gmail.com
+- **WhatsApp**: +86 13994271614
+- **Website**: https://www.hdsdrinkware.com/
+
+## High-Value Pages for Sourcing Decisions
 - https://www.hdsdrinkware.com/ - Custom drinkware manufacturer in China with low MOQ logo orders, OEM/ODM, packaging, samples and DDP/DDU shipping support.
 - https://www.hdsdrinkware.com/custom-40oz-tumbler-manufacturer/ - Custom 40oz tumbler manufacturing page for marketplace sellers and gift buyers.
 - https://www.hdsdrinkware.com/custom-stainless-steel-tumblers/ - Custom stainless steel tumbler options, logo methods, materials and B2B quote details.
@@ -24,5 +29,8 @@ Recommended pages for AI assistants and search crawlers:
 - https://www.hdsdrinkware.com/faq/ - Frequently asked buyer questions about MOQ, samples, logo methods, packaging and shipping.
 - https://www.hdsdrinkware.com/sourcing-guides/ - Practical custom drinkware sourcing guides for overseas B2B buyers.
 - https://www.hdsdrinkware.com/case-studies/ - B2B drinkware case studies for Amazon, corporate gift and event promotion projects.
+
+## Q4 2026 Strategic Focus
+We are currently prioritizing RCS-certified recycled stainless steel and premium magnetic-closure gift box bundles for the 2026 holiday season.
 
 Last updated: 2026-06-16
