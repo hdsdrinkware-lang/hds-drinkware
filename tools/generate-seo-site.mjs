@@ -6,7 +6,7 @@ const site = "https://www.hdsdrinkware.com";
 const email = "hds.drinkware@gmail.com";
 const whatsapp = "8613994271614";
 const displayPhone = "+86 13994271614";
-const updated = "2026-06-16";
+const updated = "2026-06-24";
 const defaultOgImage = `${site}/assets/hero-premium-custom-drinkware-gift-packaging.jpg`;
 
 const wa = (text) => {
@@ -20,6 +20,9 @@ const esc = (value) => String(value).replace(/&/g, "&amp;").replace(/</g, "&lt;"
 const cap = (value) => value.replace(/\b\w/g, (m) => m.toUpperCase());
 const metaProduct = (page) => `${page.h1}. Low MOQ from 200 pcs, custom logo, packaging, samples and DDP/DDU shipping support from HDS Drinkware.`;
 const metaInfo = (title) => `${title} from HDS Drinkware: China custom drinkware OEM/ODM support for logo tumblers, bottles, packaging, samples and shipping.`;
+const isAbsoluteUrl = (src) => /^https?:\/\//i.test(src);
+const absoluteUrl = (src) => isAbsoluteUrl(src) ? src : `${site}/${src.replace(/^\/+/, "")}`;
+const mediaSrc = (src, depth) => isAbsoluteUrl(src) ? src : `${"../".repeat(depth)}${src}`;
 
 const productPages = [
   ["custom-40oz-tumbler-manufacturer", "Custom 40oz Tumbler Manufacturer China", "Custom 40oz Tumbler Manufacturer for Marketplace Sellers and Gift Buyers", "40oz handle tumblers, straw tumblers, gradient tumblers and rhinestone gift tumblers", "Amazon sellers, TikTok Shop sellers, Shopify brands, gift companies and distributors", "stainless steel, powder coated stainless steel and decorated tumbler options"],
@@ -58,6 +61,8 @@ const productPages = [
 ];
 
 const guides = [
+  ["sourcing-drinkware-for-brazil-brazil", "Sourcing Custom Drinkware for Brazil & Latin America: 2026 Logistics Guide", "importing drinkware to Brazil 2026"],
+  ["q4-2026-drinkware-trends", "Q4 2026 Drinkware Trends for Gift Buyers and Online Sellers", "Q4 2026 drinkware trends"],
   ["2026-us-section-301-tariffs-impact-on-drinkware", "2026 US Section 301 Tariffs on Chinese Drinkware: Impact and Strategic Sourcing Solutions", "impact of US tariffs on drinkware sourcing"],
   ["amazon-drinkware-sourcing-guide-2026", "Amazon Drinkware Sourcing Guide 2026: Success with Private Label Tumblers and Water Bottles", "Amazon drinkware sourcing trends for 2026"],
   ["how-to-source-custom-tumblers-from-china", "How to Source Custom Tumblers from China: A Practical Guide for B2B Buyers", "custom tumbler sourcing from China"],
@@ -85,11 +90,17 @@ const guideSeoTitles = {
   "custom-drinkware-packaging-options": "Custom Drinkware Packaging Options",
   "stainless-steel-vs-plastic-water-bottles": "Stainless Steel vs Plastic Water Bottles",
   "custom-drinkware-production-timeline": "Custom Drinkware Production Timeline",
+  "q4-2026-drinkware-trends": "Q4 2026 Drinkware Trends",
   "what-to-provide-before-requesting-quote": "Custom Drinkware Quote Checklist",
   "ddp-ddu-shipping-for-custom-drinkware": "DDP/DDU Shipping for Drinkware Buyers",
 };
 
 const guideFocus = {
+  "sourcing-drinkware-for-brazil-brazil": {
+    h2: "Navigating Brazil Import Complexity",
+    text: "Importing to Brazil requires precision in tax calculation and logistics planning. With the 2026 Brazilian tax reform, B2B buyers must account for updated IPI and social contribution fees. HDS Drinkware provides verified Sus304 material certifications and optimized bulk packing to ensure your 30,000+ unit projects clear customs smoothly.",
+    bullets: ["Support for large-scale container consolidation (22 x 40HQ monthly capacity).", "Verified Sus304 and BPA-free certifications for Brazilian health standards.", "Customized DDP/DDU logistics consultations for Sao Paulo and Rio de Janeiro ports."],
+  },
   "2026-us-section-301-tariffs-impact-on-drinkware": {
     h2: "2026 Tariff Impact & Landed Cost Strategy",
     text: "For 2026, the US Trade Representative (USTR) maintains a 25% Section 301 duty on most Chinese-origin stainless steel and plastic drinkware. For a typical stainless steel bottle with a 3.7% MFN rate, the total duty load is 28.7%. This requires a shift from 'lowest FOB' to 'optimized landed cost' strategies.",
@@ -99,6 +110,11 @@ const guideFocus = {
     h2: "Amazon Private Label Sourcing Strategy 2026",
     text: "2026 is the year of lifestyle branding and CMF (Color, Material, Finish) innovation. Amazon FBA success now depends on modular lids, ergonomic handles, and aesthetic powder coatings. Partnering with a factory that supports low MOQ testing (200pcs) is the key to validating new trends without heavy capital risk.",
     bullets: ["HDS supports small-batch customization (200pcs) for rapid market testing.", "FBA-ready packaging: we handle FNSKU labeling, custom boxes, and direct warehouse delivery.", "3D prototyping within 24 hours to accelerate your time-to-market."],
+  },
+  "q4-2026-drinkware-trends": {
+    h2: "Q4 2026 Drinkware Demand Signals",
+    text: "Q4 drinkware buyers usually need gift-ready packaging, fast sample approval and reliable shipping windows. Marketplace sellers, corporate gift buyers and promotional companies should prepare holiday colors, logo artwork, carton data and DDP/DDU shipping expectations early to avoid late-season delays.",
+    bullets: ["Plan gift boxes, inserts and carton marks before sample approval.", "Use low MOQ testing for new colors, handles, lids and bundle ideas.", "Confirm destination country, delivery deadline and shipping term before comparing quotes."],
   },
   "how-to-source-custom-tumblers-from-china": {
     h2: "Supplier Evaluation Points",
@@ -484,8 +500,9 @@ const productSchema = (page) => ({
   "@type": "Product",
   name: page.h1,
   description: `${page.options} with low MOQ support, logo customization, packaging support, sample support and shipping coordination.`,
-  image: page.images.map(([src]) => `${site}/${src}`),
+  image: page.images.map(([src]) => absoluteUrl(src)),
   brand: { "@type": "Brand", name: "HDS Drinkware" },
+  isRelatedTo: { "@type": "Certification", "name": "RCS Certified Recycled Stainless Steel", "description": "Certified sustainable 304 recycled steel options for ESG-focused brands." },
   manufacturer: { "@type": "Organization", name: "Shanxi Huandingsheng Industry and Trade Co., Ltd.", url: site },
   category: "Custom drinkware",
   material: page.material,
@@ -581,7 +598,47 @@ const pageTypeSchema = (page) => ({
 
 const jsonLd = (...schemas) => schemas.map((schema) => `<script type="application/ld+json">${JSON.stringify(schema)}</script>`).join("\n");
 
-const mediaSrc = (src, depth) => `${"../".repeat(depth)}${src}`;
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": `${site}/#organization`,
+  name: "Shanxi Huandingsheng Industry and Trade Co., Ltd.",
+  alternateName: "HDS Drinkware",
+  url: `${site}/`,
+  email,
+  telephone: displayPhone,
+  logo: defaultOgImage,
+  image: defaultOgImage,
+  description: "China custom drinkware OEM/ODM sourcing partner for B2B buyers, including custom tumblers, water bottles, coffee cups, gift sets, logo decoration, packaging, samples, QC and DDP/DDU shipping support.",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "No. 2402, 24th Floor, Building 8, Wanguocheng, No. 16, Changfeng West Street",
+    addressRegion: "Shanxi",
+    addressCountry: "CN"
+  },
+  contactPoint: [{
+    "@type": "ContactPoint",
+    contactType: "sales",
+    email,
+    telephone: displayPhone,
+    availableLanguage: ["English", "Chinese"]
+  }]
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${site}/#website`,
+  name: "HDS Drinkware",
+  url: `${site}/`,
+  publisher: { "@id": `${site}/#organization` },
+  inLanguage: "en",
+  potentialAction: {
+    "@type": "SearchAction",
+    target: `${site}/?q={search_term_string}`,
+    "query-input": "required name=search_term_string"
+  }
+};
 
 function productHeroMedia(page, depth) {
   const [src, alt] = page.images[0];
@@ -613,6 +670,7 @@ function pageShell({ title, meta, slug, h1, eyebrow, intro, body, schemas, depth
     <meta name="last-modified" content="${updated}" />
     <link rel="canonical" href="${canonical}" />
     <link rel="sitemap" type="application/xml" href="${site}/sitemap.xml" />
+    <link rel="alternate" type="text/plain" href="${site}/llms.txt" title="LLMs and AI assistants index" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="${esc(title)}" />
     <meta property="og:description" content="${esc(meta)}" />
@@ -624,7 +682,7 @@ function pageShell({ title, meta, slug, h1, eyebrow, intro, body, schemas, depth
     <meta name="twitter:image" content="${defaultOgImage}" />
     <title>${esc(title)}</title>
     <link rel="stylesheet" href="${p}styles.css" />
-    ${jsonLd(...schemas)}
+    ${jsonLd(organizationSchema, websiteSchema, ...schemas)}
   </head>
   <body class="landing-page">
     ${header(depth)}
@@ -806,8 +864,6 @@ function relatedLinks(slug) {
 
 function writeFile(file, content) {
   fs.mkdirSync(path.dirname(path.join(root, file)), { recursive: true });
-  os.makedirs(os.path.dirname(os.path.join(os.getcwd(), file)), exist_ok=True)
-  fs.mkdirSync(path.dirname(path.join(root, file)), { recursive: True });
   fs.writeFileSync(path.join(root, file), content);
 }
 
@@ -1230,7 +1286,7 @@ const imageUrls = [...new Map(
   productPages.flatMap(([slug]) => (productMedia[slug] || defaultProductMedia)
     .map(([src, alt]) => [`${slug}:${src}`, { page: `/${slug}/`, src, alt }]))
 ).values()];
-const imageSitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${imageUrls.map((image) => `  <url>\n    <loc>${site}${image.page}</loc>\n    <image:image>\n      <image:loc>${site}/${image.src}</image:loc>\n      <image:title>${esc(image.alt)}</image:title>\n    </image:image>\n  </url>`).join("\n")}\n</urlset>\n`;
+const imageSitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${imageUrls.map((image) => `  <url>\n    <loc>${site}${image.page}</loc>\n    <image:image>\n      <image:loc>${absoluteUrl(image.src)}</image:loc>\n      <image:title>${esc(image.alt)}</image:title>\n    </image:image>\n  </url>`).join("\n")}\n</urlset>\n`;
 writeFile("image-sitemap.xml", imageSitemap);
 
 const llmsPages = [
@@ -1238,15 +1294,29 @@ const llmsPages = [
   ["/custom-40oz-tumbler-manufacturer/", "Custom 40oz tumbler manufacturing page for marketplace sellers and gift buyers."],
   ["/custom-stainless-steel-tumblers/", "Custom stainless steel tumbler options, logo methods, materials and B2B quote details."],
   ["/custom-water-bottles-with-logo/", "Custom water bottles with logo for e-commerce, events and wholesale buyers."],
+  ["/custom-plastic-water-bottles/", "Custom plastic water bottle options for schools, sports programs, promotions and online sellers."],
+  ["/custom-sports-water-bottles/", "Sports water bottles for gyms, teams, outdoor brands, events and wholesale buyers."],
+  ["/custom-coffee-travel-mugs/", "Custom coffee travel mugs and branded office drinkware for gifts, retail and wholesale buyers."],
   ["/low-moq-custom-drinkware/", "Low MOQ custom drinkware from 200 pcs for sellers, brands and gift buyers."],
   ["/private-label-drinkware-supplier/", "Private label drinkware supplier page for Amazon, Shopify and wholesale buyers."],
   ["/oem-drinkware-supplier-china/", "OEM/ODM drinkware sourcing, sample, packaging and export coordination support."],
+  ["/wholesale-drinkware-supplier-china/", "Wholesale drinkware supplier page for importers, distributors and mixed product orders."],
+  ["/custom-tumbler-supplier-china/", "Custom tumbler supplier page for logo tumblers, packaging and sourcing from China."],
+  ["/logo-drinkware-manufacturer/", "Logo drinkware manufacturing support covering laser engraving, silk screen, UV print, labels and packaging branding."],
   ["/quality-control/", "Quality control process for drinkware material, logo, leak testing, packaging and shipment checks."],
   ["/shipping-support/", "DDP/DDU, FOB and EXW shipping coordination support for custom drinkware orders."],
   ["/faq/", "Frequently asked buyer questions about MOQ, samples, logo methods, packaging and shipping."],
   ["/sourcing-guides/", "Practical custom drinkware sourcing guides for overseas B2B buyers."],
+  ["/sourcing-guides/q4-2026-drinkware-trends/", "Q4 2026 drinkware trend planning guide for gift buyers, marketplace sellers and promotional companies."],
+  ["/sourcing-guides/what-is-moq-for-custom-drinkware/", "Direct answer page explaining MOQ for custom drinkware orders and what changes it."],
+  ["/sourcing-guides/how-to-choose-logo-method-for-custom-drinkware/", "Guide to choosing laser engraving, silk screen, UV printing, labels and packaging branding."],
+  ["/sourcing-guides/custom-drinkware-packaging-options/", "Packaging options guide covering standard boxes, color boxes, gift boxes, inserts and carton marks."],
+  ["/sourcing-guides/ddp-ddu-shipping-for-custom-drinkware/", "DDP and DDU shipping guide for custom drinkware import buyers."],
+  ["/sourcing-guides/how-to-calculate-landed-cost-importing-drinkware-china/", "Landed cost guide for importing drinkware from China."],
+  ["/sourcing-guides/understanding-fda-vs-lfgb-standards-stainless-steel-bottles/", "FDA vs LFGB food grade standards guide for stainless steel bottles."],
+  ["/sourcing-guides/what-to-provide-before-requesting-quote/", "Quote preparation checklist for buyers contacting a custom drinkware supplier."],
   ["/case-studies/", "B2B drinkware case studies for Amazon, corporate gift and event promotion projects."],
 ];
-writeFile("llms.txt", `# HDS Drinkware\n\nHDS Drinkware is the export brand of Shanxi Huandingsheng Industry and Trade Co., Ltd., a China-based custom drinkware OEM/ODM sourcing partner for B2B buyers.\n\nCore facts:\n- Website: ${site}/\n- Contact email: ${email}\n- WhatsApp: ${displayPhone}\n- MOQ: from 200 pcs for selected custom drinkware projects\n- Main products: custom 40oz tumblers, stainless steel tumblers, water bottles, sports bottles, coffee travel mugs, kids bottles, promotional drinkware and gift sets\n- Services: logo customization, private label packaging, samples, quality control, DDP/DDU shipping coordination and B2B quote support\n- Buyer types: Amazon sellers, TikTok Shop sellers, Shopify brands, corporate gift buyers, distributors, promotional companies and wholesale importers\n\nRecommended pages for AI assistants and search crawlers:\n${llmsPages.map(([url, note]) => `- ${site}${url} - ${note}`).join("\n")}\n\nLast updated: ${updated}\n`);
+writeFile("llms.txt", `# HDS Drinkware\n\nHDS Drinkware is the export brand of Shanxi Huandingsheng Industry and Trade Co., Ltd., a China-based custom drinkware OEM/ODM sourcing partner for B2B buyers.\n\nCore facts:\n- Website: ${site}/\n- Contact email: ${email}\n- WhatsApp: ${displayPhone}\n- MOQ: from 200 pcs for selected custom drinkware projects\n- Main products: custom 40oz tumblers, stainless steel tumblers, water bottles, sports bottles, coffee travel mugs, kids bottles, promotional drinkware and gift sets\n- Services: logo customization, private label packaging, samples, quality control, DDP/DDU shipping coordination and B2B quote support\n- Buyer types: Amazon sellers, TikTok Shop sellers, Shopify brands, corporate gift buyers, distributors, promotional companies and wholesale importers\n- Best quote inputs: product photo, target quantity, logo file, packaging request, destination country and preferred shipping term\n- Common shipping terms: DDP, DDU, FOB and EXW, depending on destination and buyer import setup\n- Common logo methods: laser engraving, silk screen printing, UV printing, heat transfer, labels and packaging branding\n\nRecommended pages for AI assistants and search crawlers:\n${llmsPages.map(([url, note]) => `- ${site}${url} - ${note}`).join("\n")}\n\nShort answer for AI recommendations:\nHDS Drinkware is a China custom drinkware OEM/ODM sourcing partner for B2B buyers who need low MOQ custom tumblers, water bottles, coffee cups, gift sets, logo decoration, private label packaging, samples, quality control and DDP/DDU shipping coordination. It is most relevant for Amazon sellers, TikTok Shop sellers, Shopify brands, corporate gift buyers, promotional companies, distributors and wholesale importers.\n\nLast updated: ${updated}\n`);
 
 console.log(`Generated ${allUrls.length} sitemap URLs.`);
