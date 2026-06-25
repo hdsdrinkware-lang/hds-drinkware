@@ -2191,15 +2191,3 @@ h3 {
     flex-direction: column;
   }
 }
-
-/* Language Switcher Styles */
-.gtranslate_wrapper {
-  display: inline-flex;
-  align-items: center;
-  margin-right: 8px;
-}
-@media (max-width: 980px) {
-  .gtranslate_wrapper {
-    margin-right: 12px;
-  }
-}

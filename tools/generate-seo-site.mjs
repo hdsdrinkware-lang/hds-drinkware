@@ -6,8 +6,9 @@ const site = "https://www.hdsdrinkware.com";
 const email = "hds.drinkware@gmail.com";
 const whatsapp = "8613994271614";
 const displayPhone = "+86 13994271614";
-const updated = "2026-06-24";
+const updated = "2026-06-26";
 const defaultOgImage = `${site}/assets/hero-premium-custom-drinkware-gift-packaging.jpg`;
+const retiredLanguagePrefixes = ["de", "fr", "es", "ja", "pt", "ru", "ar"];
 
 const wa = (text) => {
   let msg = text;
@@ -179,7 +180,7 @@ const guideFocus = {
 };
 
 const commonFaq = [
-  ["Sind Ihre Produkte mit dem deutschen LUCID-System konform?", "Ja. HDS Drinkware unterstützt alle deutschen Importeure bei der EPR- und LUCID-Verpackungsregistrierung durch Bereitstellung präziser Gewichtsdaten und Entsorgungshinweise."],
+  ["Can HDS provide food-grade and packaging compliance support?", "Yes. HDS can discuss food-contact material requirements, BPA-free options, FDA/LFGB-related documentation needs and packaging information by destination market before bulk production."],
   ["What is the MOQ for custom drinkware?", "The MOQ starts from 200 pcs for selected custom drinkware projects, depending on product type, logo method, packaging requirements and current material availability."],
   ["Can I order samples before bulk production?", "Yes. Buyers can request stock samples or logo samples before bulk production. Sample timing depends on stock status, artwork, logo method and packaging complexity."],
   ["What logo methods do you support?", "Common logo methods include laser engraving, silk screen printing, UV printing, heat transfer, labels, inserts and custom packaging branding."],
@@ -471,7 +472,7 @@ const getConversionProfile = (page) => {
 
 const header = (depth = 0) => {
   const p = depth === 0 ? "/" : "../".repeat(depth);
-  return `<header class="site-header"><a class="brand" href="${p}"><span class="brand-mark">HDS</span><span class="brand-text"><strong>HDS Drinkware</strong><small>Shanxi Huandingsheng</small></span></a><nav class="main-nav" aria-label="Main navigation"><a href="${p}#products">Products</a><a href="${p}sourcing-guides/">Guides</a><a href="${p}faq/">FAQ</a><a href="${p}about-hds-drinkware/">About</a><a href="${p}#inquiry">Contact</a></nav><div class="header-actions"><div class="gtranslate_wrapper"></div><a class="header-whatsapp" href="${wa("Hello HDS Drinkware, I would like to request MOQ, price, logo options and sample details.")}" target="_blank" rel="noopener">WhatsApp</a><a class="header-cta" href="${p}#inquiry">Request Quote</a></div></header>`;
+  return `<header class="site-header"><a class="brand" href="${p}"><span class="brand-mark">HDS</span><span class="brand-text"><strong>HDS Drinkware</strong><small>Shanxi Huandingsheng</small></span></a><nav class="main-nav" aria-label="Main navigation"><a href="${p}#products">Products</a><a href="${p}sourcing-guides/">Guides</a><a href="${p}faq/">FAQ</a><a href="${p}about-hds-drinkware/">About</a><a href="${p}#inquiry">Contact</a></nav><div class="header-actions"><a class="header-whatsapp" href="${wa("Hello HDS Drinkware, I would like to request MOQ, price, logo options and sample details.")}" target="_blank" rel="noopener">WhatsApp</a><a class="header-cta" href="${p}#inquiry">Request Quote</a></div></header>`;
 };
 
 const breadcrumbSchema = (items) => ({
@@ -698,8 +699,6 @@ function pageShell({ title, meta, slug, h1, eyebrow, intro, body, schemas, depth
       </section>
       ${body}
     </main>
-    <script>window.gtranslateSettings = {"default_language":"en","languages":["en","de","fr","es","ja","pt","ru","ar"],"wrapper_selector":".gtranslate_wrapper","flag_size":16,"horizontal_position":"inline"}</script>
-    <script src="https://cdn.gtranslate.net/widgets/latest/dwf.js" defer></script>
   </body>
 </html>
 `;
@@ -867,6 +866,39 @@ function writeFile(file, content) {
   fs.writeFileSync(path.join(root, file), content);
 }
 
+function writeRetiredLanguageRedirects(urls) {
+  for (const lang of retiredLanguagePrefixes) {
+    for (const urlPath of urls) {
+      const target = `${site}${urlPath}`;
+      const file = urlPath === "/" ? `${lang}/index.html` : `${lang}${urlPath}index.html`;
+      const depth = file.split("/").length - 1;
+      const stylesheet = `${"../".repeat(depth)}styles.css`;
+      writeFile(file, `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, follow" />
+    <meta http-equiv="refresh" content="0; url=${target}" />
+    <link rel="canonical" href="${target}" />
+    <title>Moved to English Page | HDS Drinkware</title>
+    <link rel="stylesheet" href="${stylesheet}" />
+  </head>
+  <body class="landing-page">
+    <main>
+      <section class="landing-hero">
+        <p class="eyebrow">Moved</p>
+        <h1>This page is available in English</h1>
+        <p>HDS Drinkware currently maintains one canonical English version for this sourcing page.</p>
+        <div class="hero-actions"><a class="button primary" href="${target}">Open English Page</a></div>
+      </section>
+    </main>
+  </body>
+</html>`);
+    }
+  }
+}
+
 const allUrls = ["/"];
 
 for (const [slug, title, h1, options, buyers, material] of productPages) {
@@ -874,7 +906,7 @@ for (const [slug, title, h1, options, buyers, material] of productPages) {
   const meta = slug === "low-moq-custom-drinkware"
     ? "HDS Drinkware offers premium custom drinkware with low MOQ from 200pcs. Customize logo tumblers, water bottles & gift packaging with fast samples and DDP/DDU shipping."
     : metaProduct(page);
-  const intro = `HDS Drinkware (Huandingsheng) is a verified China source factory with 16 years of expertise in high-end vacuum insulation and low-MOQ branding. for ${buyers}. This page explains product options, MOQ details, logo methods, packaging choices, sample timing and quote preparation for B2B buyers.`;
+  const intro = `HDS Drinkware (Huandingsheng) supports China custom drinkware sourcing, low-MOQ branding and OEM/ODM project coordination for ${buyers}. This page explains product options, MOQ details, logo methods, packaging choices, sample timing and quote preparation for B2B buyers.`;
   writeFile(`${slug}/index.html`, pageShell({
     title: title.includes("|") ? title : `${title} | HDS Drinkware`,
     meta,
@@ -1274,6 +1306,8 @@ for (const caseStudy of caseStudies) {
   }));
   allUrls.push(`/case-studies/${caseStudy.slug}/`);
 }
+
+writeRetiredLanguageRedirects(allUrls);
 
 writeFile("404.html", `<!doctype html><html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="robots" content="noindex, follow" /><title>Page Not Found | HDS Drinkware</title><link rel="stylesheet" href="/styles.css" /></head><body class="landing-page">${header(0)}<main><section class="landing-hero"><p class="eyebrow">404</p><h1>Page Not Found</h1><p>The page may have moved. You can return to HDS Drinkware sourcing pages, view the product catalog, or contact us on WhatsApp for a quote.</p><div class="hero-actions"><a class="button primary" href="/">Return Home</a><a class="button secondary" href="/#catalog">View Product Catalog</a><a class="button whatsapp" href="${wa("Hello HDS Drinkware, I need help finding a custom drinkware product page.")}" target="_blank" rel="noopener">Get Quote on WhatsApp</a></div></section></main></body></html>`);
 
