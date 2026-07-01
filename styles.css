@@ -442,6 +442,72 @@ h3 {
   background: var(--white);
 }
 
+.home-quote-needed {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.8fr) minmax(0, 1.2fr);
+  gap: 28px;
+  align-items: start;
+  background: var(--white);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.quote-needed-copy {
+  position: sticky;
+  top: calc(var(--header-height) + 24px);
+}
+
+.quote-needed-copy h2 {
+  max-width: 620px;
+  font-family: inherit;
+  font-size: clamp(32px, 4.4vw, 52px);
+  line-height: 1.05;
+}
+
+.quote-needed-copy p:not(.eyebrow) {
+  max-width: 620px;
+  color: var(--muted);
+}
+
+.quote-needed-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.quote-needed-grid article {
+  min-height: 190px;
+  padding: 22px;
+  background: #f6f7f7;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.quote-needed-grid span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  margin-bottom: 14px;
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 900;
+  background: var(--teal);
+  border-radius: 50%;
+}
+
+.quote-needed-grid h3 {
+  margin: 0 0 8px;
+  font-size: 19px;
+  line-height: 1.25;
+}
+
+.quote-needed-grid p {
+  margin: 0;
+  color: var(--muted);
+}
+
 .facts-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1844,8 +1910,13 @@ h3 {
   .quality-section,
   .inquiry-section,
   .market-section,
-  .custom-capabilities {
+  .custom-capabilities,
+  .home-quote-needed {
     grid-template-columns: 1fr;
+  }
+
+  .quote-needed-copy {
+    position: static;
   }
 
   .hero {
@@ -1862,6 +1933,7 @@ h3 {
   }
 
   .facts-grid,
+  .quote-needed-grid,
   .product-grid,
   .catalog-grid,
   .line-grid,
@@ -1969,6 +2041,7 @@ h3 {
 
   .intro,
   .facts-grid,
+  .quote-needed-grid,
   .product-grid,
   .catalog-grid,
   .line-grid,

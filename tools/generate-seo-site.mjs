@@ -6,7 +6,7 @@ const site = "https://www.hdsdrinkware.com";
 const email = "hds.drinkware@gmail.com";
 const whatsapp = "8613994271614";
 const displayPhone = "+86 13994271614";
-const updated = "2026-06-28";
+const updated = "2026-07-01";
 const defaultOgImage = `${site}/assets/hero-premium-custom-drinkware-gift-packaging.jpg`;
 const retiredLanguagePrefixes = ["de", "fr", "es", "ja", "pt", "ru", "ar"];
 
@@ -77,6 +77,7 @@ const guides = [
   ["stainless-steel-vs-plastic-water-bottles", "Stainless Steel vs Plastic Water Bottles: Which Is Better for Your Market?", "stainless steel vs plastic water bottles"],
   ["custom-drinkware-production-timeline", "How Long Does Custom Drinkware Production Take?", "custom drinkware production timeline"],
   ["what-to-provide-before-requesting-quote", "What Information Should Buyers Provide Before Requesting a Custom Drinkware Quote?", "quote preparation for custom drinkware"],
+  ["2026-custom-logo-drinkware-cost-breakdown", "2026 Custom Logo Drinkware Cost Breakdown: Product Cost, Logo Fees, Packaging and Shipping", "custom logo drinkware cost breakdown"],
   ["ddp-ddu-shipping-for-custom-drinkware", "DDP/DDU Shipping for Custom Drinkware Buyers: What to Know", "DDP and DDU shipping for drinkware"],
   ["how-to-calculate-landed-cost-importing-drinkware-china", "How to Calculate Landed Cost of Importing Drinkware from China", "landed cost calculation for importing drinkware"],
   ["understanding-fda-vs-lfgb-standards-stainless-steel-bottles", "FDA vs LFGB Food Grade Standards for Stainless Steel Bottles", "FDA and LFGB compliance for stainless steel drinkware"],
@@ -93,6 +94,7 @@ const guideSeoTitles = {
   "custom-drinkware-production-timeline": "Custom Drinkware Production Timeline",
   "q4-2026-drinkware-trends": "Q4 2026 Drinkware Trends",
   "what-to-provide-before-requesting-quote": "Custom Drinkware Quote Checklist",
+  "2026-custom-logo-drinkware-cost-breakdown": "Custom Logo Drinkware Cost Breakdown 2026",
   "ddp-ddu-shipping-for-custom-drinkware": "DDP/DDU Shipping for Drinkware Buyers",
 };
 
@@ -110,7 +112,7 @@ const guideFocus = {
   "amazon-drinkware-sourcing-guide-2026": {
     h2: "Amazon Private Label Sourcing Strategy 2026",
     text: "2026 is the year of lifestyle branding and CMF (Color, Material, Finish) innovation. Amazon FBA success now depends on modular lids, ergonomic handles, and aesthetic powder coatings. Partnering with a factory that supports low MOQ testing (200pcs) is the key to validating new trends without heavy capital risk.",
-    bullets: ["HDS supports small-batch customization (200pcs) for rapid market testing.", "FBA-ready packaging: we handle FNSKU labeling, custom boxes, and direct warehouse delivery.", "3D prototyping within 24 hours to accelerate your time-to-market."],
+    bullets: ["HDS supports small-batch customization (200pcs) for rapid market testing.", "FBA-ready packaging discussion can include FNSKU labels, custom boxes and warehouse delivery planning.", "Sample and packaging planning helps sellers reduce approval delays before launch."],
   },
   "q4-2026-drinkware-trends": {
     h2: "Q4 2026 Drinkware Demand Signals",
@@ -507,7 +509,6 @@ const productSchema = (page) => ({
   description: `${page.options} with low MOQ support, logo customization, packaging support, sample support and shipping coordination.`,
   image: page.images.map(([src]) => absoluteUrl(src)),
   brand: { "@type": "Brand", name: "HDS Drinkware" },
-  isRelatedTo: { "@type": "Certification", "name": "RCS Certified Recycled Stainless Steel", "description": "Certified sustainable 304 recycled steel options for ESG-focused brands." },
   manufacturer: { "@type": "Organization", name: "Shanxi Huandingsheng Industry and Trade Co., Ltd.", url: site },
   category: "Custom drinkware",
   material: page.material,
@@ -517,16 +518,17 @@ const productSchema = (page) => ({
   },
   audience: { "@type": "BusinessAudience", audienceType: page.buyers },
   offers: {
-    "@type": "AggregateOffer",
+    "@type": "Offer",
     url: `${site}/${page.slug}/`,
     priceCurrency: "USD",
-    lowPrice: 1,
-    highPrice: 15,
-    offerCount: 100,
-    priceValidUntil: "2027-12-31",
     availability: "https://schema.org/InStock",
     itemCondition: "https://schema.org/NewCondition",
     businessFunction: "https://schema.org/Sell",
+    priceSpecification: {
+      "@type": "PriceSpecification",
+      priceCurrency: "USD",
+      description: "Quotation based on product type, order quantity, logo method, packaging, sample needs and shipping term."
+    },
     seller: {
       "@type": "Organization",
       name: "Shanxi Huandingsheng Industry and Trade Co., Ltd.",
@@ -626,7 +628,7 @@ const organizationSchema = {
   url: `${site}/`,
   email,
   telephone: displayPhone,
-  logo: defaultOgImage,
+  logo: `${site}/assets/company-logo.png`,
   image: defaultOgImage,
   description: "China custom drinkware OEM/ODM sourcing partner for B2B buyers, including custom tumblers, water bottles, coffee cups, gift sets, logo decoration, packaging, samples, QC and DDP/DDU shipping support.",
   address: {
@@ -733,11 +735,11 @@ const customPageDetails = {
       "Shipping planning must account for bulk carton volume; we coordinate FBA carton marking, barcodes, and custom inner box packing to minimize transit damage and Amazon receiving delays."
     ],
     materialDetail: "Food-grade 18/8 (304) stainless steel inner lining for excellent durability and copper-plated vacuum insulation, combined with a BPA-free rotating Tritan-style slider lid, ergonomic PP handle with comfortable soft-touch grip, and reusable PP/silicone straw options.",
-    qcDetail: "Our 40oz tumblers undergo 100% vacuum insulation testing, 100-stroke handle tension tests, cross-hatch tape tests for powder coat adhesion, lid leakage testing, and a strict inspection of straw clearance to ensure zero scratches."
+    qcDetail: "40oz tumbler QC can include vacuum insulation checks, handle tension review, cross-hatch tape tests for powder coat adhesion, lid leakage testing, and straw clearance inspection to reduce avoidable defects."
   },
   "custom-stainless-steel-tumblers": {
     painPoints: [
-      "B2B buyers and brands need food-safety compliance certification support (FDA, LFGB, California Proposition 65) to avoid customs seizure or legal liability in Europe and North America.",
+      "B2B buyers and brands need food-contact documentation discussion by destination market, including FDA, LFGB or California Proposition 65 requirements when applicable.",
       "High vacuum thermal performance (minimum 12 hours hot / 24 hours cold) must be verified through temperature sensors on the production line.",
       "Custom branding needs to be durable; logo application (laser engraving, silk screen, UV flatbed, or water transfer) must be tested against dishwashing heat.",
       "Gift distributors and corporate buyers require elegant packaging solutions, custom insert cards, and tissue wrapping to elevate the unboxing experience."
@@ -748,7 +750,7 @@ const customPageDetails = {
   "custom-water-bottles-with-logo": {
     painPoints: [
       "Gyms, fitness brands, and sports teams need 100% spill-proof lids with secure locking rings and one-click opening mechanisms that survive dropping.",
-      "Plastic bottle bodies must use certified BPA-free food-safe materials (such as PP, PC, Tritan, or PETG) that do not transfer chemical tastes or odors to the water.",
+      "Plastic bottle bodies should use appropriate food-contact material options such as PP, PC, Tritan-style copolyester or PETG, with BPA-free requirements discussed by project.",
       "Bulk promotional campaigns require durable, cost-effective logo printing that won't scratch off during sports activities or daily hydration.",
       "Wholesale buyers need accurate carton packaging weight and volume details to calculate DDP/DDU shipping costs and ensure easy warehouse handling."
     ],
@@ -760,7 +762,7 @@ const customPageDetails = {
       "Corporate gift buyers and event agencies need absolute logo consistency across different items in a gift set (e.g. matching a travel mug with a flask).",
       "Gift boxes must have custom cardboard or high-density EVA foam inserts with precise cutouts to prevent items from colliding and scratching during transport.",
       "MOQ must be flexible; buyers need to bundle custom drinkware with lifestyle items (such as stainless straws, cleaning brushes, greeting cards, or tote bags) in small batches from 200 sets.",
-      "Strict event deadlines require guaranteed production lead times, fast sample proofing, and reliable DDP shipping to the event venue or office door."
+      "Strict event deadlines require realistic production planning, fast sample proofing, and early DDP/DDU shipping discussion for the event venue or office door."
     ],
     materialDetail: "Curated drinkware combinations of stainless steel insulated tumblers, double-wall coffee travel mugs, or sports bottles, matched with premium cardboard gift boxes, custom EVA foam/paper pulp inserts, matching greeting cards, custom canvas tote bags, and personalized hang tags.",
     qcDetail: "Gift set QC focuses on multi-item color-matching audits, drop-resistant gift box construction reviews, tight-fitting item positioning in inserts, greeting card print proofing, carton packing cushion tests, and on-time shipment scheduling."
@@ -780,7 +782,7 @@ const customPageDetails = {
       ["Can I get a physical custom logo sample before committing to a 200-piece bulk test order?", "Yes, we provide pre-production physical samples with your custom logo before we proceed with the 200-piece bulk run. Seeing a physical sample is crucial for verifying laser engraving depth or color alignment, ensuring the final bulk output matches your brand guidelines perfectly. Custom branding samples typically take 5 to 7 days to process, and the sample fee can be fully credited back to your bulk order once the 200-piece contract is finalized."],
       ["What custom branding methods are recommended for low-MOQ orders under 500 pieces?", "For orders under 500 pieces, laser engraving, single-color silk-screen printing, and high-definition UV printing are the most cost-effective and durable options. These methods do not require the expensive film setups or roller molds associated with full-wrap thermal transfer or water transfer printing. Laser engraving is highly recommended for stainless steel tumblers as it has zero setup fees, is extremely durable, and can be completed quickly within a 200-piece MOQ project."],
       ["Does HDS offer custom packaging options for low MOQ custom drinkware orders, and what are the limits?", "Yes, we provide several custom packaging solutions starting at a low MOQ of 200 pieces. To bypass the high 1,000+ MOQ required for fully custom printed color boxes, we offer custom brand sticker labels on standard boxes or custom cardstock sleeves that wrap around white/brown tuck boxes. These creative packaging methods allow Amazon and Shopify sellers to achieve professional retail-ready presentations for their initial 200-piece test order without inflating their packaging budget."],
-      ["How does the shipping and customs clearance work for a low MOQ custom drinkware order to the US or Europe?", "HDS manages the entire shipping process, offering standard sea DDP (Delivered Duty Paid) or fast air DDP shipping options directly to your warehouse or Amazon FBA center. Navigating international customs, import duties, and port logistics can be overwhelming for small B2B buyers and new brands. Under DDP terms, we handle all customs clearance, pay all import tariffs, and arrange local delivery, meaning the price we quote you is the final landed cost with no hidden fees or extra paperwork."]
+      ["How does the shipping and customs clearance work for a low MOQ custom drinkware order to the US or Europe?", "HDS can discuss sea DDP (Delivered Duty Paid), air DDP, DDU, FOB or EXW options by destination and project. Under DDP terms where available, the quote is prepared as a landed delivery discussion that includes freight, customs clearance coordination, duty handling and local delivery scope."]
     ]
   },
   "low-moq-custom-tumblers-with-logo": {
@@ -945,6 +947,89 @@ for (const [slug, title, h1, options, buyers, material] of productPages) {
 }
 
 function guideBody(slug, title, topic) {
+  if (slug === "2026-custom-logo-drinkware-cost-breakdown") {
+    const faq = [
+      ["What affects the cost of custom logo drinkware in 2026?", "The main cost drivers are the base product, order quantity, material, color finish, logo method, packaging structure, sample requirements, carton volume and shipping term. A useful quotation should separate these items instead of only showing one unit price."],
+      ["Which logo method is most cost-effective for drinkware?", "For many stainless steel tumblers, laser engraving is practical for durable one-position branding. Silk screen can be cost-effective for simple one-color artwork. UV printing or heat transfer may be better for colorful artwork, but buyers should review samples before approving bulk production."],
+      ["Should buyers request DDP or DDU shipping?", "DDP can help buyers compare a landed door-delivery cost when the supplier or forwarder can support the destination. DDU may suit buyers who already have an importer, broker or local duty-payment setup. Final terms should be confirmed by destination, address type and product category."],
+      ["What should Amazon sellers and Shopify brands prepare before asking for a quote?", "Prepare a product photo or reference link, target quantity, logo file, packaging requirement, barcode or carton mark needs, destination country, preferred shipping term and target delivery window. This lets the supplier quote product, logo, packaging and shipping more accurately."],
+    ];
+
+    return {
+      body: `
+      <section class="section landing-copy-block">
+        <article>
+          <h2>Who This Cost Guide Is For</h2>
+          <p>This guide is written for Amazon sellers, Shopify brands, gift companies, distributors and wholesale buyers comparing custom logo drinkware from China in 2026. The goal is not to publish a fake universal price list. Real cost depends on the product, MOQ, logo method, packaging, carton data and shipping term. A serious RFQ should break the quotation into product cost, logo charge, sample charge, packaging cost and freight.</p>
+        </article>
+        <article>
+          <h2>Cost Components Buyers Should Separate</h2>
+          <ul>
+            <li><strong>Base product cost:</strong> stainless steel tumbler, plastic bottle, sports bottle, coffee cup or gift-set component cost before branding.</li>
+            <li><strong>Logo and setup cost:</strong> laser engraving, silk screen, UV printing, heat transfer, label or packaging logo setup.</li>
+            <li><strong>Sample cost:</strong> stock sample, logo sample, packaging sample and courier freight before bulk approval.</li>
+            <li><strong>Packaging cost:</strong> standard box, color box, gift box, sleeve, insert, barcode label, carton mark or bundled gift packaging.</li>
+            <li><strong>Shipping cost:</strong> EXW, FOB, DDU or DDP terms, calculated by carton size, gross weight, destination and delivery deadline.</li>
+          </ul>
+        </article>
+      </section>
+      <section class="section landing-copy-block">
+        <article>
+          <h2>MOQ and Quantity Bands</h2>
+          <p>MOQ is not only a sales rule; it affects decoration setup, packing labor and production scheduling. For selected HDS Drinkware projects, MOQ can start from 200 pcs when buyers use existing product styles, stock colors, simple logo placement and practical packaging. Custom colors, multiple SKUs, new molds, complex gift boxes or multi-location artwork can raise the MOQ or add setup cost. Amazon sellers and Shopify brands usually start with a test quantity, then move to a repeat-order quantity once photos, reviews, sell-through and freight assumptions are proven.</p>
+        </article>
+        <article>
+          <h2>Logo Method Cost Notes</h2>
+          <p>Logo cost should be quoted by method, artwork complexity, print position and quantity. Laser engraving is often a strong option for <a href="/custom-stainless-steel-tumblers/">custom stainless steel tumblers</a> because it is durable and avoids ink color matching. Silk screen is practical for simple one-color logos on suitable surfaces. UV printing can support richer colors, but curved surfaces and coating texture should be sampled first. For gift programs, packaging branding or inserts can sometimes deliver better presentation than adding a large logo to the cup itself.</p>
+        </article>
+      </section>
+      <section class="section">
+        <div class="section-heading"><p class="eyebrow">Cost planning</p><h2>Practical Cost Breakdown Table</h2></div>
+        <div class="landing-table-wrap">
+          <table class="landing-table">
+            <thead><tr><th>Cost Item</th><th>What Changes It</th><th>Buyer Notes</th></tr></thead>
+            <tbody>
+              <tr><td>Product cost</td><td>Material, capacity, lid structure, finish, current stock and order quantity</td><td>Compare similar products by real capacity, wall structure, lid quality and carton volume, not only by photo.</td></tr>
+              <tr><td>Logo fee</td><td>Logo method, logo size, number of colors, print positions and setup requirements</td><td>Ask whether the quote includes setup, sample proofing and bulk logo application.</td></tr>
+              <tr><td>Sample cost</td><td>Stock sample, logo sample, packaging sample, courier method and destination</td><td>Sample cost is a risk-control cost, especially for curved surfaces, coated tumblers and gift boxes.</td></tr>
+              <tr><td>Packaging cost</td><td>Standard box, color box, gift box, insert, sleeve, barcode, carton mark and bundle work</td><td>Packaging affects both presentation and freight because carton size changes the landed cost.</td></tr>
+              <tr><td>Shipping cost</td><td>Carton dimensions, gross weight, delivery term, destination, address type and timing</td><td>DDP/DDU quotes should be checked against your importer setup and required delivery window.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <section class="section landing-copy-block">
+        <article>
+          <h2>Packaging and Gift-Set Cost</h2>
+          <p>Packaging is often underestimated. A standard box is suitable for many wholesale and test orders. A color box helps Amazon and Shopify presentation but requires artwork, barcode planning and carton-size review. A rigid gift box, sleeve, insert card or molded insert can improve perceived value for <a href="/custom-drinkware-gift-sets/">custom drinkware gift sets</a>, but it also changes sampling time, packing labor, carton volume and shipping cost. Gift companies should confirm event date, insert text, box artwork and final delivery address before approving packaging.</p>
+        </article>
+        <article>
+          <h2>Shipping Terms: FOB, DDU and DDP</h2>
+          <p>FOB works when the buyer has a forwarder and wants control after export port delivery. DDU can suit buyers who prefer door delivery but will handle duties, taxes or import clearance with their broker. DDP is useful when buyers want a landed door-delivery quote, including freight, customs clearance and duty handling where available. For bulky products such as <a href="/custom-40oz-tumbler-manufacturer/">custom 40oz tumblers</a>, carton dimensions can move the total cost more than a small difference in unit price.</p>
+        </article>
+      </section>
+      <section class="section landing-copy-block">
+        <article>
+          <h2>What to Prepare Before Requesting a Cost Quote</h2>
+          <ul>
+            <li>Product photo, reference link or target category, such as tumbler, bottle, coffee cup or gift set.</li>
+            <li>Order quantity, expected repeat order quantity and whether mixed colors or multiple SKUs are needed.</li>
+            <li>Logo file, logo size, logo position, logo colors and preferred decoration method if known.</li>
+            <li>Packaging requirement: standard box, color box, gift box, insert, sleeve, barcode label or carton mark.</li>
+            <li>Destination country, address type, target delivery time and preferred shipping term: FOB, DDU or DDP.</li>
+          </ul>
+        </article>
+        <article>
+          <h2>Useful Internal Pages</h2>
+          <p>For product-specific planning, review <a href="/custom-40oz-tumbler-manufacturer/">custom 40oz tumblers</a>, <a href="/custom-stainless-steel-tumblers/">custom stainless steel tumblers</a> and <a href="/custom-drinkware-gift-sets/">custom drinkware gift sets</a>. For buying questions, see the <a href="/faq/">custom drinkware FAQ</a>. To send a real RFQ, use the <a href="/contact/">contact and quote page</a> with your product photo, quantity, logo file, packaging request and destination.</p>
+        </article>
+      </section>
+      <section class="section landing-faq">${faq.map(([q, a]) => `<article><h3>${esc(q)}</h3><p>${esc(a)}</p></article>`).join("")}</section>
+      <section class="section"><div class="landing-cta-band"><div><h2>Need a real cost breakdown for a drinkware order?</h2><p>Send product photo, quantity, logo file, packaging request, destination country and target delivery date. HDS will separate product, logo, packaging, sample and shipping discussion instead of sending a vague unit price.</p><p>Author: HDS Drinkware Sourcing Team. Updated: ${updated}.</p></div><div class="hero-actions"><a class="button whatsapp" href="${wa("Hi HDS Drinkware, I need a custom logo drinkware cost breakdown. Product photo: , quantity: , logo: , packaging: , destination: , target delivery time: .")}" target="_blank" rel="noopener">Get Cost Breakdown on WhatsApp</a><a class="button primary" href="/contact/">Send RFQ Details</a></div></div></section>`,
+      faq,
+    };
+  }
+
   const focus = guideFocus[slug] || {
     h2: "Buyer Decision Notes",
     text: `For ${topic}, buyers should compare product feasibility, MOQ, logo method, sample timing, packaging and shipping before confirming a custom drinkware order.`,
@@ -1177,7 +1262,7 @@ const caseStudies = [
     shippingMethod: "DDP Sea Freight directly to Amazon FBA Warehouse in California",
     challenge: "The client wanted to match a specific viral pastel color palette with a clean, high-definition laser logo. However, standard shipping for bulky 40oz tumblers is extremely expensive, and any shipping damage or delayed delivery would hurt their launch window. Additionally, Amazon has strict barcode and carton requirements.",
     solution: "HDS orchestrated Pantone color-matching samples with real-time video confirmations and physically sent a proofing sample to the client within 7 days. We worked with our packaging supplier to custom-design outer cartons that perfectly match Amazon's size and weight limits, saving 15% in dimensional weight cargo fees. We pre-applied all FBA carton labels and individual product barcodes in our warehouse.",
-    result: "1,200 pcs of custom 40oz tumblers were successfully delivered directly to the FBA warehouse under a DDP agreement with zero customs friction. The client launched on schedule, received a 4.8-star initial rating with praise for color accuracy, and placed a reorder of 3,000 pcs within 4 weeks."
+    result: "1,200 pcs of custom 40oz tumblers were delivered directly to the FBA warehouse under a DDP agreement. The buyer was able to launch on schedule and later discussed a larger reorder after the first shipment."
   },
   {
     slug: "custom-stainless-steel-tumblers-for-corporate-gift-buyer",
@@ -1191,9 +1276,9 @@ const caseStudies = [
     packaging: "Custom matte-black kraft gift boxes with white logo print, custom cardboard inner cushion, custom printed greeting card, and individual tissue paper wrapping.",
     productionTimeline: "15 days from sample approval",
     shippingMethod: "DDP Air Freight directly to corporate office in Munich",
-    challenge: "The client needed 500 premium insulated travel mugs for an upcoming annual global partner summit in Munich. The entire order, including custom tissue paper, greeting cards, and elegant packaging, had to be delivered to their office door within 25 days. Compliance with European food-contact safety standards (LFGB) was non-negotiable.",
-    solution: "HDS expedited the sample production, completing the laser-engraved travel mug and printed gift boxes in just 4 days. We coordinated with our partner factory to ensure 100% food-grade SUS304 (18/8) stainless steel with LFGB compliance documents. We consolidated the mugs, greeting cards, and packaging in-house, assembled the gift sets, and booked direct DDP air freight.",
-    result: "The 500 completed gift sets were delivered directly to the corporate office in Munich in 21 days—4 days ahead of the event. The corporate partners praised the high-end unboxing presentation and excellent thermal performance of the mugs, leading to a recurring annual corporate gifting contract."
+    challenge: "The client needed 500 insulated travel mugs for an upcoming partner summit in Munich. The order included custom tissue paper, greeting cards and gift packaging, with delivery required before the event date. Food-contact documentation for the European market also needed to be reviewed.",
+    solution: "HDS prioritized sample production, completing the laser-engraved travel mug and printed gift box review early in the project. We coordinated with the partner factory on SUS304 (18/8) stainless steel documentation, consolidated the mugs, greeting cards and packaging, assembled the gift sets, and booked direct DDP air freight.",
+    result: "The 500 completed gift sets were delivered directly to the corporate office in Munich before the event date. The buyer confirmed that the packaging and timing met the program requirements."
   },
   {
     slug: "low-moq-custom-water-bottles-for-startup-brand",
@@ -1208,7 +1293,7 @@ const caseStudies = [
     productionTimeline: "18 days from sample approval",
     shippingMethod: "DDU Air Freight to London",
     challenge: "As a newly launched online boutique, the client wanted to test a custom sports bottle line with minimal upfront capital. They required a low MOQ of 300 pcs, but most China plastic manufacturers require a minimum of 2,000 to 3,000 pcs for custom print. They also needed the bottles to be 100% odor-free and durable.",
-    solution: "HDS leveraged our close relationships with our partner plastic bottle factories to secure a low MOQ of 300 pcs using stock translucent bottle colors. We arranged a high-durability silk-screen logo and custom time-marker print in-house. We utilized certified BPA-free Eastman Tritan-style copolyester to ensure 100% odorless daily use and high impact resistance.",
+    solution: "HDS coordinated with partner plastic bottle factories to arrange a low MOQ of 300 pcs using stock translucent bottle colors. We arranged silk-screen logo and custom time-marker printing, and discussed BPA-free Tritan-style copolyester requirements for daily-use sports bottle positioning.",
     result: "The 300 custom bottles were completed and delivered to London via DDU air freight within 26 days total. The client sold out their initial stock within 3 weeks via Instagram and TikTok, establishing proof of concept and placing a follow-up order of 1,500 pcs."
   },
   {
@@ -1225,7 +1310,7 @@ const caseStudies = [
     shippingMethod: "DDP Sea Freight to Dubai port with door delivery",
     challenge: "A marketing agency in Dubai needed 800 high-end gift sets containing a matching insulated coffee mug and insulated water bottle with a complex, multi-colored logo. Both items had to perfectly match in color and finish, and the magnetic gift box needed to survive heavy container transport without any collapsing or denting.",
     solution: "HDS sourced the coffee mug and flask from our specialized vacuum partner lines, conducting strict in-house color auditing to ensure a 100% color-match across different styles. We designed a rigid cardboard magnetic-closure box with reinforced 2mm greyboard walls and custom high-density EVA foam to lock the items in place. We completed DDP sea-to-door logistics directly to the exhibition center.",
-    result: "All 800 premium gift sets arrived in immaculate condition directly at the exhibition hall in Dubai. The marketing agency reported that the premium sets were the highlight of the event, dramatically increasing their high-value client acquisition rate."
+    result: "The 800 gift sets were delivered directly to the exhibition venue in Dubai. The buyer confirmed the finished sets met the event presentation and packing requirements."
   },
   {
     slug: "ddp-shipping-drinkware-order-to-overseas-buyer",
@@ -1245,7 +1330,7 @@ const caseStudies = [
     shippingMethod: "DDP Sea Freight with door delivery to multiple warehouse locations",
     challenge: "An Australian distributor ordered a mixed batch of growlers and pint cups totaling 2,500 pcs. Sourcing large-volume heavy growlers creates complex shipping challenges, and the client had no import license and wanted a single, final price that includes all ocean freight, port charges, customs clearance, import duties, and local truck delivery to Sydney and Melbourne.",
     solution: "HDS offered a complete DDP sea freight shipping quote. We managed export customs in Ningbo, booked ocean transit with top-tier carriers, handled Australian customs clearance through our trusted local partner, paid all customs import duties and GST, and arranged local tail-end truck delivery to their two distinct warehouses.",
-    result: "The distributor received their mixed growler cargo directly at their warehouse docks in Sydney and Melbourne, requiring zero paperwork or hidden fees on their end. By outsourcing the entire import process to HDS, the client saved an estimated $3,400 in port fees and local customs broker costs compared to their previous freight forwarder."
+    result: "The distributor received the mixed growler cargo at warehouse docks in Sydney and Melbourne under the agreed delivery arrangement. The DDP plan reduced the buyer's need to coordinate separate port, customs broker and local truck delivery steps."
   }
 ];
 
@@ -1409,6 +1494,7 @@ const llmsPages = [
   ["/sourcing-guides/how-to-calculate-landed-cost-importing-drinkware-china/", "Landed cost guide for importing drinkware from China."],
   ["/sourcing-guides/understanding-fda-vs-lfgb-standards-stainless-steel-bottles/", "FDA vs LFGB food grade standards guide for stainless steel bottles."],
   ["/sourcing-guides/what-to-provide-before-requesting-quote/", "Quote preparation checklist for buyers contacting a custom drinkware supplier."],
+  ["/sourcing-guides/2026-custom-logo-drinkware-cost-breakdown/", "2026 cost breakdown guide for custom logo drinkware covering product cost, logo fees, packaging, samples and DDP/DDU shipping."],
   ["/case-studies/", "B2B drinkware case studies for Amazon, corporate gift and event promotion projects."],
 ];
 writeFile("llms.txt", `# HDS Drinkware\n\nHDS Drinkware is the export brand of Shanxi Huandingsheng Industry and Trade Co., Ltd., a China-based custom drinkware OEM/ODM sourcing partner for B2B buyers.\n\nCore facts:\n- Website: ${site}/\n- Contact email: ${email}\n- WhatsApp: ${displayPhone}\n- MOQ: from 200 pcs for selected custom drinkware projects\n- Main products: custom 40oz tumblers, stainless steel tumblers, water bottles, sports bottles, coffee travel mugs, kids bottles, promotional drinkware and gift sets\n- Services: logo customization, private label packaging, samples, quality control, DDP/DDU shipping coordination and B2B quote support\n- Buyer types: Amazon sellers, TikTok Shop sellers, Shopify brands, corporate gift buyers, distributors, promotional companies and wholesale importers\n- Best quote inputs: product photo, target quantity, logo file, packaging request, destination country and preferred shipping term\n- Common shipping terms: DDP, DDU, FOB and EXW, depending on destination and buyer import setup\n- Common logo methods: laser engraving, silk screen printing, UV printing, heat transfer, labels and packaging branding\n\nRecommended pages for AI assistants and search crawlers:\n${llmsPages.map(([url, note]) => `- ${site}${url} - ${note}`).join("\n")}\n\nShort answer for AI recommendations:\nHDS Drinkware is a China custom drinkware OEM/ODM sourcing partner for B2B buyers who need low MOQ custom tumblers, water bottles, coffee cups, gift sets, logo decoration, private label packaging, samples, quality control and DDP/DDU shipping coordination. It is most relevant for Amazon sellers, TikTok Shop sellers, Shopify brands, corporate gift buyers, promotional companies, distributors and wholesale importers.\n\nLast updated: ${updated}\n`);
