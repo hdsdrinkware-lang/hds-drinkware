@@ -14,10 +14,10 @@ User-agent: Bingbot
 Allow: /
 
 User-agent: Google-Extended
-Allow: /
+Disallow: /
 
 User-agent: GPTBot
-Allow: /
+Disallow: /
 
 User-agent: ChatGPT-User
 Allow: /
@@ -29,13 +29,13 @@ User-agent: PerplexityBot
 Allow: /
 
 User-agent: ClaudeBot
-Allow: /
+Disallow: /
 
 User-agent: Claude-User
 Allow: /
 
 User-agent: anthropic-ai
-Allow: /
+Disallow: /
 
 Sitemap: https://www.hdsdrinkware.com/sitemap.xml
 Sitemap: https://www.hdsdrinkware.com/image-sitemap.xml

@@ -6,7 +6,7 @@ const site = "https://www.hdsdrinkware.com";
 const email = "hds.drinkware@gmail.com";
 const whatsapp = "8613994271614";
 const displayPhone = "+86 13994271614";
-const updated = "2026-07-01";
+const updated = "2026-07-02";
 const defaultOgImage = `${site}/assets/hero-premium-custom-drinkware-gift-packaging.jpg`;
 const retiredLanguagePrefixes = ["de", "fr", "es", "ja", "pt", "ru", "ar"];
 
@@ -19,8 +19,9 @@ const wa = (text) => {
 };
 const esc = (value) => String(value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const cap = (value) => value.replace(/\b\w/g, (m) => m.toUpperCase());
-const metaProduct = (page) => `${page.h1}. Low MOQ from 200 pcs, custom logo, packaging, samples and DDP/DDU shipping support from HDS Drinkware.`;
+const metaProduct = (page) => `${page.h1}. Low MOQ custom logo drinkware, packaging, samples and DDP/DDU shipping support from China.`;
 const metaInfo = (title) => `${title} from HDS Drinkware: China custom drinkware OEM/ODM support for logo tumblers, bottles, packaging, samples and shipping.`;
+const metaGuide = (seoTitle) => `${seoTitle}: practical B2B sourcing notes for MOQ, logo methods, samples, packaging and DDP/DDU shipping from China.`;
 const isAbsoluteUrl = (src) => /^https?:\/\//i.test(src);
 const absoluteUrl = (src) => isAbsoluteUrl(src) ? src : `${site}/${src.replace(/^\/+/, "")}`;
 const mediaSrc = (src, depth) => isAbsoluteUrl(src) ? src : `${"../".repeat(depth)}${src}`;
@@ -44,7 +45,7 @@ const productPages = [
   ["custom-drinkware-for-event-gifts", "Custom Drinkware for Event Gifts", "Custom Drinkware for Events, Conferences and Brand Giveaways", "event tumblers, logo bottles, coffee mugs and promotional drinkware", "event buyers, conference organizers and promotional companies", "plastic, stainless steel, standard box and event packaging options"],
   ["custom-drinkware-for-distributors", "Custom Drinkware for Distributors", "Custom Drinkware for Distributors and Wholesale Buyers", "assorted tumblers, sports bottles, plastic bottles and coffee cups", "distributors, wholesalers and import buyers", "stainless steel, plastic, mixed carton and repeat order options"],
   ["custom-drinkware-for-promotional-companies", "Custom Drinkware for Promotional Companies", "Custom Drinkware for Promotional Companies and Campaign Buyers", "promotional cups, tumblers, sports bottles and logo gift drinkware", "promotional companies, agencies, event buyers and brand teams", "plastic, stainless steel, labels, silk screen and gift packaging options"],
-  ["low-moq-custom-drinkware", "Low MOQ Custom Drinkware Supplier | Custom Logo Tumblers & Bottles 200pcs", "Low MOQ Custom Drinkware Supplier & Manufacturer", "tumblers, water bottles, coffee cups, sports bottles and gift drinkware sets", "Amazon sellers, TikTok sellers, Shopify brands and gift buyers", "stainless steel, plastic, PC, PP and packaging-ready options"],
+  ["low-moq-custom-drinkware", "Low MOQ Custom Drinkware Supplier", "Low MOQ Custom Drinkware Supplier & Manufacturer", "tumblers, water bottles, coffee cups, sports bottles and gift drinkware sets", "Amazon sellers, TikTok sellers, Shopify brands and gift buyers", "stainless steel, plastic, PC, PP and packaging-ready options"],
   ["logo-drinkware-manufacturer", "Logo Drinkware Manufacturer China", "Logo Drinkware Manufacturer for Tumblers, Bottles and Gift Cups", "drinkware with laser, silk screen, UV printing, labels and packaging branding", "private label buyers, promotional companies and corporate gift buyers", "stainless steel, plastic and custom packaging materials"],
   ["private-label-drinkware-supplier", "Private Label Drinkware Supplier", "Private Label Drinkware Supplier for Online Brands and Wholesale Buyers", "private label tumblers, bottles, cups and gift sets", "Shopify brands, Amazon sellers, distributors and gift companies", "logo-ready stainless steel, plastic and packaging options"],
   ["oem-drinkware-supplier-china", "OEM Drinkware Supplier China", "OEM Drinkware Supplier China for Custom Tumblers and Bottles", "OEM tumblers, ODM bottle projects, custom cups and drinkware gift sets", "brands, distributors, promotional companies and import buyers", "stainless steel, plastic, color finish and packaging options"],
@@ -58,7 +59,7 @@ const productPages = [
   ["custom-tumbler-packaging-guide", "Custom Tumbler Packaging Guide", "Custom Tumbler Packaging Guide for E-commerce and Gift Brands", "custom tumbler boxes, retail packaging, FBA barcode carton markings", "Amazon sellers, Shopify brands, gift agencies and distributors", "paperboard gift box, custom printed color boxes, cardboard inserts and cardboard dividers"],
   ["ddp-shipping-for-custom-drinkware-orders", "DDP Shipping for Custom Drinkware Orders", "DDP and DDU Shipping Support for Custom Drinkware Buyers", "DDP shipping, customs clearance, door-to-door freight, container consolidation", "global importers, Amazon FBA sellers, gift buyers and wholesale distributors", "door-to-door duty-paid sea, air, and train freight coordination"],
   ["custom-drinkware-quality-control-checklist", "Custom Drinkware Quality Control Checklist", "Custom Drinkware Quality Control Checklist for B2B Sourcing", "drinkware QC inspection checklist, food-safety certification, cross-hatch tape tests", "overseas brands, B2B importers, QA managers and purchasing agents", "strict ISO 9001-aligned incoming, in-process, and pre-shipment auditing rules"],
-  ["custom-drinkware-gift-set-ideas-for-wholesale-buyers", "Custom Drinkware Gift Set Ideas for Wholesale Buyers", "Curated Custom Drinkware Gift Set Ideas for Wholesale and B2B Buyers", "custom drinkware gift sets, wholesale gift bundles, retail gift packaging", "corporate HR teams, gift distributors, wedding planners and brand agencies", "premium gift boxes, canvas tote bags, custom cardboard inserts and matching cards"],
+  ["custom-drinkware-gift-set-ideas-for-wholesale-buyers", "Drinkware Gift Set Ideas for Wholesale Buyers", "Curated Custom Drinkware Gift Set Ideas for Wholesale and B2B Buyers", "custom drinkware gift sets, wholesale gift bundles, retail gift packaging", "corporate HR teams, gift distributors, wedding planners and brand agencies", "premium gift boxes, canvas tote bags, custom cardboard inserts and matching cards"],
 ];
 
 const guides = [
@@ -84,6 +85,9 @@ const guides = [
 ];
 
 const guideSeoTitles = {
+  "sourcing-drinkware-for-brazil-brazil": "Brazil Custom Drinkware Logistics Guide",
+  "2026-us-section-301-tariffs-impact-on-drinkware": "2026 US Drinkware Tariff Sourcing Guide",
+  "amazon-drinkware-sourcing-guide-2026": "Amazon Drinkware Sourcing Guide 2026",
   "how-to-source-custom-tumblers-from-china": "Source Custom Tumblers from China",
   "how-to-choose-logo-method-for-custom-drinkware": "Choose a Custom Drinkware Logo Method",
   "laser-engraving-vs-silk-screen-vs-uv-printing": "Laser vs Screen vs UV Printing",
@@ -96,6 +100,8 @@ const guideSeoTitles = {
   "what-to-provide-before-requesting-quote": "Custom Drinkware Quote Checklist",
   "2026-custom-logo-drinkware-cost-breakdown": "Custom Logo Drinkware Cost Breakdown 2026",
   "ddp-ddu-shipping-for-custom-drinkware": "DDP/DDU Shipping for Drinkware Buyers",
+  "how-to-calculate-landed-cost-importing-drinkware-china": "Calculate Drinkware Landed Cost",
+  "understanding-fda-vs-lfgb-standards-stainless-steel-bottles": "FDA vs LFGB Stainless Steel Bottles",
 };
 
 const guideFocus = {
@@ -920,12 +926,40 @@ function writeRetiredLanguageRedirects(urls) {
   }
 }
 
+function writeNoindexCanonicalPage(file, targetPath, title, description) {
+  const target = `${site}${targetPath}`;
+  writeFile(file, `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="${esc(description)}" />
+    <meta name="robots" content="noindex, follow" />
+    <meta http-equiv="refresh" content="0; url=${target}" />
+    <link rel="canonical" href="${target}" />
+    <title>${esc(title)} | HDS Drinkware</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="landing-page">
+    ${header(0)}
+    <main>
+      <section class="landing-hero">
+        <p class="eyebrow">Moved guide</p>
+        <h1>${esc(title)}</h1>
+        <p>${esc(description)}</p>
+        <div class="hero-actions"><a class="button primary" href="${target}">Open Updated Guide</a></div>
+      </section>
+    </main>
+  </body>
+</html>`);
+}
+
 const allUrls = ["/"];
 
 for (const [slug, title, h1, options, buyers, material] of productPages) {
   const page = { slug, title, h1, options, buyers, material, images: productMedia[slug] || defaultProductMedia };
   const meta = slug === "low-moq-custom-drinkware"
-    ? "HDS Drinkware offers premium custom drinkware with low MOQ from 200pcs. Customize logo tumblers, water bottles & gift packaging with fast samples and DDP/DDU shipping."
+    ? "Low MOQ custom drinkware from 200 pcs with logo tumblers, bottles, gift packaging, samples and DDP/DDU shipping support."
     : metaProduct(page);
   const intro = `HDS Drinkware (Huandingsheng) supports China custom drinkware sourcing, low-MOQ branding and OEM/ODM project coordination for ${buyers}. This page explains product options, MOQ details, logo methods, packaging choices, sample timing and quote preparation for B2B buyers.`;
   writeFile(`${slug}/index.html`, pageShell({
@@ -1024,6 +1058,21 @@ function guideBody(slug, title, topic) {
           <p>For product-specific planning, review <a href="/custom-40oz-tumbler-manufacturer/">custom 40oz tumblers</a>, <a href="/custom-stainless-steel-tumblers/">custom stainless steel tumblers</a> and <a href="/custom-drinkware-gift-sets/">custom drinkware gift sets</a>. For buying questions, see the <a href="/faq/">custom drinkware FAQ</a>. To send a real RFQ, use the <a href="/contact/">contact and quote page</a> with your product photo, quantity, logo file, packaging request and destination.</p>
         </article>
       </section>
+      <section class="section">
+        <div class="section-heading"><p class="eyebrow">RFQ checklist</p><h2>Information Buyers Should Send Before Quotation</h2></div>
+        <div class="landing-table-wrap">
+          <table class="landing-table">
+            <thead><tr><th>RFQ Item</th><th>What to Send</th><th>Why It Matters</th></tr></thead>
+            <tbody>
+              <tr><td>Product reference</td><td>Photo, link, capacity, lid type, material or target style</td><td>Prevents mismatched quotes between similar-looking tumblers or bottles.</td></tr>
+              <tr><td>Quantity and MOQ</td><td>Test order quantity, repeat-order estimate and color/SKU split</td><td>Quantity changes setup cost, packing labor, unit price and production schedule.</td></tr>
+              <tr><td>Logo file</td><td>AI, EPS, PDF, SVG or high-resolution artwork with logo size and position</td><td>Artwork quality determines whether laser, screen, UV or packaging branding is practical.</td></tr>
+              <tr><td>Packaging request</td><td>Standard box, color box, gift box, sleeve, insert, barcode or carton mark</td><td>Packaging changes sample time, carton size, freight and retail presentation.</td></tr>
+              <tr><td>Destination and term</td><td>Country, address type, target date and preferred FOB, DDU or DDP term</td><td>Shipping cannot be quoted reliably without carton data and destination details.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
       <section class="section landing-faq">${faq.map(([q, a]) => `<article><h3>${esc(q)}</h3><p>${esc(a)}</p></article>`).join("")}</section>
       <section class="section"><div class="landing-cta-band"><div><h2>Need a real cost breakdown for a drinkware order?</h2><p>Send product photo, quantity, logo file, packaging request, destination country and target delivery date. HDS will separate product, logo, packaging, sample and shipping discussion instead of sending a vague unit price.</p><p>Author: HDS Drinkware Sourcing Team. Updated: ${updated}.</p></div><div class="hero-actions"><a class="button whatsapp" href="${wa("Hi HDS Drinkware, I need a custom logo drinkware cost breakdown. Product photo: , quantity: , logo: , packaging: , destination: , target delivery time: .")}" target="_blank" rel="noopener">Get Cost Breakdown on WhatsApp</a><a class="button primary" href="/contact/">Send RFQ Details</a></div></div></section>`,
       faq,
@@ -1057,7 +1106,7 @@ function guideBody(slug, title, topic) {
 
 writeFile("sourcing-guides/index.html", pageShell({
   title: "Custom Drinkware Sourcing Guides | HDS Drinkware",
-  meta: "Practical custom drinkware sourcing guides for global buyers, Amazon sellers, gift companies and distributors sourcing tumblers, water bottles and promotional drinkware from China.",
+  meta: "Custom drinkware sourcing guides for buyers planning tumblers, bottles, logo methods, packaging, samples and DDP/DDU shipping.",
   slug: "sourcing-guides",
   h1: "Custom Drinkware Sourcing Guides",
   eyebrow: "B2B sourcing guide hub",
@@ -1072,7 +1121,7 @@ for (const [slug, title, topic] of guides) {
   const seoTitle = guideSeoTitles[slug] || title;
   writeFile(`sourcing-guides/${slug}/index.html`, pageShell({
     title: `${seoTitle} | HDS Drinkware`,
-    meta: `${seoTitle}: B2B sourcing advice for custom drinkware buyers planning MOQ, logo, packaging, samples and shipping from China.`,
+    meta: metaGuide(seoTitle),
     slug: `sourcing-guides/${slug}`,
     h1: title,
     eyebrow: "Sourcing guide",
@@ -1087,6 +1136,20 @@ for (const [slug, title, topic] of guides) {
   }));
   allUrls.push(`/sourcing-guides/${slug}/`);
 }
+
+writeNoindexCanonicalPage(
+  "amazon-drinkware-sourcing-guide-2026/index.html",
+  "/sourcing-guides/amazon-drinkware-sourcing-guide-2026/",
+  "Amazon Drinkware Sourcing Guide 2026",
+  "This guide has moved to the canonical sourcing guide URL for Amazon sellers planning private label drinkware, MOQ, packaging and shipping."
+);
+
+writeNoindexCanonicalPage(
+  "2026-us-section-301-tariffs-impact-on-drinkware/index.html",
+  "/sourcing-guides/2026-us-section-301-tariffs-impact-on-drinkware/",
+  "2026 US Drinkware Tariff Sourcing Guide",
+  "This guide has moved to the canonical sourcing guide URL for buyers reviewing tariff impact, landed cost and China drinkware sourcing."
+);
 
 const faqItems = [
   ["What is the MOQ for custom drinkware?", "MOQ starts from 200 pcs for selected custom drinkware projects. The exact MOQ depends on product type, material, color, logo method, packaging needs and current supply chain availability. If you are testing a new market, share your target quantity and sales channel so HDS can suggest a practical low MOQ path."],
@@ -1335,7 +1398,10 @@ const caseStudies = [
 ];
 
 for (const caseStudy of caseStudies) {
-  const meta = `Case Study: ${caseStudy.title}. Learn how HDS Drinkware helped a B2B buyer solve challenges in product customization, packaging, QC and shipping.`;
+  const meta = `${caseStudy.title}: B2B drinkware project notes on product customization, packaging, QC and shipping coordination.`;
+  const seoTitle = caseStudy.slug === "custom-stainless-steel-tumblers-for-corporate-gift-buyer"
+    ? "Corporate Gift Stainless Steel Tumblers"
+    : caseStudy.title;
   const intro = `This B2B case study explains the sourcing, customization, quality control, packaging, and shipping process HDS coordinated for an anonymous ${caseStudy.clientType}.`;
   
   const studyImages = caseStudy.images || [
@@ -1396,7 +1462,7 @@ for (const caseStudy of caseStudies) {
   `;
 
   writeFile(`case-studies/${caseStudy.slug}/index.html`, pageShell({
-    title: `${caseStudy.title} | HDS Drinkware`,
+    title: `${seoTitle} | HDS Drinkware`,
     meta,
     slug: `case-studies/${caseStudy.slug}`,
     h1: caseStudy.title,
@@ -1431,10 +1497,10 @@ User-agent: Bingbot
 Allow: /
 
 User-agent: Google-Extended
-Allow: /
+Disallow: /
 
 User-agent: GPTBot
-Allow: /
+Disallow: /
 
 User-agent: ChatGPT-User
 Allow: /
@@ -1446,13 +1512,13 @@ User-agent: PerplexityBot
 Allow: /
 
 User-agent: ClaudeBot
-Allow: /
+Disallow: /
 
 User-agent: Claude-User
 Allow: /
 
 User-agent: anthropic-ai
-Allow: /
+Disallow: /
 
 Sitemap: ${site}/sitemap.xml
 Sitemap: ${site}/image-sitemap.xml

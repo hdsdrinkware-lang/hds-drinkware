@@ -23,6 +23,14 @@ const catalogProducts = [
 const catalogCopy =
   "Logo, color, packaging, sample, and bulk quotation support available for wholesale and gift buyers.";
 
+const trackConversionEvent = (eventName, params = {}) => {
+  if (typeof window.gtag === "function") {
+    window.gtag("event", eventName, params);
+  }
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ event: eventName, ...params });
+};
+
 if (catalogGrid) {
   catalogGrid.innerHTML = catalogProducts
     .map(([name, tag, image]) => {
@@ -38,8 +46,8 @@ if (catalogGrid) {
             <h3>${name}</h3>
             <p>${catalogCopy}</p>
             <div class="product-actions">
-              <a class="product-whatsapp" href="https://wa.me/8613994271614?text=${message}" target="_blank" rel="noopener">Ask Price on WhatsApp</a>
-              <a class="product-quote" href="#inquiry">Request Quote</a>
+              <a class="product-whatsapp" href="https://wa.me/8613994271614?text=${message}" target="_blank" rel="noopener" data-track-event="whatsapp_click" data-track-label="${name}">Ask Price on WhatsApp</a>
+              <a class="product-quote" href="#inquiry" data-track-event="quote_click" data-track-label="${name}">Request Quote</a>
             </div>
           </div>
         </article>
@@ -70,6 +78,10 @@ const buildMailtoUrl = (data) => {
 document.querySelectorAll("form").forEach((formElement) => {
   formElement.addEventListener("submit", async (event) => {
     event.preventDefault();
+    trackConversionEvent("contact_form_submit", {
+      form_name: formElement.getAttribute("name") || "unknown",
+      page_path: window.location.pathname,
+    });
 
     const data = new FormData(formElement);
     let statusText = "Sending your request...";
@@ -123,6 +135,23 @@ document.querySelectorAll("form").forEach((formElement) => {
         statusDisplay.textContent = "Submission failed. Please email us directly at hds.drinkware@gmail.com";
       }
     }
+  });
+});
+
+document.addEventListener("click", (event) => {
+  const link = event.target.closest("a[href], button");
+  if (!link) return;
+
+  const href = link.getAttribute("href") || "";
+  const explicitEvent = link.dataset.trackEvent;
+  const eventName = explicitEvent || (href.includes("wa.me") ? "whatsapp_click" : href.includes("#inquiry") ? "quote_click" : "");
+  if (!eventName) return;
+
+  trackConversionEvent(eventName, {
+    link_text: link.textContent.trim().slice(0, 80),
+    link_url: href,
+    label: link.dataset.trackLabel || "",
+    page_path: window.location.pathname,
   });
 });
 
