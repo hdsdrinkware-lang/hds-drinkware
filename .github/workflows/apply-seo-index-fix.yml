@@ -1,3 +1,4 @@
+# Stable SEO index fix workflow v3
 name: Apply SEO Index Fix
 
 on:
@@ -18,61 +19,59 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Apply noindex placeholder fix
+      - name: Remove retired language placeholder generator
         run: |
-          node <<'NODE'
-          const fs = require('fs');
-          const file = 'tools/generate-seo-site.mjs';
-          let s = fs.readFileSync(file, 'utf8');
-          s = s.replace('const retiredLanguagePrefixes = ["de", "fr", "es", "ja", "pt", "ru", "ar"];\n', '');
-          s = s.replace(/\nfunction writeRetiredLanguageRedirects\(urls\) \{[\s\S]*?\n\}\n\nfunction writeNoindexCanonicalPage/, '\nfunction writeNoindexCanonicalPage');
-          s = s.replace('\nwriteRetiredLanguageRedirects(allUrls);\n\nwriteFile("404.html"', '\nwriteFile("404.html"');
-          if (s.includes('writeRetiredLanguageRedirects') || s.includes('retiredLanguagePrefixes')) {
-            throw new Error('Retired language generator still present');
-          }
-          const marker = 'const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
-          const redirectLines = [
-            'writeFile("_redirects", `# Canonical URL redirects for retired duplicate paths',
-            '/amazon-drinkware-sourcing-guide-2026/ /sourcing-guides/amazon-drinkware-sourcing-guide-2026/ 301',
-            '/2026-us-section-301-tariffs-impact-on-drinkware/ /sourcing-guides/2026-us-section-301-tariffs-impact-on-drinkware/ 301',
-            '',
-            '# Retired language placeholder paths now resolve to the canonical English URL.',
-            '/ar/ / 301',
-            '/ar/* /:splat 301',
-            '/de/ / 301',
-            '/de/* /:splat 301',
-            '/es/ / 301',
-            '/es/* /:splat 301',
-            '/fr/ / 301',
-            '/fr/* /:splat 301',
-            '/ja/ / 301',
-            '/ja/* /:splat 301',
-            '/pt/ / 301',
-            '/pt/* /:splat 301',
-            '/ru/ / 301',
-            '/ru/* /:splat 301',
-            '`);',
-            ''
-          ];
-          const redirects = `${redirectLines.join('\\n')}\n`;
-          if (!s.includes('writeFile("_redirects"')) {
-            s = s.replace(marker, redirects + marker);
-          }
-          fs.writeFileSync(file, s);
-          NODE
+          perl -0pi -e 's/const retiredLanguagePrefixes = \["de", "fr", "es", "ja", "pt", "ru", "ar"\];\n//g' tools/generate-seo-site.mjs
+          perl -0pi -e 's/\nfunction writeRetiredLanguageRedirects\(urls\) \{.*?\n\}\n\nfunction writeNoindexCanonicalPage/\nfunction writeNoindexCanonicalPage/s' tools/generate-seo-site.mjs
+          perl -0pi -e 's/\nwriteRetiredLanguageRedirects\(allUrls\);\n\nwriteFile\("404\.html"/\nwriteFile("404.html"/s' tools/generate-seo-site.mjs
 
+          if grep -q "writeRetiredLanguageRedirects\|retiredLanguagePrefixes" tools/generate-seo-site.mjs; then
+            echo "Retired language generator still present"
+            exit 1
+          fi
+
+      - name: Generate canonical site files
+        run: |
           node --check tools/generate-seo-site.mjs
           node tools/generate-seo-site.mjs
+
+      - name: Add redirects and remove retired pages
+        run: |
+          cat > _redirects <<'EOF'
+          # Canonical URL redirects for retired duplicate paths
+          /amazon-drinkware-sourcing-guide-2026/ /sourcing-guides/amazon-drinkware-sourcing-guide-2026/ 301
+          /2026-us-section-301-tariffs-impact-on-drinkware/ /sourcing-guides/2026-us-section-301-tariffs-impact-on-drinkware/ 301
+
+          # Retired language placeholder paths now resolve to the canonical English URL.
+          /ar/ / 301
+          /ar/* /:splat 301
+          /de/ / 301
+          /de/* /:splat 301
+          /es/ / 301
+          /es/* /:splat 301
+          /fr/ / 301
+          /fr/* /:splat 301
+          /ja/ / 301
+          /ja/* /:splat 301
+          /pt/ / 301
+          /pt/* /:splat 301
+          /ru/ / 301
+          /ru/* /:splat 301
+          EOF
+          sed -i 's/^          //' _redirects
           git rm -r --ignore-unmatch ar de es fr ja pt ru
           rm -f .github/workflows/apply-seo-index-fix.yml
 
+      - name: Validate SEO output
+        run: |
           node <<'NODE'
           const fs = require('fs');
           const path = require('path');
           const sitemap = fs.readFileSync('sitemap.xml', 'utf8');
-          const urls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(m => m[1]);
+          const urls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map((m) => m[1]);
           if (urls.length !== new Set(urls).size) throw new Error('Duplicate sitemap URLs');
-          if (urls.some(u => /\/(ar|de|es|fr|ja|pt|ru)\//.test(u))) throw new Error('Retired language URL in sitemap');
+          if (urls.some((u) => /\/(ar|de|es|fr|ja|pt|ru)\//.test(u))) throw new Error('Retired language URL in sitemap');
+          if (!fs.existsSync('_redirects')) throw new Error('Missing _redirects file');
           for (const url of urls) {
             const p = new URL(url).pathname;
             const file = p === '/' ? 'index.html' : path.join(p.slice(1), 'index.html');
@@ -80,12 +79,20 @@ jobs:
             const html = fs.readFileSync(file, 'utf8');
             const canonical = html.match(/<link rel="canonical" href="([^"]+)"/);
             if (!canonical || canonical[1] !== url) throw new Error(`Bad canonical in ${file}`);
+            const robots = html.match(/<meta name="robots" content="([^"]+)"/);
+            if (!robots || !robots[1].includes('index')) throw new Error(`Unexpected robots tag in ${file}`);
           }
           console.log(`Verified ${urls.length} sitemap URLs.`);
           NODE
 
+      - name: Commit and push fix
+        run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
           git commit -m "Fix noindex placeholder indexing"
           git push
