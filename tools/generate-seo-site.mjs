@@ -8,7 +8,6 @@ const whatsapp = "8613994271614";
 const displayPhone = "+86 13994271614";
 const updated = "2026-07-02";
 const defaultOgImage = `${site}/assets/hero-premium-custom-drinkware-gift-packaging.jpg`;
-const retiredLanguagePrefixes = ["de", "fr", "es", "ja", "pt", "ru", "ar"];
 
 const wa = (text) => {
   let msg = text;
@@ -893,39 +892,6 @@ function writeFile(file, content) {
   fs.writeFileSync(path.join(root, file), content);
 }
 
-function writeRetiredLanguageRedirects(urls) {
-  for (const lang of retiredLanguagePrefixes) {
-    for (const urlPath of urls) {
-      const target = `${site}${urlPath}`;
-      const file = urlPath === "/" ? `${lang}/index.html` : `${lang}${urlPath}index.html`;
-      const depth = file.split("/").length - 1;
-      const stylesheet = `${"../".repeat(depth)}styles.css`;
-      writeFile(file, `<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="noindex, follow" />
-    <meta http-equiv="refresh" content="0; url=${target}" />
-    <link rel="canonical" href="${target}" />
-    <title>Moved to English Page | HDS Drinkware</title>
-    <link rel="stylesheet" href="${stylesheet}" />
-  </head>
-  <body class="landing-page">
-    <main>
-      <section class="landing-hero">
-        <p class="eyebrow">Moved</p>
-        <h1>This page is available in English</h1>
-        <p>HDS Drinkware currently maintains one canonical English version for this sourcing page.</p>
-        <div class="hero-actions"><a class="button primary" href="${target}">Open English Page</a></div>
-      </section>
-    </main>
-  </body>
-</html>`);
-    }
-  }
-}
-
 function writeNoindexCanonicalPage(file, targetPath, title, description) {
   const target = `${site}${targetPath}`;
   writeFile(file, `<!doctype html>
@@ -1476,8 +1442,6 @@ for (const caseStudy of caseStudies) {
   }));
   allUrls.push(`/case-studies/${caseStudy.slug}/`);
 }
-
-writeRetiredLanguageRedirects(allUrls);
 
 writeFile("404.html", `<!doctype html><html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="robots" content="noindex, follow" /><title>Page Not Found | HDS Drinkware</title><link rel="stylesheet" href="/styles.css" /></head><body class="landing-page">${header(0)}<main><section class="landing-hero"><p class="eyebrow">404</p><h1>Page Not Found</h1><p>The page may have moved. You can return to HDS Drinkware sourcing pages, view the product catalog, or contact us on WhatsApp for a quote.</p><div class="hero-actions"><a class="button primary" href="/">Return Home</a><a class="button secondary" href="/#catalog">View Product Catalog</a><a class="button whatsapp" href="${wa("Hello HDS Drinkware, I need help finding a custom drinkware product page.")}" target="_blank" rel="noopener">Get Quote on WhatsApp</a></div></section></main></body></html>`);
 
