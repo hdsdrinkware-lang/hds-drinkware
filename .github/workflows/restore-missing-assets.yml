@@ -20,7 +20,11 @@ jobs:
 
       - name: Restore image assets from last asset commit
         run: |
-          git checkout 1f50fc424535ef83fdd215c875cc96ff060ad609 -- assets
+          curl -L "https://github.com/hdsdrinkware-lang/hds-drinkware/archive/1f50fc424535ef83fdd215c875cc96ff060ad609.tar.gz" -o /tmp/assets-source.tar.gz
+          mkdir -p /tmp/assets-source
+          tar -xzf /tmp/assets-source.tar.gz -C /tmp/assets-source --strip-components=1
+          rm -rf assets
+          cp -R /tmp/assets-source/assets assets
           test -f assets/company-logo.png
           test -f assets/hero-premium-custom-drinkware-gift-packaging.jpg
           find assets -type f | sort
