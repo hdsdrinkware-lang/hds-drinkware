@@ -1,0 +1,39 @@
+name: Restore Missing Assets
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/restore-missing-assets.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  restore-assets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Restore image assets from last asset commit
+        run: |
+          git checkout 1f50fc424535ef83fdd215c875cc96ff060ad609 -- assets
+          test -f assets/company-logo.png
+          test -f assets/hero-premium-custom-drinkware-gift-packaging.jpg
+          find assets -type f | sort
+          rm -f .github/workflows/restore-missing-assets.yml
+
+      - name: Commit and push restored assets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "Restore missing image assets"
+          git push
