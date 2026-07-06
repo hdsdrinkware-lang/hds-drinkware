@@ -1,0 +1,89 @@
+name: Apply SEO Index Fix
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/apply-seo-index-fix.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apply-fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply noindex placeholder fix
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const file = 'tools/generate-seo-site.mjs';
+          let s = fs.readFileSync(file, 'utf8');
+          s = s.replace('const retiredLanguagePrefixes = ["de", "fr", "es", "ja", "pt", "ru", "ar"];\n', '');
+          s = s.replace(/\nfunction writeRetiredLanguageRedirects\(urls\) \{[\s\S]*?\n\}\n\nfunction writeNoindexCanonicalPage/, '\nfunction writeNoindexCanonicalPage');
+          s = s.replace('\nwriteRetiredLanguageRedirects(allUrls);\n\nwriteFile("404.html"', '\nwriteFile("404.html"');
+          if (s.includes('writeRetiredLanguageRedirects') || s.includes('retiredLanguagePrefixes')) {
+            throw new Error('Retired language generator still present');
+          }
+          const marker = 'const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+          const redirects = `writeFile("_redirects", \`# Canonical URL redirects for retired duplicate paths
+/amazon-drinkware-sourcing-guide-2026/ /sourcing-guides/amazon-drinkware-sourcing-guide-2026/ 301
+/2026-us-section-301-tariffs-impact-on-drinkware/ /sourcing-guides/2026-us-section-301-tariffs-impact-on-drinkware/ 301
+
+# Retired language placeholder paths now resolve to the canonical English URL.
+/ar/ / 301
+/ar/* /:splat 301
+/de/ / 301
+/de/* /:splat 301
+/es/ / 301
+/es/* /:splat 301
+/fr/ / 301
+/fr/* /:splat 301
+/ja/ / 301
+/ja/* /:splat 301
+/pt/ / 301
+/pt/* /:splat 301
+/ru/ / 301
+/ru/* /:splat 301
+\`);
+
+`;
+          if (!s.includes('writeFile("_redirects"')) {
+            s = s.replace(marker, redirects + marker);
+          }
+          fs.writeFileSync(file, s);
+          NODE
+
+          node --check tools/generate-seo-site.mjs
+          node tools/generate-seo-site.mjs
+          git rm -r --ignore-unmatch ar de es fr ja pt ru
+          rm -f .github/workflows/apply-seo-index-fix.yml
+
+          node <<'NODE'
+          const fs = require('fs');
+          const path = require('path');
+          const sitemap = fs.readFileSync('sitemap.xml', 'utf8');
+          const urls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(m => m[1]);
+          if (urls.length !== new Set(urls).size) throw new Error('Duplicate sitemap URLs');
+          if (urls.some(u => /\/(ar|de|es|fr|ja|pt|ru)\//.test(u))) throw new Error('Retired language URL in sitemap');
+          for (const url of urls) {
+            const p = new URL(url).pathname;
+            const file = p === '/' ? 'index.html' : path.join(p.slice(1), 'index.html');
+            if (!fs.existsSync(file)) throw new Error(`Missing sitemap file ${file}`);
+            const html = fs.readFileSync(file, 'utf8');
+            const canonical = html.match(/<link rel="canonical" href="([^"]+)"/);
+            if (!canonical || canonical[1] !== url) throw new Error(`Bad canonical in ${file}`);
+          }
+          console.log(`Verified ${urls.length} sitemap URLs.`);
+          NODE
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Fix noindex placeholder indexing"
+          git push
