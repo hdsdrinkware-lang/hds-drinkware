@@ -57,19 +57,29 @@ if (catalogGrid) {
 }
 
 const buildMailtoUrl = (data) => {
+  const email = data.get("email") || "";
+  const whatsapp = data.get("whatsapp") || "";
+  const contact = [email, whatsapp].filter(Boolean).join(" / ") || data.get("contact") || "";
   const lines = [
     "New drinkware inquiry for Shanxi Huandingsheng Industry and Trade Co., Ltd. / HDS Drinkware",
     "",
     `Name: ${data.get("name") || ""}`,
-    `Email or WhatsApp: ${data.get("contact") || ""}`,
+    `Company: ${data.get("company") || ""}`,
+    `Email or WhatsApp: ${contact}`,
+    `Country: ${data.get("country") || ""}`,
+    `Destination: ${data.get("destination_country") || ""}`,
     `Product Interest: ${data.get("product") || ""}`,
     `Quantity: ${data.get("quantity") || ""}`,
+    `Logo Requirement: ${data.get("logo_requirement") || ""}`,
+    `Packaging Requirement: ${data.get("packaging_requirement") || ""}`,
+    `Shipping Term: ${data.get("shipping_term") || ""}`,
+    `Product Photo / Link: ${data.get("photo_link_upload") || ""}`,
     "",
     "Message:",
     data.get("details") || "",
   ];
 
-  const subject = encodeURIComponent("Drinkware sourcing inquiry");
+  const subject = encodeURIComponent("HDS custom drinkware RFQ");
   const body = encodeURIComponent(lines.join("\n"));
   return `mailto:${salesEmail}?subject=${subject}&body=${body}`;
 };
@@ -125,6 +135,10 @@ document.querySelectorAll("form").forEach((formElement) => {
       formElement.reset();
       statusDisplay.textContent = successText;
       statusDisplay.style.color = "var(--teal)";
+      trackConversionEvent("lead_submit_success", {
+        form_name: formElement.getAttribute("name") || "unknown",
+        page_path: window.location.pathname,
+      });
     } catch (error) {
       statusDisplay.classList.add("is-error");
       statusDisplay.style.color = "var(--coral)";
@@ -157,7 +171,7 @@ document.addEventListener("click", (event) => {
 
 const revealItems = document.querySelectorAll(
   ".section-heading, .product-card, .facts-grid article, .process-grid article, .buyer-grid article, .faq-grid article, .quality-image, .quality-copy, .factory-copy, .factory-gallery, .market-copy, .market-image, .brand-logo-panel, .brand-story .intro-copy"
-  + ", .line-grid article, .catalog-card, .capability-copy, .capability-grid article, .timeline-grid article, .why-card, .proof-card, .landing-detail article, .landing-faq article, .landing-cta-band"
+  + ", .line-grid article, .catalog-card, .capability-copy, .capability-grid article, .timeline-grid article, .why-card, .proof-card, .ai-answer-copy, .ai-answer-grid article, .ai-rfq-panel, .landing-detail article, .landing-faq article, .landing-cta-band"
 );
 
 revealItems.forEach((item) => item.classList.add("reveal-on-scroll"));

@@ -1488,6 +1488,27 @@ Sitemap: ${site}/sitemap.xml
 Sitemap: ${site}/image-sitemap.xml
 `);
 
+writeFile("_redirects", `# Canonical URL redirects for retired duplicate paths
+/amazon-drinkware-sourcing-guide-2026/ /sourcing-guides/amazon-drinkware-sourcing-guide-2026/ 301
+/2026-us-section-301-tariffs-impact-on-drinkware/ /sourcing-guides/2026-us-section-301-tariffs-impact-on-drinkware/ 301
+
+# Retired language placeholder paths now resolve to the canonical English URL.
+/ar/ / 301
+/ar/* /:splat 301
+/de/ / 301
+/de/* /:splat 301
+/es/ / 301
+/es/* /:splat 301
+/fr/ / 301
+/fr/* /:splat 301
+/ja/ / 301
+/ja/* /:splat 301
+/pt/ / 301
+/pt/* /:splat 301
+/ru/ / 301
+/ru/* /:splat 301
+`);
+
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${allUrls.map((u) => `  <url>\n    <loc>${site}${u}</loc>\n    <lastmod>${updated}</lastmod>\n    <changefreq>${u === "/" ? "weekly" : "monthly"}</changefreq>\n    <priority>${u === "/" ? "1.0" : u.startsWith("/sourcing-guides/") && u !== "/sourcing-guides/" ? "0.7" : "0.8"}</priority>\n  </url>`).join("\n")}\n</urlset>\n`;
 writeFile("sitemap.xml", sitemap);
 

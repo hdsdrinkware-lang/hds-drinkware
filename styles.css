@@ -380,6 +380,27 @@ h3 {
   font-weight: 900;
 }
 
+.hero-trust-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: 780px;
+  margin-top: 14px;
+}
+
+.hero-trust-strip span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 12px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 12px;
+  font-weight: 850;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 4px;
+}
+
 .section {
   padding: 88px 5vw;
 }
@@ -560,6 +581,74 @@ h3 {
 .facts-grid p {
   margin-bottom: 0;
   color: var(--muted);
+}
+
+.ai-answer-section {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.78fr) minmax(0, 1.22fr);
+  gap: 28px;
+  align-items: start;
+  background: #101820;
+  color: var(--white);
+}
+
+.ai-answer-copy {
+  position: sticky;
+  top: calc(var(--header-height) + 24px);
+}
+
+.ai-answer-copy h2 {
+  max-width: 620px;
+}
+
+.ai-answer-copy p:not(.eyebrow),
+.ai-rfq-panel p {
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 17px;
+}
+
+.ai-answer-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.ai-answer-grid article,
+.ai-rfq-panel {
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+}
+
+.ai-answer-grid span {
+  display: inline-flex;
+  margin-bottom: 12px;
+  color: var(--amber);
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.ai-answer-grid h3 {
+  font-family: inherit;
+  font-size: 21px;
+}
+
+.ai-answer-grid p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.ai-rfq-panel {
+  grid-column: 2;
+  margin-top: 16px;
+}
+
+.ai-rfq-panel strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 22px;
 }
 
 .product-grid {
@@ -1663,6 +1752,26 @@ h3 {
   margin-top: 24px;
 }
 
+.inquiry-priority-note {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 6px;
+  padding: 16px 18px;
+  color: var(--ink);
+  background: #fff7e8;
+  border: 1px solid rgba(214, 154, 45, 0.38);
+  border-radius: 8px;
+}
+
+.inquiry-priority-note strong {
+  line-height: 1.35;
+}
+
+.inquiry-priority-note span {
+  color: var(--muted);
+  font-size: 14px;
+}
+
 .quote-form {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1911,12 +2020,18 @@ h3 {
   .inquiry-section,
   .market-section,
   .custom-capabilities,
-  .home-quote-needed {
+  .home-quote-needed,
+  .ai-answer-section {
     grid-template-columns: 1fr;
   }
 
-  .quote-needed-copy {
+  .quote-needed-copy,
+  .ai-answer-copy {
     position: static;
+  }
+
+  .ai-rfq-panel {
+    grid-column: auto;
   }
 
   .hero {
@@ -1933,6 +2048,7 @@ h3 {
   }
 
   .facts-grid,
+  .ai-answer-grid,
   .quote-needed-grid,
   .product-grid,
   .catalog-grid,
@@ -2041,6 +2157,7 @@ h3 {
 
   .intro,
   .facts-grid,
+  .ai-answer-grid,
   .quote-needed-grid,
   .product-grid,
   .catalog-grid,
@@ -2063,6 +2180,13 @@ h3 {
   .faq-grid,
   .quote-form {
     grid-template-columns: 1fr;
+  }
+
+  .quote-form label,
+  .quote-form .full,
+  .quote-form button,
+  .quote-form .form-status {
+    grid-column: 1 / -1 !important;
   }
 
   .spec-list div {
