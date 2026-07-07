@@ -1,0 +1,49 @@
+name: Apply SEO AI CRO Update
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - seo-ai-cro-site-update.zip
+      - .github/workflows/apply-seo-ai-cro-update.yml
+
+permissions:
+  contents: write
+
+jobs:
+  apply-update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Apply uploaded optimization package
+        run: |
+          if [ ! -f seo-ai-cro-site-update.zip ]; then
+            echo "No optimization package found. Upload seo-ai-cro-site-update.zip to apply changes."
+            exit 0
+          fi
+          unzip -o seo-ai-cro-site-update.zip -d .
+          rm -f seo-ai-cro-site-update.zip
+          test -f index.html
+          test -f styles.css
+          test -f script.js
+          test -f sitemap.xml
+          test -f llms.txt
+          test -f llms-full.txt
+          test -f assets/company-logo.png
+          test -f assets/hero-premium-custom-drinkware-gift-packaging.jpg
+
+      - name: Commit optimization changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "Improve SEO AI visibility and B2B inquiry conversion"
+          git push
