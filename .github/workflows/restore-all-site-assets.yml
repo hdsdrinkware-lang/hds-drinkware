@@ -24,8 +24,15 @@ jobs:
           mkdir -p /tmp/site-source
           tar -xzf /tmp/site-source.tar.gz -C /tmp/site-source --strip-components=1
           test -d /tmp/site-source/assets
+          mkdir -p /tmp/current-assets
+          if [ -f assets/company-logo.png ]; then
+            cp assets/company-logo.png /tmp/current-assets/company-logo.png
+          fi
           rm -rf assets
           cp -R /tmp/site-source/assets assets
+          if [ -f /tmp/current-assets/company-logo.png ]; then
+            cp /tmp/current-assets/company-logo.png assets/company-logo.png
+          fi
           test -f assets/company-logo.png
           test -f assets/hero-premium-custom-drinkware-gift-packaging.jpg
           test -f assets/catalog/40oz-handle-tumbler.jpg
