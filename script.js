@@ -40,7 +40,7 @@ if (catalogGrid) {
 
       return `
         <article class="catalog-card">
-          <img src="assets/catalog/${image}" alt="${name} for custom logo drinkware sourcing" loading="lazy" />
+          <img src="assets/catalog/${image}" alt="${name} for custom logo drinkware sourcing" width="900" height="900" loading="lazy" decoding="async" />
           <div>
             <span class="tag">${tag}</span>
             <h3>${name}</h3>

@@ -6,7 +6,7 @@ const site = "https://www.hdsdrinkware.com";
 const email = "hds.drinkware@gmail.com";
 const whatsapp = "8613994271614";
 const displayPhone = "+86 13994271614";
-const updated = "2026-07-02";
+const updated = "2026-07-10";
 const defaultOgImage = `${site}/assets/hero-premium-custom-drinkware-gift-packaging.jpg`;
 
 const wa = (text) => {
@@ -106,13 +106,13 @@ const guideSeoTitles = {
 const guideFocus = {
   "sourcing-drinkware-for-brazil-brazil": {
     h2: "Navigating Brazil Import Complexity",
-    text: "Importing to Brazil requires precision in tax calculation and logistics planning. With the 2026 Brazilian tax reform, B2B buyers must account for updated IPI and social contribution fees. HDS Drinkware provides verified Sus304 material certifications and optimized bulk packing to ensure your 30,000+ unit projects clear customs smoothly.",
-    bullets: ["Support for large-scale container consolidation (22 x 40HQ monthly capacity).", "Verified Sus304 and BPA-free certifications for Brazilian health standards.", "Customized DDP/DDU logistics consultations for Sao Paulo and Rio de Janeiro ports."],
+    text: "Importing to Brazil requires careful tax, product-documentation and logistics planning. Buyers should verify current taxes, food-contact requirements, importer responsibilities and customs procedures with a licensed broker before confirming an order. HDS can provide available project documents and coordinate packing and shipping information for buyer review.",
+    bullets: ["Discuss container consolidation and carton planning by project.", "Confirm available stainless-steel or BPA-related documentation for the selected product before ordering.", "Compare DDP/DDU, FOB and buyer-forwarder routes for the destination port and delivery address."],
   },
   "2026-us-section-301-tariffs-impact-on-drinkware": {
     h2: "2026 Tariff Impact & Landed Cost Strategy",
-    text: "For 2026, the US Trade Representative (USTR) maintains a 25% Section 301 duty on most Chinese-origin stainless steel and plastic drinkware. For a typical stainless steel bottle with a 3.7% MFN rate, the total duty load is 28.7%. This requires a shift from 'lowest FOB' to 'optimized landed cost' strategies.",
-    bullets: ["HDS Drinkware offers DDP (Delivered Duty Paid) services, handling all tariff payments and customs clearance.", "Precise HS Coding (7323.93.00 / 9617.00.10) ensures you don't overpay duties.", "Direct factory-to-door logistics eliminate unexpected duty bills for Amazon and corporate buyers."],
+    text: "US import duty can include the normal tariff rate plus additional trade measures depending on the final HS classification, product material and country of origin. Rates and exclusions can change, so buyers should verify the current classification and duty treatment with a licensed customs broker instead of relying on a generic percentage.",
+    bullets: ["Compare EXW, FOB, DDU and DDP quotations on the same carton and destination basis.", "Confirm the proposed HS code with the importer or customs broker before shipment.", "Separate product, logo, packaging, duty, freight and local-delivery assumptions in the landed-cost calculation."],
   },
   "amazon-drinkware-sourcing-guide-2026": {
     h2: "Amazon Private Label Sourcing Strategy 2026",
@@ -522,27 +522,6 @@ const productSchema = (page) => ({
     name: "China",
   },
   audience: { "@type": "BusinessAudience", audienceType: page.buyers },
-  offers: {
-    "@type": "Offer",
-    url: `${site}/${page.slug}/`,
-    priceCurrency: "USD",
-    availability: "https://schema.org/InStock",
-    itemCondition: "https://schema.org/NewCondition",
-    businessFunction: "https://schema.org/Sell",
-    priceSpecification: {
-      "@type": "PriceSpecification",
-      priceCurrency: "USD",
-      description: "Quotation based on product type, order quantity, logo method, packaging, sample needs and shipping term."
-    },
-    seller: {
-      "@type": "Organization",
-      name: "Shanxi Huandingsheng Industry and Trade Co., Ltd.",
-      alternateName: "HDS Drinkware",
-      url: site,
-      email,
-      telephone: displayPhone,
-    },
-  },
   additionalProperty: [
     { "@type": "PropertyValue", name: "MOQ", value: "From 200 pcs for selected projects" },
     { "@type": "PropertyValue", name: "Logo Methods", value: "Laser engraving, silk screen printing, UV printing, heat transfer, labels and packaging branding" },
@@ -588,16 +567,6 @@ const serviceSchema = (page) => ({
   },
   areaServed: ["United States", "United Kingdom", "Europe", "Brazil", "Middle East", "Africa"],
   audience: { "@type": "BusinessAudience", audienceType: page.buyers },
-  offers: {
-    "@type": "Offer",
-    availability: "https://schema.org/InStock",
-    businessFunction: "https://schema.org/Sell",
-    priceSpecification: {
-      "@type": "PriceSpecification",
-      priceCurrency: "USD",
-      description: "Quotation based on product type, quantity, logo method, packaging and shipping requirements.",
-    },
-  },
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: `${page.h1} support scope`,
@@ -610,7 +579,9 @@ const serviceSchema = (page) => ({
   },
 });
 
-const primaryLandingSchema = (page) => servicePageSlugs.has(page.slug) ? serviceSchema(page) : productSchema(page);
+// These pages describe configurable B2B sourcing/manufacturing services rather than
+// a single checkout-ready SKU with a public price, so Service is the accurate type.
+const primaryLandingSchema = (page) => serviceSchema(page);
 
 const pageTypeSchema = (page) => ({
   "@context": "https://schema.org",
@@ -658,12 +629,7 @@ const websiteSchema = {
   name: "HDS Drinkware",
   url: `${site}/`,
   publisher: { "@id": `${site}/#organization` },
-  inLanguage: "en",
-  potentialAction: {
-    "@type": "SearchAction",
-    target: `${site}/?q={search_term_string}`,
-    "query-input": "required name=search_term_string"
-  }
+  inLanguage: "en"
 };
 
 function productHeroMedia(page, depth) {
@@ -802,11 +768,35 @@ const customPageDetails = {
   }
 };
 
+function landingFaqs(page) {
+  const customFaqs = customPageDetails[page.slug]?.faq || [];
+  const pageFaqs = [
+    [
+      `What is the MOQ for ${page.h1}?`,
+      `MOQ for selected ${page.h1.toLowerCase()} projects can start from 200 pcs. Final MOQ depends on product style, material, color, logo method, packaging and current supply availability.`,
+    ],
+    [
+      `Which ${page.h1.toLowerCase()} options can HDS quote?`,
+      `HDS can discuss ${page.options} by capacity, material, color, finish, lid, accessories, logo method and packaging requirement.`,
+    ],
+    [
+      `Which materials are available for ${page.h1}?`,
+      `Material options include ${page.material}. The suitable option depends on the target market, use case, compliance request and price range.`,
+    ],
+    [
+      `What should buyers send for a ${page.h1} quotation?`,
+      `Send a product photo or reference link, quantity, logo file, packaging request, destination country and target delivery time. These details help HDS prepare a more relevant quotation.`,
+    ],
+  ];
+
+  return [...customFaqs.slice(0, 2), ...pageFaqs].slice(0, 6);
+}
+
 function landingBody(page) {
   const related = relatedLinks(page.slug);
   const intent = productIntent[page.slug] || ["custom drinkware sourcing", `${page.buyers} comparing logo-ready drinkware options for B2B orders.`, "This page should support a specific sourcing decision rather than duplicate every other drinkware page."];
   const custom = customPageDetails[page.slug];
-  const customFaqHtml = custom && custom.faq ? custom.faq.map(([q, a]) => `<article><h3>${esc(q)}</h3><p>${esc(a)}</p></article>`).join("") : "";
+  const pageFaqs = landingFaqs(page);
 
   const painPointsList = custom && custom.painPoints
     ? custom.painPoints.map((p) => `<li>${esc(p)}</li>`).join("")
@@ -833,7 +823,7 @@ function landingBody(page) {
         <article>
           <span>Production Security</span>
           <h2>Strict On-Site QC &amp; DDP Logistics</h2>
-          <p>Every order undergoes strict 100% double-wall vacuum testing, handle tension testing, and paint adhesion tests. We handle global customs clearance, offering seamless DDP/DDU delivery to your warehouse.</p>
+          <p>Depending on the product and agreed inspection plan, QC can include vacuum checks, handle review, coating adhesion checks, logo inspection and packing review. HDS can also coordinate DDP/DDU shipping discussions for supported destinations.</p>
         </article>
       </section>
       <section class="section landing-content landing-detail">
@@ -842,7 +832,7 @@ function landingBody(page) {
         <article><h2>Buyer Pain Points</h2><ul>${painPointsList}</ul></article>
         <article><h2>Product Options &amp; Styles</h2><p>${esc(page.options)} can be fully customized by capacity, color, finish, and lid accessories. HDS helps buyers compare practical options starting from 200 pcs to minimize upfront inventory costs.</p></article>
         <article><h2>Low MOQ Details</h2><p>Our MOQ starts from 200 pcs for selected custom drinkware styles. This allows Amazon, Shopify, and TikTok Shop sellers to validate demand and test custom brand features before scaling up.</p></article>
-        <article><h2>Custom Material Options</h2><p>Material choices include 304 (18/8) stainless steel for vacuum-insulated double-wall tumblers, high-borosilicate glass, and eco-friendly BPA-free plastic (PP, PC, Tritan). All materials meet food-grade standards and undergo strict temperature retention tests.</p></article>
+        <article><h2>Custom Material Options</h2><p>Material choices can include 304 (18/8) stainless steel for vacuum-insulated double-wall tumblers, high-borosilicate glass, and plastic options such as PP, PC or Tritan-style copolyester. Available food-contact documentation and testing requirements should be confirmed for the selected product and destination market before bulk production.</p></article>
         <article><h2>Custom Logo Methods</h2><p>Branding support includes permanent laser engraving (best for stainless steel), silk screen printing (for simple multi-color logos), UV printing (for gradients and complex artwork), and water/heat transfer printing. We help match the best method to your logo design.</p></article>
         <article><h2>Custom Packaging Options</h2><p>Private label packaging options include standard white/brown boxes, custom color retail boxes with hang tags, premium cardboard gift boxes with custom-shaped foam/pulp inserts, and custom sleeves. Perfect for retail branding and corporate gift sets starting from 200 pcs.</p></article>
         <article><h2>Sample, Production &amp; Shipping Timeline</h2><p>Physical pre-production samples are completed in 5-7 days. Bulk production takes 20-25 days after sample approval. We offer flexible shipping options, including sea/air DDP/DDU with double customs clearance, FOB, and EXW.</p>
@@ -870,7 +860,7 @@ function landingBody(page) {
         <article><h2>What to Prepare Before Requesting a Quote</h2><ul><li>Product reference photo, target capacity, material preference and buyer channel.</li><li>Quantity, with MOQ starting from 200 pcs for selected custom drinkware projects.</li><li>Logo file, logo size, logo position and preferred logo method if known.</li><li>Packaging request, such as standard box, color box, gift box, insert, label or carton marks.</li><li>Destination country, target timeline, sample request and shipping preference such as DDP, DDU, FOB or EXW.</li></ul></article>
       </section>
       ${quoteChecklist(page)}
-      <section class="section landing-faq" aria-label="${esc(page.h1)} FAQ">${commonFaq.map(([q, a]) => `<article><h3>${esc(q)}</h3><p>${esc(a)}</p></article>`).join("")}${customFaqHtml}<article><h3>Who is this page best for?</h3><p>This page is written for ${esc(page.buyers)} who need custom drinkware sourcing, logo customization, packaging support and export coordination from China.</p></article><article><h3>Can HDS support OEM/ODM projects?</h3><p>Yes. HDS can discuss OEM/ODM customization by product type, quantity, logo method, packaging requirements and production feasibility.</p></article></section>
+      <section class="section landing-faq" aria-label="${esc(page.h1)} FAQ">${pageFaqs.map(([q, a]) => `<article><h3>${esc(q)}</h3><p>${esc(a)}</p></article>`).join("")}<article><h3>Who is this page best for?</h3><p>This page is written for ${esc(page.buyers)} who need custom drinkware sourcing, logo customization, packaging support and export coordination from China.</p></article></section>
       <section class="section landing-copy-block"><article><h2>Related Sourcing Guides and Pages</h2><p>${related}</p></article></section>
       <section class="section"><div class="landing-cta-band"><div><h2>${esc(getConversionProfile(page).heading)}</h2><p>${esc(getConversionProfile(page).copy)}</p></div><div class="hero-actions"><a class="button whatsapp" href="${wa(getConversionProfile(page).message)}" target="_blank" rel="noopener">${esc(getConversionProfile(page).primary)}</a><a class="button primary" href="../#inquiry">${esc(getConversionProfile(page).secondary)}</a></div></div></section>`;
 }
@@ -940,7 +930,7 @@ for (const [slug, title, h1, options, buyers, material] of productPages) {
     schemas: [
       breadcrumbSchema([{ name: "Home", url: `${site}/` }, { name: h1, url: `${site}/${slug}/` }]),
       primaryLandingSchema(page),
-      faqSchema(commonFaq),
+      faqSchema(landingFaqs(page)),
     ],
   }));
   allUrls.push(`/${slug}/`);
@@ -1096,7 +1086,19 @@ for (const [slug, title, topic] of guides) {
     depth: 2,
     schemas: [
       breadcrumbSchema([{ name: "Home", url: `${site}/` }, { name: "Sourcing Guides", url: `${site}/sourcing-guides/` }, { name: title, url: `${site}/sourcing-guides/${slug}/` }]),
-      { "@context": "https://schema.org", "@type": "Article", headline: title, author: { "@type": "Organization", name: "HDS Drinkware Sourcing Team" }, dateModified: updated, publisher: { "@type": "Organization", name: "HDS Drinkware" } },
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "@id": `${site}/sourcing-guides/${slug}/#article`,
+        headline: title,
+        url: `${site}/sourcing-guides/${slug}/`,
+        image: [defaultOgImage],
+        mainEntityOfPage: { "@type": "WebPage", "@id": `${site}/sourcing-guides/${slug}/` },
+        author: { "@type": "Organization", name: "HDS Drinkware Sourcing Team", url: `${site}/about-hds-drinkware/` },
+        dateModified: updated,
+        inLanguage: "en",
+        publisher: { "@id": `${site}/#organization` },
+      },
       faqSchema(guide.faq),
     ],
   }));
@@ -1509,7 +1511,7 @@ writeFile("_redirects", `# Canonical URL redirects for retired duplicate paths
 /ru/* /:splat 301
 `);
 
-const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${allUrls.map((u) => `  <url>\n    <loc>${site}${u}</loc>\n    <lastmod>${updated}</lastmod>\n    <changefreq>${u === "/" ? "weekly" : "monthly"}</changefreq>\n    <priority>${u === "/" ? "1.0" : u.startsWith("/sourcing-guides/") && u !== "/sourcing-guides/" ? "0.7" : "0.8"}</priority>\n  </url>`).join("\n")}\n</urlset>\n`;
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${allUrls.map((u) => `  <url>\n    <loc>${site}${u}</loc>\n    <lastmod>${updated}</lastmod>\n  </url>`).join("\n")}\n</urlset>\n`;
 writeFile("sitemap.xml", sitemap);
 
 const imageUrls = [...new Map(
