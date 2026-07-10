@@ -503,54 +503,6 @@ const faqSchema = (faqs) => ({
   })),
 });
 
-const productSchema = (page) => ({
-  "@context": "https://schema.org",
-  "@type": "Product",
-  "@id": `${site}/${page.slug}/#product`,
-  name: page.h1,
-  url: `${site}/${page.slug}/`,
-  sku: `HDS-${page.slug.toUpperCase().replace(/[^A-Z0-9]+/g, "-")}`,
-  mpn: `HDS-${page.slug}`,
-  description: `${page.options} with low MOQ support, logo customization, packaging support, sample support and shipping coordination.`,
-  image: page.images.map(([src]) => absoluteUrl(src)),
-  brand: { "@type": "Brand", name: "HDS Drinkware" },
-  manufacturer: { "@type": "Organization", name: "Shanxi Huandingsheng Industry and Trade Co., Ltd.", url: site },
-  category: "Custom drinkware",
-  material: page.material,
-  countryOfOrigin: {
-    "@type": "Country",
-    name: "China",
-  },
-  audience: { "@type": "BusinessAudience", audienceType: page.buyers },
-  additionalProperty: [
-    { "@type": "PropertyValue", name: "MOQ", value: "From 200 pcs for selected projects" },
-    { "@type": "PropertyValue", name: "Logo Methods", value: "Laser engraving, silk screen printing, UV printing, heat transfer, labels and packaging branding" },
-    { "@type": "PropertyValue", name: "Sample Available", value: "Stock sample or logo sample support before bulk order" },
-    { "@type": "PropertyValue", name: "Packaging Options", value: "Standard box, color box, gift box, insert, label, sleeve, carton marks and bundle packaging" },
-    { "@type": "PropertyValue", name: "OEM/ODM Support", value: "Available by product type, quantity and customization requirement" },
-  ],
-});
-
-const servicePageSlugs = new Set([
-  "promotional-drinkware-supplier",
-  "custom-drinkware-for-amazon-sellers",
-  "custom-drinkware-for-tiktok-shop-sellers",
-  "custom-drinkware-for-shopify-brands",
-  "custom-drinkware-for-corporate-gifts",
-  "custom-drinkware-for-wedding-favors",
-  "custom-drinkware-for-event-gifts",
-  "custom-drinkware-for-distributors",
-  "custom-drinkware-for-promotional-companies",
-  "low-moq-custom-drinkware",
-  "logo-drinkware-manufacturer",
-  "private-label-drinkware-supplier",
-  "oem-drinkware-supplier-china",
-  "wholesale-drinkware-supplier-china",
-  "custom-tumbler-supplier-china",
-  "custom-water-bottle-supplier-china",
-  "drinkware-sourcing-agent-china",
-]);
-
 const serviceSchema = (page) => ({
   "@context": "https://schema.org",
   "@type": "Service",
@@ -716,7 +668,7 @@ const customPageDetails = {
       "Gift distributors and corporate buyers require elegant packaging solutions, custom insert cards, and tissue wrapping to elevate the unboxing experience."
     ],
     materialDetail: "Premium kitchen-grade 18/8 (304) or optional 316 surgical-grade stainless steel inside for ultimate rust resistance. Outer surface finishes include rugged matte powder coatings, sleek metallic finishes, high-gloss gradient sprays, and electroplated accents.",
-    qcDetail: "We perform automated temperature-drop vacuum testing, salt-spray testing for rust resistance, cross-hatch tape tests for paint adhesion, dishwasher-cycle durability tests for logos, and strict SGS-style food-grade compliance audits."
+    qcDetail: "Project-specific QC plans can cover insulation, leakage, surface finish, logo adhesion, packaging and requested compliance documentation. The final inspection scope is confirmed against the selected product and buyer requirements."
   },
   "custom-water-bottles-with-logo": {
     painPoints: [
