@@ -6,7 +6,7 @@ const site = "https://www.hdsdrinkware.com";
 const email = "hds.drinkware@gmail.com";
 const whatsapp = "8613994271614";
 const displayPhone = "+86 13994271614";
-const updated = "2026-07-10";
+const updated = "2026-07-11";
 const defaultOgImage = `${site}/assets/hero-premium-custom-drinkware-gift-packaging.jpg`;
 
 const wa = (text) => {
@@ -541,6 +541,7 @@ const pageTypeSchema = (page) => ({
   name: page.h1,
   url: `${site}/${page.slug}/`,
   description: page.intro,
+  dateModified: updated,
   isPartOf: { "@type": "WebSite", name: "HDS Drinkware", url: site },
   publisher: { "@type": "Organization", name: "HDS Drinkware", url: site },
 });
@@ -590,7 +591,7 @@ function productHeroMedia(page, depth) {
 }
 
 function productImageStrip(page, depth) {
-  return `<section class="section landing-product-visuals" aria-label="${esc(page.h1)} product visuals">${page.images.map(([src, alt]) => `<figure><img src="${mediaSrc(src, depth)}" alt="${esc(alt)}" width="900" height="900" loading="lazy" decoding="async" /><figcaption>${esc(alt)}</figcaption></figure>`).join("")}</section>`;
+  return `<section class="section landing-product-visuals" aria-label="${esc(page.h1)} product visuals">${page.images.map(([src, alt, width = 900, height = 900]) => `<figure><img src="${mediaSrc(src, depth)}" alt="${esc(alt)}" width="${width}" height="${height}" loading="lazy" decoding="async" /><figcaption>${esc(alt)}</figcaption></figure>`).join("")}</section>`;
 }
 
 function quoteChecklist(page) {
@@ -609,6 +610,7 @@ function pageShell({ title, meta, slug, h1, eyebrow, intro, body, schemas, depth
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="${p}assets/favicon.png" />
     <meta name="description" content="${esc(meta)}" />
     <meta name="robots" content="index, follow" />
     <meta name="last-modified" content="${updated}" />
@@ -643,6 +645,12 @@ function pageShell({ title, meta, slug, h1, eyebrow, intro, body, schemas, depth
       </section>
       ${body}
     </main>
+    <footer class="site-footer">
+      <strong>Shanxi Huandingsheng Industry and Trade Co., Ltd.</strong>
+      <span>Custom drinkware sourcing, logo, packaging, sample, QC and shipping coordination for overseas B2B buyers.</span>
+      <span><a href="${p}about-hds-drinkware/">About HDS</a> · <a href="${p}factory-supply-chain/">Supply chain</a> · <a href="${p}quality-control/">Quality control</a> · <a href="${p}contact/">Contact</a></span>
+    </footer>
+    <script src="${p}script.js" defer></script>
   </body>
 </html>
 `;
@@ -651,34 +659,34 @@ function pageShell({ title, meta, slug, h1, eyebrow, intro, body, schemas, depth
 const customPageDetails = {
   "custom-40oz-tumbler-manufacturer": {
     painPoints: [
-      "Marketplace sellers (Amazon, TikTok Shop, Shopify) need high-strength handle attachments (welded and screw-reinforced) to prevent handles from breaking off during shipping or heavy use.",
-      "Ensuring leak-resistant lid mechanisms (such as multi-use rotating straw lids with secure silicone seal gaskets) is critical to prevent splashes during commuting.",
-      "Quality control must verify paint durability and adhesion via cross-hatch tape tests to avoid common coating chipping or peeling issues on powder-coated colors.",
-      "The lower base must have a precise tapered diameter (approx. 7.3cm / 2.87 inches) to fit standard vehicle cup holders, which is a key buying decision for end-consumers.",
-      "Shipping planning must account for bulk carton volume; we coordinate FBA carton marking, barcodes, and custom inner box packing to minimize transit damage and Amazon receiving delays."
+      "Marketplace sellers should confirm handle construction, attachment method and sample performance for the exact 40oz model instead of assuming every handle tumbler uses the same structure.",
+      "Lid design, gasket fit and straw clearance should be checked on a physical sample because leak and splash resistance varies by model.",
+      "Powder-coat color, logo adhesion and surface finish should be approved against a sample and an agreed inspection standard before bulk production.",
+      "Base diameter and overall dimensions should be confirmed from the selected model when cup-holder fit or retail shelf dimensions matter.",
+      "Carton quantity, carton dimensions, gross weight, FBA labels and inner-box protection should be confirmed before comparing landed shipping cost."
     ],
-    materialDetail: "Food-grade 18/8 (304) stainless steel inner lining for excellent durability and copper-plated vacuum insulation, combined with a BPA-free rotating Tritan-style slider lid, ergonomic PP handle with comfortable soft-touch grip, and reusable PP/silicone straw options.",
-    qcDetail: "40oz tumbler QC can include vacuum insulation checks, handle tension review, cross-hatch tape tests for powder coat adhesion, lid leakage testing, and straw clearance inspection to reduce avoidable defects."
+    materialDetail: "Selected models can use an 18/8 (304) stainless steel inner wall with double-wall vacuum construction, plus PP or other food-contact lid, handle, gasket and straw components. Exact steel grade, lid material, coating system and available documentation must be confirmed for the quoted model.",
+    qcDetail: "A project-specific 40oz tumbler inspection plan can cover insulation checks, handle review, coating appearance or adhesion, logo position, lid fit, leakage checks, straw clearance, packing and carton marks. The buyer and HDS should confirm the sample and inspection scope before bulk production."
   },
   "custom-stainless-steel-tumblers": {
     painPoints: [
       "B2B buyers and brands need food-contact documentation discussion by destination market, including FDA, LFGB or California Proposition 65 requirements when applicable.",
-      "High vacuum thermal performance (minimum 12 hours hot / 24 hours cold) must be verified through temperature sensors on the production line.",
-      "Custom branding needs to be durable; logo application (laser engraving, silk screen, UV flatbed, or water transfer) must be tested against dishwashing heat.",
+      "Insulation expectations should be written into the selected model specification and checked using an agreed sample or inspection method.",
+      "Logo durability depends on the surface and decoration method; the buyer should approve a sample and define any abrasion or wash-resistance requirement before bulk production.",
       "Gift distributors and corporate buyers require elegant packaging solutions, custom insert cards, and tissue wrapping to elevate the unboxing experience."
     ],
-    materialDetail: "Premium kitchen-grade 18/8 (304) or optional 316 surgical-grade stainless steel inside for ultimate rust resistance. Outer surface finishes include rugged matte powder coatings, sleek metallic finishes, high-gloss gradient sprays, and electroplated accents.",
+    materialDetail: "Selected products can use 18/8 (304) stainless steel inner walls; other steel grades may be discussed when available for a specific model. Finish options can include powder coating, metallic color, gradient spray or other project-specific surface treatments.",
     qcDetail: "Project-specific QC plans can cover insulation, leakage, surface finish, logo adhesion, packaging and requested compliance documentation. The final inspection scope is confirmed against the selected product and buyer requirements."
   },
   "custom-water-bottles-with-logo": {
     painPoints: [
-      "Gyms, fitness brands, and sports teams need 100% spill-proof lids with secure locking rings and one-click opening mechanisms that survive dropping.",
+      "Gyms, fitness brands and sports teams should confirm the lid structure, lock, gasket and intended leak-resistance test for the selected bottle.",
       "Plastic bottle bodies should use appropriate food-contact material options such as PP, PC, Tritan-style copolyester or PETG, with BPA-free requirements discussed by project.",
-      "Bulk promotional campaigns require durable, cost-effective logo printing that won't scratch off during sports activities or daily hydration.",
+      "Bulk promotional campaigns should approve logo appearance and define any abrasion requirement before production.",
       "Wholesale buyers need accurate carton packaging weight and volume details to calculate DDP/DDU shipping costs and ensure easy warehouse handling."
     ],
-    materialDetail: "Food-safe, BPA-free plastics including ultra-clear Eastman Tritan-style copolyester, lightweight PP for cycling sports, break-resistant PC, and heavy-duty PETG for 64oz large capacity jugs, equipped with durable silicone sports nozzle lids.",
-    qcDetail: "We conduct pressure leak tests, 1.2m drop-impact durability tests, clear measurement scale printing accuracy audits, odor-free hot water chemical leaching evaluations, and strict bulk weight-to-carton-dimension optimization checks."
+    materialDetail: "Available bottle bodies may include PP, PC, PETG or Tritan-style copolyester, with lid and gasket materials varying by model. Food-contact, BPA-free or market-specific documentation requirements must be confirmed for the selected SKU and destination.",
+    qcDetail: "A project inspection plan can cover lid fit, agreed leakage checks, appearance, measurement marks, logo position, accessories, packing and carton information. Drop or chemical testing is arranged only when specified and confirmed for the project."
   },
   "custom-drinkware-gift-sets": {
     painPoints: [
@@ -695,16 +703,16 @@ const customPageDetails = {
       "Small businesses and startups struggle to source high-quality custom drinkware without meeting high minimum order quantities (MOQs) of 1,000+ units.",
       "Coordinating custom logos, specific materials (like stainless steel, glass, or plastic), and private label retail packaging under one low-MOQ shipment can be highly complex.",
       "Hidden setup charges, tooling costs, and complex global customs procedures often prevent buyers from initiating small-batch test orders.",
-      "E-commerce brands need rapid sample approval (within 5-7 days) and reliable DDP shipping to validate their custom branding concept with minimal financial risk."
+      "E-commerce brands need a realistic sample, production and shipping plan to validate a custom branding concept with controlled inventory risk."
     ],
-    materialDetail: "Premium 304 food-grade stainless steel, high-borosilicate glass, or BPA-free eco-friendly plastics (PP, PC, Tritan). Available in a wide variety of double-wall vacuum insulated designs, custom matte/glossy powder coatings, or clear/colored stock.",
-    qcDetail: "Low MOQ quality control focuses on rapid pre-production sample checks, precise laser/print logo alignment, 100% leak-proof and vacuum insulation testing, and secure export carton packaging optimized for cost-effective sea/air DDP logistics.",
+    materialDetail: "Depending on available stock, low-MOQ projects may use stainless steel, borosilicate glass or plastics such as PP, PC or Tritan-style copolyester. Material documentation and finish options are confirmed for the quoted model.",
+    qcDetail: "Low-MOQ quality control can focus on sample approval, logo position, agreed function checks, packing and carton information. The exact inspection and shipping scope is confirmed in the quotation rather than assumed from a generic product page.",
     faq: [
-      ["What is the absolute minimum order quantity (MOQ) for custom-branded drinkware, and can I mix colors?", "The absolute minimum order quantity (MOQ) for custom-branded drinkware starts from 200 pieces per style. While standard factory lines typically require 1,000 to 3,000 pieces to cover machine setup and ink preparation, we group smaller branding runs to accommodate emerging brands. This allows B2B buyers to test the market with 200 pieces, where you can mix up to 2-3 stock colors of the same model with the same custom-branded logo."],
-      ["How can HDS support a low MOQ of 200 pcs while maintaining competitive pricing for small B2B buyers?", "HDS maintains highly competitive unit prices for 200-piece orders by utilizing pre-manufactured blank stock and laser-engraving or single-color screen-printing setups. Standard manufacturing requires custom mold setup and full paint-line runs, which drives up costs for low quantities; by branding existing high-quality stock tumblers, we bypass these massive setup charges. For buyers looking to test their brand logo, this method offers a cost-effective alternative with no custom mold fees, low initial inventory investment, and fast 10-15 day production timelines."],
-      ["Can I get a physical custom logo sample before committing to a 200-piece bulk test order?", "Yes, we provide pre-production physical samples with your custom logo before we proceed with the 200-piece bulk run. Seeing a physical sample is crucial for verifying laser engraving depth or color alignment, ensuring the final bulk output matches your brand guidelines perfectly. Custom branding samples typically take 5 to 7 days to process, and the sample fee can be fully credited back to your bulk order once the 200-piece contract is finalized."],
-      ["What custom branding methods are recommended for low-MOQ orders under 500 pieces?", "For orders under 500 pieces, laser engraving, single-color silk-screen printing, and high-definition UV printing are the most cost-effective and durable options. These methods do not require the expensive film setups or roller molds associated with full-wrap thermal transfer or water transfer printing. Laser engraving is highly recommended for stainless steel tumblers as it has zero setup fees, is extremely durable, and can be completed quickly within a 200-piece MOQ project."],
-      ["Does HDS offer custom packaging options for low MOQ custom drinkware orders, and what are the limits?", "Yes, we provide several custom packaging solutions starting at a low MOQ of 200 pieces. To bypass the high 1,000+ MOQ required for fully custom printed color boxes, we offer custom brand sticker labels on standard boxes or custom cardstock sleeves that wrap around white/brown tuck boxes. These creative packaging methods allow Amazon and Shopify sellers to achieve professional retail-ready presentations for their initial 200-piece test order without inflating their packaging budget."],
+      ["What is the minimum order quantity for custom-branded drinkware, and can colors be mixed?", "Selected stock-based logo projects can start from 200 pieces per style. Whether colors can be mixed depends on available stock, decoration setup and the packaging plan, so the quotation should state the quantity per color."],
+      ["How can a 200-piece custom drinkware project remain practical?", "Low-MOQ projects are often most practical when buyers select an available stock model and use a decoration method that does not require a new mold or a custom production run. HDS confirms the product, setup cost and lead time in the project quotation."],
+      ["Can I request a physical logo sample before a bulk test order?", "Yes. A stock or logo sample can be discussed before bulk production. Timing, sample fee and any credit arrangement depend on the model, artwork and decoration method and must be confirmed in writing."],
+      ["Which branding methods are practical for lower quantities?", "Laser engraving, silk screen, UV printing, labels or packaging branding may be considered, depending on the product surface, artwork and available setup. A sample is recommended before bulk approval."],
+      ["Can low-MOQ orders use custom packaging?", "Standard boxes with labels or sleeves may be more practical for lower quantities. Fully printed boxes, inserts and gift packaging have their own minimums, which should be quoted separately from the drinkware MOQ."],
       ["How does the shipping and customs clearance work for a low MOQ custom drinkware order to the US or Europe?", "HDS can discuss sea DDP (Delivered Duty Paid), air DDP, DDU, FOB or EXW options by destination and project. Under DDP terms where available, the quote is prepared as a landed delivery discussion that includes freight, customs clearance coordination, duty handling and local delivery scope."]
     ]
   },
@@ -713,10 +721,10 @@ const customPageDetails = {
       "New sellers and startups struggle to source custom branded tumblers without being forced into 1,000+ unit MOQs, limiting cash flow and market validation.",
       "Custom color coatings, laser engraving, and retail cardboard boxes are often difficult to coordinate together at a lower entry volume from 200 pcs.",
       "Unclear pricing breakdowns (such as hidden mold fees, setup costs, or shipping markups) can quickly kill a small brand's profitability on initial test orders.",
-      "Sellers need a reliable timeline (typically 5-7 days for samples, 20-25 days for production) to avoid running out of stock during critical launch windows."
+      "Sellers need a written sample, bulk production and shipping timeline to avoid missing a planned launch or restock window."
     ],
-    materialDetail: "Food-grade double-wall 18/8 (304) stainless steel inside, available in matte powder coatings, gradient finishes, or blank stock. Fully compatible with BPA-free slider lids, standard metal straws, and customized card stock packaging from 200 pcs.",
-    qcDetail: "Low-MOQ QC focuses on fast pre-production physical or HD photo sample approval, double-check alignment for laser-engraved logos, 100% vacuum temperature performance tests, and optimized carton weight and dimensions to secure the lowest sea/air DDP shipping rates."
+    materialDetail: "Selected stock models may use double-wall 18/8 (304) stainless steel with powder-coated, gradient or blank finishes. Lid, straw, packaging and available food-contact documentation vary by product and must be confirmed in the quote.",
+    qcDetail: "Low-MOQ QC can focus on sample approval, logo alignment, agreed function checks, packing and carton measurements. Shipping options are compared after final carton data and destination details are available."
   }
 };
 
@@ -768,13 +776,13 @@ function landingBody(page) {
       ${productImageStrip(page, 1)}
       <section class="section landing-intent-map">
         <article>
-          <span>Sourcing Guarantee</span>
-          <h2>Low MOQ &amp; Sample Support</h2>
-          <p>We support small-batch custom logo orders starting from 200 pcs, offering physical pre-production samples to verify custom color coatings and logo engraving quality before bulk manufacturing.</p>
+          <span>Project starting point</span>
+          <h2>Low MOQ &amp; Sample Planning</h2>
+          <p>Selected stock-based custom logo projects can start from 200 pcs. Buyers can request a stock or logo sample to confirm the selected model, finish, logo position and packaging before bulk production.</p>
         </article>
         <article>
-          <span>Production Security</span>
-          <h2>Strict On-Site QC &amp; DDP Logistics</h2>
+          <span>Risk control</span>
+          <h2>Project QC &amp; Shipping Coordination</h2>
           <p>Depending on the product and agreed inspection plan, QC can include vacuum checks, handle review, coating adhesion checks, logo inspection and packing review. HDS can also coordinate DDP/DDU shipping discussions for supported destinations.</p>
         </article>
       </section>
@@ -787,7 +795,7 @@ function landingBody(page) {
         <article><h2>Custom Material Options</h2><p>Material choices can include 304 (18/8) stainless steel for vacuum-insulated double-wall tumblers, high-borosilicate glass, and plastic options such as PP, PC or Tritan-style copolyester. Available food-contact documentation and testing requirements should be confirmed for the selected product and destination market before bulk production.</p></article>
         <article><h2>Custom Logo Methods</h2><p>Branding support includes permanent laser engraving (best for stainless steel), silk screen printing (for simple multi-color logos), UV printing (for gradients and complex artwork), and water/heat transfer printing. We help match the best method to your logo design.</p></article>
         <article><h2>Custom Packaging Options</h2><p>Private label packaging options include standard white/brown boxes, custom color retail boxes with hang tags, premium cardboard gift boxes with custom-shaped foam/pulp inserts, and custom sleeves. Perfect for retail branding and corporate gift sets starting from 200 pcs.</p></article>
-        <article><h2>Sample, Production &amp; Shipping Timeline</h2><p>Physical pre-production samples are completed in 5-7 days. Bulk production takes 20-25 days after sample approval. We offer flexible shipping options, including sea/air DDP/DDU with double customs clearance, FOB, and EXW.</p>
+        <article><h2>Sample, Production &amp; Shipping Timeline</h2><p>Stock samples can move quickly when available; logo and packaging samples require artwork and material confirmation. Bulk timing is quoted after the product, quantity, finish and packaging are fixed. DDP, DDU, FOB and EXW options can be discussed by destination and project.</p>
           `
           : `
         <article><h2>Buyer Pain Points</h2><ul>${painPointsList}</ul></article>
@@ -803,6 +811,18 @@ function landingBody(page) {
         <div class="section-heading"><p class="eyebrow">Product comparison</p><h2>Product Comparison Table</h2></div>
         <div class="landing-table-wrap"><table class="landing-table"><thead><tr><th>Option</th><th>Best For</th><th>Customization Focus</th><th>Buyer Notes</th></tr></thead><tbody><tr><td>Entry test order</td><td>New sellers and first projects</td><td>Stock color, simple logo, standard packing</td><td>Useful when the buyer needs to validate demand with lower inventory pressure.</td></tr><tr><td>Private label order</td><td>${esc(page.buyers)}</td><td>Logo, color, packaging, barcode and carton marks</td><td>Better for buyers who need a repeatable product line.</td></tr><tr><td>Gift packaging order</td><td>Gift companies and corporate buyers</td><td>Gift box, insert, card, tote bag and bundle planning</td><td>Presentation and sample approval should be confirmed early.</td></tr><tr><td>Wholesale repeat order</td><td>Distributors and wholesale buyers</td><td>Stable product, mixed colors, cartons and shipping plan</td><td>Best when reorder timing and carton data matter.</td></tr></tbody></table></div>
       </section>
+${page.slug === "custom-40oz-tumbler-manufacturer" ? `
+      <section class="section">
+        <div class="section-heading"><p class="eyebrow">Buyer verification</p><h2>40oz Tumbler Details to Confirm Before Ordering</h2><p>This checklist separates facts that should be verified for the selected SKU from general marketing claims.</p></div>
+        <div class="landing-table-wrap"><table class="landing-table"><thead><tr><th>Decision</th><th>Confirm in Quote</th><th>Verify Before Bulk</th></tr></thead><tbody>
+          <tr><td>Material</td><td>Inner-wall steel grade, outer material, lid and gasket material</td><td>Specification sheet or available supplier documentation for the quoted model</td></tr>
+          <tr><td>Fit and dimensions</td><td>Capacity, height, base diameter, lid diameter and handle clearance</td><td>Physical sample measurements</td></tr>
+          <tr><td>Logo</td><td>Method, size, position, color count and artwork format</td><td>Logo sample or approved production proof</td></tr>
+          <tr><td>Performance</td><td>Agreed insulation, lid-fit, leakage and handle checks</td><td>Signed sample and project-specific inspection checklist</td></tr>
+          <tr><td>Packaging</td><td>Inner box, accessories, barcode, carton quantity and carton marks</td><td>Packaging sample or packing photo before shipment</td></tr>
+          <tr><td>Landed cost</td><td>Product, logo, packaging, sample and freight shown separately</td><td>Final carton dimensions, gross weight, destination and Incoterm</td></tr>
+        </tbody></table></div>
+      </section>` : ""}
       <section class="section landing-content landing-detail">
         <article><h2>Logo Method Comparison Table</h2><div class="landing-table-wrap"><table class="landing-table"><thead><tr><th>Method</th><th>Best Use</th><th>Strength</th><th>Notes</th></tr></thead><tbody><tr><td>Laser engraving</td><td>Stainless steel and premium gifts</td><td>Durable, clean and professional</td><td>Good for corporate and private label positioning.</td></tr><tr><td>Silk screen printing</td><td>Simple logos and larger runs</td><td>Clear and cost-effective</td><td>Works best with simpler artwork.</td></tr><tr><td>UV printing</td><td>Color logos and detailed artwork</td><td>Better visual detail</td><td>Sample review is recommended before bulk order.</td></tr><tr><td>Label or packaging branding</td><td>Fast tests and gift sets</td><td>Flexible and practical</td><td>Useful when buyers want branding without complex setup.</td></tr></tbody></table></div></article>
         <article><h2>Packaging Options Table</h2><div class="landing-table-wrap"><table class="landing-table"><thead><tr><th>Packaging</th><th>Best For</th><th>Support Details</th></tr></thead><tbody><tr><td>Standard box</td><td>Samples and wholesale orders</td><td>Basic protection and practical carton packing.</td></tr><tr><td>Color box</td><td>Amazon, Shopify and retail channels</td><td>Can support barcode, brand information and product presentation.</td></tr><tr><td>Gift box</td><td>Corporate gifts and holiday programs</td><td>Can coordinate inserts, cards, sleeves and custom box print.</td></tr><tr><td>Custom bundle packaging</td><td>Gift companies and promotional buyers</td><td>Can combine drinkware, cards, tote bags, labels and carton marks.</td></tr></tbody></table></div></article>
@@ -841,6 +861,7 @@ function writeNoindexCanonicalPage(file, targetPath, title, description) {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
     <meta name="description" content="${esc(description)}" />
     <meta name="robots" content="noindex, follow" />
     <meta http-equiv="refresh" content="0; url=${target}" />
@@ -1108,7 +1129,7 @@ const infoPages = [
     title: "About HDS Drinkware",
     h1: "About HDS Drinkware",
     intro: "HDS Drinkware belongs to Shanxi Huandingsheng Industry and Trade Co., Ltd. We provide China-based custom drinkware sourcing and OEM/ODM support for Amazon sellers, gift companies, distributors and wholesale buyers.",
-    images: [["assets/trade-show-buyers.png", "International buyers discussing custom drinkware sourcing"], ["assets/trust-proof/sample-cases.jpg", "Custom drinkware sample cases for buyer review"], ["assets/trust-proof/logo-customization.jpg", "Custom logo tumbler sample before bulk order"]],
+    images: [["assets/trade-show-buyers.png", "International buyers discussing custom drinkware sourcing", 550, 330], ["assets/trust-proof/sample-cases.jpg", "Custom drinkware sample cases for buyer review"], ["assets/trust-proof/logo-customization.jpg", "Custom logo tumbler sample before bulk order"]],
     sections: [
       ["What HDS Does", "HDS helps overseas buyers compare custom drinkware options, prepare quotes, review samples, confirm logo methods, plan packaging and coordinate export details. The work is practical: product matching, supplier communication, order follow-up and buyer-side preparation."],
       ["Who We Serve", "Typical buyers include Amazon sellers, TikTok Shop sellers, Shopify brands, corporate gift buyers, promotional companies, distributors and wholesale importers. These buyers usually need low MOQ testing, repeatable product options, clear samples and fast communication."],
@@ -1122,7 +1143,7 @@ const infoPages = [
     title: "Factory and Supply Chain Resources",
     h1: "Factory and Supply Chain Resources for Custom Drinkware",
     intro: "HDS coordinates factory and supply chain resources for custom drinkware projects, including product matching, sampling, production follow-up, packaging and shipping support.",
-    images: [["assets/factory-workshop.png", "Drinkware workshop and packing area"], ["assets/trust-proof/production-line.jpg", "Drinkware production line for custom tumbler orders"], ["assets/factory-machines.png", "Automated drinkware production equipment"]],
+    images: [["assets/factory-workshop.jpg", "Drinkware workshop and packing area", 1600, 902], ["assets/trust-proof/production-line.jpg", "Drinkware production line for custom tumbler orders"], ["assets/factory-machines.jpg", "Automated drinkware production equipment", 1200, 676]],
     sections: [
       ["Supply Chain Role", "HDS helps buyers connect product demand with suitable drinkware production resources. The team compares product type, material, capacity, lid, surface finish, logo method, packaging and order quantity before recommending a path."],
       ["Production Coordination", "Production coordination covers sample confirmation, logo placement, color and finish discussion, packaging details, carton marks and order follow-up. This is especially important for buyers who need repeat orders rather than a one-time sample."],
@@ -1194,7 +1215,7 @@ const infoPages = [
     title: "Contact HDS Drinkware",
     h1: "Contact HDS Drinkware",
     intro: "Contact HDS Drinkware for custom tumblers, water bottles, sports bottles, coffee cups, promotional drinkware and gift drinkware set quotations.",
-    images: [["assets/trade-show-buyers.png", "International buyers discussing custom drinkware products"], ["assets/trust-proof/sample-cases.jpg", "Custom drinkware samples for quote discussion"], ["assets/trust-proof/shipping-cartons.jpg", "Carton packing information for quote preparation"]],
+    images: [["assets/trade-show-buyers.png", "International buyers discussing custom drinkware products", 550, 330], ["assets/trust-proof/sample-cases.jpg", "Custom drinkware samples for quote discussion"], ["assets/trust-proof/shipping-cartons.jpg", "Carton packing information for quote preparation"]],
     sections: [
       ["Contact Details", `Email: ${email}. WhatsApp: ${displayPhone}. Buyers can send product photos, screenshots, catalog references or rough project ideas for the first discussion.`],
       ["Fast Quote Information", "For a faster quote, share product photo, quantity, logo requirement, packaging request, destination country, target timeline and buyer channel. If the product is not fixed yet, share target price range and use case."],
@@ -1397,7 +1418,7 @@ for (const caseStudy of caseStudies) {
   allUrls.push(`/case-studies/${caseStudy.slug}/`);
 }
 
-writeFile("404.html", `<!doctype html><html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="robots" content="noindex, follow" /><title>Page Not Found | HDS Drinkware</title><link rel="stylesheet" href="/styles.css" /></head><body class="landing-page">${header(0)}<main><section class="landing-hero"><p class="eyebrow">404</p><h1>Page Not Found</h1><p>The page may have moved. You can return to HDS Drinkware sourcing pages, view the product catalog, or contact us on WhatsApp for a quote.</p><div class="hero-actions"><a class="button primary" href="/">Return Home</a><a class="button secondary" href="/#catalog">View Product Catalog</a><a class="button whatsapp" href="${wa("Hello HDS Drinkware, I need help finding a custom drinkware product page.")}" target="_blank" rel="noopener">Get Quote on WhatsApp</a></div></section></main></body></html>`);
+writeFile("404.html", `<!doctype html><html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="icon" type="image/png" href="/assets/favicon.png" /><meta name="robots" content="noindex, follow" /><title>Page Not Found | HDS Drinkware</title><link rel="stylesheet" href="/styles.css" /></head><body class="landing-page">${header(0)}<main><section class="landing-hero"><p class="eyebrow">404</p><h1>Page Not Found</h1><p>The page may have moved. You can return to HDS Drinkware sourcing pages, view the product catalog, or contact us on WhatsApp for a quote.</p><div class="hero-actions"><a class="button primary" href="/">Return Home</a><a class="button secondary" href="/#catalog">View Product Catalog</a><a class="button whatsapp" href="${wa("Hello HDS Drinkware, I need help finding a custom drinkware product page.")}" target="_blank" rel="noopener">Get Quote on WhatsApp</a></div></section></main></body></html>`);
 
 writeFile("robots.txt", `# HDS Drinkware crawler policy
 # Search engines and AI answer engines may crawl public pages for indexing,

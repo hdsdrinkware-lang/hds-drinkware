@@ -1496,6 +1496,7 @@ h3 {
 }
 
 .landing-content article {
+  min-width: 0;
   min-height: 230px;
   padding: 24px;
   background: var(--white);
@@ -1860,6 +1861,12 @@ h3 {
 
 .site-footer strong {
   color: var(--white);
+}
+
+.site-footer a {
+  color: var(--white);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
 }
 
 .whatsapp-widget {
