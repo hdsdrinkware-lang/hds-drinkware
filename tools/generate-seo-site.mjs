@@ -6,7 +6,7 @@ const site = "https://www.hdsdrinkware.com";
 const email = "hds.drinkware@gmail.com";
 const whatsapp = "8613994271614";
 const displayPhone = "+86 13994271614";
-const updated = "2026-07-11";
+const updated = "2026-07-18";
 const defaultOgImage = `${site}/assets/hero-premium-custom-drinkware-gift-packaging.jpg`;
 
 const wa = (text) => {
@@ -26,7 +26,7 @@ const absoluteUrl = (src) => isAbsoluteUrl(src) ? src : `${site}/${src.replace(/
 const mediaSrc = (src, depth) => isAbsoluteUrl(src) ? src : `${"../".repeat(depth)}${src}`;
 
 const productPages = [
-  ["custom-40oz-tumbler-manufacturer", "Custom 40oz Tumbler Manufacturer China", "Custom 40oz Tumbler Manufacturer for Marketplace Sellers and Gift Buyers", "40oz handle tumblers, straw tumblers, gradient tumblers and rhinestone gift tumblers", "Amazon sellers, TikTok Shop sellers, Shopify brands, gift companies and distributors", "stainless steel, powder coated stainless steel and decorated tumbler options"],
+  ["custom-40oz-tumbler-manufacturer", "Custom 40oz Tumbler Supplier China", "Custom 40oz Tumbler Supplier for Low MOQ Logo Orders", "40oz handle tumblers, straw tumblers, gradient tumblers and rhinestone gift tumblers", "Amazon sellers, TikTok Shop sellers, Shopify brands, gift companies and distributors", "stainless steel, powder coated stainless steel and decorated tumbler options"],
   ["custom-stainless-steel-tumblers", "Custom Stainless Steel Tumblers Manufacturer", "Custom Stainless Steel Tumblers with Logo for Wholesale and Gift Buyers", "vacuum insulated tumblers, travel cups, coffee tumblers and stainless steel drinkware", "Amazon sellers, corporate gift buyers, distributors and wholesale buyers", "304 stainless steel inner options, powder coating, metallic finish and gradient color"],
   ["custom-water-bottles-with-logo", "Custom Water Bottles with Logo Supplier", "Custom Water Bottles with Logo for E-commerce, Events and Wholesale", "PC water bottles, sports bottles, 64oz bottles, kids bottles and daily hydration bottles", "fitness brands, schools, promotional buyers, Amazon sellers and wholesalers", "PC, PP, PETG, Tritan-style plastic options and stainless steel bottle options"],
   ["custom-plastic-water-bottles", "Custom Plastic Water Bottles Supplier China", "Custom Plastic Water Bottles with Logo and Packaging Support", "PC bottles, PP bottles, PETG bottles, straw bottles, kids bottles and promotional bottles", "schools, fitness programs, event buyers, social commerce sellers and promotional companies", "PC, PP, PETG and Tritan-style plastic options by project"],
@@ -54,10 +54,10 @@ const productPages = [
   ["drinkware-sourcing-agent-china", "Drinkware Sourcing Agent China", "Drinkware Sourcing Agent China for Custom Drinkware Buyers", "sourcing support for tumblers, bottles, coffee cups, packaging and shipping coordination", "overseas buyers, Amazon sellers, gift companies and distributors", "multi-factory supply chain resources across stainless steel and plastic drinkware"],
   ["low-moq-custom-tumblers-with-logo", "Low MOQ Custom Tumblers with Logo", "Low MOQ Custom Tumblers with Logo for Retailers and Brands", "low MOQ custom tumblers, logo engraving, wholesale tumblers", "retailers, online brands, startups and gift buyers", "304 stainless steel, vacuum insulated wall, powder coating and custom gift box options"],
   ["custom-water-bottles-for-corporate-gifts", "Custom Water Bottles for Corporate Gifts", "Custom Water Bottles for Corporate Gifts, Conferences and Events", "corporate logo water bottles, custom sports bottles, promotional hydration cups", "corporate HR buyers, event organizers, brand managers and gift companies", "BPA-free plastic, double-wall stainless steel and custom box solutions"],
-  ["private-label-stainless-steel-tumblers-china", "Private Label Stainless Steel Tumblers China", "Private Label Stainless Steel Tumblers from China Manufacturer", "private label tumblers, custom logo insulated cups, China supplier", "Shopify DTC brands, Amazon sellers, wholesalers and distributors", "304 / 316 surgical stainless steel, double-wall vacuum, custom packaging"],
+  ["private-label-stainless-steel-tumblers-china", "Private Label Stainless Steel Tumblers China", "Private Label Stainless Steel Tumblers from China Supplier", "private label tumblers, custom logo insulated cups, China supplier", "Shopify DTC brands, Amazon sellers, wholesalers and distributors", "selected 304 or 316 stainless steel options, double-wall vacuum structures and custom packaging, subject to the quoted model"],
   ["custom-tumbler-packaging-guide", "Custom Tumbler Packaging Guide", "Custom Tumbler Packaging Guide for E-commerce and Gift Brands", "custom tumbler boxes, retail packaging, FBA barcode carton markings", "Amazon sellers, Shopify brands, gift agencies and distributors", "paperboard gift box, custom printed color boxes, cardboard inserts and cardboard dividers"],
   ["ddp-shipping-for-custom-drinkware-orders", "DDP Shipping for Custom Drinkware Orders", "DDP and DDU Shipping Support for Custom Drinkware Buyers", "DDP shipping, customs clearance, door-to-door freight, container consolidation", "global importers, Amazon FBA sellers, gift buyers and wholesale distributors", "door-to-door duty-paid sea, air, and train freight coordination"],
-  ["custom-drinkware-quality-control-checklist", "Custom Drinkware Quality Control Checklist", "Custom Drinkware Quality Control Checklist for B2B Sourcing", "drinkware QC inspection checklist, food-safety certification, cross-hatch tape tests", "overseas brands, B2B importers, QA managers and purchasing agents", "strict ISO 9001-aligned incoming, in-process, and pre-shipment auditing rules"],
+  ["custom-drinkware-quality-control-checklist", "Custom Drinkware Quality Control Checklist", "Custom Drinkware Quality Control Checklist for B2B Sourcing", "drinkware QC inspection checklist, food-contact documentation discussion and coating adhesion checks", "overseas brands, B2B importers, QA managers and purchasing agents", "project-specific incoming, in-process and pre-shipment inspection checkpoints agreed with the buyer"],
   ["custom-drinkware-gift-set-ideas-for-wholesale-buyers", "Drinkware Gift Set Ideas for Wholesale Buyers", "Curated Custom Drinkware Gift Set Ideas for Wholesale and B2B Buyers", "custom drinkware gift sets, wholesale gift bundles, retail gift packaging", "corporate HR teams, gift distributors, wedding planners and brand agencies", "premium gift boxes, canvas tote bags, custom cardboard inserts and matching cards"],
 ];
 
@@ -326,14 +326,14 @@ const productMedia = {
     ["assets/trust-proof/shipping-cartons.jpg", "Custom drinkware shipping cartons for export coordination"],
   ],
   "low-moq-custom-tumblers-with-logo": [
-    ["https://sc02.alicdn.com/kf/H8a8ddd94712e422fbc822ac72646a077w.jpg", "Low MOQ custom logo tumblers packaged and labeled for shipping"],
+    ["assets/trust-proof/shipping-cartons.jpg", "Low MOQ custom logo tumblers packaged and labeled for shipping"],
     ["assets/catalog/40oz-ice-tumbler.jpg", "Custom 40oz tumblers with logo sample"],
     ["assets/trust-proof/packaging.jpg", "Logo tumblers packed in individual retail boxes"]
   ],
   "ddp-shipping-for-custom-drinkware-orders": [
-    ["https://sc02.alicdn.com/kf/Hc2dd8ffcd4ec4f529fce437a0ecd93deM.jpg", "Full container cargo truck with HMM container ready for DDP export delivery"],
-    ["https://sc02.alicdn.com/kf/Hd4c80ddf2a684a77a6d8d966173716a4r.jpg", "Pallets of custom drinkware cartons labeled and ready for container loading"],
-    ["https://sc02.alicdn.com/kf/H8a8ddd94712e422fbc822ac72646a077w.jpg", "FBA-compliant carton packing in delivery truck"]
+    ["assets/trust-proof/shipping-cartons.jpg", "Custom drinkware cartons prepared for export delivery"],
+    ["assets/packing.webp", "Custom drinkware cartons prepared for packing and shipment"],
+    ["assets/trust-proof/packaging.jpg", "Carton packing review for marketplace delivery"]
   ],
 };
 
@@ -554,12 +554,13 @@ const organizationSchema = {
   "@id": `${site}/#organization`,
   name: "Shanxi Huandingsheng Industry and Trade Co., Ltd.",
   alternateName: "HDS Drinkware",
+  legalName: "Shanxi Huandingsheng Industry and Trade Co., Ltd.",
   url: `${site}/`,
   email,
   telephone: displayPhone,
   logo: `${site}/assets/company-logo.png`,
   image: defaultOgImage,
-  description: "China custom drinkware OEM/ODM sourcing partner for B2B buyers, including custom tumblers, water bottles, coffee cups, gift sets, logo decoration, packaging, samples, QC and DDP/DDU shipping support.",
+  description: "China-based custom drinkware supplier and OEM/ODM sourcing partner for B2B buyers, coordinating tumblers, bottles, coffee cups, gift sets, logo decoration, packaging, samples, project QC and export shipping.",
   address: {
     "@type": "PostalAddress",
     streetAddress: "No. 2402, 24th Floor, Building 8, Wanguocheng, No. 16, Changfeng West Street",
@@ -628,7 +629,7 @@ function pageShell({ title, meta, slug, h1, eyebrow, intro, body, schemas, depth
     <meta name="twitter:description" content="${esc(meta)}" />
     <meta name="twitter:image" content="${defaultOgImage}" />
     <title>${esc(title)}</title>
-    <link rel="stylesheet" href="${p}styles.css" />
+    <link rel="stylesheet" href="${p}styles.css?v=20260718" />
     ${jsonLd(organizationSchema, websiteSchema, ...schemas)}
   </head>
   <body class="landing-page">
@@ -644,6 +645,9 @@ function pageShell({ title, meta, slug, h1, eyebrow, intro, body, schemas, depth
         ${heroMedia}
       </section>
       ${body}
+      <aside class="content-review-note" aria-label="Content ownership and review">
+        <strong>Content owner:</strong> HDS Drinkware Sourcing Team. <strong>Last reviewed:</strong> ${updated}. Product, compliance, inspection, timing and shipping details are confirmed for each quoted SKU and destination.
+      </aside>
     </main>
     <footer class="site-footer">
       <strong>Shanxi Huandingsheng Industry and Trade Co., Ltd.</strong>
@@ -776,14 +780,14 @@ function landingBody(page) {
       ${productImageStrip(page, 1)}
       <section class="section landing-intent-map">
         <article>
-          <span>Project starting point</span>
-          <h2>Low MOQ &amp; Sample Planning</h2>
-          <p>Selected stock-based custom logo projects can start from 200 pcs. Buyers can request a stock or logo sample to confirm the selected model, finish, logo position and packaging before bulk production.</p>
+          <span>Page focus</span>
+          <h2>${esc(cap(intent[0]))}</h2>
+          <p>${esc(intent[1])}</p>
         </article>
         <article>
-          <span>Risk control</span>
-          <h2>Project QC &amp; Shipping Coordination</h2>
-          <p>Depending on the product and agreed inspection plan, QC can include vacuum checks, handle review, coating adhesion checks, logo inspection and packing review. HDS can also coordinate DDP/DDU shipping discussions for supported destinations.</p>
+          <span>Intent boundary</span>
+          <h2>When to Use This Page</h2>
+          <p>${esc(intent[2])} Selected stock-based logo projects can start from 200 pcs; final MOQ and scope are confirmed in the quotation.</p>
         </article>
       </section>
       <section class="section landing-content landing-detail">
@@ -812,6 +816,17 @@ function landingBody(page) {
         <div class="landing-table-wrap"><table class="landing-table"><thead><tr><th>Option</th><th>Best For</th><th>Customization Focus</th><th>Buyer Notes</th></tr></thead><tbody><tr><td>Entry test order</td><td>New sellers and first projects</td><td>Stock color, simple logo, standard packing</td><td>Useful when the buyer needs to validate demand with lower inventory pressure.</td></tr><tr><td>Private label order</td><td>${esc(page.buyers)}</td><td>Logo, color, packaging, barcode and carton marks</td><td>Better for buyers who need a repeatable product line.</td></tr><tr><td>Gift packaging order</td><td>Gift companies and corporate buyers</td><td>Gift box, insert, card, tote bag and bundle planning</td><td>Presentation and sample approval should be confirmed early.</td></tr><tr><td>Wholesale repeat order</td><td>Distributors and wholesale buyers</td><td>Stable product, mixed colors, cartons and shipping plan</td><td>Best when reorder timing and carton data matter.</td></tr></tbody></table></div>
       </section>
 ${page.slug === "custom-40oz-tumbler-manufacturer" ? `
+      <section class="section landing-copy-block answer-first">
+        <article>
+          <p class="eyebrow">Direct answer</p>
+          <h2>Can HDS Supply Custom 40oz Tumblers from 200 Pieces?</h2>
+          <p>Yes. Selected stock-model 40oz tumblers can start from 200 pieces with a simple logo and standard packaging. The confirmed MOQ depends on color allocation, decoration method, box design and current stock. Buyers should approve the exact handle, lid, coating, logo position and packing sample before bulk production.</p>
+        </article>
+        <article>
+          <h2>Fastest Route to a Comparable Quote</h2>
+          <p>Send one reference photo, required quantity, destination country, logo file and packaging plan. HDS will separate the product, decoration, sample, packaging and shipping scope so buyers can compare like-for-like landed cost instead of a headline unit price.</p>
+        </article>
+      </section>
       <section class="section">
         <div class="section-heading"><p class="eyebrow">Buyer verification</p><h2>40oz Tumbler Details to Confirm Before Ordering</h2><p>This checklist separates facts that should be verified for the selected SKU from general marketing claims.</p></div>
         <div class="landing-table-wrap"><table class="landing-table"><thead><tr><th>Decision</th><th>Confirm in Quote</th><th>Verify Before Bulk</th></tr></thead><tbody>
@@ -822,13 +837,22 @@ ${page.slug === "custom-40oz-tumbler-manufacturer" ? `
           <tr><td>Packaging</td><td>Inner box, accessories, barcode, carton quantity and carton marks</td><td>Packaging sample or packing photo before shipment</td></tr>
           <tr><td>Landed cost</td><td>Product, logo, packaging, sample and freight shown separately</td><td>Final carton dimensions, gross weight, destination and Incoterm</td></tr>
         </tbody></table></div>
+      </section>
+      <section class="section">
+        <div class="section-heading"><p class="eyebrow">MOQ decision table</p><h2>40oz Tumbler Order Paths</h2><p>These are planning routes, not universal price promises. The written quotation controls the final scope.</p></div>
+        <div class="landing-table-wrap"><table class="landing-table"><thead><tr><th>Order Path</th><th>Typical Starting Point</th><th>Best Fit</th><th>Main Cost Drivers</th></tr></thead><tbody>
+          <tr><td>Stock model + simple logo</td><td>From 200 pcs on selected models</td><td>Market tests and promotional orders</td><td>Color allocation, logo position, setup and standard box</td></tr>
+          <tr><td>Private-label retail pack</td><td>Confirmed after artwork and box review</td><td>Amazon, Shopify and distributor programs</td><td>Printed box MOQ, barcode, insert, carton size and proofing</td></tr>
+          <tr><td>Custom color or finish</td><td>Model- and coating-dependent</td><td>Established brands and repeat orders</td><td>Pantone matching, coating setup, sample approval and color quantity</td></tr>
+          <tr><td>New mold or structural change</td><td>Project-specific</td><td>Differentiated product development</td><td>Tooling, engineering review, testing and longer development timing</td></tr>
+        </tbody></table></div>
       </section>` : ""}
       <section class="section landing-content landing-detail">
         <article><h2>Logo Method Comparison Table</h2><div class="landing-table-wrap"><table class="landing-table"><thead><tr><th>Method</th><th>Best Use</th><th>Strength</th><th>Notes</th></tr></thead><tbody><tr><td>Laser engraving</td><td>Stainless steel and premium gifts</td><td>Durable, clean and professional</td><td>Good for corporate and private label positioning.</td></tr><tr><td>Silk screen printing</td><td>Simple logos and larger runs</td><td>Clear and cost-effective</td><td>Works best with simpler artwork.</td></tr><tr><td>UV printing</td><td>Color logos and detailed artwork</td><td>Better visual detail</td><td>Sample review is recommended before bulk order.</td></tr><tr><td>Label or packaging branding</td><td>Fast tests and gift sets</td><td>Flexible and practical</td><td>Useful when buyers want branding without complex setup.</td></tr></tbody></table></div></article>
         <article><h2>Packaging Options Table</h2><div class="landing-table-wrap"><table class="landing-table"><thead><tr><th>Packaging</th><th>Best For</th><th>Support Details</th></tr></thead><tbody><tr><td>Standard box</td><td>Samples and wholesale orders</td><td>Basic protection and practical carton packing.</td></tr><tr><td>Color box</td><td>Amazon, Shopify and retail channels</td><td>Can support barcode, brand information and product presentation.</td></tr><tr><td>Gift box</td><td>Corporate gifts and holiday programs</td><td>Can coordinate inserts, cards, sleeves and custom box print.</td></tr><tr><td>Custom bundle packaging</td><td>Gift companies and promotional buyers</td><td>Can combine drinkware, cards, tote bags, labels and carton marks.</td></tr></tbody></table></div></article>
       </section>
       <section class="section landing-copy-block">
-        <article><h2>Buyer Use Cases</h2><p>${esc(page.h1)} is suitable for ${esc(page.buyers)}. Amazon sellers may use low MOQ orders to test color demand and listing response. TikTok Shop sellers may focus on visual product styles and fast samples. Shopify brands often care about private label packaging and repeat order consistency. Gift companies and corporate buyers usually need logo approval, gift box planning and event timing. Distributors need stable product options, carton information and shipping coordination. HDS supports these buyers with sourcing, OEM/ODM customization, packaging coordination and sample support before bulk order.</p></article>
+        <article><h2>Buyer Use Cases</h2><p>${esc(page.h1)} is intended for ${esc(page.buyers)}. ${esc(intent[1])} HDS uses the buyer's channel, quantity, destination and launch timing to narrow the product, sample, packaging and shipping route.</p></article>
         <article><h2>What to Prepare Before Requesting a Quote</h2><ul><li>Product reference photo, target capacity, material preference and buyer channel.</li><li>Quantity, with MOQ starting from 200 pcs for selected custom drinkware projects.</li><li>Logo file, logo size, logo position and preferred logo method if known.</li><li>Packaging request, such as standard box, color box, gift box, insert, label or carton marks.</li><li>Destination country, target timeline, sample request and shipping preference such as DDP, DDU, FOB or EXW.</li></ul></article>
       </section>
       ${quoteChecklist(page)}
@@ -850,8 +874,16 @@ function relatedLinks(slug) {
 }
 
 function writeFile(file, content) {
+  const normalizedContent = content
+    .replaceAll("HDS Drinkware is a China custom drinkware OEM/ODM sourcing partner", "HDS Drinkware is a China-based custom drinkware supplier and OEM/ODM sourcing partner")
+    .replaceAll("a China-based custom drinkware OEM/ODM sourcing partner", "a China-based custom drinkware supplier and OEM/ODM sourcing partner")
+    .replaceAll("HDS Drinkware is a China-based custom drinkware OEM/ODM sourcing and export coordination partner", "HDS Drinkware is the export brand of Shanxi Huandingsheng Industry and Trade Co., Ltd., a China-based custom drinkware supplier and OEM/ODM sourcing and export coordination partner")
+    .replaceAll("HDS Drinkware is a China custom drinkware OEM/ODM supplier", "HDS Drinkware is a China-based custom drinkware supplier and OEM/ODM sourcing partner")
+    .replaceAll("Custom drinkware manufacturer in China with low MOQ", "China custom drinkware supplier and OEM/ODM sourcing partner with low MOQ")
+    .replaceAll("Custom 40oz tumbler manufacturing page", "Custom 40oz tumbler supplier page")
+    .replaceAll("B2B drinkware case studies for", "Representative B2B drinkware planning scenarios for");
   fs.mkdirSync(path.dirname(path.join(root, file)), { recursive: true });
-  fs.writeFileSync(path.join(root, file), content);
+  fs.writeFileSync(path.join(root, file), normalizedContent);
 }
 
 function writeNoindexCanonicalPage(file, targetPath, title, description) {
@@ -867,7 +899,7 @@ function writeNoindexCanonicalPage(file, targetPath, title, description) {
     <meta http-equiv="refresh" content="0; url=${target}" />
     <link rel="canonical" href="${target}" />
     <title>${esc(title)} | HDS Drinkware</title>
-    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/styles.css?v=20260718" />
   </head>
   <body class="landing-page">
     ${header(0)}
@@ -890,7 +922,8 @@ for (const [slug, title, h1, options, buyers, material] of productPages) {
   const meta = slug === "low-moq-custom-drinkware"
     ? "Low MOQ custom drinkware from 200 pcs with logo tumblers, bottles, gift packaging, samples and DDP/DDU shipping support."
     : metaProduct(page);
-  const intro = `HDS Drinkware (Huandingsheng) supports China custom drinkware sourcing, low-MOQ branding and OEM/ODM project coordination for ${buyers}. This page explains product options, MOQ details, logo methods, packaging choices, sample timing and quote preparation for B2B buyers.`;
+  const intent = productIntent[slug] || ["custom drinkware sourcing", `${buyers} comparing logo-ready drinkware options for B2B orders.`, ""];
+  const intro = `HDS Drinkware, the export brand of Shanxi Huandingsheng Industry and Trade Co., Ltd., coordinates ${intent[0]} for ${buyers}. This page covers the product, MOQ, sample, packaging, QC and shipping decisions specific to that buying intent.`;
   writeFile(`${slug}/index.html`, pageShell({
     title: title.includes("|") ? title : `${title} | HDS Drinkware`,
     meta,
@@ -1128,13 +1161,15 @@ const infoPages = [
     schemaType: "AboutPage",
     title: "About HDS Drinkware",
     h1: "About HDS Drinkware",
-    intro: "HDS Drinkware belongs to Shanxi Huandingsheng Industry and Trade Co., Ltd. We provide China-based custom drinkware sourcing and OEM/ODM support for Amazon sellers, gift companies, distributors and wholesale buyers.",
+    intro: "HDS Drinkware is the export brand of Shanxi Huandingsheng Industry and Trade Co., Ltd., a China-based custom drinkware supplier and sourcing partner for overseas B2B buyers.",
     images: [["assets/trade-show-buyers.png", "International buyers discussing custom drinkware sourcing", 550, 330], ["assets/trust-proof/sample-cases.jpg", "Custom drinkware sample cases for buyer review"], ["assets/trust-proof/logo-customization.jpg", "Custom logo tumbler sample before bulk order"]],
     sections: [
-      ["What HDS Does", "HDS helps overseas buyers compare custom drinkware options, prepare quotes, review samples, confirm logo methods, plan packaging and coordinate export details. The work is practical: product matching, supplier communication, order follow-up and buyer-side preparation."],
+      ["Legal Identity and Brand", "HDS Drinkware is the export-facing brand of Shanxi Huandingsheng Industry and Trade Co., Ltd. The website uses the full legal company name, address, email and WhatsApp consistently so buyers can compare it with quotations, payment beneficiary information and third-party marketplace records before ordering."],
+      ["What HDS Does", "HDS helps overseas buyers compare custom drinkware options, prepare quotations, review samples, confirm logo methods, plan packaging and coordinate export details. Support can involve HDS-managed sourcing and specialist production partners selected for the quoted product; the responsible production route is confirmed per project."],
       ["Who We Serve", "Typical buyers include Amazon sellers, TikTok Shop sellers, Shopify brands, corporate gift buyers, promotional companies, distributors and wholesale importers. These buyers usually need low MOQ testing, repeatable product options, clear samples and fast communication."],
-      ["How We Communicate", "A useful first discussion includes product photo, target quantity, logo artwork, packaging request, destination country and delivery timing. HDS uses this information to suggest a realistic sourcing path instead of forcing one standard SKU."],
-      ["Positioning", "We keep the positioning transparent: HDS is a custom drinkware sourcing and OEM/ODM support partner backed by long-term drinkware supply chain resources, not a retail brand selling a fixed consumer catalog."],
+      ["How Buyers Can Verify a Project", "Before paying for a bulk order, buyers should match the legal entity and payment beneficiary, approve the exact physical sample or signed specification, confirm the inspection scope, and retain the written quotation, packaging proof and shipping term. Product documents are checked for the quoted SKU and destination rather than assumed from a generic category page."],
+      ["Positioning", "HDS is a custom drinkware supplier, sourcing and OEM/ODM project-coordination partner. It is not presented as a single factory that makes every product shown on the site, and it is not a retail brand selling a fixed consumer catalog."],
+      ["Third-party Marketplace Record", "A public <a href='https://www.alibaba.com/product-detail/Kids-Tritan-Water-Bottle-with-Straw_1601739568955.html' target='_blank' rel='noopener nofollow'>Alibaba product listing</a> identifies Shanxi Huandingsheng Industry and Trade Co., Ltd. as the supplier. Buyers should still verify the current supplier profile, quotation entity and payment beneficiary for each order."],
     ],
   },
   {
@@ -1142,12 +1177,13 @@ const infoPages = [
     schemaType: "WebPage",
     title: "Factory and Supply Chain Resources",
     h1: "Factory and Supply Chain Resources for Custom Drinkware",
-    intro: "HDS coordinates factory and supply chain resources for custom drinkware projects, including product matching, sampling, production follow-up, packaging and shipping support.",
+    intro: "HDS coordinates specialist factory and supply-chain resources for custom drinkware projects, with the responsible production route confirmed for each quoted product.",
     images: [["assets/factory-workshop.jpg", "Drinkware workshop and packing area", 1600, 902], ["assets/trust-proof/production-line.jpg", "Drinkware production line for custom tumbler orders"], ["assets/factory-machines.jpg", "Automated drinkware production equipment", 1200, 676]],
     sections: [
-      ["Supply Chain Role", "HDS helps buyers connect product demand with suitable drinkware production resources. The team compares product type, material, capacity, lid, surface finish, logo method, packaging and order quantity before recommending a path."],
+      ["Supply Chain Role", "HDS helps buyers connect a written product requirement with suitable drinkware production resources. The team compares product type, material, capacity, lid, surface finish, logo method, packaging and quantity before recommending a route. Not every model shown on the website is made at one facility."],
       ["Production Coordination", "Production coordination covers sample confirmation, logo placement, color and finish discussion, packaging details, carton marks and order follow-up. This is especially important for buyers who need repeat orders rather than a one-time sample."],
-      ["Factory Proof", "Buyers can review product photos, workshop photos, packaging photos and sample proof before moving forward. For important orders, HDS recommends confirming a sample or logo sample before bulk production."],
+      ["Factory and Product Proof", "Buyers can request current product photos, workshop or production-route evidence available for the selected model, packaging photos and sample proof before moving forward. HDS recommends approving an exact physical sample or signed specification before bulk production."],
+      ["Capacity and Lead Time", "Capacity is confirmed after the product, quantity, finish, logo method, packaging and factory schedule are known. HDS does not use one site-wide capacity number as a guarantee for every product category."],
       ["Best Fit Projects", "The supply chain is best suited for custom tumblers, stainless steel cups, plastic water bottles, sports bottles, coffee cups, promotional drinkware and gift packaging projects with clear B2B requirements."],
     ],
   },
@@ -1185,7 +1221,7 @@ const infoPages = [
     title: "Drinkware Shipping Support",
     h1: "Shipping Support for Custom Drinkware Buyers",
     intro: "HDS can coordinate DDP, DDU, FOB, EXW, carton packing and shipment communication for custom drinkware orders.",
-    images: [["https://sc02.alicdn.com/kf/Hd4c80ddf2a684a77a6d8d966173716a4r.jpg", "Pallets of custom drinkware cartons labeled and ready for container loading"], ["https://sc02.alicdn.com/kf/H8a8ddd94712e422fbc822ac72646a077w.jpg", "FBA-compliant shipping cartons labeled in delivery truck"], ["https://sc02.alicdn.com/kf/Hc2dd8ffcd4ec4f529fce437a0ecd93deM.jpg", "Full container truck with cargo ready for export delivery"]],
+    images: [["assets/trust-proof/shipping-cartons.jpg", "Custom drinkware cartons prepared for shipping review"], ["assets/packing.webp", "Drinkware packing and carton preparation"], ["assets/trust-proof/packaging.jpg", "Packaging and carton review before shipment"]],
     sections: [
       ["Shipping Terms", "Buyers can discuss DDP, DDU, FOB or EXW depending on order size, destination country and whether they already work with a forwarder. Each term changes cost responsibility and communication needs."],
       ["Carton Data", "Carton size, gross weight, packing quantity and destination address type are needed for practical shipping estimates. Packaging decisions should be settled before final shipping comparison."],
@@ -1198,7 +1234,7 @@ const infoPages = [
     schemaType: "CollectionPage",
     title: "Custom Drinkware Case Studies",
     h1: "Custom Drinkware Case Studies",
-    intro: "These anonymous examples show practical support situations without fake customer names, fake order amounts or invented reviews.",
+    intro: "These representative planning scenarios show how common custom drinkware projects can be scoped. They are not customer testimonials, verified performance claims or substitutes for a project-specific quotation.",
     images: [["assets/catalog/40oz-ice-tumbler.jpg", "40oz tumbler sample for online seller testing"], ["assets/trust-proof/packaging.jpg", "Gift packaging review for custom drinkware order"], ["assets/trust-proof/logo-customization.jpg", "Logo water bottle sample review"]],
     sections: [
       ["1. Custom 40oz Tumblers for an Amazon Seller", "A detailed walk-through of matching specific viral colors, packaging design to reduce dimensional weight charges, and pre-labeling for Amazon FBA warehouses. <a href='/case-studies/custom-40oz-tumblers-for-amazon-seller/'>Read Full Case Study &rarr;</a>"],
@@ -1206,7 +1242,7 @@ const infoPages = [
       ["3. Low MOQ Custom Water Bottles for a Startup Brand", "How we helped a startup fitness brand launch custom sports bottles with custom-printed time markers in a small batch of 300 pcs. <a href='/case-studies/low-moq-custom-water-bottles-for-startup-brand/'>Read Full Case Study &rarr;</a>"],
       ["4. Custom Drinkware Gift Sets for Event Promotion", "Coordinating matching matte black coffee cups and flasks inside luxury rigid magnetic boxes with custom velvet inserts for an exhibition. <a href='/case-studies/custom-drinkware-gift-sets-for-event-promotion/'>Read Full Case Study &rarr;</a>"],
       ["5. DDP Shipping Drinkware Order to Overseas Buyer", "Providing multi-location door-to-door delivery in Sydney and Melbourne, including Ningbo customs, GST payment, and local tail-end truck shipping. <a href='/case-studies/ddp-shipping-drinkware-order-to-overseas-buyer/'>Read Full Case Study &rarr;</a>"],
-      ["What These Cases Show", "Most B2B drinkware projects are won or lost on preparation: clear product reference, realistic MOQ, sample review, packaging detail and shipping discussion. HDS structures the conversation around those points."],
+      ["What These Scenarios Show", "Most B2B drinkware projects are won or lost on preparation: clear product reference, realistic MOQ, sample review, packaging detail and shipping discussion. HDS structures the conversation around those points; actual quantities, timing and outcomes are confirmed in writing for each project."],
     ],
   },
   {
@@ -1227,7 +1263,7 @@ const infoPages = [
 
 function infoBody(page) {
   const visuals = page.images ? productImageStrip({ h1: page.h1, images: page.images }, 1) : "";
-  return `${visuals}<section class="section landing-copy-block">${page.sections.map(([heading, text]) => `<article><h2>${esc(heading)}</h2><p>${esc(text)}</p></article>`).join("")}</section><section class="section landing-quote-checklist"><div><p class="eyebrow">Before you contact HDS</p><h2>Prepare the details that make B2B sourcing faster.</h2><p>Clear product, logo, packaging and shipping information helps the team reply with a practical path instead of a generic answer.</p></div><ul><li>Product photo, target capacity, material preference and sales channel.</li><li>Order quantity, sample need and destination country.</li><li>Logo artwork, logo size, logo position and preferred logo method.</li><li>Packaging request, carton marks, barcode needs or gift set plan.</li><li>Target timeline and shipping preference such as DDP, DDU, FOB or EXW.</li></ul></section><section class="section"><div class="landing-cta-band"><div><h2>Need custom drinkware support?</h2><p>Send your product photo, quantity, logo requirement, packaging request and target market.</p></div><div class="hero-actions"><a class="button whatsapp" href="${wa(`Hello HDS Drinkware, I would like support for ${page.h1}.`)}" target="_blank" rel="noopener">Get Quote on WhatsApp</a><a class="button primary" href="/#inquiry">Request OEM Quote</a></div></div></section>`;
+  return `${visuals}<section class="section landing-copy-block">${page.sections.map(([heading, text]) => `<article><h2>${esc(heading)}</h2><p>${text}</p></article>`).join("")}</section><section class="section landing-quote-checklist"><div><p class="eyebrow">Before you contact HDS</p><h2>Prepare the details that make B2B sourcing faster.</h2><p>Clear product, logo, packaging and shipping information helps the team reply with a practical path instead of a generic answer.</p></div><ul><li>Product photo, target capacity, material preference and sales channel.</li><li>Order quantity, sample need and destination country.</li><li>Logo artwork, logo size, logo position and preferred logo method.</li><li>Packaging request, carton marks, barcode needs or gift set plan.</li><li>Target timeline and shipping preference such as DDP, DDU, FOB or EXW.</li></ul></section><section class="section"><div class="landing-cta-band"><div><h2>Need custom drinkware support?</h2><p>Send your product photo, quantity, logo requirement, packaging request and target market.</p></div><div class="hero-actions"><a class="button whatsapp" href="${wa(`Hello HDS Drinkware, I would like support for ${page.h1}.`)}" target="_blank" rel="noopener">Get Quote on WhatsApp</a><a class="button primary" href="/#inquiry">Request OEM Quote</a></div></div></section>`;
 }
 
 for (const page of infoPages) {
@@ -1252,8 +1288,8 @@ const caseStudies = [
     slug: "custom-40oz-tumblers-for-amazon-seller",
     title: "Custom 40oz Tumblers for an Amazon Seller",
     images: [
-      ["https://sc02.alicdn.com/kf/H8a8ddd94712e422fbc822ac72646a077w.jpg", "FBA-compliant carton labeling inside delivery truck"],
-      ["https://sc02.alicdn.com/kf/Hd4c80ddf2a684a77a6d8d966173716a4r.jpg", "Pallets of custom tumblers labeled for FBA shipping"]
+      ["assets/trust-proof/shipping-cartons.jpg", "Carton labeling and shipping preparation for marketplace orders"],
+      ["assets/packing.webp", "Custom tumbler carton packing preparation"]
     ],
     clientType: "Amazon FBA Private Label Seller",
     market: "United States (FBA Warehouse)",
@@ -1320,8 +1356,8 @@ const caseStudies = [
     slug: "ddp-shipping-drinkware-order-to-overseas-buyer",
     title: "DDP Shipping Drinkware Order to Overseas Buyer",
     images: [
-      ["https://sc02.alicdn.com/kf/Hc2dd8ffcd4ec4f529fce437a0ecd93deM.jpg", "Full container truck with cargo ready for export delivery with DDP terms"],
-      ["https://sc02.alicdn.com/kf/Hd4c80ddf2a684a77a6d8d966173716a4r.jpg", "Carton pallet loading for container shipping to Australia"]
+      ["assets/trust-proof/shipping-cartons.jpg", "Carton review before an export delivery plan"],
+      ["assets/packing.webp", "Drinkware packing for an overseas shipping scenario"]
     ],
     clientType: "Regional Wholesale Distributor",
     market: "Australia (Sydney & Melbourne)",
@@ -1339,11 +1375,12 @@ const caseStudies = [
 ];
 
 for (const caseStudy of caseStudies) {
-  const meta = `${caseStudy.title}: B2B drinkware project notes on product customization, packaging, QC and shipping coordination.`;
+  const meta = `${caseStudy.title}: representative B2B planning scenario for product customization, packaging, QC and shipping coordination.`;
   const seoTitle = caseStudy.slug === "custom-stainless-steel-tumblers-for-corporate-gift-buyer"
     ? "Corporate Gift Stainless Steel Tumblers"
     : caseStudy.title;
-  const intro = `This B2B case study explains the sourcing, customization, quality control, packaging, and shipping process HDS coordinated for an anonymous ${caseStudy.clientType}.`;
+  const article = /^[AEIOU]/i.test(caseStudy.clientType) ? "an" : "a";
+  const intro = `This representative B2B sourcing scenario shows how product, customization, quality control, packaging and shipping could be planned for ${article} ${caseStudy.clientType}. It is not a customer testimonial or a guaranteed project result.`;
   
   const studyImages = caseStudy.images || [
     ["assets/catalog/40oz-ice-tumbler.jpg", "Drinkware sample development and packaging coordination"],
@@ -1376,23 +1413,29 @@ for (const caseStudy of caseStudies) {
         </div>
       </article>
       <article>
-        <h2>The Challenge</h2>
+        <h2>Scenario Requirements and Risks</h2>
         <p>${esc(caseStudy.challenge)}</p>
       </article>
       <article>
-        <h2>The Solution</h2>
-        <p>${esc(caseStudy.solution)}</p>
+        <h2>Illustrative Planning Approach</h2>
+        <ul>
+          <li>Confirm the exact product and customization scope: ${esc(caseStudy.customizationRequest)}</li>
+          <li>Approve the proposed logo method on the selected surface: ${esc(caseStudy.logoMethod)}</li>
+          <li>Review the complete packed sample or packaging proof: ${esc(caseStudy.packaging)}</li>
+          <li>Write the production target only after sample approval: ${esc(caseStudy.productionTimeline)}</li>
+          <li>Compare the named shipping scope and destination: ${esc(caseStudy.shippingMethod)}</li>
+        </ul>
       </article>
       <article>
-        <h2>The Result</h2>
-        <p>${esc(caseStudy.result)}</p>
+        <h2>Scenario Outcome and Acceptance Criteria</h2>
+        <p>Acceptance would require the buyer to approve the exact sample or signed specification, artwork, packaging proof, inspection checklist, carton data, named destination and shipping term. This page illustrates a planning target only; it does not claim an actual order, customer endorsement, saving, delivery result or commercial outcome.</p>
       </article>
     </section>
     <section class="section">
       <div class="landing-cta-band">
         <div>
           <h2>Have a similar B2B drinkware project?</h2>
-          <p>Send your target product reference, quantity, logo details, and destination. HDS will help plan a practical, risk-free sourcing path.</p>
+          <p>Send your target product reference, quantity, logo details and destination. HDS will help plan a practical sourcing path with written verification checkpoints.</p>
         </div>
         <div class="hero-actions">
           <a class="button whatsapp" href="${wa(`Hello HDS Drinkware, I read your case study about ${caseStudy.title}. I have a similar project.`)}" target="_blank" rel="noopener">Discuss Project on WhatsApp</a>
@@ -1407,7 +1450,7 @@ for (const caseStudy of caseStudies) {
     meta,
     slug: `case-studies/${caseStudy.slug}`,
     h1: caseStudy.title,
-    eyebrow: "B2B Case Study",
+    eyebrow: "Representative B2B Project Scenario",
     intro,
     body,
     depth: 2,
@@ -1418,7 +1461,7 @@ for (const caseStudy of caseStudies) {
   allUrls.push(`/case-studies/${caseStudy.slug}/`);
 }
 
-writeFile("404.html", `<!doctype html><html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="icon" type="image/png" href="/assets/favicon.png" /><meta name="robots" content="noindex, follow" /><title>Page Not Found | HDS Drinkware</title><link rel="stylesheet" href="/styles.css" /></head><body class="landing-page">${header(0)}<main><section class="landing-hero"><p class="eyebrow">404</p><h1>Page Not Found</h1><p>The page may have moved. You can return to HDS Drinkware sourcing pages, view the product catalog, or contact us on WhatsApp for a quote.</p><div class="hero-actions"><a class="button primary" href="/">Return Home</a><a class="button secondary" href="/#catalog">View Product Catalog</a><a class="button whatsapp" href="${wa("Hello HDS Drinkware, I need help finding a custom drinkware product page.")}" target="_blank" rel="noopener">Get Quote on WhatsApp</a></div></section></main></body></html>`);
+writeFile("404.html", `<!doctype html><html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="icon" type="image/png" href="/assets/favicon.png" /><meta name="robots" content="noindex, follow" /><title>Page Not Found | HDS Drinkware</title><link rel="stylesheet" href="/styles.css?v=20260718" /></head><body class="landing-page">${header(0)}<main><section class="landing-hero"><p class="eyebrow">404</p><h1>Page Not Found</h1><p>The page may have moved. You can return to HDS Drinkware sourcing pages, view the product catalog, or contact us on WhatsApp for a quote.</p><div class="hero-actions"><a class="button primary" href="/">Return Home</a><a class="button secondary" href="/#catalog">View Product Catalog</a><a class="button whatsapp" href="${wa("Hello HDS Drinkware, I need help finding a custom drinkware product page.")}" target="_blank" rel="noopener">Get Quote on WhatsApp</a></div></section></main></body></html>`);
 
 writeFile("robots.txt", `# HDS Drinkware crawler policy
 # Search engines and AI answer engines may crawl public pages for indexing,
@@ -1495,8 +1538,8 @@ const imageSitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="htt
 writeFile("image-sitemap.xml", imageSitemap);
 
 const llmsPages = [
-  ["/", "Custom drinkware manufacturer in China with low MOQ logo orders, OEM/ODM, packaging, samples and DDP/DDU shipping support."],
-  ["/custom-40oz-tumbler-manufacturer/", "Custom 40oz tumbler manufacturing page for marketplace sellers and gift buyers."],
+  ["/", "China custom drinkware supplier and OEM/ODM sourcing partner for low MOQ logo orders, packaging, samples and DDP/DDU shipping support."],
+  ["/custom-40oz-tumbler-manufacturer/", "Custom 40oz tumbler supplier page for marketplace sellers and gift buyers, with MOQ, sample and verification checkpoints."],
   ["/custom-stainless-steel-tumblers/", "Custom stainless steel tumbler options, logo methods, materials and B2B quote details."],
   ["/custom-water-bottles-with-logo/", "Custom water bottles with logo for e-commerce, events and wholesale buyers."],
   ["/custom-plastic-water-bottles/", "Custom plastic water bottle options for schools, sports programs, promotions and online sellers."],

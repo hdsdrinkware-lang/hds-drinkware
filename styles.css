@@ -1667,6 +1667,23 @@ h3 {
   list-style: none;
 }
 
+.content-review-note {
+  width: min(1180px, calc(100% - 2rem));
+  margin: 0 auto 3rem;
+  padding: 1rem 1.2rem;
+  border: 1px solid rgba(23, 76, 58, 0.18);
+  border-radius: 14px;
+  background: #f4f8f6;
+  color: #35564b;
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.answer-first article:first-child {
+  border-color: rgba(20, 108, 80, 0.32);
+  background: linear-gradient(145deg, #f1faf6, #ffffff);
+}
+
 .landing-quote-checklist li {
   padding: 16px 18px;
   color: var(--ink);
@@ -1986,7 +2003,7 @@ h3 {
   }
 }
 
-@media (max-width: 1180px) {
+@media (max-width: 1340px) {
   :root {
     --header-height: 132px;
   }
