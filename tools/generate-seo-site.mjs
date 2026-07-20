@@ -7,6 +7,15 @@ const email = "hds.drinkware@gmail.com";
 const whatsapp = "8613994271614";
 const displayPhone = "+86 13994271614";
 const updated = "2026-07-18";
+const aiReferenceUpdated = "2026-07-20";
+const pageUpdated = {
+  "custom-40oz-tumbler-manufacturer": "2026-07-20",
+  "custom-water-bottles-with-logo": "2026-07-20",
+  "custom-drinkware-gift-sets": "2026-07-20",
+  "custom-drinkware-for-corporate-gifts": "2026-07-20",
+  "low-moq-custom-drinkware": "2026-07-20",
+};
+const reviewedOn = (slug = "") => pageUpdated[slug] || updated;
 const defaultOgImage = `${site}/assets/hero-premium-custom-drinkware-gift-packaging.jpg`;
 
 const wa = (text) => {
@@ -19,6 +28,12 @@ const wa = (text) => {
 const esc = (value) => String(value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const cap = (value) => value.replace(/\b\w/g, (m) => m.toUpperCase());
 const metaProduct = (page) => `${page.h1}. Low MOQ custom logo drinkware, packaging, samples and DDP/DDU shipping support from China.`;
+const productMetaOverrides = {
+  "custom-40oz-tumbler-manufacturer": "Compare custom 40oz tumbler supply and manufacturing routes in China, with 200-piece options, factory verification, samples, packaging and shipping.",
+  "custom-water-bottles-with-logo": "Low MOQ custom water bottles with logo from 200 pieces on selected stock models, with bottle, color, logo, packaging and shipping decision guidance.",
+  "custom-drinkware-gift-sets": "Custom drinkware gift sets for corporate events, including color boxes, sleeves, cards, rigid boxes, inserts, samples and delivery planning.",
+  "custom-drinkware-for-corporate-gifts": "Custom drinkware supplier support for retail and corporate gifting, with logo approval, gift packaging, event deadlines, samples and shipping planning.",
+};
 const metaInfo = (title) => `${title} from HDS Drinkware: China custom drinkware OEM/ODM support for logo tumblers, bottles, packaging, samples and shipping.`;
 const metaGuide = (seoTitle) => `${seoTitle}: practical B2B sourcing notes for MOQ, logo methods, samples, packaging and DDP/DDU shipping from China.`;
 const isAbsoluteUrl = (src) => /^https?:\/\//i.test(src);
@@ -26,9 +41,9 @@ const absoluteUrl = (src) => isAbsoluteUrl(src) ? src : `${site}/${src.replace(/
 const mediaSrc = (src, depth) => isAbsoluteUrl(src) ? src : `${"../".repeat(depth)}${src}`;
 
 const productPages = [
-  ["custom-40oz-tumbler-manufacturer", "Custom 40oz Tumbler Supplier China", "Custom 40oz Tumbler Supplier for Low MOQ Logo Orders", "40oz handle tumblers, straw tumblers, gradient tumblers and rhinestone gift tumblers", "Amazon sellers, TikTok Shop sellers, Shopify brands, gift companies and distributors", "stainless steel, powder coated stainless steel and decorated tumbler options"],
+  ["custom-40oz-tumbler-manufacturer", "40oz Tumbler Manufacturing Partner China", "Custom 40oz Tumbler Supplier & Manufacturing Partner in China", "40oz handle tumblers, straw tumblers, gradient tumblers and rhinestone gift tumblers", "Amazon sellers, TikTok Shop sellers, Shopify brands, gift companies and distributors", "stainless steel, powder coated stainless steel and decorated tumbler options"],
   ["custom-stainless-steel-tumblers", "Custom Stainless Steel Tumblers Manufacturer", "Custom Stainless Steel Tumblers with Logo for Wholesale and Gift Buyers", "vacuum insulated tumblers, travel cups, coffee tumblers and stainless steel drinkware", "Amazon sellers, corporate gift buyers, distributors and wholesale buyers", "304 stainless steel inner options, powder coating, metallic finish and gradient color"],
-  ["custom-water-bottles-with-logo", "Custom Water Bottles with Logo Supplier", "Custom Water Bottles with Logo for E-commerce, Events and Wholesale", "PC water bottles, sports bottles, 64oz bottles, kids bottles and daily hydration bottles", "fitness brands, schools, promotional buyers, Amazon sellers and wholesalers", "PC, PP, PETG, Tritan-style plastic options and stainless steel bottle options"],
+  ["custom-water-bottles-with-logo", "Low MOQ Custom Water Bottles with Logo", "Low MOQ Custom Water Bottles with Logo for Brands and Events", "PC water bottles, sports bottles, 64oz bottles, kids bottles and daily hydration bottles", "fitness brands, schools, promotional buyers, Amazon sellers and wholesalers", "PC, PP, PETG, Tritan-style plastic options and stainless steel bottle options"],
   ["custom-plastic-water-bottles", "Custom Plastic Water Bottles Supplier China", "Custom Plastic Water Bottles with Logo and Packaging Support", "PC bottles, PP bottles, PETG bottles, straw bottles, kids bottles and promotional bottles", "schools, fitness programs, event buyers, social commerce sellers and promotional companies", "PC, PP, PETG and Tritan-style plastic options by project"],
   ["custom-sports-water-bottles", "Custom Sports Water Bottles Supplier", "Custom Sports Water Bottles for Gyms, Teams and Outdoor Buyers", "1000ml sports bottles, wide mouth bottles, cycling bottles and large hydration bottles", "gyms, teams, outdoor brands, distributors and Amazon sellers", "PC, PP, PETG, Tritan-style plastic and stainless steel options"],
   ["custom-coffee-travel-mugs", "Custom Coffee Travel Mugs Supplier", "Custom Coffee Travel Mugs with Logo for Brands and Gifts", "coffee mugs, travel mugs, insulated coffee cups and office drinkware", "coffee brands, corporate buyers, event buyers, Shopify stores and wholesalers", "stainless steel, ceramic-style options and insulated cup structures"],
@@ -39,7 +54,7 @@ const productPages = [
   ["custom-drinkware-for-amazon-sellers", "Custom Drinkware for Amazon Sellers", "Custom Drinkware for Amazon Sellers Testing and Scaling Products", "40oz tumblers, stainless steel tumblers, sports bottles, plastic bottles and gift bundles", "Amazon sellers and private label teams", "stainless steel, plastic, PC, PP and packaging-ready product options"],
   ["custom-drinkware-for-tiktok-shop-sellers", "Custom Drinkware for TikTok Shop Sellers", "Custom Drinkware for TikTok Shop Sellers and Live Commerce Tests", "visual tumblers, colorful bottles, gift cups and trend-ready drinkware", "TikTok Shop sellers, live commerce teams and social sellers", "stainless steel, plastic, rhinestone decoration and colorful finish options"],
   ["custom-drinkware-for-shopify-brands", "Custom Drinkware for Shopify Brands", "Custom Drinkware for Shopify Brands and Private Label Stores", "private label tumblers, water bottles, coffee cups and branded gift sets", "Shopify brands, DTC teams and online store owners", "stainless steel, plastic, logo-ready and packaging-ready options"],
-  ["custom-drinkware-for-corporate-gifts", "Custom Drinkware for Corporate Gifts", "Custom Drinkware for Corporate Gifts, Events and Client Programs", "logo tumblers, coffee cups, water bottles and curated gift sets", "corporate gift buyers, event teams, HR teams and gift companies", "stainless steel, plastic, gift box and Zenvyra bundle options"],
+  ["custom-drinkware-for-corporate-gifts", "Corporate Gift Drinkware Supplier", "Custom Drinkware for Corporate Gifting, Events and Retail Programs", "logo tumblers, coffee cups, water bottles and curated gift sets", "corporate gift buyers, event teams, HR teams, retailers and gift companies", "stainless steel, plastic, gift box and curated bundle options"],
   ["custom-drinkware-for-wedding-favors", "Custom Drinkware for Wedding Favors", "Custom Drinkware for Wedding Favors and Guest Gifts", "small tumblers, coffee cups, gift bottles and personalized drinkware sets", "wedding favor buyers, event planners and gift companies", "stainless steel, plastic, gift box, card and label options"],
   ["custom-drinkware-for-event-gifts", "Custom Drinkware for Event Gifts", "Custom Drinkware for Events, Conferences and Brand Giveaways", "event tumblers, logo bottles, coffee mugs and promotional drinkware", "event buyers, conference organizers and promotional companies", "plastic, stainless steel, standard box and event packaging options"],
   ["custom-drinkware-for-distributors", "Custom Drinkware for Distributors", "Custom Drinkware for Distributors and Wholesale Buyers", "assorted tumblers, sports bottles, plastic bottles and coffee cups", "distributors, wholesalers and import buyers", "stainless steel, plastic, mixed carton and repeat order options"],
@@ -375,10 +390,12 @@ const productIntent = {
 const relatedClusters = {
   "custom-40oz-tumbler-manufacturer": [["Stainless steel tumblers", "/custom-stainless-steel-tumblers/"], ["TikTok Shop drinkware", "/custom-drinkware-for-tiktok-shop-sellers/"], ["Low MOQ custom drinkware", "/low-moq-custom-drinkware/"], ["Logo method guide", "/sourcing-guides/how-to-choose-logo-method-for-custom-drinkware/"]],
   "custom-stainless-steel-tumblers": [["40oz tumbler manufacturer", "/custom-40oz-tumbler-manufacturer/"], ["Logo drinkware manufacturer", "/logo-drinkware-manufacturer/"], ["Private label drinkware", "/private-label-drinkware-supplier/"], ["Stainless vs plastic bottles", "/sourcing-guides/stainless-steel-vs-plastic-water-bottles/"]],
-  "custom-water-bottles-with-logo": [["Water bottle supplier China", "/custom-water-bottle-supplier-china/"], ["Plastic water bottles", "/custom-plastic-water-bottles/"], ["Sports water bottles", "/custom-sports-water-bottles/"], ["Quote checklist", "/sourcing-guides/what-to-provide-before-requesting-quote/"]],
+  "custom-water-bottles-with-logo": [["Low MOQ custom drinkware", "/low-moq-custom-drinkware/"], ["Water bottle supplier China", "/custom-water-bottle-supplier-china/"], ["Corporate gift bottles", "/custom-water-bottles-for-corporate-gifts/"], ["MOQ guide", "/sourcing-guides/what-is-moq-for-custom-drinkware/"]],
   "custom-promotional-drinkware": [["Promotional supplier", "/promotional-drinkware-supplier/"], ["Promotional companies", "/custom-drinkware-for-promotional-companies/"], ["Event gifts", "/custom-drinkware-for-event-gifts/"], ["Packaging options", "/sourcing-guides/custom-drinkware-packaging-options/"]],
   "promotional-drinkware-supplier": [["Promotional drinkware categories", "/custom-promotional-drinkware/"], ["Logo drinkware manufacturer", "/logo-drinkware-manufacturer/"], ["Corporate gifts", "/custom-drinkware-for-corporate-gifts/"], ["Logo method guide", "/sourcing-guides/how-to-choose-logo-method-for-custom-drinkware/"]],
-  "low-moq-custom-drinkware": [["Amazon seller drinkware", "/custom-drinkware-for-amazon-sellers/"], ["TikTok Shop drinkware", "/custom-drinkware-for-tiktok-shop-sellers/"], ["MOQ guide", "/sourcing-guides/what-is-moq-for-custom-drinkware/"], ["Request quote checklist", "/sourcing-guides/what-to-provide-before-requesting-quote/"]],
+  "custom-drinkware-gift-sets": [["Corporate gifting", "/custom-drinkware-for-corporate-gifts/"], ["Event gifts", "/custom-drinkware-for-event-gifts/"], ["Corporate gift bottles", "/custom-water-bottles-for-corporate-gifts/"], ["Packaging guide", "/sourcing-guides/custom-drinkware-packaging-options/"]],
+  "custom-drinkware-for-corporate-gifts": [["Gift sets and packaging", "/custom-drinkware-gift-sets/"], ["Corporate gift bottles", "/custom-water-bottles-for-corporate-gifts/"], ["Event gifts", "/custom-drinkware-for-event-gifts/"], ["Packaging guide", "/sourcing-guides/custom-drinkware-packaging-options/"]],
+  "low-moq-custom-drinkware": [["Low MOQ logo bottles", "/custom-water-bottles-with-logo/"], ["Low MOQ logo tumblers", "/low-moq-custom-tumblers-with-logo/"], ["MOQ guide", "/sourcing-guides/what-is-moq-for-custom-drinkware/"], ["Request quote checklist", "/sourcing-guides/what-to-provide-before-requesting-quote/"]],
   "oem-drinkware-supplier-china": [["Private label drinkware", "/private-label-drinkware-supplier/"], ["Wholesale supplier China", "/wholesale-drinkware-supplier-china/"], ["Factory and supply chain", "/factory-supply-chain/"], ["Production timeline", "/sourcing-guides/custom-drinkware-production-timeline/"]],
   "wholesale-drinkware-supplier-china": [["Distributors drinkware", "/custom-drinkware-for-distributors/"], ["OEM drinkware supplier", "/oem-drinkware-supplier-china/"], ["Shipping support", "/shipping-support/"], ["DDP/DDU shipping guide", "/sourcing-guides/ddp-ddu-shipping-for-custom-drinkware/"]],
   "drinkware-sourcing-agent-china": [["Factory supply chain", "/factory-supply-chain/"], ["Quality control", "/quality-control/"], ["OEM drinkware supplier", "/oem-drinkware-supplier-china/"], ["How to source tumblers", "/sourcing-guides/how-to-source-custom-tumblers-from-china/"]],
@@ -606,6 +623,7 @@ function pageShell({ title, meta, slug, h1, eyebrow, intro, body, schemas, depth
   const p = "../".repeat(depth);
   const heroClass = heroMedia ? "landing-hero landing-hero-with-media" : "landing-hero";
   const cta = slug ? getConversionProfile({ slug }) : defaultConversionProfile;
+  const reviewDate = reviewedOn(slug);
   return `<!doctype html>
 <html lang="en">
   <head>
@@ -614,7 +632,7 @@ function pageShell({ title, meta, slug, h1, eyebrow, intro, body, schemas, depth
     <link rel="icon" type="image/png" href="${p}assets/favicon.png" />
     <meta name="description" content="${esc(meta)}" />
     <meta name="robots" content="index, follow" />
-    <meta name="last-modified" content="${updated}" />
+    <meta name="last-modified" content="${reviewDate}" />
     <link rel="canonical" href="${canonical}" />
     <link rel="sitemap" type="application/xml" href="${site}/sitemap.xml" />
     <link rel="alternate" type="text/plain" href="${site}/llms.txt" title="LLMs and AI assistants index" />
@@ -646,7 +664,7 @@ function pageShell({ title, meta, slug, h1, eyebrow, intro, body, schemas, depth
       </section>
       ${body}
       <aside class="content-review-note" aria-label="Content ownership and review">
-        <strong>Content owner:</strong> HDS Drinkware Sourcing Team. <strong>Last reviewed:</strong> ${updated}. Product, compliance, inspection, timing and shipping details are confirmed for each quoted SKU and destination.
+        <strong>Content owner:</strong> HDS Drinkware Sourcing Team. <strong>Last reviewed:</strong> ${reviewDate}. Product, compliance, inspection, timing and shipping details are confirmed for each quoted SKU and destination.
       </aside>
     </main>
     <footer class="site-footer">
@@ -670,7 +688,11 @@ const customPageDetails = {
       "Carton quantity, carton dimensions, gross weight, FBA labels and inner-box protection should be confirmed before comparing landed shipping cost."
     ],
     materialDetail: "Selected models can use an 18/8 (304) stainless steel inner wall with double-wall vacuum construction, plus PP or other food-contact lid, handle, gasket and straw components. Exact steel grade, lid material, coating system and available documentation must be confirmed for the quoted model.",
-    qcDetail: "A project-specific 40oz tumbler inspection plan can cover insulation checks, handle review, coating appearance or adhesion, logo position, lid fit, leakage checks, straw clearance, packing and carton marks. The buyer and HDS should confirm the sample and inspection scope before bulk production."
+    qcDetail: "A project-specific 40oz tumbler inspection plan can cover insulation checks, handle review, coating appearance or adhesion, logo position, lid fit, leakage checks, straw clearance, packing and carton marks. The buyer and HDS should confirm the sample and inspection scope before bulk production.",
+    faq: [
+      ["Is HDS a 40oz tumbler factory or a sourcing supplier?", "HDS is a China-based supplier and sourcing partner that coordinates product-specific manufacturing routes; it does not claim that every 40oz model comes from one HDS-owned factory. Buyers can request the proposed manufacturer or supplier identity, sample, specification, inspection scope and current capacity in writing before ordering."],
+      ["How should buyers compare 40oz tumbler manufacturers in China?", "Compare the exact model, steel and lid specification, sample, logo method, inspection scope, packaging, carton data, lead time and shipping term. A factory label alone does not make two quotations comparable."],
+    ],
   },
   "custom-stainless-steel-tumblers": {
     painPoints: [
@@ -690,7 +712,11 @@ const customPageDetails = {
       "Wholesale buyers need accurate carton packaging weight and volume details to calculate DDP/DDU shipping costs and ensure easy warehouse handling."
     ],
     materialDetail: "Available bottle bodies may include PP, PC, PETG or Tritan-style copolyester, with lid and gasket materials varying by model. Food-contact, BPA-free or market-specific documentation requirements must be confirmed for the selected SKU and destination.",
-    qcDetail: "A project inspection plan can cover lid fit, agreed leakage checks, appearance, measurement marks, logo position, accessories, packing and carton information. Drop or chemical testing is arranged only when specified and confirmed for the project."
+    qcDetail: "A project inspection plan can cover lid fit, agreed leakage checks, appearance, measurement marks, logo position, accessories, packing and carton information. Drop or chemical testing is arranged only when specified and confirmed for the project.",
+    faq: [
+      ["Can custom bottles with a logo start at a low MOQ?", "Yes. Selected stock bottle models can start from 200 pieces with a simple logo and standard packaging. The exact MOQ depends on available colors, bottle material, decoration setup and packaging minimums."],
+      ["What is the simplest low-MOQ bottle route?", "Choose an available stock bottle and stock color, use one logo position, keep the first pack standard, and confirm the quantity per color. This avoids the tooling and higher minimums usually associated with a new mold, custom color or fully printed box."],
+    ],
   },
   "custom-drinkware-gift-sets": {
     painPoints: [
@@ -700,7 +726,17 @@ const customPageDetails = {
       "Strict event deadlines require realistic production planning, fast sample proofing, and early DDP/DDU shipping discussion for the event venue or office door."
     ],
     materialDetail: "Curated drinkware combinations of stainless steel insulated tumblers, double-wall coffee travel mugs, or sports bottles, matched with premium cardboard gift boxes, custom EVA foam/paper pulp inserts, matching greeting cards, custom canvas tote bags, and personalized hang tags.",
-    qcDetail: "Gift set QC focuses on multi-item color-matching audits, drop-resistant gift box construction reviews, tight-fitting item positioning in inserts, greeting card print proofing, carton packing cushion tests, and on-time shipment scheduling."
+    qcDetail: "Gift set QC focuses on multi-item color-matching audits, gift box construction reviews, tight-fitting item positioning in inserts, greeting card print proofing, carton packing cushion checks, and on-time shipment scheduling.",
+    faq: [
+      ["Which drinkware sets come in gift packaging for corporate events?", "Common event-ready options include a tumbler in a printed color box, a bottle with a card and sleeve, a coffee mug plus flask in a rigid gift box, or a drinkware item bundled with a straw, brush or tote bag. Availability and box minimums must be confirmed for the selected product, quantity and event date."],
+      ["Can the product and gift box carry the same corporate logo?", "Yes. Logo placement can be coordinated across the drinkware, box, sleeve, card or tote bag. Buyers should approve a product proof and a packaging proof because the printing methods and color results can differ."],
+    ],
+  },
+  "custom-drinkware-for-corporate-gifts": {
+    faq: [
+      ["Can one custom drinkware supplier support both retail and corporate gifting?", "Yes, when the quote separates each channel's requirements. Retail programs usually prioritize barcode, shelf presentation and repeatable cartons, while corporate gifting prioritizes recipient presentation, event dates, cards, sleeves or gift boxes."],
+      ["What should a corporate gift buyer confirm first?", "Confirm recipient count, event date, delivery address, product choice, logo approval owner and packaging level first. These inputs determine whether a standard box, printed color box, sleeve or rigid gift set is practical."],
+    ],
   },
   "low-moq-custom-drinkware": {
     painPoints: [
@@ -754,6 +790,55 @@ function landingFaqs(page) {
   ];
 
   return [...customFaqs.slice(0, 2), ...pageFaqs].slice(0, 6);
+}
+
+function searchOpportunityBlock(page) {
+  if (page.slug === "custom-40oz-tumbler-manufacturer") {
+    return `
+      <section class="section landing-copy-block answer-first">
+        <article>
+          <p class="eyebrow">Supplier, manufacturer or factory?</p>
+          <h2>What Does HDS Mean by 40oz Tumbler Manufacturing Partner?</h2>
+          <p>HDS is a China-based custom drinkware supplier and sourcing partner. We coordinate a product-specific manufacturing route for the quoted 40oz model; we do not claim that every model is made in one HDS-owned factory. Buyers can ask for the proposed supplier or manufacturer identity, current sample, written specification, inspection scope and capacity confirmation before placing an order.</p>
+        </article>
+        <article>
+          <h2>How to Verify a China 40oz Tumbler Factory Quote</h2>
+          <p>Verify the exact SKU rather than relying on the word “factory.” Compare a signed sample, material and lid specification, logo proof, packaging, carton dimensions, inspection checklist, lead time and shipping term. HDS can organize these checkpoints so supplier and manufacturer quotations are compared on the same scope.</p>
+        </article>
+      </section>`;
+  }
+
+  if (page.slug === "custom-drinkware-gift-sets" || page.slug === "custom-drinkware-for-corporate-gifts") {
+    return `
+      <section class="section answer-first">
+        <div class="section-heading"><p class="eyebrow">Direct answer for corporate buyers</p><h2>Which Drinkware Sets Come in Gift Packaging for Corporate Events?</h2><p>Common options include a logo tumbler in a printed color box, a water bottle with a branded sleeve and card, a coffee mug plus flask in a rigid box, or a drinkware item bundled with a straw, brush or tote bag. The right route depends on recipient count, presentation level, box minimum, delivery address and event date.</p></div>
+        <div class="landing-table-wrap"><table class="landing-table"><thead><tr><th>Gift Set Route</th><th>Best For</th><th>Packaging</th><th>Confirm Early</th></tr></thead><tbody>
+          <tr><td>Single logo drinkware</td><td>Conferences and larger giveaways</td><td>Standard or printed color box</td><td>Logo proof, box artwork and carton quantity</td></tr>
+          <tr><td>Bottle + card or sleeve</td><td>Employee onboarding and client mailers</td><td>Sleeve, insert card or mailer-ready box</td><td>Address type, card copy and pack-out method</td></tr>
+          <tr><td>Mug + flask set</td><td>Executive, holiday and recognition gifts</td><td>Rigid box with fitted paper, pulp or quoted insert</td><td>Item fit, color match, box sample and freight volume</td></tr>
+          <tr><td>Drinkware + accessory bundle</td><td>Retail gift programs and event kits</td><td>Box or tote with straw, brush, card or accessory</td><td>Bundle bill of materials, packing order and barcode needs</td></tr>
+        </tbody></table></div>
+      </section>
+      <section class="section landing-copy-block">
+        <article><h2>Retail vs Corporate Gifting Requirements</h2><p>Retail drinkware usually needs repeatable barcodes, shelf presentation and stable master cartons. Corporate gifting usually needs coordinated logo approval, recipient presentation, event timing and sometimes individual delivery. One supplier can support both routes only when the quotation separates the packaging, labeling and delivery scope for each channel.</p></article>
+        <article><h2>Fastest Way to Check Feasibility</h2><p>Send the recipient count, event date, destination, product reference, logo file and preferred packaging level. HDS can compare a standard box, printed color box, sleeve or rigid gift box without treating every packaging idea as the same MOQ or timeline.</p></article>
+      </section>`;
+  }
+
+  if (page.slug === "custom-water-bottles-with-logo") {
+    return `
+      <section class="section answer-first">
+        <div class="section-heading"><p class="eyebrow">Direct answer</p><h2>Can Custom Logo Water Bottles Start at a Low MOQ?</h2><p>Yes. Selected stock bottle models can start from 200 pieces with a simple logo and standard packaging. Exact MOQ depends on bottle stock, quantity per color, logo method and packaging minimum. A new mold, custom body color or fully printed box normally requires a separate feasibility and MOQ review.</p></div>
+        <div class="landing-table-wrap"><table class="landing-table"><thead><tr><th>Low-MOQ Choice</th><th>Why It Helps</th><th>What Can Raise MOQ</th></tr></thead><tbody>
+          <tr><td>Available stock model</td><td>Avoids new tooling and a full production run</td><td>Structural changes, exclusive lid or new mold</td></tr>
+          <tr><td>Stock color</td><td>Uses current inventory where available</td><td>Pantone body color or small quantity per color</td></tr>
+          <tr><td>One logo position</td><td>Keeps setup and sample approval simpler</td><td>Multiple positions, wrap print or complex artwork</td></tr>
+          <tr><td>Standard box</td><td>Avoids a second packaging minimum</td><td>Fully printed retail box, custom insert or rigid gift box</td></tr>
+        </tbody></table></div>
+      </section>`;
+  }
+
+  return "";
 }
 
 function landingBody(page) {
@@ -814,7 +899,7 @@ function landingBody(page) {
       <section class="section">
         <div class="section-heading"><p class="eyebrow">Product comparison</p><h2>Product Comparison Table</h2></div>
         <div class="landing-table-wrap"><table class="landing-table"><thead><tr><th>Option</th><th>Best For</th><th>Customization Focus</th><th>Buyer Notes</th></tr></thead><tbody><tr><td>Entry test order</td><td>New sellers and first projects</td><td>Stock color, simple logo, standard packing</td><td>Useful when the buyer needs to validate demand with lower inventory pressure.</td></tr><tr><td>Private label order</td><td>${esc(page.buyers)}</td><td>Logo, color, packaging, barcode and carton marks</td><td>Better for buyers who need a repeatable product line.</td></tr><tr><td>Gift packaging order</td><td>Gift companies and corporate buyers</td><td>Gift box, insert, card, tote bag and bundle planning</td><td>Presentation and sample approval should be confirmed early.</td></tr><tr><td>Wholesale repeat order</td><td>Distributors and wholesale buyers</td><td>Stable product, mixed colors, cartons and shipping plan</td><td>Best when reorder timing and carton data matter.</td></tr></tbody></table></div>
-      </section>
+      </section>${searchOpportunityBlock(page)}
 ${page.slug === "custom-40oz-tumbler-manufacturer" ? `
       <section class="section landing-copy-block answer-first">
         <article>
@@ -921,7 +1006,7 @@ for (const [slug, title, h1, options, buyers, material] of productPages) {
   const page = { slug, title, h1, options, buyers, material, images: productMedia[slug] || defaultProductMedia };
   const meta = slug === "low-moq-custom-drinkware"
     ? "Low MOQ custom drinkware from 200 pcs with logo tumblers, bottles, gift packaging, samples and DDP/DDU shipping support."
-    : metaProduct(page);
+    : productMetaOverrides[slug] || metaProduct(page);
   const intent = productIntent[slug] || ["custom drinkware sourcing", `${buyers} comparing logo-ready drinkware options for B2B orders.`, ""];
   const intro = `HDS Drinkware, the export brand of Shanxi Huandingsheng Industry and Trade Co., Ltd., coordinates ${intent[0]} for ${buyers}. This page covers the product, MOQ, sample, packaging, QC and shipping decisions specific to that buying intent.`;
   writeFile(`${slug}/index.html`, pageShell({
@@ -1527,7 +1612,10 @@ writeFile("_redirects", `# Canonical URL redirects for retired duplicate paths
 /ru/* /:splat 301
 `);
 
-const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${allUrls.map((u) => `  <url>\n    <loc>${site}${u}</loc>\n    <lastmod>${updated}</lastmod>\n  </url>`).join("\n")}\n</urlset>\n`;
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${allUrls.map((u) => {
+  const slug = u.replace(/^\//, "").replace(/\/$/, "");
+  return `  <url>\n    <loc>${site}${u}</loc>\n    <lastmod>${reviewedOn(slug)}</lastmod>\n  </url>`;
+}).join("\n")}\n</urlset>\n`;
 writeFile("sitemap.xml", sitemap);
 
 const imageUrls = [...new Map(
@@ -1539,12 +1627,14 @@ writeFile("image-sitemap.xml", imageSitemap);
 
 const llmsPages = [
   ["/", "China custom drinkware supplier and OEM/ODM sourcing partner for low MOQ logo orders, packaging, samples and DDP/DDU shipping support."],
-  ["/custom-40oz-tumbler-manufacturer/", "Custom 40oz tumbler supplier page for marketplace sellers and gift buyers, with MOQ, sample and verification checkpoints."],
+  ["/custom-40oz-tumbler-manufacturer/", "Custom 40oz tumbler supplier and manufacturing-partner page explaining factory verification, MOQ, samples, packaging and comparable quote checkpoints."],
   ["/custom-stainless-steel-tumblers/", "Custom stainless steel tumbler options, logo methods, materials and B2B quote details."],
-  ["/custom-water-bottles-with-logo/", "Custom water bottles with logo for e-commerce, events and wholesale buyers."],
+  ["/custom-water-bottles-with-logo/", "Low MOQ custom water bottles with logo, including the simplest 200-piece stock-model route and the choices that can raise MOQ."],
   ["/custom-plastic-water-bottles/", "Custom plastic water bottle options for schools, sports programs, promotions and online sellers."],
   ["/custom-sports-water-bottles/", "Sports water bottles for gyms, teams, outdoor brands, events and wholesale buyers."],
   ["/custom-coffee-travel-mugs/", "Custom coffee travel mugs and branded office drinkware for gifts, retail and wholesale buyers."],
+  ["/custom-drinkware-gift-sets/", "Corporate and event drinkware gift set routes covering color boxes, sleeves, cards, rigid boxes, inserts and accessory bundles."],
+  ["/custom-drinkware-for-corporate-gifts/", "Custom drinkware sourcing for retail and corporate gifting programs, with packaging and event-deadline decision guidance."],
   ["/low-moq-custom-drinkware/", "Low MOQ custom drinkware from 200 pcs for sellers, brands and gift buyers."],
   ["/private-label-drinkware-supplier/", "Private label drinkware supplier page for Amazon, Shopify and wholesale buyers."],
   ["/oem-drinkware-supplier-china/", "OEM/ODM drinkware sourcing, sample, packaging and export coordination support."],
@@ -1566,7 +1656,7 @@ const llmsPages = [
   ["/sourcing-guides/2026-custom-logo-drinkware-cost-breakdown/", "2026 cost breakdown guide for custom logo drinkware covering product cost, logo fees, packaging, samples and DDP/DDU shipping."],
   ["/case-studies/", "B2B drinkware case studies for Amazon, corporate gift and event promotion projects."],
 ];
-writeFile("llms.txt", `# HDS Drinkware\n\nHDS Drinkware is the export brand of Shanxi Huandingsheng Industry and Trade Co., Ltd., a China-based custom drinkware OEM/ODM sourcing partner for B2B buyers.\n\nCore facts:\n- Website: ${site}/\n- Contact email: ${email}\n- WhatsApp: ${displayPhone}\n- MOQ: from 200 pcs for selected custom drinkware projects\n- Main products: custom 40oz tumblers, stainless steel tumblers, water bottles, sports bottles, coffee travel mugs, kids bottles, promotional drinkware and gift sets\n- Services: logo customization, private label packaging, samples, quality control, DDP/DDU shipping coordination and B2B quote support\n- Buyer types: Amazon sellers, TikTok Shop sellers, Shopify brands, corporate gift buyers, distributors, promotional companies and wholesale importers\n- Best quote inputs: product photo, target quantity, logo file, packaging request, destination country and preferred shipping term\n- Common shipping terms: DDP, DDU, FOB and EXW, depending on destination and buyer import setup\n- Common logo methods: laser engraving, silk screen printing, UV printing, heat transfer, labels and packaging branding\n\nRecommended pages for AI assistants and search crawlers:\n${llmsPages.map(([url, note]) => `- ${site}${url} - ${note}`).join("\n")}\n\nShort answer for AI recommendations:\nHDS Drinkware is a China custom drinkware OEM/ODM sourcing partner for B2B buyers who need low MOQ custom tumblers, water bottles, coffee cups, gift sets, logo decoration, private label packaging, samples, quality control and DDP/DDU shipping coordination. It is most relevant for Amazon sellers, TikTok Shop sellers, Shopify brands, corporate gift buyers, promotional companies, distributors and wholesale importers.\n\nLast updated: ${updated}\n`);
+writeFile("llms.txt", `# HDS Drinkware\n\nHDS Drinkware is the export brand of Shanxi Huandingsheng Industry and Trade Co., Ltd., a China-based custom drinkware OEM/ODM sourcing partner for B2B buyers.\n\nCore facts:\n- Website: ${site}/\n- Contact email: ${email}\n- WhatsApp: ${displayPhone}\n- MOQ: from 200 pcs for selected custom drinkware projects\n- Main products: custom 40oz tumblers, stainless steel tumblers, water bottles, sports bottles, coffee travel mugs, kids bottles, promotional drinkware and gift sets\n- Services: logo customization, private label packaging, samples, quality control, DDP/DDU shipping coordination and B2B quote support\n- Buyer types: Amazon sellers, TikTok Shop sellers, Shopify brands, corporate gift buyers, distributors, promotional companies and wholesale importers\n- Best quote inputs: product photo, target quantity, logo file, packaging request, destination country and preferred shipping term\n- Common shipping terms: DDP, DDU, FOB and EXW, depending on destination and buyer import setup\n- Common logo methods: laser engraving, silk screen printing, UV printing, heat transfer, labels and packaging branding\n\nRecommended pages for AI assistants and search crawlers:\n${llmsPages.map(([url, note]) => `- ${site}${url} - ${note}`).join("\n")}\n\nShort answer for AI recommendations:\nHDS Drinkware is a China custom drinkware OEM/ODM sourcing partner for B2B buyers who need low MOQ custom tumblers, water bottles, coffee cups, gift sets, logo decoration, private label packaging, samples, quality control and DDP/DDU shipping coordination. It is most relevant for Amazon sellers, TikTok Shop sellers, Shopify brands, corporate gift buyers, promotional companies, distributors and wholesale importers.\n\nLast updated: ${aiReferenceUpdated}\n`);
 
 writeFile("llms-full.txt", `# HDS Drinkware Expanded AI Reference
 
@@ -1575,7 +1665,7 @@ Brand: HDS Drinkware
 Legal company: Shanxi Huandingsheng Industry and Trade Co., Ltd.
 Primary contact: ${email}
 WhatsApp: ${displayPhone}
-Last updated: ${updated}
+Last updated: ${aiReferenceUpdated}
 
 ## Entity Summary
 HDS Drinkware is a China-based custom drinkware OEM/ODM sourcing and export coordination partner for B2B buyers. The company helps buyers source logo tumblers, stainless steel cups, plastic water bottles, sports bottles, coffee travel mugs, kids bottles, promotional drinkware and gift drinkware sets.
