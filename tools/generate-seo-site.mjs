@@ -7,13 +7,18 @@ const email = "hds.drinkware@gmail.com";
 const whatsapp = "8613994271614";
 const displayPhone = "+86 13994271614";
 const updated = "2026-07-18";
-const aiReferenceUpdated = "2026-07-20";
+const aiReferenceUpdated = "2026-07-22";
 const pageUpdated = {
   "custom-40oz-tumbler-manufacturer": "2026-07-20",
+  "custom-stainless-steel-tumblers": "2026-07-22",
   "custom-water-bottles-with-logo": "2026-07-20",
   "custom-drinkware-gift-sets": "2026-07-20",
   "custom-drinkware-for-corporate-gifts": "2026-07-20",
   "low-moq-custom-drinkware": "2026-07-20",
+  "sourcing-guides/how-to-source-custom-tumblers-from-china": "2026-07-22",
+  "sourcing-guides/how-to-calculate-landed-cost-importing-drinkware-china": "2026-07-22",
+  "sourcing-guides/understanding-fda-vs-lfgb-standards-stainless-steel-bottles": "2026-07-22",
+  "faq": "2026-07-22",
 };
 const reviewedOn = (slug = "") => pageUpdated[slug] || updated;
 const defaultOgImage = `${site}/assets/hero-premium-custom-drinkware-gift-packaging.jpg`;
@@ -30,6 +35,7 @@ const cap = (value) => value.replace(/\b\w/g, (m) => m.toUpperCase());
 const metaProduct = (page) => `${page.h1}. Low MOQ custom logo drinkware, packaging, samples and DDP/DDU shipping support from China.`;
 const productMetaOverrides = {
   "custom-40oz-tumbler-manufacturer": "Compare custom 40oz tumbler supply and manufacturing routes in China, with 200-piece options, factory verification, samples, packaging and shipping.",
+  "custom-stainless-steel-tumblers": "Custom stainless steel tumblers with logo from 200 pieces on selected stock models, with material, insulation, logo, packaging and QC guidance.",
   "custom-water-bottles-with-logo": "Low MOQ custom water bottles with logo from 200 pieces on selected stock models, with bottle, color, logo, packaging and shipping decision guidance.",
   "custom-drinkware-gift-sets": "Custom drinkware gift sets for corporate events, including color boxes, sleeves, cards, rigid boxes, inserts, samples and delivery planning.",
   "custom-drinkware-for-corporate-gifts": "Custom drinkware supplier support for retail and corporate gifting, with logo approval, gift packaging, event deadlines, samples and shipping planning.",
@@ -42,7 +48,7 @@ const mediaSrc = (src, depth) => isAbsoluteUrl(src) ? src : `${"../".repeat(dept
 
 const productPages = [
   ["custom-40oz-tumbler-manufacturer", "40oz Tumbler Manufacturing Partner China", "Custom 40oz Tumbler Supplier & Manufacturing Partner in China", "40oz handle tumblers, straw tumblers, gradient tumblers and rhinestone gift tumblers", "Amazon sellers, TikTok Shop sellers, Shopify brands, gift companies and distributors", "stainless steel, powder coated stainless steel and decorated tumbler options"],
-  ["custom-stainless-steel-tumblers", "Custom Stainless Steel Tumblers Manufacturer", "Custom Stainless Steel Tumblers with Logo for Wholesale and Gift Buyers", "vacuum insulated tumblers, travel cups, coffee tumblers and stainless steel drinkware", "Amazon sellers, corporate gift buyers, distributors and wholesale buyers", "304 stainless steel inner options, powder coating, metallic finish and gradient color"],
+  ["custom-stainless-steel-tumblers", "Custom Stainless Steel Tumblers with Logo", "Custom Stainless Steel Tumblers with Logo for Wholesale and Gift Buyers", "vacuum insulated tumblers, travel cups, coffee tumblers and stainless steel drinkware", "Amazon sellers, corporate gift buyers, distributors and wholesale buyers", "304 stainless steel inner options, powder coating, metallic finish and gradient color"],
   ["custom-water-bottles-with-logo", "Low MOQ Custom Water Bottles with Logo", "Low MOQ Custom Water Bottles with Logo for Brands and Events", "PC water bottles, sports bottles, 64oz bottles, kids bottles and daily hydration bottles", "fitness brands, schools, promotional buyers, Amazon sellers and wholesalers", "PC, PP, PETG, Tritan-style plastic options and stainless steel bottle options"],
   ["custom-plastic-water-bottles", "Custom Plastic Water Bottles Supplier China", "Custom Plastic Water Bottles with Logo and Packaging Support", "PC bottles, PP bottles, PETG bottles, straw bottles, kids bottles and promotional bottles", "schools, fitness programs, event buyers, social commerce sellers and promotional companies", "PC, PP, PETG and Tritan-style plastic options by project"],
   ["custom-sports-water-bottles", "Custom Sports Water Bottles Supplier", "Custom Sports Water Bottles for Gyms, Teams and Outdoor Buyers", "1000ml sports bottles, wide mouth bottles, cycling bottles and large hydration bottles", "gyms, teams, outdoor brands, distributors and Amazon sellers", "PC, PP, PETG, Tritan-style plastic and stainless steel options"],
@@ -95,14 +101,14 @@ const guides = [
   ["2026-custom-logo-drinkware-cost-breakdown", "2026 Custom Logo Drinkware Cost Breakdown: Product Cost, Logo Fees, Packaging and Shipping", "custom logo drinkware cost breakdown"],
   ["ddp-ddu-shipping-for-custom-drinkware", "DDP/DDU Shipping for Custom Drinkware Buyers: What to Know", "DDP and DDU shipping for drinkware"],
   ["how-to-calculate-landed-cost-importing-drinkware-china", "How to Calculate Landed Cost of Importing Drinkware from China", "landed cost calculation for importing drinkware"],
-  ["understanding-fda-vs-lfgb-standards-stainless-steel-bottles", "FDA vs LFGB Food Grade Standards for Stainless Steel Bottles", "FDA and LFGB compliance for stainless steel drinkware"],
+  ["understanding-fda-vs-lfgb-standards-stainless-steel-bottles", "FDA vs LFGB Compliance for Stainless Steel Drinkware", "FDA and LFGB compliance for stainless steel drinkware"],
 ];
 
 const guideSeoTitles = {
   "sourcing-drinkware-for-brazil-brazil": "Brazil Custom Drinkware Logistics Guide",
   "2026-us-section-301-tariffs-impact-on-drinkware": "2026 US Drinkware Tariff Sourcing Guide",
   "amazon-drinkware-sourcing-guide-2026": "Amazon Drinkware Sourcing Guide 2026",
-  "how-to-source-custom-tumblers-from-china": "Source Custom Tumblers from China",
+  "how-to-source-custom-tumblers-from-china": "How to Source Custom Tumblers from China",
   "how-to-choose-logo-method-for-custom-drinkware": "Choose a Custom Drinkware Logo Method",
   "laser-engraving-vs-silk-screen-vs-uv-printing": "Laser vs Screen vs UV Printing",
   "custom-tumblers-for-amazon-sellers": "Low MOQ Custom Tumblers for Amazon",
@@ -114,8 +120,20 @@ const guideSeoTitles = {
   "what-to-provide-before-requesting-quote": "Custom Drinkware Quote Checklist",
   "2026-custom-logo-drinkware-cost-breakdown": "Custom Logo Drinkware Cost Breakdown 2026",
   "ddp-ddu-shipping-for-custom-drinkware": "DDP/DDU Shipping for Drinkware Buyers",
-  "how-to-calculate-landed-cost-importing-drinkware-china": "Calculate Drinkware Landed Cost",
-  "understanding-fda-vs-lfgb-standards-stainless-steel-bottles": "FDA vs LFGB Stainless Steel Bottles",
+  "how-to-calculate-landed-cost-importing-drinkware-china": "Drinkware Landed Cost Formula for China",
+  "understanding-fda-vs-lfgb-standards-stainless-steel-bottles": "FDA vs LFGB Drinkware Compliance Guide",
+};
+
+const guideMetaOverrides = {
+  "how-to-source-custom-tumblers-from-china": "Source custom tumblers from China in seven buyer-controlled steps: specification, supplier verification, samples, compliance, QC, landed cost and shipping.",
+  "how-to-calculate-landed-cost-importing-drinkware-china": "Calculate landed cost per drinkware unit using product, logo, packaging, freight, duty, broker and delivery costs, with a worked China import example.",
+  "understanding-fda-vs-lfgb-standards-stainless-steel-bottles": "Compare FDA and LFGB food-contact requirements for stainless steel drinkware, including documents, test scope, intended use and buyer verification steps.",
+};
+
+const guideIntroOverrides = {
+  "how-to-source-custom-tumblers-from-china": "A seven-step sourcing process for B2B buyers comparing custom tumbler suppliers in China: specification, supplier verification, samples, compliance, QC, landed cost and shipping.",
+  "how-to-calculate-landed-cost-importing-drinkware-china": "A practical formula and worked example for calculating sellable landed cost per unit on custom tumblers, bottles and other drinkware imported from China.",
+  "understanding-fda-vs-lfgb-standards-stainless-steel-bottles": "A buyer-focused comparison of US FDA food-contact requirements and the EU/German LFGB framework for stainless steel bottles and tumblers.",
 };
 
 const guideFocus = {
@@ -389,7 +407,7 @@ const productIntent = {
 
 const relatedClusters = {
   "custom-40oz-tumbler-manufacturer": [["Stainless steel tumblers", "/custom-stainless-steel-tumblers/"], ["TikTok Shop drinkware", "/custom-drinkware-for-tiktok-shop-sellers/"], ["Low MOQ custom drinkware", "/low-moq-custom-drinkware/"], ["Logo method guide", "/sourcing-guides/how-to-choose-logo-method-for-custom-drinkware/"]],
-  "custom-stainless-steel-tumblers": [["40oz tumbler manufacturer", "/custom-40oz-tumbler-manufacturer/"], ["Logo drinkware manufacturer", "/logo-drinkware-manufacturer/"], ["Private label drinkware", "/private-label-drinkware-supplier/"], ["Stainless vs plastic bottles", "/sourcing-guides/stainless-steel-vs-plastic-water-bottles/"]],
+  "custom-stainless-steel-tumblers": [["40oz tumbler manufacturing partner", "/custom-40oz-tumbler-manufacturer/"], ["FDA vs LFGB compliance guide", "/sourcing-guides/understanding-fda-vs-lfgb-standards-stainless-steel-bottles/"], ["How to source custom tumblers", "/sourcing-guides/how-to-source-custom-tumblers-from-china/"], ["Calculate drinkware landed cost", "/sourcing-guides/how-to-calculate-landed-cost-importing-drinkware-china/"], ["Drinkware quality control", "/quality-control/"]],
   "custom-water-bottles-with-logo": [["Low MOQ custom drinkware", "/low-moq-custom-drinkware/"], ["Water bottle supplier China", "/custom-water-bottle-supplier-china/"], ["Corporate gift bottles", "/custom-water-bottles-for-corporate-gifts/"], ["MOQ guide", "/sourcing-guides/what-is-moq-for-custom-drinkware/"]],
   "custom-promotional-drinkware": [["Promotional supplier", "/promotional-drinkware-supplier/"], ["Promotional companies", "/custom-drinkware-for-promotional-companies/"], ["Event gifts", "/custom-drinkware-for-event-gifts/"], ["Packaging options", "/sourcing-guides/custom-drinkware-packaging-options/"]],
   "promotional-drinkware-supplier": [["Promotional drinkware categories", "/custom-promotional-drinkware/"], ["Logo drinkware manufacturer", "/logo-drinkware-manufacturer/"], ["Corporate gifts", "/custom-drinkware-for-corporate-gifts/"], ["Logo method guide", "/sourcing-guides/how-to-choose-logo-method-for-custom-drinkware/"]],
@@ -702,7 +720,11 @@ const customPageDetails = {
       "Gift distributors and corporate buyers require elegant packaging solutions, custom insert cards, and tissue wrapping to elevate the unboxing experience."
     ],
     materialDetail: "Selected products can use 18/8 (304) stainless steel inner walls; other steel grades may be discussed when available for a specific model. Finish options can include powder coating, metallic color, gradient spray or other project-specific surface treatments.",
-    qcDetail: "Project-specific QC plans can cover insulation, leakage, surface finish, logo adhesion, packaging and requested compliance documentation. The final inspection scope is confirmed against the selected product and buyer requirements."
+    qcDetail: "Project-specific QC plans can cover insulation, leakage, surface finish, logo adhesion, packaging and requested compliance documentation. The final inspection scope is confirmed against the selected product and buyer requirements.",
+    faq: [
+      ["Can custom stainless steel tumblers with a logo start from 200 pieces?", "Yes. Selected stock tumbler models can start from 200 pieces with a simple logo and standard packaging. Exact MOQ depends on model availability, quantity per color, logo setup and packaging minimums."],
+      ["What stainless steel grade should a buyer confirm for a custom tumbler?", "Ask for the steel grade of the food-contact inner wall for the exact quoted SKU. Selected models can use 18/8 (304) stainless steel, but the buyer should confirm the written specification, lid and gasket materials, intended use and available product-specific documentation before ordering."],
+    ],
   },
   "custom-water-bottles-with-logo": {
     painPoints: [
@@ -805,6 +827,23 @@ function searchOpportunityBlock(page) {
           <h2>How to Verify a China 40oz Tumbler Factory Quote</h2>
           <p>Verify the exact SKU rather than relying on the word “factory.” Compare a signed sample, material and lid specification, logo proof, packaging, carton dimensions, inspection checklist, lead time and shipping term. HDS can organize these checkpoints so supplier and manufacturer quotations are compared on the same scope.</p>
         </article>
+      </section>`;
+  }
+
+  if (page.slug === "custom-stainless-steel-tumblers") {
+    return `
+      <section class="section answer-first">
+        <div class="section-heading"><p class="eyebrow">Direct answer for wholesale buyers</p><h2>Can Custom Stainless Steel Tumblers with Logo Start from 200 Pieces?</h2><p>Yes. Selected stock tumbler models can start from 200 pieces with one logo position and standard packaging. The confirmed MOQ depends on model stock, quantity per color, surface finish, decoration setup and box minimum. Custom Pantone coatings, multiple logo positions or printed retail boxes normally require a separate feasibility review.</p></div>
+        <div class="landing-table-wrap"><table class="landing-table"><thead><tr><th>Tumbler Route</th><th>Best For</th><th>Confirm in the Quote</th><th>Verify Before Bulk</th></tr></thead><tbody>
+          <tr><td>20oz or straight stock tumbler</td><td>Wholesale tests and logo programs</td><td>Capacity, steel grade, lid, stock color and quantity per color</td><td>Physical sample, measurements and packing</td></tr>
+          <tr><td>Powder-coated insulated tumbler</td><td>Private label and corporate gifts</td><td>Coating, logo method, insulation expectation and box</td><td>Color sample, logo proof and agreed function checks</td></tr>
+          <tr><td>Handle or large-capacity tumbler</td><td>Marketplace and lifestyle brands</td><td>Handle structure, lid fit, base diameter and straw accessories</td><td>Sample fit, leakage scope, handle review and carton data</td></tr>
+          <tr><td>Gift-ready tumbler</td><td>Events and employee programs</td><td>Box, sleeve, insert, card, delivery date and recipient count</td><td>Product proof, packaging proof and final pack-out</td></tr>
+        </tbody></table></div>
+      </section>
+      <section class="section landing-copy-block answer-first">
+        <article><h2>What Does “FDA or LFGB Compliant” Mean for a Tumbler Quote?</h2><p>It should mean the supplier can identify the exact product, food-contact components, intended use, destination market and supporting document or test scope. A generic category claim is not enough. Buyers should match every report or declaration to the quoted SKU, material, supplier or manufacturer, date and conditions of use.</p></article>
+        <article><h2>Fastest Way to Compare Stainless Tumbler Quotes</h2><p>Send one reference photo, capacity, quantity, logo file, packaging request and destination. Compare the same material and lid specification, sample, logo method, inspection scope, carton data and shipping term across suppliers. See the <a href="/sourcing-guides/understanding-fda-vs-lfgb-standards-stainless-steel-bottles/">FDA vs LFGB buyer guide</a> before accepting a broad compliance claim.</p></article>
       </section>`;
   }
 
@@ -1028,6 +1067,117 @@ for (const [slug, title, h1, options, buyers, material] of productPages) {
 }
 
 function guideBody(slug, title, topic) {
+  if (slug === "how-to-source-custom-tumblers-from-china") {
+    const faq = [
+      ["How do I source custom tumblers from China?", "Start with a written product specification, shortlist suppliers that can quote the same scope, verify the proposed production route, approve a physical sample, confirm product-specific compliance documents, agree on an inspection plan, and compare landed cost using final carton data and the same shipping term."],
+      ["How can I verify a custom tumbler supplier?", "Match the legal company and payment beneficiary, ask who will manufacture the quoted SKU, review recent product evidence or a physical sample, verify the written material and lid specification, and keep the inspection, packaging, lead-time and shipping scope in the quotation."],
+      ["What should a custom tumbler quotation include?", "A comparable quote should identify the exact model, capacity, material, lid and accessories, quantity per color, logo method and position, packaging, sample cost, production timing, carton quantity and dimensions, inspection scope, Incoterm and destination."],
+      ["Should buyers choose a factory, trading company or sourcing partner?", "Choose the route that can document and control the exact project. A factory may be efficient for one product family; a trading company or sourcing partner may coordinate multiple specialist suppliers. The label matters less than transparent supplier identity, sample control, written specifications, inspection and payment verification."],
+    ];
+    return {
+      body: `
+      <section class="section answer-first">
+        <div class="section-heading"><p class="eyebrow">Direct answer</p><h2>How Do You Source Custom Tumblers from China?</h2><p>Use seven buyer-controlled steps: define the exact tumbler specification, compare suppliers on the same scope, verify the proposed production route, approve a physical sample, confirm product-specific compliance evidence, agree on pre-shipment QC, and calculate landed cost from final carton data. Do not select a supplier from a product photo and headline unit price alone.</p></div>
+        <div class="landing-table-wrap"><table class="landing-table"><thead><tr><th>Step</th><th>Buyer Action</th><th>Evidence to Keep</th></tr></thead><tbody>
+          <tr><td>1. Specification</td><td>Define capacity, dimensions, inner-wall steel, lid, gasket, handle, finish, color and accessories</td><td>Written specification and reference photos</td></tr>
+          <tr><td>2. Supplier comparison</td><td>Send the same RFQ to each candidate</td><td>Itemized quotes using the same quantity and Incoterm</td></tr>
+          <tr><td>3. Production-route verification</td><td>Ask who supplies or manufactures the exact SKU and who controls QC</td><td>Legal entity, payment beneficiary and written project responsibility</td></tr>
+          <tr><td>4. Sample approval</td><td>Check fit, finish, lid, logo, dimensions, packaging and agreed function</td><td>Approved physical sample, photos or signed approval record</td></tr>
+          <tr><td>5. Compliance review</td><td>Match documents to the SKU, material, intended use and destination</td><td>Current reports or declarations with identifiable scope</td></tr>
+          <tr><td>6. Quality control</td><td>Agree on inspection timing, sample size and pass/fail criteria</td><td>Inspection checklist and pre-shipment report</td></tr>
+          <tr><td>7. Landed cost</td><td>Add logo, packaging, freight, duty, broker and delivery costs</td><td>Final carton data and complete landed-cost worksheet</td></tr>
+        </tbody></table></div>
+      </section>
+      <section class="section landing-copy-block">
+        <article><h2>Factory, Trading Company or Sourcing Partner?</h2><p>A factory can be a strong choice when one production line matches the exact product. A trading company or sourcing partner can be useful when the project combines tumblers, lids, decoration, gift packaging and export coordination from different specialists. Buyers should verify the legal company, proposed manufacturer or supplier, sample, written specification, inspection responsibility and payment beneficiary instead of relying on the word “factory.” HDS positions itself as a supplier and sourcing partner coordinating the route confirmed for each quoted product.</p></article>
+        <article><h2>Quotation Red Flags</h2><ul><li>The quote does not identify a model, material, lid or packaging scope.</li><li>MOQ is stated without quantity per color or logo setup details.</li><li>Compliance is described only as “FDA approved” or “LFGB certified” with no report scope.</li><li>Shipping is quoted before carton dimensions, gross weight and destination are known.</li><li>The requested payment beneficiary does not match the legal entity or written explanation.</li></ul></article>
+      </section>
+      <section class="section"><div class="section-heading"><p class="eyebrow">Like-for-like comparison</p><h2>What Every Tumbler Quote Should Show</h2></div><div class="landing-table-wrap"><table class="landing-table"><thead><tr><th>Quote Field</th><th>Minimum Detail</th><th>Why It Matters</th></tr></thead><tbody>
+        <tr><td>Product</td><td>Model, capacity, dimensions, material, lid, accessories and finish</td><td>Similar photos can hide different structures and cost.</td></tr>
+        <tr><td>Quantity</td><td>Total pieces, quantity per color and repeat-order assumptions</td><td>Decoration and color minimums may differ from the total MOQ.</td></tr>
+        <tr><td>Branding</td><td>Method, size, position, colors, setup and sample proof</td><td>Logo scope changes durability, setup cost and timing.</td></tr>
+        <tr><td>Packaging</td><td>Inner box, insert, barcode, carton quantity and carton marks</td><td>Packaging changes presentation, damage risk and freight.</td></tr>
+        <tr><td>Timing and QC</td><td>Sample timing, production timing, inspection scope and approval points</td><td>A fast promise is not a production plan.</td></tr>
+        <tr><td>Shipping</td><td>EXW, FOB, DDU or DDP, destination and validity</td><td>Different terms cannot be compared as one unit price.</td></tr>
+      </tbody></table></div></section>
+      <section class="section landing-copy-block"><article><h2>Related Buyer Tools</h2><p>Compare <a href="/custom-stainless-steel-tumblers/">custom stainless steel tumblers with logo</a>, review the <a href="/sourcing-guides/understanding-fda-vs-lfgb-standards-stainless-steel-bottles/">FDA vs LFGB compliance checklist</a>, use the <a href="/quality-control/">drinkware QC process</a>, and calculate the <a href="/sourcing-guides/how-to-calculate-landed-cost-importing-drinkware-china/">landed cost per unit</a> before choosing a supplier.</p></article><article><h2>RFQ Inputs</h2><p>Send a product photo or link, capacity, quantity and color split, logo file, packaging request, destination, target delivery date and preferred shipping term. Ask each candidate to quote exactly this same scope.</p></article></section>
+      <section class="section landing-faq">${faq.map(([q, a]) => `<article><h3>${esc(q)}</h3><p>${esc(a)}</p></article>`).join("")}</section>
+      <section class="section"><div class="landing-cta-band"><div><h2>Need a comparable custom tumbler quotation?</h2><p>Send one RFQ packet. HDS will separate product, logo, packaging, sample, QC and shipping scope for review.</p><p>Author: HDS Drinkware Sourcing Team. Reviewed: ${reviewedOn(`sourcing-guides/${slug}`)}.</p></div><div class="hero-actions"><a class="button whatsapp" href="${wa("Hi HDS Drinkware, I need a comparable custom tumbler quotation. Product: , quantity/colors: , logo: , packaging: , destination: , target date: .")}" target="_blank" rel="noopener">Send Tumbler RFQ</a><a class="button primary" href="/contact/">Use Quote Checklist</a></div></div></section>`,
+      faq,
+    };
+  }
+
+  if (slug === "how-to-calculate-landed-cost-importing-drinkware-china") {
+    const faq = [
+      ["What is the landed cost formula for imported drinkware?", "Landed cost per sellable unit equals total goods, logo, packaging, allocated sample or tooling, freight, insurance, duty and import fees, broker or port charges, and final delivery costs divided by the number of sellable units received."],
+      ["Should customs duty be calculated on freight and insurance for a US import?", "Do not assume the landed-cost total is the US customs value. CBP generally bases transaction value on the price paid or payable with applicable additions and generally excludes international freight and insurance when separately identified, but classification and valuation are fact-specific. Confirm the entry with a licensed customs broker."],
+      ["Why can a lower drinkware unit price produce a higher landed cost?", "A lower product price can be offset by larger cartons, lower carton loading, expensive packaging, extra logo setup, higher defect or replacement risk, duties, broker fees and last-mile delivery. Compare sellable landed cost per unit, not the supplier unit price alone."],
+      ["What data is needed before requesting a DDP or DDU quote?", "Provide the exact product, quantity, packaging, final carton quantity, carton dimensions, gross weight, destination country, address type and target delivery date. A shipping quote made before final carton data should be treated as an estimate."],
+    ];
+    return {
+      body: `
+      <section class="section answer-first">
+        <div class="section-heading"><p class="eyebrow">Direct answer</p><h2>What Is the Landed Cost Formula for Imported Drinkware?</h2><p><strong>Landed cost per sellable unit = (goods + logo + packaging + allocated sample/tooling + freight + insurance + duty/import fees + broker/port charges + final delivery) ÷ sellable units received.</strong> Use the final carton count, dimensions and gross weight, and keep customs value separate from the broader commercial landed-cost calculation.</p></div>
+      </section>
+      <section class="section"><div class="section-heading"><p class="eyebrow">Cost worksheet</p><h2>Drinkware Landed Cost Components</h2></div><div class="landing-table-wrap"><table class="landing-table"><thead><tr><th>Cost Component</th><th>Input to Collect</th><th>Common Mistake</th></tr></thead><tbody>
+        <tr><td>Goods</td><td>Unit price × ordered quantity, plus any commercial-invoice additions</td><td>Comparing different materials, lids or specifications as the same product</td></tr>
+        <tr><td>Logo and setup</td><td>Decoration unit charge, setup, proof and extra print positions</td><td>Assuming the sample logo and bulk logo are included</td></tr>
+        <tr><td>Packaging</td><td>Inner box, insert, sleeve, label, barcode, carton and packing labor</td><td>Ignoring how larger packaging increases freight volume</td></tr>
+        <tr><td>Sample and tooling allocation</td><td>Logo samples, packaging samples, courier and tooling divided across the commercial run</td><td>Hiding one-time launch costs outside product margin</td></tr>
+        <tr><td>International logistics</td><td>Pickup, export handling, freight, insurance and destination charges by Incoterm</td><td>Comparing FOB, DDU and DDP quotes as if they include the same scope</td></tr>
+        <tr><td>Duty and import fees</td><td>Current classification, customs value, duty treatment and applicable user fees</td><td>Using a generic internet duty percentage without broker verification</td></tr>
+        <tr><td>Broker and final delivery</td><td>Brokerage, port or terminal charges, appointment, warehouse and last mile</td><td>Stopping the calculation at the destination port</td></tr>
+        <tr><td>Sellable-unit adjustment</td><td>Received quantity minus agreed damaged, missing or unusable units</td><td>Dividing by ordered units when fewer units are sellable</td></tr>
+      </tbody></table></div></section>
+      <section class="section landing-copy-block answer-first">
+        <article><h2>Worked Example: 1,000 Custom Tumblers</h2><p>This illustrative example is not a quotation: goods $3,200 + logo $300 + packaging $400 + allocated samples $150 + freight/insurance $1,000 + duty and import fees $450 + broker/final delivery $250 = $5,750 total. If 1,000 units are sellable, landed cost is $5.75 each. If only 980 units are sellable, the effective landed cost is about $5.87 each.</p></article>
+        <article><h2>Keep Customs Value Separate</h2><p>For US entries, do not automatically apply duty to the entire commercial landed-cost total. CBP explains that transaction value generally starts with the price paid or payable, with applicable additions, and international freight and insurance may be excluded when properly identified. Product classification controls the duty treatment. Review the current <a href="https://hts.usitc.gov/search" target="_blank" rel="noopener">USITC Harmonized Tariff Schedule</a> and confirm classification and valuation with a licensed customs broker.</p></article>
+      </section>
+      <section class="section landing-copy-block"><article><h2>How to Compare FOB, DDU and DDP</h2><p>FOB usually leaves main freight, import clearance and destination delivery to the buyer. DDU normally includes transport toward the destination while the buyer remains responsible for specified import duties, taxes or clearance. DDP aims to include a broader duty-paid delivery scope where available. Always list exactly what is included, the destination address, quote validity and any excluded remote-area, storage, inspection or appointment charges.</p></article><article><h2>Source and Quote Inputs</h2><p>Use the <a href="/sourcing-guides/how-to-source-custom-tumblers-from-china/">custom tumbler sourcing checklist</a>, request final carton data, and link every cost back to the approved product, logo and packaging specification. HDS can coordinate quote inputs, but the importer and customs broker remain responsible for the destination-specific customs decision.</p></article></section>
+      <section class="section landing-faq">${faq.map(([q, a]) => `<article><h3>${esc(q)}</h3><p>${esc(a)}</p></article>`).join("")}</section>
+      <section class="section"><div class="landing-cta-band"><div><h2>Need an itemized drinkware landed-cost quote?</h2><p>Send product, quantity, logo, packaging, destination and delivery date. HDS will separate product, branding, packing and shipping assumptions.</p><p>Author: HDS Drinkware Sourcing Team. Reviewed: ${reviewedOn(`sourcing-guides/${slug}`)}.</p></div><div class="hero-actions"><a class="button whatsapp" href="${wa("Hi HDS Drinkware, I need an itemized landed-cost quote. Product: , quantity: , logo: , packaging: , destination/address type: , target date: .")}" target="_blank" rel="noopener">Request Landed-Cost Quote</a><a class="button primary" href="/contact/">Send RFQ Details</a></div></div></section>`,
+      faq,
+    };
+  }
+
+  if (slug === "understanding-fda-vs-lfgb-standards-stainless-steel-bottles") {
+    const faq = [
+      ["Is FDA compliance the same as LFGB compliance for stainless steel drinkware?", "No. US food-contact requirements and the EU/German framework use different legal bases, documentation and testing approaches. A report prepared for one market should not automatically be presented as proof for another market."],
+      ["Does the FDA issue a general certificate for every stainless steel tumbler?", "Buyers should not expect a single universal FDA certificate for a finished tumbler category. FDA food-contact compliance depends on the regulatory status of relevant components and their intended conditions of use. Ask for evidence tied to the exact food-contact components, supplier or manufacturer and use conditions."],
+      ["What does an LFGB test report prove?", "An LFGB-related laboratory report proves only the samples, materials, methods and limits stated in that report. Buyers should confirm the exact SKU, food-contact components, test date, laboratory, intended use and whether additional EU or destination-country requirements apply."],
+      ["What documents should a drinkware buyer request before ordering?", "Request the written product and material specification, bill of food-contact components where available, identifiable test reports or declarations, sample identity, intended-use conditions, manufacturer or supplier identity, report date and any destination-market documents required by the importer."],
+    ];
+    return {
+      body: `
+      <section class="section answer-first">
+        <div class="section-heading"><p class="eyebrow">Direct answer</p><h2>What Is the Difference Between FDA and LFGB for Stainless Steel Drinkware?</h2><p>FDA refers to the US regulatory framework for food-contact substances and their authorized intended uses. LFGB is German food and feed law used alongside the wider EU food-contact framework. They are not interchangeable certificates. For a tumbler or bottle, buyers should verify the exact food-contact components, intended beverage and temperature conditions, supplier or manufacturer, report or declaration scope, and destination-market requirements.</p></div>
+        <div class="landing-table-wrap"><table class="landing-table"><thead><tr><th>Buyer Question</th><th>US / FDA Route</th><th>EU / Germany Route</th></tr></thead><tbody>
+          <tr><td>Core framework</td><td>FDA rules and authorizations for food-contact substances under intended conditions of use</td><td>EU Framework Regulation (EC) No 1935/2004, applicable specific measures and German LFGB obligations</td></tr>
+          <tr><td>What to identify</td><td>Each relevant food-contact component and its regulatory basis or authorization</td><td>Finished article, materials, traceability, applicable migration or material requirements and supporting declaration/report</td></tr>
+          <tr><td>Use conditions</td><td>Food type, beverage, temperature, duration and repeated-use conditions matter</td><td>Food simulant, time, temperature, repeated use and material-specific scope matter</td></tr>
+          <tr><td>Buyer evidence</td><td>Specification plus component-specific regulatory support and relevant test evidence</td><td>Specification, traceability, applicable declaration and test reports tied to the sample</td></tr>
+          <tr><td>Common mistake</td><td>Calling a whole product “FDA approved” without identifying the regulatory basis</td><td>Treating an “LFGB test” as a permanent blanket certificate for every SKU or material</td></tr>
+        </tbody></table></div>
+      </section>
+      <section class="section landing-copy-block">
+        <article><h2>FDA Food-Contact Review</h2><p>The FDA defines a food-contact substance as a substance used as a component of materials that contact food without an intended technical effect in the food. The regulatory status of a food-contact material depends on its individual components and intended use. For drinkware, buyers should identify the inner stainless steel, lid, gasket, straw, coating or other relevant food-contact components rather than relying on a generic supplier statement. See the official <a href="https://www.fda.gov/food/packaging-food-contact-substances-fcs/determining-regulatory-status-components-food-contact-material" target="_blank" rel="noopener">FDA food-contact material guidance</a>.</p></article>
+        <article><h2>EU and German LFGB Review</h2><p>EU Regulation (EC) No 1935/2004 applies to materials and articles intended or reasonably expected to contact food and establishes general safety and traceability principles. German LFGB requirements operate within this wider framework. The document package depends on the product and material; buyers should confirm whether declarations, migration or composition testing, traceability and destination-specific obligations apply. Review the official <a href="https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=celex%3A32004R1935" target="_blank" rel="noopener">EU food-contact framework</a> and the German BVL information on <a href="https://www.bvl.bund.de/SharedDocs/Downloads/03_Verbraucherprodukte/lebensmittelkontaktmaterialien/Information_Konformitaetserklaerung_EN.pdf?__blob=publicationFile&v=4" target="_blank" rel="noopener">declarations of compliance</a>.</p></article>
+      </section>
+      <section class="section"><div class="section-heading"><p class="eyebrow">Document verification</p><h2>Compliance Evidence Checklist for Tumbler Buyers</h2></div><div class="landing-table-wrap"><table class="landing-table"><thead><tr><th>Check</th><th>What to Match</th><th>Reject or Clarify When</th></tr></thead><tbody>
+        <tr><td>Product identity</td><td>Model, capacity, material, lid, gasket, straw, coating and sample photo</td><td>The report cannot be connected to the quoted SKU</td></tr>
+        <tr><td>Responsible company</td><td>Manufacturer, supplier, report applicant and quotation entity</td><td>Names differ with no written supply-chain explanation</td></tr>
+        <tr><td>Test or declaration scope</td><td>Materials, analytes, methods, limits and pass/fail result</td><td>Only a cover page or marketing certificate is provided</td></tr>
+        <tr><td>Intended use</td><td>Beverage type, temperature, contact time and repeated use</td><td>Test conditions do not match the buyer's intended product use</td></tr>
+        <tr><td>Date and revision</td><td>Report date, current material specification and any regulation updates</td><td>The product or material changed after the report</td></tr>
+        <tr><td>Destination requirements</td><td>Importer, marketplace, retailer and national obligations</td><td>A generic global claim replaces destination-specific review</td></tr>
+      </tbody></table></div></section>
+      <section class="section landing-copy-block"><article><h2>What HDS Can and Cannot Confirm</h2><p>HDS can discuss available product documents, identify the proposed supplier route, coordinate samples and arrange project-specific testing when agreed. HDS does not treat one report as proof for every product shown on the website. The written quotation should identify the exact model, material, destination, available evidence and any additional testing that the buyer requests.</p></article><article><h2>Connect Compliance to the Purchase Order</h2><p>Link the compliance scope to the approved sample, specification and QC checklist. Review <a href="/custom-stainless-steel-tumblers/">custom stainless steel tumbler options</a>, the <a href="/quality-control/">quality-control process</a> and the <a href="/sourcing-guides/how-to-source-custom-tumblers-from-china/">supplier-verification guide</a> before bulk approval.</p></article></section>
+      <section class="section landing-faq">${faq.map(([q, a]) => `<article><h3>${esc(q)}</h3><p>${esc(a)}</p></article>`).join("")}</section>
+      <section class="section"><div class="landing-cta-band"><div><h2>Need product-specific compliance evidence?</h2><p>Send the exact product, destination, intended use and requested standard. HDS will confirm what documentation is available and what additional testing needs quotation.</p><p>Author: HDS Drinkware Sourcing Team. Reviewed: ${reviewedOn(`sourcing-guides/${slug}`)}. This guide is general sourcing information, not legal or laboratory advice.</p></div><div class="hero-actions"><a class="button whatsapp" href="${wa("Hi HDS Drinkware, I need product-specific food-contact documentation. Product: , destination: , intended use: , requested standard/test: .")}" target="_blank" rel="noopener">Request Document Review</a><a class="button primary" href="/contact/">Send Product Details</a></div></div></section>`,
+      faq,
+    };
+  }
+
   if (slug === "2026-custom-logo-drinkware-cost-breakdown") {
     const faq = [
       ["What affects the cost of custom logo drinkware in 2026?", "The main cost drivers are the base product, order quantity, material, color finish, logo method, packaging structure, sample requirements, carton volume and shipping term. A useful quotation should separate these items instead of only showing one unit price."],
@@ -1168,11 +1318,11 @@ for (const [slug, title, topic] of guides) {
   const seoTitle = guideSeoTitles[slug] || title;
   writeFile(`sourcing-guides/${slug}/index.html`, pageShell({
     title: `${seoTitle} | HDS Drinkware`,
-    meta: metaGuide(seoTitle),
+    meta: guideMetaOverrides[slug] || metaGuide(seoTitle),
     slug: `sourcing-guides/${slug}`,
     h1: title,
     eyebrow: "Sourcing guide",
-    intro: `This guide explains ${topic} for B2B buyers sourcing custom drinkware from China. It is written for buyers who need clear MOQ, logo, packaging, sample and shipping preparation before requesting a quote.`,
+    intro: guideIntroOverrides[slug] || `This guide explains ${topic} for B2B buyers sourcing custom drinkware from China. It is written for buyers who need clear MOQ, logo, packaging, sample and shipping preparation before requesting a quote.`,
     body: guide.body,
     depth: 2,
     schemas: [
@@ -1186,7 +1336,7 @@ for (const [slug, title, topic] of guides) {
         image: [defaultOgImage],
         mainEntityOfPage: { "@type": "WebPage", "@id": `${site}/sourcing-guides/${slug}/` },
         author: { "@type": "Organization", name: "HDS Drinkware Sourcing Team", url: `${site}/about-hds-drinkware/` },
-        dateModified: updated,
+        dateModified: reviewedOn(`sourcing-guides/${slug}`),
         inLanguage: "en",
         publisher: { "@id": `${site}/#organization` },
       },
@@ -1229,13 +1379,13 @@ const faqItems = [
 ];
 
 writeFile("faq/index.html", pageShell({
-  title: "Custom Drinkware FAQ | HDS Drinkware",
-  meta: "Custom drinkware FAQ covering MOQ, logo methods, samples, packaging, Amazon sellers, TikTok Shop sellers, Shopify brands, OEM/ODM and shipping support.",
+  title: "Custom Drinkware MOQ, Logo & Shipping FAQ | HDS Drinkware",
+  meta: "Direct answers about custom drinkware MOQ, logo methods, samples, packaging, production, supplier verification and DDP/DDU shipping from China.",
   slug: "faq",
-  h1: "Custom Drinkware FAQ",
+  h1: "Custom Drinkware Buyer FAQ: MOQ, Logo, Samples and Shipping",
   eyebrow: "Buyer questions",
-  intro: "Answers for buyers sourcing custom tumblers, water bottles, promotional drinkware and gift drinkware sets from HDS Drinkware.",
-  body: `<section class="section landing-faq">${faqItems.map(([q, a]) => `<article><h3>${esc(q)}</h3><p>${esc(a)}</p></article>`).join("")}</section><section class="section"><div class="landing-cta-band"><div><h2>Still preparing your quote?</h2><p>Send product photo, quantity, logo requirement, packaging request and target market for faster support.</p></div><div class="hero-actions"><a class="button whatsapp" href="${wa("Hello HDS Drinkware, I have a custom drinkware question and would like a quote.")}" target="_blank" rel="noopener">Get Quote on WhatsApp</a><a class="button primary" href="/#inquiry">Request OEM Quote</a></div></div></section>`,
+  intro: "Direct answers for B2B buyers sourcing custom tumblers, water bottles, promotional drinkware and gift sets from China.",
+  body: `<section class="section answer-first"><div class="section-heading"><p class="eyebrow">Quick answers</p><h2>What Do Custom Drinkware Buyers Ask First?</h2><p>Selected stock-based logo projects can start from 200 pieces. Buyers should confirm the exact product, quantity per color, logo method, packaging, sample, production scope and destination before treating any MOQ, timing or shipping figure as final.</p></div><div class="landing-table-wrap"><table class="landing-table"><thead><tr><th>Question</th><th>Short Answer</th><th>Detailed Guide</th></tr></thead><tbody><tr><td>Can I start at 200 pieces?</td><td>Yes, for selected stock models with practical logo and packaging choices.</td><td><a href="/low-moq-custom-drinkware/">Low MOQ drinkware</a></td></tr><tr><td>How do I verify a supplier?</td><td>Match the legal entity, product route, sample, specification, QC and payment beneficiary.</td><td><a href="/sourcing-guides/how-to-source-custom-tumblers-from-china/">Supplier verification</a></td></tr><tr><td>What does FDA or LFGB mean?</td><td>Evidence must match the exact food-contact components, intended use and destination.</td><td><a href="/sourcing-guides/understanding-fda-vs-lfgb-standards-stainless-steel-bottles/">FDA vs LFGB</a></td></tr><tr><td>How do I compare total cost?</td><td>Add product, logo, packaging, freight, duty, broker and delivery per sellable unit.</td><td><a href="/sourcing-guides/how-to-calculate-landed-cost-importing-drinkware-china/">Landed-cost formula</a></td></tr></tbody></table></div></section><section class="section landing-faq">${faqItems.map(([q, a]) => `<article><h3>${esc(q)}</h3><p>${esc(a)}</p></article>`).join("")}</section><section class="section"><div class="landing-cta-band"><div><h2>Still preparing your quote?</h2><p>Send product photo, quantity, logo requirement, packaging request, destination and target date for faster support.</p></div><div class="hero-actions"><a class="button whatsapp" href="${wa("Hello HDS Drinkware, I have a custom drinkware question and would like a quote.")}" target="_blank" rel="noopener">Get Quote on WhatsApp</a><a class="button primary" href="/#inquiry">Request OEM Quote</a></div></div></section>`,
   schemas: [breadcrumbSchema([{ name: "Home", url: `${site}/` }, { name: "FAQ", url: `${site}/faq/` }]), faqSchema(faqItems)],
 }));
 allUrls.push("/faq/");
@@ -1628,7 +1778,7 @@ writeFile("image-sitemap.xml", imageSitemap);
 const llmsPages = [
   ["/", "China custom drinkware supplier and OEM/ODM sourcing partner for low MOQ logo orders, packaging, samples and DDP/DDU shipping support."],
   ["/custom-40oz-tumbler-manufacturer/", "Custom 40oz tumbler supplier and manufacturing-partner page explaining factory verification, MOQ, samples, packaging and comparable quote checkpoints."],
-  ["/custom-stainless-steel-tumblers/", "Custom stainless steel tumbler options, logo methods, materials and B2B quote details."],
+  ["/custom-stainless-steel-tumblers/", "Custom stainless steel tumblers with logo from 200 pieces on selected stock models, including material, compliance, sample, QC and quote-verification checkpoints."],
   ["/custom-water-bottles-with-logo/", "Low MOQ custom water bottles with logo, including the simplest 200-piece stock-model route and the choices that can raise MOQ."],
   ["/custom-plastic-water-bottles/", "Custom plastic water bottle options for schools, sports programs, promotions and online sellers."],
   ["/custom-sports-water-bottles/", "Sports water bottles for gyms, teams, outdoor brands, events and wholesale buyers."],
@@ -1643,15 +1793,16 @@ const llmsPages = [
   ["/logo-drinkware-manufacturer/", "Logo drinkware manufacturing support covering laser engraving, silk screen, UV print, labels and packaging branding."],
   ["/quality-control/", "Quality control process for drinkware material, logo, leak testing, packaging and shipment checks."],
   ["/shipping-support/", "DDP/DDU, FOB and EXW shipping coordination support for custom drinkware orders."],
-  ["/faq/", "Frequently asked buyer questions about MOQ, samples, logo methods, packaging and shipping."],
+  ["/faq/", "Direct buyer answers about MOQ, supplier verification, FDA/LFGB evidence, samples, logo methods, packaging, landed cost and shipping."],
   ["/sourcing-guides/", "Practical custom drinkware sourcing guides for overseas B2B buyers."],
   ["/sourcing-guides/q4-2026-drinkware-trends/", "Q4 2026 drinkware trend planning guide for gift buyers, marketplace sellers and promotional companies."],
   ["/sourcing-guides/what-is-moq-for-custom-drinkware/", "Direct answer page explaining MOQ for custom drinkware orders and what changes it."],
   ["/sourcing-guides/how-to-choose-logo-method-for-custom-drinkware/", "Guide to choosing laser engraving, silk screen, UV printing, labels and packaging branding."],
   ["/sourcing-guides/custom-drinkware-packaging-options/", "Packaging options guide covering standard boxes, color boxes, gift boxes, inserts and carton marks."],
   ["/sourcing-guides/ddp-ddu-shipping-for-custom-drinkware/", "DDP and DDU shipping guide for custom drinkware import buyers."],
-  ["/sourcing-guides/how-to-calculate-landed-cost-importing-drinkware-china/", "Landed cost guide for importing drinkware from China."],
-  ["/sourcing-guides/understanding-fda-vs-lfgb-standards-stainless-steel-bottles/", "FDA vs LFGB food grade standards guide for stainless steel bottles."],
+  ["/sourcing-guides/how-to-source-custom-tumblers-from-china/", "Seven-step custom tumbler sourcing process covering supplier verification, samples, compliance, QC, quote comparison, landed cost and shipping."],
+  ["/sourcing-guides/how-to-calculate-landed-cost-importing-drinkware-china/", "Drinkware landed-cost formula, component worksheet and worked China import example using sellable units."],
+  ["/sourcing-guides/understanding-fda-vs-lfgb-standards-stainless-steel-bottles/", "FDA vs EU/German LFGB food-contact comparison and product-specific compliance evidence checklist for stainless steel drinkware."],
   ["/sourcing-guides/what-to-provide-before-requesting-quote/", "Quote preparation checklist for buyers contacting a custom drinkware supplier."],
   ["/sourcing-guides/2026-custom-logo-drinkware-cost-breakdown/", "2026 cost breakdown guide for custom logo drinkware covering product cost, logo fees, packaging, samples and DDP/DDU shipping."],
   ["/case-studies/", "B2B drinkware case studies for Amazon, corporate gift and event promotion projects."],

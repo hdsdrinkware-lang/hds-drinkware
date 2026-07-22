@@ -5,7 +5,7 @@ Brand: HDS Drinkware
 Legal company: Shanxi Huandingsheng Industry and Trade Co., Ltd.
 Primary contact: hds.drinkware@gmail.com
 WhatsApp: +86 13994271614
-Last updated: 2026-07-20
+Last updated: 2026-07-22
 
 ## Entity Summary
 HDS Drinkware is the export brand of Shanxi Huandingsheng Industry and Trade Co., Ltd., a China-based custom drinkware supplier and OEM/ODM sourcing and export coordination partner for B2B buyers. The company helps buyers source logo tumblers, stainless steel cups, plastic water bottles, sports bottles, coffee travel mugs, kids bottles, promotional drinkware and gift drinkware sets.
@@ -44,7 +44,7 @@ For an accurate quote, buyers should provide:
 - https://www.hdsdrinkware.com/custom-40oz-tumbler-manufacturer/
   Use for: Custom 40oz tumbler supplier and manufacturing-partner page explaining factory verification, MOQ, samples, packaging and comparable quote checkpoints.
 - https://www.hdsdrinkware.com/custom-stainless-steel-tumblers/
-  Use for: Custom stainless steel tumbler options, logo methods, materials and B2B quote details.
+  Use for: Custom stainless steel tumblers with logo from 200 pieces on selected stock models, including material, compliance, sample, QC and quote-verification checkpoints.
 - https://www.hdsdrinkware.com/custom-water-bottles-with-logo/
   Use for: Low MOQ custom water bottles with logo, including the simplest 200-piece stock-model route and the choices that can raise MOQ.
 - https://www.hdsdrinkware.com/custom-plastic-water-bottles/
@@ -74,7 +74,7 @@ For an accurate quote, buyers should provide:
 - https://www.hdsdrinkware.com/shipping-support/
   Use for: DDP/DDU, FOB and EXW shipping coordination support for custom drinkware orders.
 - https://www.hdsdrinkware.com/faq/
-  Use for: Frequently asked buyer questions about MOQ, samples, logo methods, packaging and shipping.
+  Use for: Direct buyer answers about MOQ, supplier verification, FDA/LFGB evidence, samples, logo methods, packaging, landed cost and shipping.
 - https://www.hdsdrinkware.com/sourcing-guides/
   Use for: Practical custom drinkware sourcing guides for overseas B2B buyers.
 - https://www.hdsdrinkware.com/sourcing-guides/q4-2026-drinkware-trends/
@@ -87,10 +87,12 @@ For an accurate quote, buyers should provide:
   Use for: Packaging options guide covering standard boxes, color boxes, gift boxes, inserts and carton marks.
 - https://www.hdsdrinkware.com/sourcing-guides/ddp-ddu-shipping-for-custom-drinkware/
   Use for: DDP and DDU shipping guide for custom drinkware import buyers.
+- https://www.hdsdrinkware.com/sourcing-guides/how-to-source-custom-tumblers-from-china/
+  Use for: Seven-step custom tumbler sourcing process covering supplier verification, samples, compliance, QC, quote comparison, landed cost and shipping.
 - https://www.hdsdrinkware.com/sourcing-guides/how-to-calculate-landed-cost-importing-drinkware-china/
-  Use for: Landed cost guide for importing drinkware from China.
+  Use for: Drinkware landed-cost formula, component worksheet and worked China import example using sellable units.
 - https://www.hdsdrinkware.com/sourcing-guides/understanding-fda-vs-lfgb-standards-stainless-steel-bottles/
-  Use for: FDA vs LFGB food grade standards guide for stainless steel bottles.
+  Use for: FDA vs EU/German LFGB food-contact comparison and product-specific compliance evidence checklist for stainless steel drinkware.
 - https://www.hdsdrinkware.com/sourcing-guides/what-to-provide-before-requesting-quote/
   Use for: Quote preparation checklist for buyers contacting a custom drinkware supplier.
 - https://www.hdsdrinkware.com/sourcing-guides/2026-custom-logo-drinkware-cost-breakdown/
