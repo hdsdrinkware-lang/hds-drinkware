@@ -7,7 +7,7 @@ const email = "hds.drinkware@gmail.com";
 const whatsapp = "8613994271614";
 const displayPhone = "+86 13994271614";
 const updated = "2026-07-18";
-const aiReferenceUpdated = "2026-07-22";
+const aiReferenceUpdated = "2026-07-23";
 const pageUpdated = {
   "custom-40oz-tumbler-manufacturer": "2026-07-20",
   "custom-stainless-steel-tumblers": "2026-07-22",
@@ -15,6 +15,11 @@ const pageUpdated = {
   "custom-drinkware-gift-sets": "2026-07-20",
   "custom-drinkware-for-corporate-gifts": "2026-07-20",
   "low-moq-custom-drinkware": "2026-07-20",
+  "custom-drinkware-for-tiktok-shop-sellers": "2026-07-23",
+  "sourcing-guides/2026-us-section-301-tariffs-impact-on-drinkware": "2026-07-23",
+  "sourcing-guides/amazon-drinkware-sourcing-guide-2026": "2026-07-23",
+  "sourcing-guides/q4-2026-drinkware-trends": "2026-07-23",
+  "sourcing-guides/custom-drinkware-for-corporate-gifts": "2026-07-23",
   "sourcing-guides/how-to-source-custom-tumblers-from-china": "2026-07-22",
   "sourcing-guides/how-to-calculate-landed-cost-importing-drinkware-china": "2026-07-22",
   "sourcing-guides/understanding-fda-vs-lfgb-standards-stainless-steel-bottles": "2026-07-22",
@@ -39,6 +44,7 @@ const productMetaOverrides = {
   "custom-water-bottles-with-logo": "Low MOQ custom water bottles with logo from 200 pieces on selected stock models, with bottle, color, logo, packaging and shipping decision guidance.",
   "custom-drinkware-gift-sets": "Custom drinkware gift sets for corporate events, including color boxes, sleeves, cards, rigid boxes, inserts, samples and delivery planning.",
   "custom-drinkware-for-corporate-gifts": "Custom drinkware supplier support for retail and corporate gifting, with logo approval, gift packaging, event deadlines, samples and shipping planning.",
+  "custom-drinkware-for-tiktok-shop-sellers": "Custom drinkware for TikTok Shop product tests, with visual sample review, 200-piece selected-stock options, logo, packaging and reorder planning.",
 };
 const metaInfo = (title) => `${title} from HDS Drinkware: China custom drinkware OEM/ODM support for logo tumblers, bottles, packaging, samples and shipping.`;
 const metaGuide = (seoTitle) => `${seoTitle}: practical B2B sourcing notes for MOQ, logo methods, samples, packaging and DDP/DDU shipping from China.`;
@@ -58,7 +64,7 @@ const productPages = [
   ["promotional-drinkware-supplier", "Promotional Drinkware Supplier China", "Promotional Drinkware Supplier for Logo Gifts and Campaign Buyers", "logo cups, tumblers, plastic bottles, sports bottles and promotional gift sets", "promotional companies, event buyers, distributors, brand teams and corporate gift buyers", "plastic, stainless steel and mixed drinkware material options"],
   ["custom-drinkware-gift-sets", "Custom Drinkware Gift Sets Supplier", "Custom Drinkware Gift Sets with Logo and Packaging Support", "drinkware gift sets, tumbler bundles, bottle gift boxes and Zenvyra gift solutions", "gift companies, corporate buyers, wedding favor buyers and holiday program buyers", "stainless steel, plastic, gift box, tote bag, card and insert options"],
   ["custom-drinkware-for-amazon-sellers", "Custom Drinkware for Amazon Sellers", "Custom Drinkware for Amazon Sellers Testing and Scaling Products", "40oz tumblers, stainless steel tumblers, sports bottles, plastic bottles and gift bundles", "Amazon sellers and private label teams", "stainless steel, plastic, PC, PP and packaging-ready product options"],
-  ["custom-drinkware-for-tiktok-shop-sellers", "Custom Drinkware for TikTok Shop Sellers", "Custom Drinkware for TikTok Shop Sellers and Live Commerce Tests", "visual tumblers, colorful bottles, gift cups and trend-ready drinkware", "TikTok Shop sellers, live commerce teams and social sellers", "stainless steel, plastic, rhinestone decoration and colorful finish options"],
+  ["custom-drinkware-for-tiktok-shop-sellers", "Custom TikTok Shop Drinkware Supplier", "Custom Drinkware for TikTok Shop Product Tests", "visual tumblers, colorful bottles, gift cups and short-cycle test products", "TikTok Shop sellers, live commerce teams and social sellers", "stainless steel, plastic, decorated and colorful finish options"],
   ["custom-drinkware-for-shopify-brands", "Custom Drinkware for Shopify Brands", "Custom Drinkware for Shopify Brands and Private Label Stores", "private label tumblers, water bottles, coffee cups and branded gift sets", "Shopify brands, DTC teams and online store owners", "stainless steel, plastic, logo-ready and packaging-ready options"],
   ["custom-drinkware-for-corporate-gifts", "Corporate Gift Drinkware Supplier", "Custom Drinkware for Corporate Gifting, Events and Retail Programs", "logo tumblers, coffee cups, water bottles and curated gift sets", "corporate gift buyers, event teams, HR teams, retailers and gift companies", "stainless steel, plastic, gift box and curated bundle options"],
   ["custom-drinkware-for-wedding-favors", "Custom Drinkware for Wedding Favors", "Custom Drinkware for Wedding Favors and Guest Gifts", "small tumblers, coffee cups, gift bottles and personalized drinkware sets", "wedding favor buyers, event planners and gift companies", "stainless steel, plastic, gift box, card and label options"],
@@ -84,15 +90,15 @@ const productPages = [
 
 const guides = [
   ["sourcing-drinkware-for-brazil-brazil", "Sourcing Custom Drinkware for Brazil & Latin America: 2026 Logistics Guide", "importing drinkware to Brazil 2026"],
-  ["q4-2026-drinkware-trends", "Q4 2026 Drinkware Trends for Gift Buyers and Online Sellers", "Q4 2026 drinkware trends"],
-  ["2026-us-section-301-tariffs-impact-on-drinkware", "2026 US Section 301 Tariffs on Chinese Drinkware: Impact and Strategic Sourcing Solutions", "impact of US tariffs on drinkware sourcing"],
-  ["amazon-drinkware-sourcing-guide-2026", "Amazon Drinkware Sourcing Guide 2026: Success with Private Label Tumblers and Water Bottles", "Amazon drinkware sourcing trends for 2026"],
+  ["q4-2026-drinkware-trends", "Q4 2026 Drinkware Buying and Launch Planning", "Q4 2026 drinkware buying and launch planning"],
+  ["2026-us-section-301-tariffs-impact-on-drinkware", "2026 US Drinkware Tariff and Landed Cost Guide", "US tariff and landed-cost review for drinkware imported from China"],
+  ["amazon-drinkware-sourcing-guide-2026", "Amazon FBA Drinkware Sourcing Guide for 2026", "Amazon FBA private-label drinkware sourcing"],
   ["how-to-source-custom-tumblers-from-china", "How to Source Custom Tumblers from China: A Practical Guide for B2B Buyers", "custom tumbler sourcing from China"],
   ["how-to-choose-logo-method-for-custom-drinkware", "How to Choose the Right Logo Method for Custom Drinkware", "logo method selection for drinkware"],
   ["laser-engraving-vs-silk-screen-vs-uv-printing", "Laser Engraving vs Silk Screen vs UV Printing for Custom Tumblers", "logo method comparison"],
   ["what-is-moq-for-custom-drinkware", "What MOQ Means for Custom Drinkware Orders", "MOQ planning for custom drinkware"],
   ["custom-tumblers-for-amazon-sellers", "How Amazon Sellers Can Test Custom Tumblers with Low MOQ", "custom tumbler testing for Amazon sellers"],
-  ["custom-drinkware-for-corporate-gifts", "Best Custom Drinkware Ideas for Corporate Gifts", "custom drinkware corporate gifts"],
+  ["custom-drinkware-for-corporate-gifts", "Corporate Gift Drinkware Ideas and Buying Checklist", "corporate gift drinkware planning"],
   ["artwork-preparation-for-custom-drinkware", "How to Prepare Artwork for Custom Drinkware Production", "artwork preparation for custom drinkware"],
   ["custom-drinkware-packaging-options", "Custom Drinkware Packaging Options for Gift Companies", "drinkware packaging options"],
   ["stainless-steel-vs-plastic-water-bottles", "Stainless Steel vs Plastic Water Bottles: Which Is Better for Your Market?", "stainless steel vs plastic water bottles"],
@@ -106,8 +112,8 @@ const guides = [
 
 const guideSeoTitles = {
   "sourcing-drinkware-for-brazil-brazil": "Brazil Custom Drinkware Logistics Guide",
-  "2026-us-section-301-tariffs-impact-on-drinkware": "2026 US Drinkware Tariff Sourcing Guide",
-  "amazon-drinkware-sourcing-guide-2026": "Amazon Drinkware Sourcing Guide 2026",
+  "2026-us-section-301-tariffs-impact-on-drinkware": "2026 US Drinkware Tariff & Duty Guide",
+  "amazon-drinkware-sourcing-guide-2026": "Amazon FBA Drinkware Sourcing Guide 2026",
   "how-to-source-custom-tumblers-from-china": "How to Source Custom Tumblers from China",
   "how-to-choose-logo-method-for-custom-drinkware": "Choose a Custom Drinkware Logo Method",
   "laser-engraving-vs-silk-screen-vs-uv-printing": "Laser vs Screen vs UV Printing",
@@ -116,7 +122,8 @@ const guideSeoTitles = {
   "custom-drinkware-packaging-options": "Custom Drinkware Packaging Options",
   "stainless-steel-vs-plastic-water-bottles": "Stainless Steel vs Plastic Water Bottles",
   "custom-drinkware-production-timeline": "Custom Drinkware Production Timeline",
-  "q4-2026-drinkware-trends": "Q4 2026 Drinkware Trends",
+  "q4-2026-drinkware-trends": "Q4 2026 Drinkware Buying & Launch Guide",
+  "custom-drinkware-for-corporate-gifts": "Corporate Gift Drinkware Buying Guide",
   "what-to-provide-before-requesting-quote": "Custom Drinkware Quote Checklist",
   "2026-custom-logo-drinkware-cost-breakdown": "Custom Logo Drinkware Cost Breakdown 2026",
   "ddp-ddu-shipping-for-custom-drinkware": "DDP/DDU Shipping for Drinkware Buyers",
@@ -125,15 +132,132 @@ const guideSeoTitles = {
 };
 
 const guideMetaOverrides = {
+  "2026-us-section-301-tariffs-impact-on-drinkware": "Review 2026 US drinkware tariffs by HTS classification, Chapter 99 measures, exclusions, customs value and landed cost using USTR and USITC sources.",
+  "amazon-drinkware-sourcing-guide-2026": "Source private-label drinkware for Amazon FBA with product validation, packaging, barcode, carton, sample, landed-cost and reorder checkpoints.",
+  "q4-2026-drinkware-trends": "Plan Q4 2026 drinkware assortments, gift packaging, samples, inventory and delivery deadlines without treating trend signals as guaranteed demand.",
+  "custom-drinkware-for-corporate-gifts": "Compare corporate gift drinkware by recipient, event, packaging, logo approval, delivery deadline, sample and landed-cost requirements.",
   "how-to-source-custom-tumblers-from-china": "Source custom tumblers from China in seven buyer-controlled steps: specification, supplier verification, samples, compliance, QC, landed cost and shipping.",
   "how-to-calculate-landed-cost-importing-drinkware-china": "Calculate landed cost per drinkware unit using product, logo, packaging, freight, duty, broker and delivery costs, with a worked China import example.",
   "understanding-fda-vs-lfgb-standards-stainless-steel-bottles": "Compare FDA and LFGB food-contact requirements for stainless steel drinkware, including documents, test scope, intended use and buyer verification steps.",
 };
 
 const guideIntroOverrides = {
+  "2026-us-section-301-tariffs-impact-on-drinkware": "A buyer-controlled process for checking US drinkware classification, normal duty, Chapter 99 measures, exclusions, customs value and sellable landed cost before importing from China.",
+  "amazon-drinkware-sourcing-guide-2026": "A private-label sourcing checklist for Amazon sellers covering product validation, samples, packaging, barcode route, carton data, landed cost and repeat-order controls.",
+  "q4-2026-drinkware-trends": "A Q4 planning guide for marketplace, promotional and gift buyers aligning drinkware assortment, presentation, samples, inventory and delivery deadlines.",
+  "custom-drinkware-for-corporate-gifts": "A program-based guide to choosing corporate gift drinkware, packaging and approval steps by recipient, event, budget and delivery date.",
   "how-to-source-custom-tumblers-from-china": "A seven-step sourcing process for B2B buyers comparing custom tumbler suppliers in China: specification, supplier verification, samples, compliance, QC, landed cost and shipping.",
   "how-to-calculate-landed-cost-importing-drinkware-china": "A practical formula and worked example for calculating sellable landed cost per unit on custom tumblers, bottles and other drinkware imported from China.",
   "understanding-fda-vs-lfgb-standards-stainless-steel-bottles": "A buyer-focused comparison of US FDA food-contact requirements and the EU/German LFGB framework for stainless steel bottles and tumblers.",
+};
+
+const specialGuidePlans = {
+  "2026-us-section-301-tariffs-impact-on-drinkware": {
+    directQuestion: "How Should a US Buyer Check 2026 Drinkware Tariffs?",
+    directAnswer: "Start with the exact product and material, determine the current HTS classification, check the normal duty rate, review every applicable Chapter 99 trade measure and exclusion, then calculate duty and landed cost using the broker-confirmed customs value. Do not apply one internet tariff percentage to every tumbler, bottle or accessory.",
+    tableTitle: "US Drinkware Tariff Review Checklist",
+    columns: ["Checkpoint", "Buyer Action", "Evidence to Keep", "Common Error"],
+    rows: [
+      ["Product classification", "Classify the exact cup, vacuum vessel, plastic bottle, accessory and packaging separately when required", "Written HTS rationale or broker advice", "Using one code for every item in a set"],
+      ["Normal duty", "Read the current HTS general rate and relevant notes", "Dated HTS result", "Copying an old duty rate"],
+      ["Chapter 99 measures", "Check current Section 301 and other additional-duty provisions", "Applicable Chapter 99 heading and effective date", "Assuming the normal rate is the total rate"],
+      ["Exclusion review", "Match the full legal product scope, not a marketing description", "Current exclusion notice and expiration date", "Assuming an extension covers the quoted drinkware"],
+      ["Customs value", "Confirm valuation additions and exclusions with the importer or broker", "Commercial invoice and valuation worksheet", "Applying duty to the whole landed-cost total"],
+      ["Sellable landed cost", "Add product, logo, packaging, freight, duty, broker and delivery costs", "Per-unit landed-cost worksheet", "Comparing FOB and DDP as the same scope"],
+    ],
+    sections: [
+      ["What Is Current in July 2026?", `USTR states that 178 China Section 301 exclusions were extended through November 10, 2026. That does not mean a drinkware product automatically qualifies. Match the exact HTS subheading and exclusion language using the official <a href="https://ustr.gov/about/policy-offices/press-office/press-releases/2025/november/ustr-extends-exclusions-china-section-301-tariffs-related-forced-technology-transfer-investigation" target="_blank" rel="noopener">USTR extension notice</a> and <a href="https://ustr.gov/issue-areas/enforcement/section-301-investigations/search" target="_blank" rel="noopener">Section 301 product search</a>.`],
+      ["Use the Current HTS, Not a Supplier Guess", `The HTS is amended periodically. Search the official <a href="https://hts.usitc.gov/search" target="_blank" rel="noopener">USITC Harmonized Tariff Schedule</a>, then have the importer or a licensed customs broker confirm classification, Chapter 99 reporting, customs value and current duty treatment before entry.`],
+      ["Connect Tariff Review to the Quote", `Ask the supplier to separate the product, logo, packaging, carton data and shipping term. Then use the <a href="/sourcing-guides/how-to-calculate-landed-cost-importing-drinkware-china/">drinkware landed-cost formula</a> and keep broker-confirmed duty assumptions dated in the worksheet. This guide is general sourcing information, not customs or legal advice.`],
+    ],
+    faq: [
+      ["Are all Chinese drinkware products subject to the same US tariff rate?", "No. Treatment depends on the exact product, material, HTS classification, country of origin, current Chapter 99 provisions and any valid exclusion. A tumbler, plastic bottle, lid, straw or gift-set component may require a different review."],
+      ["Do current Section 301 exclusions automatically cover drinkware?", "No. An exclusion applies only when the product and classification match the legal scope and the exclusion remains effective. USTR extended 178 exclusions through November 10, 2026, but the importer must verify whether the exact item qualifies."],
+      ["Who should confirm a drinkware HTS code?", "The US importer is responsible for using reasonable care. A licensed customs broker can help, and a binding ruling may be appropriate when classification is uncertain. A supplier suggestion is an input, not the final customs decision."],
+      ["How should tariffs be included in drinkware landed cost?", "Use the broker-confirmed classification, customs value and applicable duty treatment, then add duty and import fees to product, logo, packaging, freight, broker and final-delivery costs. Divide by sellable units received."],
+    ],
+    ctaTitle: "Need carton and quote inputs for a broker review?",
+    ctaCopy: "Send the exact product, material, quantity, logo, packaging, destination and shipping term. HDS will provide the commercial and carton inputs available for your importer or broker.",
+  },
+  "amazon-drinkware-sourcing-guide-2026": {
+    directQuestion: "How Should Amazon Sellers Source Private-Label Drinkware in 2026?",
+    directAnswer: "Validate one exact SKU before scaling: approve the product and logo sample, confirm the packaging and barcode route in Seller Central, collect final unit and carton dimensions, calculate sellable landed cost, and define a reorder trigger. Treat a supplier's “FBA ready” claim as incomplete until every requirement matches the seller's marketplace and shipment plan.",
+    tableTitle: "Amazon FBA Drinkware Sourcing Controls",
+    columns: ["Decision", "Confirm Before Bulk", "Evidence", "Scaling Risk"],
+    rows: [
+      ["Product", "Capacity, material, lid, gasket, dimensions, finish and accessories", "Approved sample and specification", "Listing photos do not match the bulk SKU"],
+      ["Branding", "Logo method, size, position, proof and durability expectation", "Logo sample or signed proof", "Poor logo visibility or inconsistent placement"],
+      ["Unit packaging", "Box, protection, barcode route and current marketplace requirements", "Packaging proof and seller-side requirement check", "Relabeling, damage or receiving delays"],
+      ["Carton plan", "Units per carton, dimensions, gross weight and carton marks", "Final packing list and carton photos", "Unexpected FBA or freight cost"],
+      ["Landed cost", "Product, logo, packaging, inspection, freight and import costs", "Sellable-unit worksheet", "Margin based only on supplier unit price"],
+      ["Reorder", "Sell-through trigger, production time, shipping buffer and approved spec", "Reorder calendar and retained sample", "Stockout or an unapproved product change"],
+    ],
+    sections: [
+      ["“FBA Ready” Is a Seller Verification Task", `Amazon programs and requirements vary by product, eligibility and marketplace. Sellers should check the current barcode, packaging and inbound-shipment requirements in Seller Central. Amazon's official <a href="https://sell.amazon.com/fulfill.html" target="_blank" rel="noopener">FBA overview</a> also describes manufacturer-barcode eligibility and Ships in Product Packaging as program-specific options, not universal defaults.`],
+      ["Start With a Controlled Test SKU", `Selected stock-based HDS projects can start from 200 pieces. Keep the first test to a stable model, limited color split, one logo position and practical packaging. Approve the exact sample before production and retain a reference unit for the <a href="/custom-drinkware-quality-control-checklist/">pre-shipment QC checklist</a>.`],
+      ["Scale on Sellable Landed Cost", `Compare the factory unit cost with packaging volume, final cartons, inspection, freight, import charges and damaged or unusable units. Use the <a href="/sourcing-guides/how-to-calculate-landed-cost-importing-drinkware-china/">landed-cost worksheet</a> before setting a reorder point or margin target.`],
+    ],
+    faq: [
+      ["What should an Amazon drinkware RFQ include?", "Send the exact product reference, capacity, material, quantity and color split, logo file, unit-packaging plan, barcode requirements, destination, target date and preferred shipping term."],
+      ["Can Amazon sellers test custom drinkware from 200 pieces?", "Selected stock-based logo projects can start from 200 pieces. The final MOQ depends on model stock, quantity per color, decoration setup and packaging minimums."],
+      ["Does HDS guarantee that packaging is FBA compliant?", "No supplier should replace the seller's current marketplace check. HDS can coordinate packaging, labels, carton data and photos against the buyer's written requirements, while the seller confirms current Amazon eligibility and shipment rules."],
+      ["What should be approved before an Amazon reorder?", "Reconfirm the model and specification, retained sample, logo proof, packaging, barcode route, carton data, inspection scope, production timing and shipping plan. Do not assume every repeat order is unchanged."],
+    ],
+    ctaTitle: "Need a controlled Amazon drinkware test quote?",
+    ctaCopy: "Send one product, quantity and color split, logo, packaging and barcode requirements, destination and target launch date.",
+  },
+  "q4-2026-drinkware-trends": {
+    directQuestion: "What Should Drinkware Buyers Plan for Q4 2026?",
+    directAnswer: "Plan three things together: a focused assortment that can be sampled quickly, gift-ready presentation appropriate to the channel, and a backward calendar from the required delivery date. Trend signals are not guaranteed demand; use a controlled test quantity and written reorder trigger before committing to a broad color or packaging range.",
+    tableTitle: "Q4 2026 Drinkware Planning Matrix",
+    columns: ["Planning Signal", "Best Test", "Confirm Before Bulk", "Avoid"],
+    rows: [
+      ["Large-capacity hydration", "One handle-tumbler or bottle structure with a limited color split", "Handle, lid, base diameter, coating and carton volume", "Testing many similar molds at once"],
+      ["Gift-ready presentation", "Single drinkware item plus sleeve, card or practical gift box", "Box minimum, proof, pack-out and freight volume", "Approving the box after production"],
+      ["Office and commuter use", "Straight tumbler, coffee mug or leak-managed bottle", "Lid use, dimensions, logo visibility and packing", "Relying only on lifestyle photos"],
+      ["Color-led social selling", "Stock colors with one decoration route", "Color allocation, sample lighting and repeat availability", "Custom Pantone colors before demand proof"],
+      ["Corporate programs", "Recipient-based product and packaging level", "Event date, approval owner and delivery address", "Treating the event date as the ship date"],
+    ],
+    sections: [
+      ["Trend Page or Demand Forecast?", `This is a sourcing-planning guide, not a promise that a style will sell. Marketplace sellers should combine search, conversion and inventory data from their own channel with sample feedback. Corporate and promotional buyers should start from recipient, use case, presentation and deadline rather than a viral product photo.`],
+      ["Build the Calendar Backward", `Work backward from the required delivery date through destination delivery, international freight, production, packaging production, logo proof and physical sample approval. Add a decision buffer for artwork changes and failed samples. Use the <a href="/sourcing-guides/custom-drinkware-production-timeline/">custom drinkware production timeline</a> to prepare the RFQ.`],
+      ["Keep the First Assortment Explainable", `A clean test has one reason for each SKU: large-capacity hydration, commuter coffee, gift presentation or a visual color story. Limit overlapping models and track the reorder trigger. Review <a href="/custom-drinkware-for-tiktok-shop-sellers/">TikTok Shop drinkware tests</a> and <a href="/custom-drinkware-gift-sets/">gift packaging routes</a> for channel-specific decisions.`],
+    ],
+    faq: [
+      ["What drinkware should buyers test for Q4 2026?", "Choose a small set tied to a use case: large-capacity hydration, office or commuter drinkware, gift-ready bottles or tumblers, and color-led social-selling products. Validate with your own channel data and samples."],
+      ["When should Q4 drinkware sampling start?", "Start early enough to complete product and logo samples, packaging proof, bulk production, inspection and international delivery before the required date. The exact start date depends on product, packaging, destination and shipping method."],
+      ["How can buyers reduce Q4 inventory risk?", "Use selected stock models, limit color and SKU count, keep the first packaging route practical, calculate landed cost and define a reorder trigger based on actual sell-through or confirmed recipient count."],
+      ["Are Q4 2026 drinkware trends guaranteed to sell?", "No. Trend signals are planning inputs, not demand guarantees. Marketplace sellers must validate with their own traffic and conversion data; corporate buyers should validate recipient, budget and event requirements."],
+    ],
+    ctaTitle: "Need a Q4 assortment and deadline review?",
+    ctaCopy: "Send buyer channel, product references, quantity, logo, packaging level, destination and required delivery date.",
+  },
+  "custom-drinkware-for-corporate-gifts": {
+    directQuestion: "How Do You Choose Custom Drinkware for Corporate Gifts?",
+    directAnswer: "Choose from the program backward: recipient, use occasion, quantity, presentation level, logo approval owner, delivery address and in-hand date. A logo tumbler in a color box fits a different program from an executive mug-and-flask set in a rigid box, even when both are called corporate gifts.",
+    tableTitle: "Corporate Gift Drinkware by Program",
+    columns: ["Program", "Practical Drinkware Route", "Packaging", "Confirm First"],
+    rows: [
+      ["Conference or large event", "Logo tumbler, sports bottle or coffee cup", "Standard or printed color box", "Attendee count, venue, carton marks and in-hand date"],
+      ["Employee onboarding", "Bottle or commuter mug", "Sleeve, card or mailer-ready box", "Address type, card copy and pack-out"],
+      ["Client appreciation", "Insulated tumbler or bottle", "Gift box with card or insert", "Logo approval, box proof and presentation"],
+      ["Executive or recognition gift", "Mug-and-flask or curated drinkware set", "Rigid box with fitted quoted insert", "Item fit, color match, sample and freight volume"],
+      ["Retail-linked campaign", "Repeatable branded SKU", "Barcode-ready color box", "Channel requirements, cartons and reorder plan"],
+    ],
+    sections: [
+      ["Recipient and Occasion Decide the Product", `Start with where and how the recipient will use the gift. Conferences favor easy distribution; onboarding may need individual mailing; executive programs need higher presentation; retail-linked campaigns need repeatable packaging and carton data. Compare <a href="/custom-drinkware-gift-sets/">gift-set packaging routes</a> before selecting a box.`],
+      ["Logo Approval and Packaging Are Separate Proofs", `The drinkware logo and the box, sleeve or card may use different print methods and color systems. Approve a product proof and a packaging proof. For important programs, review a physical pack-out sample showing item fit, insert, card placement and outer protection.`],
+      ["The In-Hand Date Controls the Plan", `Record the required delivery date, not only the event date. Build backward through final delivery, freight, inspection, production, packaging and sample approval. A late custom box can delay a finished tumbler, so quote the product and presentation route together.`],
+    ],
+    faq: [
+      ["Which custom drinkware works best for corporate gifts?", "The best option depends on recipient and occasion. Common routes include logo tumblers for events, bottles or commuter mugs for onboarding, insulated drinkware for client gifts, and mug-and-flask sets for executive programs."],
+      ["Can corporate gift drinkware start from 200 pieces?", "Selected stock-based logo projects can start from 200 pieces. Gift boxes, inserts, sleeves, cards and mixed-item sets have separate feasibility and minimums that must be confirmed in the quotation."],
+      ["Can the drinkware and gift box use the same logo?", "Yes, but buyers should approve separate product and packaging proofs because laser, screen, UV and paper-box printing can produce different color and visual results."],
+      ["What information is needed for a corporate gift quote?", "Send recipient count, event or in-hand date, delivery address, product reference, logo file, packaging level, card or insert needs and approval contact."],
+    ],
+    ctaTitle: "Need a corporate gift drinkware program quote?",
+    ctaCopy: "Send recipient count, occasion, product reference, logo, packaging level, delivery address and required in-hand date.",
+  },
 };
 
 const guideFocus = {
@@ -760,6 +884,22 @@ const customPageDetails = {
       ["What should a corporate gift buyer confirm first?", "Confirm recipient count, event date, delivery address, product choice, logo approval owner and packaging level first. These inputs determine whether a standard box, printed color box, sleeve or rigid gift set is practical."],
     ],
   },
+  "custom-drinkware-for-tiktok-shop-sellers": {
+    painPoints: [
+      "A product can look strong in a supplier photo but fail in short-form video because the lid action, finish, scale or logo is not visually clear.",
+      "Testing too many colors or near-identical models makes it difficult to identify which product feature actually drives clicks and conversion.",
+      "A viral order can create stockout risk when the approved sample, material, finish, packaging or production route is not documented for repeat orders.",
+      "Large boxes and visually impressive accessories can raise landed cost and fulfillment pressure faster than the factory unit price suggests.",
+    ],
+    materialDetail: "Test products can include selected stainless steel tumblers, colorful plastic bottles and decorated gift drinkware. Exact material, lid, coating, accessory and food-contact documentation are confirmed for the quoted SKU and destination.",
+    qcDetail: "A TikTok Shop test-order QC plan can cover sample appearance under normal lighting, logo position, lid and accessory fit, agreed function checks, packaging presentation, carton data and retained-sample control for reorders.",
+    faq: [
+      ["How should TikTok Shop sellers test custom drinkware?", "Test one clear product angle at a time. Use an exact physical sample, limited color split, one logo route and practical packaging, then track content response, conversion, returns and sell-through before expanding the assortment."],
+      ["Can TikTok Shop drinkware tests start from 200 pieces?", "Selected stock-model logo projects can start from 200 pieces. Final MOQ depends on model stock, quantity per color, decoration setup, accessories and packaging minimums."],
+      ["What makes a drinkware sample ready for short-form video?", "The seller should be able to show the product scale, lid or handle action, surface finish, logo visibility, accessories and packaging truthfully. Approve the physical sample rather than relying only on edited supplier images."],
+      ["How should sellers prepare for a fast reorder?", "Keep the approved specification, retained sample, logo proof, packaging file, carton data, inspection checklist and production timing. Define a reorder trigger before the first test sells out."],
+    ],
+  },
   "low-moq-custom-drinkware": {
     painPoints: [
       "Small businesses and startups struggle to source high-quality custom drinkware without meeting high minimum order quantities (MOQs) of 1,000+ units.",
@@ -874,6 +1014,24 @@ function searchOpportunityBlock(page) {
           <tr><td>One logo position</td><td>Keeps setup and sample approval simpler</td><td>Multiple positions, wrap print or complex artwork</td></tr>
           <tr><td>Standard box</td><td>Avoids a second packaging minimum</td><td>Fully printed retail box, custom insert or rigid gift box</td></tr>
         </tbody></table></div>
+      </section>`;
+  }
+
+  if (page.slug === "custom-drinkware-for-tiktok-shop-sellers") {
+    return `
+      <section class="section answer-first">
+        <div class="section-heading"><p class="eyebrow">Direct answer for social sellers</p><h2>How Should TikTok Shop Sellers Test Custom Drinkware?</h2><p>Use one controlled product story: approve the exact sample, limit the first color split, choose one clear logo route, keep packaging practical, and define a reorder trigger from actual content response, conversion, returns and sell-through. Do not scale from a supplier photo or a single viral view count.</p></div>
+        <div class="landing-table-wrap"><table class="landing-table"><thead><tr><th>Test Variable</th><th>What to Show</th><th>Confirm Before Bulk</th><th>Scaling Risk</th></tr></thead><tbody>
+          <tr><td>Product action</td><td>Lid, straw, handle, size and intended use</td><td>Exact sample, dimensions and accessories</td><td>Video promise does not match delivered product</td></tr>
+          <tr><td>Visual finish</td><td>Color, coating, gradient, texture or decoration</td><td>Sample under normal lighting and quantity per color</td><td>Edited images hide finish variation</td></tr>
+          <tr><td>Branding</td><td>Logo size and visibility in close and medium shots</td><td>Method, position, proof and durability expectation</td><td>Logo is too small or inconsistent</td></tr>
+          <tr><td>Packaging</td><td>Unboxing route appropriate to the selling price</td><td>Box proof, protection, carton dimensions and landed cost</td><td>Packaging erases margin or arrives damaged</td></tr>
+          <tr><td>Reorder</td><td>Stable product and color route</td><td>Retained sample, specification, QC and production buffer</td><td>Fast-selling listing receives a changed SKU</td></tr>
+        </tbody></table></div>
+      </section>
+      <section class="section landing-copy-block answer-first">
+        <article><h2>What to Send for a TikTok Shop Test Quote</h2><p>Send the reference video or product photo, exact feature being tested, quantity and color split, logo file, packaging level, destination and target launch date. HDS can separate the sample, product, decoration, packaging, carton and shipping scope.</p></article>
+        <article><h2>What This Page Does Not Cover</h2><p>This is a drinkware sourcing and product-test guide, not legal advice or a statement of TikTok Shop marketplace policy. Sellers remain responsible for current listing, content, labeling, safety and fulfillment requirements in their market.</p></article>
       </section>`;
   }
 
@@ -1067,6 +1225,25 @@ for (const [slug, title, h1, options, buyers, material] of productPages) {
 }
 
 function guideBody(slug, title, topic) {
+  const special = specialGuidePlans[slug];
+  if (special) {
+    const faq = special.faq;
+    return {
+      body: `
+      <section class="section answer-first">
+        <div class="section-heading"><p class="eyebrow">Direct answer</p><h2>${esc(special.directQuestion)}</h2><p>${esc(special.directAnswer)}</p></div>
+      </section>
+      <section class="section">
+        <div class="section-heading"><p class="eyebrow">Buyer decision table</p><h2>${esc(special.tableTitle)}</h2></div>
+        <div class="landing-table-wrap"><table class="landing-table"><thead><tr>${special.columns.map((column) => `<th>${esc(column)}</th>`).join("")}</tr></thead><tbody>${special.rows.map((row) => `<tr>${row.map((cell) => `<td>${esc(cell)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>
+      </section>
+      <section class="section landing-copy-block">${special.sections.map(([heading, html]) => `<article><h2>${esc(heading)}</h2><p>${html}</p></article>`).join("")}</section>
+      <section class="section landing-faq">${faq.map(([q, a]) => `<article><h3>${esc(q)}</h3><p>${esc(a)}</p></article>`).join("")}</section>
+      <section class="section"><div class="landing-cta-band"><div><h2>${esc(special.ctaTitle)}</h2><p>${esc(special.ctaCopy)}</p><p>Author: HDS Drinkware Sourcing Team. Reviewed: ${reviewedOn(`sourcing-guides/${slug}`)}.</p></div><div class="hero-actions"><a class="button whatsapp" href="${wa(`Hi HDS Drinkware, I read: ${title}. Product: , quantity: , logo: , packaging: , destination: , required date: .`)}" target="_blank" rel="noopener">Send Project Details</a><a class="button primary" href="/contact/">Use Quote Form</a></div></div></section>`,
+      faq,
+    };
+  }
+
   if (slug === "how-to-source-custom-tumblers-from-china") {
     const faq = [
       ["How do I source custom tumblers from China?", "Start with a written product specification, shortlist suppliers that can quote the same scope, verify the proposed production route, approve a physical sample, confirm product-specific compliance documents, agree on an inspection plan, and compare landed cost using final carton data and the same shipping term."],
