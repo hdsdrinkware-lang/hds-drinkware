@@ -673,14 +673,19 @@ h3 {
 }
 
 .product-card img {
+  height: 260px;
   object-fit: contain;
   background: #f6f7f7;
 }
 
 .product-card > div {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
+  min-width: 0;
   padding: 24px;
+  background: var(--white);
 }
 
 .tag {
@@ -794,6 +799,7 @@ h3 {
 }
 
 .line-grid img {
+  height: 240px;
   object-fit: contain;
   background: #f6f7f7;
 }
@@ -2211,6 +2217,21 @@ h3 {
   .quote-form button,
   .quote-form .form-status {
     grid-column: 1 / -1 !important;
+  }
+
+  .product-card {
+    grid-template-rows: auto 1fr;
+    min-height: 0;
+  }
+
+  .product-card img,
+  .line-grid img {
+    aspect-ratio: 1 / 1;
+    height: auto;
+  }
+
+  .product-card > div {
+    padding: 22px 18px;
   }
 
   .spec-list div {
