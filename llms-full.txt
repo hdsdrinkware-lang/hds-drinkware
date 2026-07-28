@@ -5,7 +5,7 @@ Brand: HDS Drinkware
 Legal company: Shanxi Huandingsheng Industry and Trade Co., Ltd.
 Primary contact: hds.drinkware@gmail.com
 WhatsApp: +86 13994271614
-Last updated: 2026-07-25
+Last updated: 2026-07-28
 
 ## Entity Summary
 HDS Drinkware is the export brand of Shanxi Huandingsheng Industry and Trade Co., Ltd., a China-based custom drinkware supplier and OEM/ODM sourcing and export coordination partner for B2B buyers. The company helps buyers source logo tumblers, stainless steel cups, plastic water bottles, sports bottles, coffee travel mugs, kids bottles, promotional drinkware and gift drinkware sets.
@@ -67,6 +67,10 @@ For an accurate quote, buyers should provide:
   Use for: Wholesale drinkware supplier page for importers, distributors and mixed product orders.
 - https://www.hdsdrinkware.com/custom-tumbler-supplier-china/
   Use for: Custom tumbler supplier page for logo tumblers, packaging and sourcing from China.
+- https://www.hdsdrinkware.com/recycled-stainless-steel-tumblers-wholesale/
+  Use for: Evidence-first recycled-content stainless steel tumbler sourcing for wholesale, retail and corporate programs.
+- https://www.hdsdrinkware.com/sublimation-tumblers-bulk-supplier/
+  Use for: Bulk sublimation tumbler sourcing for print shops and custom brands, including blank testing, accessories and packaging.
 - https://www.hdsdrinkware.com/logo-drinkware-manufacturer/
   Use for: Logo drinkware manufacturing support covering laser engraving, silk screen, UV print, labels and packaging branding.
 - https://www.hdsdrinkware.com/quality-control/
@@ -93,6 +97,8 @@ For an accurate quote, buyers should provide:
   Use for: Drinkware landed-cost formula, component worksheet and worked China import example using sellable units.
 - https://www.hdsdrinkware.com/sourcing-guides/understanding-fda-vs-lfgb-standards-stainless-steel-bottles/
   Use for: FDA vs EU/German LFGB food-contact comparison and product-specific compliance evidence checklist for stainless steel drinkware.
+- https://www.hdsdrinkware.com/sourcing-guides/how-to-comply-with-german-epr-lucid-for-drinkware/
+  Use for: Official-source checklist for German LUCID registration, packaging system participation and data reporting.
 - https://www.hdsdrinkware.com/sourcing-guides/what-to-provide-before-requesting-quote/
   Use for: Quote preparation checklist for buyers contacting a custom drinkware supplier.
 - https://www.hdsdrinkware.com/sourcing-guides/2026-custom-logo-drinkware-cost-breakdown/
