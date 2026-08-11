@@ -36,7 +36,7 @@ for (const file of htmlFiles) {
     for (const [label, value] of Object.entries({ title, description, canonical, h1 })) {
       if (!value) errors.push(`${relative}: missing ${label}`);
     }
-    if (!/<script\s+src=["'][^"']*script\.js["'][^>]*(?:defer)?/i.test(html)) {
+    if (!/<script\s+src=["'][^"']*script\.js(?:\?[^"']*)?["'][^>]*(?:defer)?/i.test(html)) {
       errors.push(`${relative}: missing shared conversion script`);
     }
     if (canonical) {
@@ -79,6 +79,63 @@ for (const url of sitemapUrls) {
 }
 for (const url of indexableUrls) {
   if (!sitemapUrls.includes(url)) errors.push(`sitemap: missing indexable canonical ${url}`);
+}
+
+const caseStudyDirectory = path.join(root, "case-studies");
+const caseStudyIndex = fs.readFileSync(path.join(caseStudyDirectory, "index.html"), "utf8");
+if (!caseStudyIndex.includes("Representative Custom Drinkware Project Scenarios")) {
+  errors.push("case-studies/index.html: collection must identify the pages as representative scenarios");
+}
+if (/How we helped|Read Full Case Study/i.test(caseStudyIndex)) {
+  errors.push("case-studies/index.html: scenario collection contains completed-project language");
+}
+
+const scenarioFiles = fs.readdirSync(caseStudyDirectory, { withFileTypes: true })
+  .filter((entry) => entry.isDirectory())
+  .map((entry) => path.join(caseStudyDirectory, entry.name, "index.html"))
+  .filter((file) => fs.existsSync(file));
+const completedProjectLanguage = [
+  /How we helped/i,
+  /ordered a mixed batch/i,
+  /The client wanted/i,
+  /The client needed/i,
+  /A marketing agency in Dubai needed/i,
+  /As a newly launched online boutique/i,
+];
+
+for (const file of scenarioFiles) {
+  const html = fs.readFileSync(file, "utf8");
+  const relative = path.relative(root, file);
+  if (!html.includes("Representative B2B Project Scenario")) {
+    errors.push(`${relative}: missing representative scenario label`);
+  }
+  if (!/not a customer testimonial/i.test(html)) {
+    errors.push(`${relative}: missing customer-testimonial disclaimer`);
+  }
+  if (!html.includes("Scenario Outcome and Acceptance Criteria")) {
+    errors.push(`${relative}: missing scenario acceptance criteria`);
+  }
+  for (const expression of completedProjectLanguage) {
+    if (expression.test(html)) errors.push(`${relative}: contains completed-project language ${expression}`);
+  }
+}
+
+const homeHtml = fs.readFileSync(path.join(root, "index.html"), "utf8");
+const quoteForm = homeHtml.match(/<form\s+class=["']quote-form["'][\s\S]*?<\/form>/i)?.[0] || "";
+const requiredQuoteFields = [...quoteForm.matchAll(/<(?:input|select|textarea)\b[^>]*\brequired\b/gi)];
+if (requiredQuoteFields.length !== 4) {
+  errors.push(`index.html: quote form must have exactly 4 required fields, found ${requiredQuoteFields.length}`);
+}
+if (/Download PDF/i.test(homeHtml)) {
+  errors.push("index.html: catalog CTA promises an immediate PDF download");
+}
+
+const conversionScript = fs.readFileSync(path.join(root, "script.js"), "utf8");
+for (const field of ["landing_page", "initial_referrer", "utm_source", "utm_medium", "utm_campaign", "page_url"]) {
+  if (!conversionScript.includes(field)) errors.push(`script.js: missing lead attribution field ${field}`);
+}
+if (!conversionScript.includes("Source page:")) {
+  errors.push("script.js: WhatsApp messages do not include the source page");
 }
 
 if (errors.length) {

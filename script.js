@@ -26,9 +26,81 @@ const catalogCopy =
 const trackConversionEvent = (eventName, params = {}) => {
   if (typeof window.gtag === "function") {
     window.gtag("event", eventName, params);
+    return;
   }
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({ event: eventName, ...params });
+};
+
+const attributionParameterNames = [
+  "utm_source",
+  "utm_medium",
+  "utm_campaign",
+  "utm_term",
+  "utm_content",
+  "gclid",
+  "msclkid",
+];
+
+const readSessionValue = (key) => {
+  try {
+    return window.sessionStorage.getItem(key) || "";
+  } catch (error) {
+    return "";
+  }
+};
+
+const writeSessionValue = (key, value) => {
+  if (!value) return;
+  try {
+    if (!window.sessionStorage.getItem(key)) {
+      window.sessionStorage.setItem(key, value);
+    }
+  } catch (error) {
+    // Attribution still works for the current page when storage is unavailable.
+  }
+};
+
+const currentSearchParameters = new URLSearchParams(window.location.search);
+writeSessionValue("hds_landing_page", `${window.location.pathname}${window.location.search}`);
+writeSessionValue("hds_initial_referrer", document.referrer || "(direct)");
+attributionParameterNames.forEach((name) => {
+  writeSessionValue(`hds_${name}`, currentSearchParameters.get(name) || "");
+});
+
+const getAttributionData = () => {
+  const values = {
+    page_url: window.location.href,
+    page_path: window.location.pathname,
+    landing_page: readSessionValue("hds_landing_page") || `${window.location.pathname}${window.location.search}`,
+    initial_referrer: readSessionValue("hds_initial_referrer") || document.referrer,
+  };
+
+  attributionParameterNames.forEach((name) => {
+    values[name] = readSessionValue(`hds_${name}`) || currentSearchParameters.get(name) || "";
+  });
+
+  return values;
+};
+
+const setHiddenFormValue = (formElement, name, value) => {
+  let input = formElement.querySelector(`input[type="hidden"][name="${name}"]`);
+  if (!input) {
+    input = document.createElement("input");
+    input.type = "hidden";
+    input.name = name;
+    formElement.appendChild(input);
+  }
+  input.value = value;
+};
+
+const prepareFormAttribution = (formElement) => {
+  const attribution = getAttributionData();
+  setHiddenFormValue(formElement, "lead_form", formElement.getAttribute("name") || "unknown");
+  Object.entries(attribution).forEach(([name, value]) => {
+    setHiddenFormValue(formElement, name, value);
+  });
+  return attribution;
 };
 
 if (catalogGrid) {
@@ -74,6 +146,10 @@ const buildMailtoUrl = (data) => {
     `Packaging Requirement: ${data.get("packaging_requirement") || ""}`,
     `Shipping Term: ${data.get("shipping_term") || ""}`,
     `Product Photo / Link: ${data.get("photo_link_upload") || ""}`,
+    `Source Page: ${data.get("page_url") || ""}`,
+    `Landing Page: ${data.get("landing_page") || ""}`,
+    `Initial Referrer: ${data.get("initial_referrer") || ""}`,
+    `Campaign: ${data.get("utm_campaign") || ""}`,
     "",
     "Message:",
     data.get("details") || "",
@@ -86,21 +162,35 @@ const buildMailtoUrl = (data) => {
 
 // Generic form submit handler for Web3Forms static hosting compatibility
 document.querySelectorAll("form").forEach((formElement) => {
+  prepareFormAttribution(formElement);
+
+  formElement.addEventListener("focusin", () => {
+    if (formElement.dataset.formStarted === "true") return;
+    formElement.dataset.formStarted = "true";
+    trackConversionEvent("contact_form_start", {
+      form_name: formElement.getAttribute("name") || "unknown",
+      ...getAttributionData(),
+    });
+  });
+
   formElement.addEventListener("submit", async (event) => {
     event.preventDefault();
+    const attribution = prepareFormAttribution(formElement);
     trackConversionEvent("contact_form_submit", {
       form_name: formElement.getAttribute("name") || "unknown",
-      page_path: window.location.pathname,
+      ...attribution,
     });
 
     const data = new FormData(formElement);
+    const submitButton = formElement.querySelector('button[type="submit"]');
+    if (submitButton) submitButton.disabled = true;
     let statusText = "Sending your request...";
     let successText = "Thank you! Your submission has been received successfully.";
 
     // Custom success texts based on form
     if (formElement.name === "catalog-download") {
       statusText = "Preparing your catalog...";
-      successText = "Thank you! Your download request has been received. We will email the catalog to you shortly.";
+      successText = "Thank you! Your catalog request has been received. We will email the catalog to you shortly.";
     } else if (formElement.name === "sample-request") {
       statusText = "Checking sample availability...";
       successText = "Thank you! Your stock sample request has been received. We will contact you to coordinate shipping.";
@@ -137,7 +227,7 @@ document.querySelectorAll("form").forEach((formElement) => {
       statusDisplay.style.color = "var(--teal)";
       trackConversionEvent("lead_submit_success", {
         form_name: formElement.getAttribute("name") || "unknown",
-        page_path: window.location.pathname,
+        ...attribution,
       });
     } catch (error) {
       statusDisplay.classList.add("is-error");
@@ -148,6 +238,12 @@ document.querySelectorAll("form").forEach((formElement) => {
       } else {
         statusDisplay.textContent = "Submission failed. Please email us directly at hds.drinkware@gmail.com";
       }
+      trackConversionEvent("lead_submit_error", {
+        form_name: formElement.getAttribute("name") || "unknown",
+        ...attribution,
+      });
+    } finally {
+      if (submitButton) submitButton.disabled = false;
     }
   });
 });
@@ -156,7 +252,23 @@ document.addEventListener("click", (event) => {
   const link = event.target.closest("a[href], button");
   if (!link) return;
 
-  const href = link.getAttribute("href") || "";
+  let href = link.getAttribute("href") || "";
+  if (href.includes("wa.me")) {
+    try {
+      const whatsappLink = new URL(href);
+      const message = whatsappLink.searchParams.get("text") || "";
+      if (!message.includes("Source page:")) {
+        whatsappLink.searchParams.set(
+          "text",
+          `${message}\nSource page: ${window.location.origin}${window.location.pathname}`.trim()
+        );
+        href = whatsappLink.toString();
+        link.setAttribute("href", href);
+      }
+    } catch (error) {
+      // Keep the original WhatsApp link if URL parsing fails.
+    }
+  }
   const explicitEvent = link.dataset.trackEvent;
   const eventName = explicitEvent || (href.includes("wa.me") ? "whatsapp_click" : href.includes("#inquiry") ? "quote_click" : "");
   if (!eventName) return;
@@ -165,7 +277,7 @@ document.addEventListener("click", (event) => {
     link_text: link.textContent.trim().slice(0, 80),
     link_url: href,
     label: link.dataset.trackLabel || "",
-    page_path: window.location.pathname,
+    ...getAttributionData(),
   });
 });
 

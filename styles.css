@@ -2455,8 +2455,9 @@ h3 {
   gap: 8px;
 }
 
-.micro-form-group input[type="email"] {
+.micro-form-group input {
   flex: 1;
+  min-width: 0;
   background: var(--white);
   border: 1px solid var(--line);
   border-radius: 6px;
@@ -2466,8 +2467,13 @@ h3 {
   outline: none;
 }
 
-.micro-form-group input[type="email"]:focus {
+.micro-form-group input:focus {
   border-color: var(--teal);
+}
+
+.sample-request-fields {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.8fr) minmax(180px, 1.2fr) auto;
 }
 
 .micro-form-group button {
@@ -2486,8 +2492,18 @@ h3 {
   opacity: 0.9;
 }
 
+.micro-form-group button:disabled,
+.quote-form button:disabled {
+  cursor: wait;
+  opacity: 0.62;
+}
+
 @media (max-width: 768px) {
   .micro-form-group {
     flex-direction: column;
+  }
+
+  .sample-request-fields {
+    grid-template-columns: 1fr;
   }
 }

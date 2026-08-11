@@ -9,7 +9,7 @@
       content="China custom drinkware supplier and OEM/ODM sourcing partner for low MOQ logo tumblers, bottles, gift sets, packaging, samples and shipping."
     />
     <meta name="robots" content="index, follow" />
-    <meta name="last-modified" content="2026-08-01" />
+    <meta name="last-modified" content="2026-08-11" />
     <link rel="canonical" href="https://www.hdsdrinkware.com/" />
     <link rel="sitemap" type="application/xml" href="https://www.hdsdrinkware.com/sitemap.xml" />
     <link rel="alternate" type="text/plain" href="https://www.hdsdrinkware.com/llms.txt" title="LLMs and AI assistants index" />
@@ -31,7 +31,7 @@
     <meta name="twitter:image" content="https://www.hdsdrinkware.com/assets/hero-premium-custom-drinkware-gift-packaging.jpg" />
     <link rel="preload" as="image" href="assets/hero-premium-custom-drinkware-gift-packaging.jpg" fetchpriority="high" />
     <title>Custom Drinkware Supplier China | HDS Drinkware</title>
-    <link rel="stylesheet" href="styles.css?v=20260727" />
+    <link rel="stylesheet" href="styles.css?v=20260811" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -81,7 +81,7 @@
         "name": "Custom Drinkware Supplier in China",
         "url": "https://www.hdsdrinkware.com/",
         "description": "China custom drinkware supplier and OEM/ODM sourcing partner for low MOQ logo tumblers, bottles, gift sets, packaging, samples and shipping.",
-        "dateModified": "2026-08-01",
+        "dateModified": "2026-08-11",
         "isPartOf": {
           "@type": "WebSite",
           "name": "HDS Drinkware",
@@ -1415,8 +1415,8 @@
                 <input type="hidden" name="subject" value="HDS Catalog Request" />
                 <input type="hidden" name="from_name" value="HDS Drinkware Catalog Request" />
                 <div class="micro-form-group">
-                  <input type="email" name="email" placeholder="Enter corporate email" required />
-                  <button type="submit">Download PDF</button>
+                  <input type="email" name="email" placeholder="Enter business email" aria-label="Business email for catalog request" autocomplete="email" required />
+                  <button type="submit">Request Catalog</button>
                 </div>
               </form>
             </div>
@@ -1427,8 +1427,9 @@
                 <input type="hidden" name="access_key" value="45e7b7c2-d1c6-4019-a627-1d3f6bbadbab" />
                 <input type="hidden" name="subject" value="HDS Stock or Logo Sample Request" />
                 <input type="hidden" name="from_name" value="HDS Drinkware Sample Request" />
-                <div class="micro-form-group">
-                  <input type="email" name="email" placeholder="Enter corporate email" required />
+                <div class="micro-form-group sample-request-fields">
+                  <input type="email" name="email" placeholder="Enter business email" aria-label="Business email for sample request" autocomplete="email" required />
+                  <input type="text" name="product_interest" placeholder="Product name or photo link" aria-label="Product name or photo link for sample request" required />
                   <button type="submit">Request Sample Details</button>
                 </div>
               </form>
@@ -1436,8 +1437,8 @@
           </div>
         </div>
         <div class="inquiry-priority-note">
-          <strong>For a faster quote, the most important fields are product photo, quantity, destination country, WhatsApp and email.</strong>
-          <span>Logo method, packaging and shipping terms can be selected later if you are unsure.</span>
+          <strong>Start with four required details: product type, quantity, destination and email.</strong>
+          <span>Name, company, WhatsApp, artwork, packaging and shipping preferences are optional at this stage.</span>
         </div>
         <form class="quote-form" name="drinkware-inquiry" action="https://api.web3forms.com/submit" method="POST" style="display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
           <input type="hidden" name="access_key" value="45e7b7c2-d1c6-4019-a627-1d3f6bbadbab" />
@@ -1446,31 +1447,31 @@
           
           <label style="grid-column: span 1;">
             Name
-            <input name="name" type="text" placeholder="Your name" required style="width: 100%;" />
+            <input name="name" type="text" placeholder="Your name (optional)" autocomplete="name" style="width: 100%;" />
           </label>
           <label style="grid-column: span 1;">
             Company Name
-            <input name="company" type="text" placeholder="Company Name" required style="width: 100%;" />
+            <input name="company" type="text" placeholder="Company name (optional)" autocomplete="organization" style="width: 100%;" />
           </label>
           <label style="grid-column: span 1;">
             Email
-            <input name="email" type="email" placeholder="name@company.com" required style="width: 100%;" />
+            <input name="email" type="email" placeholder="name@company.com" autocomplete="email" required style="width: 100%;" />
           </label>
           <label style="grid-column: span 1;">
             WhatsApp (with country code)
-            <input name="whatsapp" type="text" placeholder="e.g. +1 555 123 4567" required style="width: 100%;" />
+            <input name="whatsapp" type="tel" placeholder="Optional, e.g. +1 555 123 4567" autocomplete="tel" style="width: 100%;" />
           </label>
           <label style="grid-column: span 1;">
-            Country
-            <input name="country" type="text" placeholder="Your Country" required style="width: 100%;" />
+            Buyer Country
+            <input name="country" type="text" placeholder="Your country (optional)" autocomplete="country-name" style="width: 100%;" />
           </label>
           <label style="grid-column: span 1;">
             Destination Country / City
-            <input name="destination_country" type="text" placeholder="For shipping calculation" required style="width: 100%;" />
+            <input name="destination_country" type="text" placeholder="Required for shipping planning" autocomplete="country-name" required style="width: 100%;" />
           </label>
           <label style="grid-column: span 1;">
             Product Type
-            <select name="product" style="width: 100%;">
+            <select name="product" required style="width: 100%;">
               <option>OEM / ODM custom drinkware project</option>
               <option>Wholesale drinkware order</option>
               <option>Low MOQ test order</option>
@@ -1491,33 +1492,33 @@
           <label style="grid-column: span 1;">
             Logo Customization Requirement
             <select name="logo_requirement" style="width: 100%;">
+              <option selected>Unsure (Need Advice)</option>
               <option>Laser Engraving</option>
               <option>Silk Screen Printing</option>
               <option>UV Printing</option>
               <option>Heat Transfer</option>
               <option>No Logo (Blank Stock)</option>
-              <option>Unsure (Need Advice)</option>
             </select>
           </label>
           <label style="grid-column: span 1;">
             Packaging Requirement
             <select name="packaging_requirement" style="width: 100%;">
+              <option selected>Unsure (Need Advice)</option>
               <option>Standard Box</option>
               <option>Color Box</option>
               <option>Gift Box & Inserts</option>
               <option>Sleeve / Label Branding</option>
               <option>Custom Set Bundle</option>
-              <option>Unsure (Need Advice)</option>
             </select>
           </label>
           <label style="grid-column: span 1;">
             Preferred Shipping Term
             <select name="shipping_term" style="width: 100%;">
+              <option selected>Unsure (Need Advice)</option>
               <option>DDP (Door Delivery duty-paid)</option>
               <option>DDU (Door Delivery duty-unpaid)</option>
               <option>FOB (Free on Board China port)</option>
               <option>EXW (Ex Works factory)</option>
-              <option>Unsure (Need Advice)</option>
             </select>
           </label>
           <label style="grid-column: span 1;">
@@ -1530,16 +1531,15 @@
               name="details"
               rows="4"
               placeholder="Please share more details: target capacity, color finish preferences, target delivery timing, custom details, etc."
-              required
               style="width: 100%;"
             ></textarea>
           </label>
-          <button type="submit" class="full" style="grid-column: span 2; padding: 1rem; background-color: var(--color-accent, #1f497d); color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px;">Request OEM Quote</button>
+          <button type="submit" class="full" style="grid-column: span 2; padding: 1rem; background-color: var(--color-accent, #1f497d); color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px;">Send Quote Requirements</button>
           <p class="form-status" aria-live="polite" style="grid-column: span 2;"></p>
         </form>
       </section>
       <aside class="content-review-note" aria-label="Content ownership and review">
-        <strong>Content owner:</strong> HDS Drinkware Sourcing Team. <strong>Last reviewed:</strong> 2026-08-01. HDS is the export brand of Shanxi Huandingsheng Industry and Trade Co., Ltd. Product, factory route, compliance documents, inspection scope, capacity, timing and shipping terms are confirmed for each quoted SKU and destination.
+        <strong>Content owner:</strong> HDS Drinkware Sourcing Team. <strong>Last reviewed:</strong> 2026-08-11. HDS is the export brand of Shanxi Huandingsheng Industry and Trade Co., Ltd. Product, factory route, compliance documents, inspection scope, capacity, timing and shipping terms are confirmed for each quoted SKU and destination.
       </aside>
     </main>
 
@@ -1574,6 +1574,6 @@
       <span>Custom drinkware supplier for tumblers, water bottles, sports bottles, and OEM/ODM projects.</span>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=20260811"></script>
   </body>
 </html>

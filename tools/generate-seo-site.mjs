@@ -7,11 +7,14 @@ const email = "hds.drinkware@gmail.com";
 const whatsapp = "8613994271614";
 const displayPhone = "+86 13994271614";
 const updated = "2026-07-18";
-const aiReferenceUpdated = "2026-07-23";
+const aiReferenceUpdated = "2026-08-03";
 const pageUpdated = {
   "custom-40oz-tumbler-manufacturer": "2026-07-20",
   "custom-stainless-steel-tumblers": "2026-07-22",
-  "custom-water-bottles-with-logo": "2026-07-20",
+  "custom-water-bottles-with-logo": "2026-08-03",
+  "custom-plastic-water-bottles": "2026-08-03",
+  "custom-sports-water-bottles": "2026-08-03",
+  "custom-kids-water-bottles": "2026-08-03",
   "custom-drinkware-gift-sets": "2026-07-20",
   "custom-drinkware-for-corporate-gifts": "2026-07-20",
   "low-moq-custom-drinkware": "2026-07-20",
@@ -42,6 +45,9 @@ const productMetaOverrides = {
   "custom-40oz-tumbler-manufacturer": "Compare custom 40oz tumbler supply and manufacturing routes in China, with 200-piece options, factory verification, samples, packaging and shipping.",
   "custom-stainless-steel-tumblers": "Custom stainless steel tumblers with logo from 200 pieces on selected stock models, with material, insulation, logo, packaging and QC guidance.",
   "custom-water-bottles-with-logo": "Low MOQ custom water bottles with logo from 200 pieces on selected stock models, with bottle, color, logo, packaging and shipping decision guidance.",
+  "custom-plastic-water-bottles": "Compare custom plastic water bottles by PP, PC, PETG and Tritan-style material route, lid, logo, MOQ, documentation, packaging and buyer use case.",
+  "custom-sports-water-bottles": "Custom sports water bottles for gyms, teams and outdoor brands, with lid selection, leak-check scope, logo, MOQ, packaging and shipping guidance.",
+  "custom-kids-water-bottles": "Custom kids water bottles for schools, gifts and retail, with material-document review, lid and straw checks, logo, packaging and age-use planning.",
   "custom-drinkware-gift-sets": "Custom drinkware gift sets for corporate events, including color boxes, sleeves, cards, rigid boxes, inserts, samples and delivery planning.",
   "custom-drinkware-for-corporate-gifts": "Custom drinkware supplier support for retail and corporate gifting, with logo approval, gift packaging, event deadlines, samples and shipping planning.",
   "custom-drinkware-for-tiktok-shop-sellers": "Custom drinkware for TikTok Shop product tests, with visual sample review, 200-piece selected-stock options, logo, packaging and reorder planning.",
@@ -532,7 +538,10 @@ const productIntent = {
 const relatedClusters = {
   "custom-40oz-tumbler-manufacturer": [["Stainless steel tumblers", "/custom-stainless-steel-tumblers/"], ["TikTok Shop drinkware", "/custom-drinkware-for-tiktok-shop-sellers/"], ["Low MOQ custom drinkware", "/low-moq-custom-drinkware/"], ["Logo method guide", "/sourcing-guides/how-to-choose-logo-method-for-custom-drinkware/"]],
   "custom-stainless-steel-tumblers": [["40oz tumbler manufacturing partner", "/custom-40oz-tumbler-manufacturer/"], ["FDA vs LFGB compliance guide", "/sourcing-guides/understanding-fda-vs-lfgb-standards-stainless-steel-bottles/"], ["How to source custom tumblers", "/sourcing-guides/how-to-source-custom-tumblers-from-china/"], ["Calculate drinkware landed cost", "/sourcing-guides/how-to-calculate-landed-cost-importing-drinkware-china/"], ["Drinkware quality control", "/quality-control/"]],
-  "custom-water-bottles-with-logo": [["Low MOQ custom drinkware", "/low-moq-custom-drinkware/"], ["Water bottle supplier China", "/custom-water-bottle-supplier-china/"], ["Corporate gift bottles", "/custom-water-bottles-for-corporate-gifts/"], ["MOQ guide", "/sourcing-guides/what-is-moq-for-custom-drinkware/"]],
+  "custom-water-bottles-with-logo": [["Custom plastic water bottles", "/custom-plastic-water-bottles/"], ["Custom sports water bottles", "/custom-sports-water-bottles/"], ["Custom kids water bottles", "/custom-kids-water-bottles/"], ["Water bottle supplier China", "/custom-water-bottle-supplier-china/"], ["MOQ guide", "/sourcing-guides/what-is-moq-for-custom-drinkware/"]],
+  "custom-plastic-water-bottles": [["Custom water bottles with logo", "/custom-water-bottles-with-logo/"], ["Custom sports water bottles", "/custom-sports-water-bottles/"], ["Custom kids water bottles", "/custom-kids-water-bottles/"], ["Plastic vs stainless steel bottles", "/sourcing-guides/stainless-steel-vs-plastic-water-bottles/"], ["Logo method guide", "/sourcing-guides/how-to-choose-logo-method-for-custom-drinkware/"]],
+  "custom-sports-water-bottles": [["Custom water bottles with logo", "/custom-water-bottles-with-logo/"], ["Custom plastic water bottles", "/custom-plastic-water-bottles/"], ["Custom kids water bottles", "/custom-kids-water-bottles/"], ["Drinkware quality control", "/quality-control/"], ["Logo method guide", "/sourcing-guides/how-to-choose-logo-method-for-custom-drinkware/"]],
+  "custom-kids-water-bottles": [["Custom water bottles with logo", "/custom-water-bottles-with-logo/"], ["Custom plastic water bottles", "/custom-plastic-water-bottles/"], ["Custom sports water bottles", "/custom-sports-water-bottles/"], ["Drinkware quality control", "/quality-control/"], ["Packaging options", "/sourcing-guides/custom-drinkware-packaging-options/"]],
   "custom-promotional-drinkware": [["Promotional supplier", "/promotional-drinkware-supplier/"], ["Promotional companies", "/custom-drinkware-for-promotional-companies/"], ["Event gifts", "/custom-drinkware-for-event-gifts/"], ["Packaging options", "/sourcing-guides/custom-drinkware-packaging-options/"]],
   "promotional-drinkware-supplier": [["Promotional drinkware categories", "/custom-promotional-drinkware/"], ["Logo drinkware manufacturer", "/logo-drinkware-manufacturer/"], ["Corporate gifts", "/custom-drinkware-for-corporate-gifts/"], ["Logo method guide", "/sourcing-guides/how-to-choose-logo-method-for-custom-drinkware/"]],
   "custom-drinkware-gift-sets": [["Corporate gifting", "/custom-drinkware-for-corporate-gifts/"], ["Event gifts", "/custom-drinkware-for-event-gifts/"], ["Corporate gift bottles", "/custom-water-bottles-for-corporate-gifts/"], ["Packaging guide", "/sourcing-guides/custom-drinkware-packaging-options/"]],
@@ -789,7 +798,7 @@ function pageShell({ title, meta, slug, h1, eyebrow, intro, body, schemas, depth
     <meta name="twitter:description" content="${esc(meta)}" />
     <meta name="twitter:image" content="${defaultOgImage}" />
     <title>${esc(title)}</title>
-    <link rel="stylesheet" href="${p}styles.css?v=20260718" />
+    <link rel="stylesheet" href="${p}styles.css?v=20260727" />
     ${jsonLd(organizationSchema, websiteSchema, ...schemas)}
   </head>
   <body class="landing-page">
@@ -851,6 +860,7 @@ const customPageDetails = {
     ],
   },
   "custom-water-bottles-with-logo": {
+    optionDetail: "Use this page as the water-bottle category hub. Compare plastic promotional bottles, sports and hydration bottles, kids bottles and selected stainless steel routes by buyer, intended use, component materials, lid structure, logo surface, packaging and destination-market evidence before opening the dedicated product page.",
     painPoints: [
       "Gyms, fitness brands and sports teams should confirm the lid structure, lock, gasket and intended leak-resistance test for the selected bottle.",
       "Plastic bottle bodies should use appropriate food-contact material options such as PP, PC, Tritan-style copolyester or PETG, with BPA-free requirements discussed by project.",
@@ -862,6 +872,51 @@ const customPageDetails = {
     faq: [
       ["Can custom bottles with a logo start at a low MOQ?", "Yes. Selected stock bottle models can start from 200 pieces with a simple logo and standard packaging. The exact MOQ depends on available colors, bottle material, decoration setup and packaging minimums."],
       ["What is the simplest low-MOQ bottle route?", "Choose an available stock bottle and stock color, use one logo position, keep the first pack standard, and confirm the quantity per color. This avoids the tooling and higher minimums usually associated with a new mold, custom color or fully printed box."],
+    ],
+  },
+  "custom-plastic-water-bottles": {
+    optionDetail: "Plastic bottle projects should be separated by material and structure: PP promotional bottles, rigid PC routes, clear PETG options, Tritan-style copolyester models, straw bottles and large-capacity designs. Compare the exact body, lid, straw and gasket specification rather than treating every plastic bottle as interchangeable.",
+    painPoints: [
+      "A bottle described only as plastic is not a comparable specification; buyers should confirm the exact body, lid, straw and gasket materials for the quoted SKU.",
+      "Material claims such as BPA-free or food-contact suitable should be matched to identifiable product documentation and the destination market rather than accepted as category-wide claims.",
+      "Curved bottle surfaces, textured finishes and flexible bodies change which logo method, size and position can produce a repeatable result.",
+      "Low unit weight does not guarantee low landed cost; carton quantity, retail packaging and dimensional volume still need to be confirmed."
+    ],
+    materialDetail: "Plastic bottle routes can include PP, PC, PETG or Tritan-style copolyester bodies, with separate lid, straw and gasket materials. The buyer should confirm the exact material specification, intended temperature and use, destination market, and available product-specific documentation for the selected model.",
+    qcDetail: "A plastic bottle QC plan can cover appearance, odor review where agreed, lid and gasket fit, agreed leakage checks, measurement markings, logo position, accessories, packaging and final carton data. Any drop, migration or chemical test must be specified for the exact product and market before quotation.",
+    faq: [
+      ["Which plastic water bottle material should a buyer choose?", "There is no universal best plastic. PP, PC, PETG and Tritan-style copolyester routes differ by clarity, feel, heat-use limits, price, available style and documentation. Confirm the exact body, lid, straw and gasket materials for the quoted SKU and match the evidence to the destination market."],
+      ["Can custom plastic water bottles start from 200 pieces?", "Selected stock plastic bottle models can start from 200 pieces with an available color, one simple logo position and standard packaging. Custom color, new mold, multiple decorations or printed retail boxes can require a separate minimum."],
+    ],
+  },
+  "custom-sports-water-bottles": {
+    optionDetail: "Sports bottle selection starts with the activity and drinking route: straw or direct drink, flip or screw lid, lock, wide mouth, handle or strap, and target capacity. Gym, team, cycling, outdoor and large-hydration projects require different fit, function, packing and deadline checks.",
+    painPoints: [
+      "A sports-bottle quote should identify the intended use, capacity, lid route, drinking opening, carrying feature and accessories instead of relying on a lifestyle photo.",
+      "Leak-resistant claims depend on the exact lid, lock, gasket, assembly and agreed test orientation; buyers should define the check before bulk production.",
+      "Team and event orders need a realistic color split, player or participant quantity, logo proof owner and delivery deadline before production is scheduled.",
+      "Wide-mouth and large-capacity bottles can increase carton volume, so final dimensions and gross weight matter when comparing DDP, DDU or FOB cost."
+    ],
+    materialDetail: "Sports bottle options can use PP, PC, PETG, Tritan-style copolyester or selected stainless steel structures. The written quote should identify body, lid, straw, gasket and handle materials, capacity, intended use and available documentation for the exact model.",
+    qcDetail: "A sports bottle inspection plan can cover capacity and dimensions, lid assembly, lock and gasket fit, agreed leakage orientation and duration, strap or handle fit, logo alignment, accessories, packing and carton measurements. Performance claims are confirmed only when included in the agreed sample and inspection scope.",
+    faq: [
+      ["What should gyms and teams confirm for custom sports bottles?", "Confirm capacity, material, drinking route, lid lock, gasket, strap or handle, color split, logo position, packaging, delivery date and the exact leakage check. Keep these details with the approved sample and bulk inspection checklist."],
+      ["Which logo methods work on sports water bottles?", "The practical method depends on body material, curvature, texture, artwork and expected use. Silk screen, UV printing, heat transfer, labels or packaging branding may be considered after checking the exact surface and approving a physical proof."],
+    ],
+  },
+  "custom-kids-water-bottles": {
+    optionDetail: "Kids bottle selection should begin with the intended age group and channel. School gifts, family retail and promotional programs may use different capacities, lid and straw routes, straps, decorative parts, artwork, labels and packaging; each component and accessible accessory should be reviewed for the exact SKU.",
+    painPoints: [
+      "Kids bottle sourcing requires an exact age and use scenario, because school gifts, family retail and promotional programs can require different capacity, lid, straw, labeling and packaging decisions.",
+      "Buyers should verify body, lid, straw and gasket materials and match any food-contact or BPA-free documentation to the exact quoted SKU and destination market.",
+      "Small removable accessories, decorative parts, straps and lid components should be reviewed against the buyer's intended age group and market requirements before ordering.",
+      "Cartoon graphics and character artwork require buyer-owned or licensed files; a supplier sample does not grant rights to use protected designs."
+    ],
+    materialDetail: "Kids bottle routes can include PP, PC, PETG or selected stainless steel bodies with project-specific lids, straws, gaskets, straps and decorative parts. Material, age-use, labeling and documentation requirements must be confirmed for the exact SKU and destination market.",
+    qcDetail: "A kids bottle project can include sample review of dimensions, lid and straw fit, agreed leakage checks, edges and accessible parts, strap or accessory attachment, print and logo position, packaging, labels and carton protection. Product safety and compliance testing are arranged only to a written destination-market scope.",
+    faq: [
+      ["What should schools and retailers verify before ordering kids water bottles?", "Verify the intended age group, capacity, body and component materials, lid and straw structure, accessible accessories, logo or artwork rights, packaging, labels and destination-market evidence. Approve the exact sample before bulk production."],
+      ["Can HDS confirm that every kids bottle is BPA-free?", "No category-wide claim should replace product evidence. HDS can discuss the BPA-free requirement and available documentation for the exact quoted body, lid and straw materials, but the buyer should match the evidence to the selected SKU, intended use and destination market."],
     ],
   },
   "custom-drinkware-gift-sets": {
@@ -1014,6 +1069,66 @@ function searchOpportunityBlock(page) {
           <tr><td>One logo position</td><td>Keeps setup and sample approval simpler</td><td>Multiple positions, wrap print or complex artwork</td></tr>
           <tr><td>Standard box</td><td>Avoids a second packaging minimum</td><td>Fully printed retail box, custom insert or rigid gift box</td></tr>
         </tbody></table></div>
+      </section>
+      <section class="section">
+        <div class="section-heading"><p class="eyebrow">Choose the right bottle route</p><h2>Plastic, Sports or Kids Water Bottle?</h2><p>Start with the buyer, intended use and verification scope. Each route below has a dedicated page with a different material, lid, QC and packaging decision path.</p></div>
+        <div class="landing-table-wrap"><table class="landing-table"><thead><tr><th>Bottle Route</th><th>Best For</th><th>Confirm First</th><th>Detailed Page</th></tr></thead><tbody>
+          <tr><td>Plastic water bottle</td><td>Promotions, schools, fitness programs and lighter-price projects</td><td>Exact body, lid, straw and gasket materials; documentation; logo surface</td><td><a href="/custom-plastic-water-bottles/">Compare custom plastic water bottles</a></td></tr>
+          <tr><td>Sports water bottle</td><td>Gyms, teams, outdoor brands and active-use campaigns</td><td>Capacity, lid route, lock, gasket, carrying feature and agreed leakage check</td><td><a href="/custom-sports-water-bottles/">Plan a custom sports bottle order</a></td></tr>
+          <tr><td>Kids water bottle</td><td>Schools, family retail, gifts and youth programs</td><td>Age-use scenario, components, accessible accessories, artwork rights and market evidence</td><td><a href="/custom-kids-water-bottles/">Review custom kids bottle requirements</a></td></tr>
+        </tbody></table></div>
+      </section>`;
+  }
+
+  if (page.slug === "custom-plastic-water-bottles") {
+    return `
+      <section class="section answer-first">
+        <div class="section-heading"><p class="eyebrow">Direct material answer</p><h2>Which Plastic Water Bottle Material Should a Buyer Choose?</h2><p>Choose from the exact quoted SKU, not from a material name alone. PP, PC, PETG and Tritan-style copolyester routes differ by clarity, feel, intended temperature, available bottle design, price and supporting documentation. Confirm the body, lid, straw and gasket materials separately and match product evidence to the destination market.</p></div>
+        <div class="landing-table-wrap"><table class="landing-table"><thead><tr><th>Material Route</th><th>Buyer May Prioritize</th><th>Confirm for the SKU</th><th>Do Not Assume</th></tr></thead><tbody>
+          <tr><td>PP</td><td>Lighter promotional, school or simple-use bottle routes</td><td>Body and lid grade, opacity, intended temperature, odor and documentation scope</td><td>That every component uses the same material</td></tr>
+          <tr><td>PC</td><td>Rigid and clear large-capacity or sports-style options where available</td><td>Exact formulation, BPA-free requirement, intended use and market evidence</td><td>That a generic PC report covers the quoted bottle</td></tr>
+          <tr><td>PETG</td><td>Clear visual presentation and selected retail-style bottle shapes</td><td>Heat-use limit, scratch expectations, lid materials and documentation</td><td>That clarity proves performance or compliance</td></tr>
+          <tr><td>Tritan-style copolyester</td><td>Clear premium-feel bottle routes when confirmed for the model</td><td>Supplier material declaration, exact trade/material reference and product evidence</td><td>That every clear copolyester can use a branded material name</td></tr>
+        </tbody></table></div>
+      </section>
+      <section class="section landing-copy-block answer-first">
+        <article><h2>What Evidence Should a Plastic Bottle Buyer Request?</h2><p>Ask for an exact product specification, body and component material list, identifiable supplier or manufacturer, available food-contact or BPA-free documentation, intended-use conditions and destination-market scope. Reports should be current enough for the project and traceable to the quoted material or SKU.</p></article>
+        <article><h2>Fastest Low-MOQ Route</h2><p>Select an available bottle and stock color, use one practical logo position and start with standard packaging. Send the capacity, quantity per color, destination and documentation requirement before asking for a final quotation.</p></article>
+      </section>`;
+  }
+
+  if (page.slug === "custom-sports-water-bottles") {
+    return `
+      <section class="section answer-first">
+        <div class="section-heading"><p class="eyebrow">Direct sourcing answer</p><h2>What Should Gyms and Teams Confirm for Custom Sports Bottles?</h2><p>Confirm the intended activity, capacity, body and component materials, drinking route, lid lock, gasket, strap or handle, color split, logo position, packaging and delivery date. Define the exact leakage check and keep it with the approved sample and bulk inspection scope.</p></div>
+        <div class="landing-table-wrap"><table class="landing-table"><thead><tr><th>Use Route</th><th>Product Decisions</th><th>QC Focus</th><th>Buyer Planning Note</th></tr></thead><tbody>
+          <tr><td>Gym or fitness program</td><td>One-hand opening, straw or direct drink, grip and capacity</td><td>Lid assembly, gasket, agreed leakage check and logo position</td><td>Keep the first color split controlled for replenishment</td></tr>
+          <tr><td>Team or event order</td><td>Participant count, colors, logo approval and distribution pack</td><td>Quantity by color, print consistency, accessories and carton marks</td><td>Fix the delivery deadline before artwork approval</td></tr>
+          <tr><td>Cycling or outdoor route</td><td>Carry fit, drinking opening, bottle dimensions and material</td><td>Sample fit, cap operation and use-specific agreed checks</td><td>Confirm compatibility from a physical sample</td></tr>
+          <tr><td>Large hydration bottle</td><td>Capacity, handle or strap, wide mouth, lid and accessories</td><td>Dimensions, assembly, packing protection and carton data</td><td>Dimensional freight can outweigh a small unit-price difference</td></tr>
+        </tbody></table></div>
+      </section>
+      <section class="section landing-copy-block answer-first">
+        <article><h2>How Should Leak Resistance Be Written into the Order?</h2><p>Identify the exact lid and gasket assembly, test fill level, orientation, duration and acceptance criteria agreed for the project. A broad “leakproof” label is not a substitute for a sample and written inspection method.</p></article>
+        <article><h2>What to Send for a Sports Bottle Quote</h2><p>Send a reference photo, use scenario, capacity, quantity and color split, logo file, packaging, destination, delivery date and any fit or function requirement. HDS can then compare like-for-like models instead of unrelated sports-bottle photos.</p></article>
+      </section>`;
+  }
+
+  if (page.slug === "custom-kids-water-bottles") {
+    return `
+      <section class="section answer-first">
+        <div class="section-heading"><p class="eyebrow">Direct buyer answer</p><h2>What Should Schools and Retailers Verify for Kids Water Bottles?</h2><p>Start with the intended age group and use. Verify the exact body, lid, straw and gasket materials; accessible accessories; logo or character-artwork rights; packaging and labels; and destination-market evidence. Approve the exact sample before bulk production.</p></div>
+        <div class="landing-table-wrap"><table class="landing-table"><thead><tr><th>Decision</th><th>Confirm in Writing</th><th>Verify on the Sample</th><th>Why It Matters</th></tr></thead><tbody>
+          <tr><td>Intended user</td><td>Age group, school, retail, gift or promotional scenario</td><td>Capacity, dimensions and handling route</td><td>The use scenario changes product and labeling decisions</td></tr>
+          <tr><td>Components</td><td>Body, lid, straw, gasket, strap and decorative-part materials</td><td>Fit, finish, edges and accessible attachments</td><td>A body-material claim does not cover every component</td></tr>
+          <tr><td>Function</td><td>Drinking route and agreed leakage or lid checks</td><td>Assembly, operation and written test scope</td><td>Generic claims are weaker than an approved sample and criteria</td></tr>
+          <tr><td>Artwork</td><td>Buyer-owned logo or licensed character assets</td><td>Print position, legibility and approved proof</td><td>Supplier images do not grant intellectual-property rights</td></tr>
+          <tr><td>Market evidence</td><td>Required documents, tests, warnings and labels by destination</td><td>Traceability between evidence and quoted SKU</td><td>Requirements vary by product, age use and market</td></tr>
+        </tbody></table></div>
+      </section>
+      <section class="section landing-copy-block answer-first">
+        <article><h2>Can Every Kids Bottle Be Described as BPA-Free?</h2><p>No category-wide statement should replace product evidence. The BPA-free requirement and available documentation should be checked for the exact body, lid and straw materials, quoted SKU, intended use and destination market.</p></article>
+        <article><h2>What to Send for a Kids Bottle Quote</h2><p>Send the intended age group, product photo, capacity, quantity and color split, logo or licensed artwork, packaging and labeling request, destination, required delivery date and any test or document requirement.</p></article>
       </section>`;
   }
 
@@ -1058,6 +1173,10 @@ function landingBody(page) {
     ? custom.qcDetail
     : `Stock samples can be arranged when available. Logo samples usually need artwork confirmation. Bulk production is commonly planned around 30-35 days after approval, with DDP/DDU, FOB or EXW shipping coordination discussed by project.`;
 
+  const optionDetail = custom && custom.optionDetail
+    ? custom.optionDetail
+    : `${page.options} can be discussed by capacity, color, finish, lid, accessory, packaging and destination market. HDS helps buyers compare practical options instead of pushing a single retail-style SKU.`;
+
   return `
       ${productImageStrip(page, 1)}
       <section class="section landing-intent-map">
@@ -1085,7 +1204,7 @@ function landingBody(page) {
           `
           : `
         <article><h2>Buyer Pain Points</h2><ul>${painPointsList}</ul></article>
-        <article><h2>Product Options</h2><p>${esc(page.options)} can be discussed by capacity, color, finish, lid, accessory, packaging and destination market. HDS helps buyers compare practical options instead of pushing a single retail-style SKU.</p></article>
+        <article><h2>Product Options</h2><p>${esc(optionDetail)}</p></article>
         <article><h2>MOQ Details</h2><p>MOQ starts from 200 pcs for selected custom drinkware projects. The final MOQ depends on material, color, logo method, packaging, sample needs and current supply chain availability.</p></article>
         <article><h2>Material Options</h2><p>${esc(materialDetail)}</p></article>
         <article><h2>Logo Methods</h2><p>Logo customization support includes laser engraving, silk screen printing, UV printing, heat transfer, labels and packaging logo placement. The best method depends on product surface, artwork colors and buyer channel.</p></article>
@@ -1181,7 +1300,7 @@ function writeNoindexCanonicalPage(file, targetPath, title, description) {
     <meta http-equiv="refresh" content="0; url=${target}" />
     <link rel="canonical" href="${target}" />
     <title>${esc(title)} | HDS Drinkware</title>
-    <link rel="stylesheet" href="/styles.css?v=20260718" />
+    <link rel="stylesheet" href="/styles.css?v=20260727" />
   </head>
   <body class="landing-page">
     ${header(0)}
@@ -1873,7 +1992,7 @@ for (const caseStudy of caseStudies) {
   allUrls.push(`/case-studies/${caseStudy.slug}/`);
 }
 
-writeFile("404.html", `<!doctype html><html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="icon" type="image/png" href="/assets/favicon.png" /><meta name="robots" content="noindex, follow" /><title>Page Not Found | HDS Drinkware</title><link rel="stylesheet" href="/styles.css?v=20260718" /></head><body class="landing-page">${header(0)}<main><section class="landing-hero"><p class="eyebrow">404</p><h1>Page Not Found</h1><p>The page may have moved. You can return to HDS Drinkware sourcing pages, view the product catalog, or contact us on WhatsApp for a quote.</p><div class="hero-actions"><a class="button primary" href="/">Return Home</a><a class="button secondary" href="/#catalog">View Product Catalog</a><a class="button whatsapp" href="${wa("Hello HDS Drinkware, I need help finding a custom drinkware product page.")}" target="_blank" rel="noopener">Get Quote on WhatsApp</a></div></section></main></body></html>`);
+writeFile("404.html", `<!doctype html><html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="icon" type="image/png" href="/assets/favicon.png" /><meta name="robots" content="noindex, follow" /><title>Page Not Found | HDS Drinkware</title><link rel="stylesheet" href="/styles.css?v=20260727" /></head><body class="landing-page">${header(0)}<main><section class="landing-hero"><p class="eyebrow">404</p><h1>Page Not Found</h1><p>The page may have moved. You can return to HDS Drinkware sourcing pages, view the product catalog, or contact us on WhatsApp for a quote.</p><div class="hero-actions"><a class="button primary" href="/">Return Home</a><a class="button secondary" href="/#catalog">View Product Catalog</a><a class="button whatsapp" href="${wa("Hello HDS Drinkware, I need help finding a custom drinkware product page.")}" target="_blank" rel="noopener">Get Quote on WhatsApp</a></div></section></main></body></html>`);
 
 writeFile("robots.txt", `# HDS Drinkware crawler policy
 # Search engines and AI answer engines may crawl public pages for indexing,
@@ -1956,9 +2075,10 @@ const llmsPages = [
   ["/", "China custom drinkware supplier and OEM/ODM sourcing partner for low MOQ logo orders, packaging, samples and DDP/DDU shipping support."],
   ["/custom-40oz-tumbler-manufacturer/", "Custom 40oz tumbler supplier and manufacturing-partner page explaining factory verification, MOQ, samples, packaging and comparable quote checkpoints."],
   ["/custom-stainless-steel-tumblers/", "Custom stainless steel tumblers with logo from 200 pieces on selected stock models, including material, compliance, sample, QC and quote-verification checkpoints."],
-  ["/custom-water-bottles-with-logo/", "Low MOQ custom water bottles with logo, including the simplest 200-piece stock-model route and the choices that can raise MOQ."],
-  ["/custom-plastic-water-bottles/", "Custom plastic water bottle options for schools, sports programs, promotions and online sellers."],
-  ["/custom-sports-water-bottles/", "Sports water bottles for gyms, teams, outdoor brands, events and wholesale buyers."],
+  ["/custom-water-bottles-with-logo/", "Custom water bottle topic hub covering low-MOQ stock routes and dedicated plastic, sports and kids bottle sourcing paths."],
+  ["/custom-plastic-water-bottles/", "Custom plastic water bottle material, component, documentation, logo, MOQ and packaging comparison for B2B buyers."],
+  ["/custom-sports-water-bottles/", "Sports water bottle sourcing for gyms, teams and outdoor brands, including lid, gasket, leak-check, logo and carton decisions."],
+  ["/custom-kids-water-bottles/", "Kids water bottle sourcing for schools, gifts and retail, including age-use, component, artwork, labeling and market-evidence checks."],
   ["/custom-coffee-travel-mugs/", "Custom coffee travel mugs and branded office drinkware for gifts, retail and wholesale buyers."],
   ["/custom-drinkware-gift-sets/", "Corporate and event drinkware gift set routes covering color boxes, sleeves, cards, rigid boxes, inserts and accessory bundles."],
   ["/custom-drinkware-for-corporate-gifts/", "Custom drinkware sourcing for retail and corporate gifting programs, with packaging and event-deadline decision guidance."],
