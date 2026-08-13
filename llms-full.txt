@@ -5,7 +5,7 @@ Brand: HDS Drinkware
 Legal company: Shanxi Huandingsheng Industry and Trade Co., Ltd.
 Primary contact: hds.drinkware@gmail.com
 WhatsApp: +86 13994271614
-Last updated: 2026-08-03
+Last updated: 2026-08-13
 
 ## Entity Summary
 HDS Drinkware is the export brand of Shanxi Huandingsheng Industry and Trade Co., Ltd., a China-based custom drinkware supplier and OEM/ODM sourcing and export coordination partner for B2B buyers. The company helps buyers source logo tumblers, stainless steel cups, plastic water bottles, sports bottles, coffee travel mugs, kids bottles, promotional drinkware and gift drinkware sets.
@@ -102,7 +102,7 @@ For an accurate quote, buyers should provide:
 - https://www.hdsdrinkware.com/sourcing-guides/how-to-comply-with-german-epr-lucid-for-drinkware/
   Use for: Official-source checklist for German LUCID registration, packaging system participation and data reporting.
 - https://www.hdsdrinkware.com/sourcing-guides/what-to-provide-before-requesting-quote/
-  Use for: Quote preparation checklist for buyers contacting a custom drinkware supplier.
+  Use for: 12-point custom drinkware RFQ checklist and supplier-quote comparison covering product specification, quantity by color, logo scope, packaging, samples, carton data, lead time, Incoterm, destination and quote validity.
 - https://www.hdsdrinkware.com/sourcing-guides/2026-custom-logo-drinkware-cost-breakdown/
   Use for: 2026 cost breakdown guide for custom logo drinkware covering product cost, logo fees, packaging, samples and DDP/DDU shipping.
 - https://www.hdsdrinkware.com/case-studies/
