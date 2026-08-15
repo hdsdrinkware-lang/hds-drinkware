@@ -1,0 +1,52 @@
+{
+  "file": "case-studies/index.html",
+  "slug": "case-studies",
+  "depth": 1,
+  "title": "Custom Drinkware Planning Scenarios | HDS Drinkware",
+  "meta": "Representative custom drinkware planning scenarios for MOQ, logo, packaging, QC and shipping decisions. Illustrative examples, not customer testimonials.",
+  "canonical": "https://www.hdsdrinkware.com/case-studies/",
+  "socialTitle": "Custom Drinkware Planning Scenarios | HDS Drinkware",
+  "socialDescription": "Representative custom drinkware planning scenarios for MOQ, logo, packaging, QC and shipping decisions. Illustrative examples, not customer testimonials.",
+  "reviewDate": "2026-08-11",
+  "h1": "Representative Custom Drinkware Project Scenarios",
+  "heroHtml": "<section class=\"landing-hero\">\n        <div>\n          <p class=\"eyebrow\">Buyer Planning Library</p>\n          <h1>Representative Custom Drinkware Project Scenarios</h1>\n          <p>These illustrative planning scenarios show how common custom drinkware projects can be scoped. They are not completed customer projects, testimonials, verified performance claims or substitutes for a product-specific quotation.</p>\n          <div class=\"hero-actions\"><a class=\"button whatsapp\" href=\"https://wa.me/8613994271614?text=Hi%2C%20I%E2%80%99m%20interested%20in%20custom%20drinkware.%20Could%20you%20help%20quote%20based%20on%20my%20product%20photo%2C%20logo%2C%20quantity%20and%20shipping%20destination%3F\" target=\"_blank\" rel=\"noopener\">Request Custom Drinkware Quote</a><a class=\"button primary\" href=\"../#inquiry\">Send Quote Details</a></div>\n        </div>\n        \n      </section>",
+  "body": "<section class=\"section landing-product-visuals\" aria-label=\"Custom drinkware planning scenario visuals\"><figure><img src=\"../assets/catalog/40oz-ice-tumbler.jpg\" alt=\"40oz tumbler reference for online seller planning\" width=\"900\" height=\"900\" loading=\"lazy\" decoding=\"async\" /><figcaption>40oz tumbler reference for online seller planning</figcaption></figure><figure><img src=\"../assets/trust-proof/packaging.jpg\" alt=\"Gift packaging reference for planning review\" width=\"900\" height=\"900\" loading=\"lazy\" decoding=\"async\" /><figcaption>Gift packaging reference for planning review</figcaption></figure><figure><img src=\"../assets/trust-proof/logo-customization.jpg\" alt=\"Logo customization reference for sample planning\" width=\"900\" height=\"900\" loading=\"lazy\" decoding=\"async\" /><figcaption>Logo customization reference for sample planning</figcaption></figure></section><section class=\"section landing-copy-block\"><article><h2>1. Custom 40oz Tumblers for an Amazon Seller</h2><p>An illustrative walk-through of color approval, carton planning and marketplace labeling checkpoints for a 40oz tumbler launch. <a href='/case-studies/custom-40oz-tumblers-for-amazon-seller/'>Review Planning Scenario &rarr;</a></p></article><article><h2>2. Custom Stainless Steel Tumblers for a Corporate Gift Buyer</h2><p>A planning example covering powder-coated travel mugs, gift-box development, documentation review and an event deadline. <a href='/case-studies/custom-stainless-steel-tumblers-for-corporate-gift-buyer/'>Review Planning Scenario &rarr;</a></p></article><article><h2>3. Low MOQ Custom Water Bottles for a Startup Brand</h2><p>A planning example for testing custom time-marker sports bottles in a proposed 300-piece starting quantity, subject to model and decoration confirmation. <a href='/case-studies/low-moq-custom-water-bottles-for-startup-brand/'>Review Planning Scenario &rarr;</a></p></article><article><h2>4. Custom Drinkware Gift Sets for Event Promotion</h2><p>A planning example for coordinating matching drinkware, rigid boxes and custom inserts for an event program. <a href='/case-studies/custom-drinkware-gift-sets-for-event-promotion/'>Review Planning Scenario &rarr;</a></p></article><article><h2>5. DDP Shipping Planning for an Overseas Buyer</h2><p>A planning example for comparing a multi-destination DDP scope, customs responsibilities and final-mile delivery requirements. <a href='/case-studies/ddp-shipping-drinkware-order-to-overseas-buyer/'>Review Planning Scenario &rarr;</a></p></article><article><h2>How to Use These Scenarios</h2><p>Use the tables as RFQ preparation examples, not as evidence of a completed order. Actual product specifications, quantities, documentation, timing, costs and outcomes are confirmed in writing for each quoted SKU and destination.</p></article></section><section class=\"section landing-quote-checklist\"><div><p class=\"eyebrow\">Before you contact HDS</p><h2>Prepare the details that make B2B sourcing faster.</h2><p>Clear product, logo, packaging and shipping information helps the team reply with a practical path instead of a generic answer.</p></div><ul><li>Product photo, target capacity, material preference and sales channel.</li><li>Order quantity, sample need and destination country.</li><li>Logo artwork, logo size, logo position and preferred logo method.</li><li>Packaging request, carton marks, barcode needs or gift set plan.</li><li>Target timeline and shipping preference such as DDP, DDU, FOB or EXW.</li></ul></section><section class=\"section\"><div class=\"landing-cta-band\"><div><h2>Need a product-specific sourcing plan?</h2><p>Send your product photo, quantity, logo requirement, packaging request and target market for a current quotation.</p></div><div class=\"hero-actions\"><a class=\"button whatsapp\" href=\"https://wa.me/8613994271614?text=Hi%2C%20I%E2%80%99m%20interested%20in%20custom%20drinkware.%20Could%20you%20help%20quote%20based%20on%20my%20product%20photo%2C%20logo%2C%20quantity%20and%20shipping%20destination%3F\" target=\"_blank\" rel=\"noopener\">Get Quote on WhatsApp</a><a class=\"button primary\" href=\"/#inquiry\">Request OEM Quote</a></div></div></section>",
+  "schemas": [
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.hdsdrinkware.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Custom Drinkware Case Studies",
+          "item": "https://www.hdsdrinkware.com/case-studies/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Representative Custom Drinkware Project Scenarios",
+      "url": "https://www.hdsdrinkware.com/case-studies/",
+      "description": "Illustrative B2B planning scenarios for custom drinkware MOQ, logo, packaging, QC and shipping decisions. They are not completed customer projects, testimonials or verified performance claims.",
+      "dateModified": "2026-08-11",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "HDS Drinkware",
+        "url": "https://www.hdsdrinkware.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "HDS Drinkware",
+        "url": "https://www.hdsdrinkware.com"
+      }
+    }
+  ]
+}

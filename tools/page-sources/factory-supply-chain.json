@@ -1,0 +1,52 @@
+{
+  "file": "factory-supply-chain/index.html",
+  "slug": "factory-supply-chain",
+  "depth": 1,
+  "title": "Factory and Supply Chain Resources | HDS Drinkware",
+  "meta": "Factory and Supply Chain Resources from HDS Drinkware: China custom drinkware OEM/ODM support for logo tumblers, bottles, packaging, samples and shipping.",
+  "canonical": "https://www.hdsdrinkware.com/factory-supply-chain/",
+  "socialTitle": "Factory and Supply Chain Resources | HDS Drinkware",
+  "socialDescription": "Factory and Supply Chain Resources from HDS Drinkware: China custom drinkware OEM/ODM support for logo tumblers, bottles, packaging, samples and shipping.",
+  "reviewDate": "2026-08-01",
+  "h1": "Factory and Supply Chain Resources for Custom Drinkware",
+  "heroHtml": "<section class=\"landing-hero\">\n        <div>\n          <p class=\"eyebrow\">HDS Drinkware</p>\n          <h1>Factory and Supply Chain Resources for Custom Drinkware</h1>\n          <p>HDS coordinates specialist factory and supply-chain resources for custom drinkware projects, with the responsible production route confirmed for each quoted product.</p>\n          <div class=\"hero-actions\"><a class=\"button whatsapp\" href=\"https://wa.me/8613994271614?text=Hi%2C%20I%E2%80%99m%20interested%20in%20custom%20drinkware.%20Could%20you%20help%20quote%20based%20on%20my%20product%20photo%2C%20logo%2C%20quantity%20and%20shipping%20destination%3F\" target=\"_blank\" rel=\"noopener\">Request Custom Drinkware Quote</a><a class=\"button primary\" href=\"../#inquiry\">Send Quote Details</a></div>\n        </div>\n        \n      </section>",
+  "body": "<section class=\"section landing-product-visuals\" aria-label=\"Factory and Supply Chain Resources for Custom Drinkware product visuals\"><figure><img src=\"../assets/factory-workshop.jpg\" alt=\"Drinkware workshop and packing area\" width=\"1600\" height=\"902\" loading=\"lazy\" decoding=\"async\" /><figcaption>Drinkware workshop and packing area</figcaption></figure><figure><img src=\"../assets/trust-proof/production-line.jpg\" alt=\"Drinkware production line for custom tumbler orders\" width=\"900\" height=\"900\" loading=\"lazy\" decoding=\"async\" /><figcaption>Drinkware production line for custom tumbler orders</figcaption></figure><figure><img src=\"../assets/factory-machines.jpg\" alt=\"Automated drinkware production equipment\" width=\"1200\" height=\"676\" loading=\"lazy\" decoding=\"async\" /><figcaption>Automated drinkware production equipment</figcaption></figure></section><section class=\"section landing-copy-block\"><article><h2>Supply Chain Role</h2><p>HDS helps buyers connect a written product requirement with suitable drinkware production resources. The team compares product type, material, capacity, lid, surface finish, logo method, packaging and quantity before recommending a route. Not every model shown on the website is made at one facility.</p></article><article><h2>Production Coordination</h2><p>Production coordination covers sample confirmation, logo placement, color and finish discussion, packaging details, carton marks and order follow-up. This is especially important for buyers who need repeat orders rather than a one-time sample.</p></article><article><h2>Factory and Product Proof</h2><p>Buyers can request current product photos, workshop or production-route evidence available for the selected model, packaging photos and sample proof before moving forward. HDS recommends approving an exact physical sample or signed specification before bulk production.</p></article><article><h2>Capacity and Lead Time</h2><p>Capacity is confirmed after the product, quantity, finish, logo method, packaging and factory schedule are known. HDS does not use one site-wide capacity number as a guarantee for every product category.</p></article><article><h2>Best Fit Projects</h2><p>The supply chain is best suited for custom tumblers, stainless steel cups, plastic water bottles, sports bottles, coffee cups, promotional drinkware and gift packaging projects with clear B2B requirements.</p></article></section><section class=\"section landing-copy-block\"><article><h2>Choose the Right Supplier Route</h2><p>Use the <a href=\"/drinkware-sourcing-agent-china/\">drinkware sourcing agent China page</a> when the project spans multiple products or specialist partners. Buyers with a defined OEM brief can review the <a href=\"/oem-drinkware-supplier-china/\">OEM drinkware supplier route</a>, while inspection criteria are explained on the <a href=\"/quality-control/\">custom drinkware quality control page</a>.</p></article></section><section class=\"section landing-quote-checklist\"><div><p class=\"eyebrow\">Before you contact HDS</p><h2>Prepare the details that make B2B sourcing faster.</h2><p>Clear product, logo, packaging and shipping information helps the team reply with a practical path instead of a generic answer.</p></div><ul><li>Product photo, target capacity, material preference and sales channel.</li><li>Order quantity, sample need and destination country.</li><li>Logo artwork, logo size, logo position and preferred logo method.</li><li>Packaging request, carton marks, barcode needs or gift set plan.</li><li>Target timeline and shipping preference such as DDP, DDU, FOB or EXW.</li></ul></section><section class=\"section\"><div class=\"landing-cta-band\"><div><h2>Need custom drinkware support?</h2><p>Send your product photo, quantity, logo requirement, packaging request and target market.</p></div><div class=\"hero-actions\"><a class=\"button whatsapp\" href=\"https://wa.me/8613994271614?text=Hi%2C%20I%E2%80%99m%20interested%20in%20custom%20drinkware.%20Could%20you%20help%20quote%20based%20on%20my%20product%20photo%2C%20logo%2C%20quantity%20and%20shipping%20destination%3F\" target=\"_blank\" rel=\"noopener\">Get Quote on WhatsApp</a><a class=\"button primary\" href=\"/#inquiry\">Request OEM Quote</a></div></div></section>",
+  "schemas": [
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.hdsdrinkware.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Factory and Supply Chain Resources for Custom Drinkware",
+          "item": "https://www.hdsdrinkware.com/factory-supply-chain/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Factory and Supply Chain Resources for Custom Drinkware",
+      "url": "https://www.hdsdrinkware.com/factory-supply-chain/",
+      "description": "HDS coordinates specialist factory and supply-chain resources for custom drinkware projects, with the responsible production route confirmed for each quoted product.",
+      "dateModified": "2026-08-01",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "HDS Drinkware",
+        "url": "https://www.hdsdrinkware.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "HDS Drinkware",
+        "url": "https://www.hdsdrinkware.com"
+      }
+    }
+  ]
+}

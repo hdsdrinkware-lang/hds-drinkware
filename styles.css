@@ -139,6 +139,26 @@ a {
   gap: 10px;
 }
 
+.mobile-navigation {
+  display: none;
+}
+
+.mobile-navigation summary {
+  list-style: none;
+}
+
+.mobile-navigation summary::-webkit-details-marker {
+  display: none;
+}
+
+.mobile-navigation summary:focus-visible,
+.mobile-navigation nav a:focus-visible,
+.main-nav a:focus-visible,
+.header-actions a:focus-visible {
+  outline: 3px solid rgba(18, 112, 109, 0.42);
+  outline-offset: 3px;
+}
+
 .header-cta,
 .header-whatsapp,
 .button,
@@ -1871,6 +1891,47 @@ h3 {
   color: var(--coral);
 }
 
+.contact-rfq-section {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.72fr) minmax(0, 1.28fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: start;
+  background: #f4f8f8;
+}
+
+.contact-rfq-intro {
+  position: sticky;
+  top: calc(var(--header-height) + 28px);
+}
+
+.contact-rfq-intro > p:not(.eyebrow) {
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.75;
+}
+
+.contact-alternatives {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.contact-rfq-form {
+  scroll-margin-top: calc(var(--header-height) + 24px);
+}
+
+.form-file-note {
+  margin: 0;
+  padding: 13px 15px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
+  background: #f7fafb;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+
 .site-footer {
   display: flex;
   flex-wrap: wrap;
@@ -2040,8 +2101,114 @@ h3 {
     --header-height: 78px;
   }
 
+  .site-header {
+    flex-wrap: nowrap;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
   .main-nav {
     display: none;
+  }
+
+  .mobile-navigation {
+    position: relative;
+    z-index: 30;
+    display: block;
+    margin-left: auto;
+  }
+
+  .mobile-navigation summary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-height: 44px;
+    padding: 0 14px;
+    color: #263441;
+    font-size: 14px;
+    font-weight: 850;
+    cursor: pointer;
+    background: var(--white);
+    border: 1px solid rgba(38, 52, 65, 0.2);
+    border-radius: 4px;
+  }
+
+  .mobile-menu-icon,
+  .mobile-menu-icon::before,
+  .mobile-menu-icon::after {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: currentColor;
+    border-radius: 2px;
+  }
+
+  .mobile-menu-icon {
+    position: relative;
+  }
+
+  .mobile-menu-icon::before,
+  .mobile-menu-icon::after {
+    position: absolute;
+    left: 0;
+    content: "";
+  }
+
+  .mobile-menu-icon::before {
+    top: -6px;
+  }
+
+  .mobile-menu-icon::after {
+    top: 6px;
+  }
+
+  .mobile-navigation[open] .mobile-menu-icon {
+    background: transparent;
+  }
+
+  .mobile-navigation[open] .mobile-menu-icon::before {
+    top: 0;
+    transform: rotate(45deg);
+  }
+
+  .mobile-navigation[open] .mobile-menu-icon::after {
+    top: 0;
+    transform: rotate(-45deg);
+  }
+
+  .mobile-navigation nav {
+    position: fixed;
+    top: calc(var(--header-height) + 8px);
+    right: 16px;
+    display: grid;
+    width: min(360px, calc(100vw - 32px));
+    padding: 10px;
+    overflow: hidden;
+    background: var(--white);
+    border: 1px solid rgba(38, 52, 65, 0.16);
+    border-radius: 6px;
+    box-shadow: 0 18px 46px rgba(25, 42, 55, 0.18);
+  }
+
+  .mobile-navigation nav a {
+    display: flex;
+    align-items: center;
+    min-height: 46px;
+    padding: 9px 12px;
+    color: #263441;
+    font-size: 15px;
+    font-weight: 800;
+    border-radius: 4px;
+  }
+
+  .mobile-navigation nav a:hover {
+    color: var(--teal);
+    background: #eef6f5;
+  }
+
+  .header-actions {
+    margin-left: 0;
   }
 
   .hero,
@@ -2053,6 +2220,14 @@ h3 {
   .home-quote-needed,
   .ai-answer-section {
     grid-template-columns: 1fr;
+  }
+
+  .contact-rfq-section {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-rfq-intro {
+    position: static;
   }
 
   .quote-needed-copy,
@@ -2139,11 +2314,49 @@ h3 {
     gap: 0;
   }
 
+  .mobile-navigation summary {
+    min-width: 44px;
+    padding: 0 11px;
+  }
+
+  .mobile-menu-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
   .header-whatsapp {
     min-width: 112px;
     min-height: 42px;
     padding: 0 14px;
     font-size: 12px;
+  }
+
+  @media (max-width: 480px) {
+    .site-header {
+      gap: 8px;
+      padding-right: 12px;
+      padding-left: 12px;
+    }
+
+    .brand {
+      gap: 8px;
+    }
+
+    .brand strong {
+      max-width: 112px;
+    }
+
+    .header-whatsapp {
+      min-width: 88px;
+      padding: 0 10px;
+    }
   }
 
   .hero {

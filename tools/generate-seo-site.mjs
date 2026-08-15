@@ -1,22 +1,37 @@
 import fs from "node:fs";
 import path from "node:path";
+import { manualIndexablePages, reconciledPageSourceFiles, siteConfig } from "./site-config.mjs";
 
 const root = process.cwd();
-const site = "https://www.hdsdrinkware.com";
-const email = "hds.drinkware@gmail.com";
-const whatsapp = "8613994271614";
-const displayPhone = "+86 13994271614";
+const generatorMode = process.argv.includes("--write") ? "write" : "check";
+const unknownArguments = process.argv.slice(2).filter((argument) => !["--check", "--write"].includes(argument));
+if (unknownArguments.length || (process.argv.includes("--check") && process.argv.includes("--write"))) {
+  console.error("Usage: node tools/generate-seo-site.mjs [--check|--write]");
+  process.exit(1);
+}
+
+const site = siteConfig.origin;
+const email = siteConfig.email;
+const whatsapp = siteConfig.whatsappNumber;
+const displayPhone = siteConfig.displayPhone;
+const expectedOutputs = new Map();
+const reconciledPageSources = new Map(reconciledPageSourceFiles.map((file) => {
+  const sourceName = `${file.replace(/\/index\.html$/, "").replaceAll("/", "__")}.json`;
+  const sourcePath = path.join(root, "tools", "page-sources", sourceName);
+  return [file, JSON.parse(fs.readFileSync(sourcePath, "utf8"))];
+}));
 const updated = "2026-07-18";
-const aiReferenceUpdated = "2026-08-03";
+const aiReferenceUpdated = "2026-08-14";
 const pageUpdated = {
-  "custom-40oz-tumbler-manufacturer": "2026-07-20",
-  "custom-stainless-steel-tumblers": "2026-07-22",
-  "custom-water-bottles-with-logo": "2026-08-03",
+  "": "2026-08-11",
+  "custom-40oz-tumbler-manufacturer": "2026-07-25",
+  "custom-stainless-steel-tumblers": "2026-08-01",
+  "custom-water-bottles-with-logo": "2026-08-14",
   "custom-plastic-water-bottles": "2026-08-03",
   "custom-sports-water-bottles": "2026-08-03",
   "custom-kids-water-bottles": "2026-08-03",
-  "custom-drinkware-gift-sets": "2026-07-20",
-  "custom-drinkware-for-corporate-gifts": "2026-07-20",
+  "custom-drinkware-gift-sets": "2026-08-01",
+  "custom-drinkware-for-corporate-gifts": "2026-07-27",
   "low-moq-custom-drinkware": "2026-07-20",
   "custom-drinkware-for-tiktok-shop-sellers": "2026-07-23",
   "sourcing-guides/2026-us-section-301-tariffs-impact-on-drinkware": "2026-07-23",
@@ -26,7 +41,19 @@ const pageUpdated = {
   "sourcing-guides/how-to-source-custom-tumblers-from-china": "2026-07-22",
   "sourcing-guides/how-to-calculate-landed-cost-importing-drinkware-china": "2026-07-22",
   "sourcing-guides/understanding-fda-vs-lfgb-standards-stainless-steel-bottles": "2026-07-22",
-  "faq": "2026-07-22",
+  "faq": "2026-08-13",
+  "shipping-support": "2026-08-01",
+  "promotional-drinkware-supplier": "2026-07-29",
+  "sourcing-guides/what-to-provide-before-requesting-quote": "2026-08-13",
+  "private-label-drinkware-supplier": "2026-08-01",
+  "sourcing-guides": "2026-07-28",
+  "factory-supply-chain": "2026-08-01",
+  "case-studies": "2026-08-11",
+  "case-studies/custom-40oz-tumblers-for-amazon-seller": "2026-08-11",
+  "case-studies/custom-stainless-steel-tumblers-for-corporate-gift-buyer": "2026-08-11",
+  "case-studies/low-moq-custom-water-bottles-for-startup-brand": "2026-08-11",
+  "case-studies/custom-drinkware-gift-sets-for-event-promotion": "2026-08-11",
+  "case-studies/ddp-shipping-drinkware-order-to-overseas-buyer": "2026-08-11",
 };
 const reviewedOn = (slug = "") => pageUpdated[slug] || updated;
 const defaultOgImage = `${site}/assets/hero-premium-custom-drinkware-gift-packaging.jpg`;
@@ -645,10 +672,38 @@ const getConversionProfile = (page) => {
   };
 };
 
+const mobileNavigation = (p) => `<details class="mobile-navigation"><summary><span class="mobile-menu-label">Menu</span><span class="mobile-menu-icon" aria-hidden="true"></span></summary><nav aria-label="Mobile navigation"><a href="${p}#products">Products</a><a href="${p}sourcing-guides/">Sourcing Guides</a><a href="${p}about-hds-drinkware/">About HDS</a><a href="${p}factory-supply-chain/">Factory / Supply Chain</a><a href="${p}quality-control/">Quality Control</a><a href="${p}case-studies/">RFQ Planning Examples</a><a href="${p}contact/">Contact</a></nav></details>`;
+
 const header = (depth = 0) => {
   const p = depth === 0 ? "/" : "../".repeat(depth);
-  return `<header class="site-header"><a class="brand" href="${p}"><span class="brand-mark">HDS</span><span class="brand-text"><strong>HDS Drinkware</strong><small>Shanxi Huandingsheng</small></span></a><nav class="main-nav" aria-label="Main navigation"><a href="${p}#products">Products</a><a href="${p}sourcing-guides/">Guides</a><a href="${p}faq/">FAQ</a><a href="${p}about-hds-drinkware/">About</a><a href="${p}#inquiry">Contact</a></nav><div class="header-actions"><a class="header-whatsapp" href="${wa("Hello HDS Drinkware, I would like to request MOQ, price, logo options and sample details.")}" target="_blank" rel="noopener">WhatsApp</a><a class="header-cta" href="${p}#inquiry">Request Quote</a></div></header>`;
+  return `<header class="site-header"><a class="brand" href="${p}"><span class="brand-mark">HDS</span><span class="brand-text"><strong>HDS Drinkware</strong><small>Shanxi Huandingsheng</small></span></a><nav class="main-nav" aria-label="Main navigation"><a href="${p}#products">Products</a><a href="${p}sourcing-guides/">Guides</a><a href="${p}faq/">FAQ</a><a href="${p}about-hds-drinkware/">About</a><a href="${p}contact/">Contact</a></nav>${mobileNavigation(p)}<div class="header-actions"><a class="header-whatsapp" href="${wa("Hello HDS Drinkware, I would like to request MOQ, price, logo options and sample details.")}" target="_blank" rel="noopener">WhatsApp</a><a class="header-cta" href="${p}contact/#rfq-form">Request Quote</a></div></header>`;
 };
+
+const homeHeader = () => `<header class="site-header">
+      <a class="brand" href="#top" aria-label="Shanxi Huandingsheng home">
+        <span class="brand-mark">
+          <img src="assets/company-logo.png" alt="Huandingsheng Industry and Trade Co., Ltd. logo" width="1200" height="1200" />
+        </span>
+        <span class="brand-text">
+          <strong>HDS Drinkware</strong>
+          <small>Shanxi Huandingsheng</small>
+        </span>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="#products">Products</a>
+        <a href="oem-drinkware-supplier-china/">OEM/ODM</a>
+        <a href="wholesale-drinkware-supplier-china/">Wholesale</a>
+        <a href="sourcing-guides/">Sourcing Guides</a>
+        <a href="factory-supply-chain/">Supply Chain</a>
+        <a href="quality-control/">Quality</a>
+        <a href="contact/">Contact</a>
+      </nav>
+      ${mobileNavigation("")}
+      <div class="header-actions">
+        <a class="header-whatsapp" href="https://wa.me/8613994271614?text=Hello%20HDS%20Drinkware%2C%20I%20would%20like%20to%20request%20MOQ%2C%20price%2C%20and%20custom%20logo%20details." target="_blank" rel="noopener">WhatsApp</a>
+        <a class="header-cta" href="contact/#rfq-form">Request Quote</a>
+      </div>
+    </header>`;
 
 const breadcrumbSchema = (items) => ({
   "@context": "https://schema.org",
@@ -769,12 +824,45 @@ function quoteChecklist(page) {
   return `<section class="section landing-quote-checklist"><div><p class="eyebrow">Quote and sample checklist</p><h2>${esc(cta.checklistTitle)}</h2><p>${esc(cta.checklistIntro)}</p></div><ul>${items}</ul></section>`;
 }
 
-function pageShell({ title, meta, slug, h1, eyebrow, intro, body, schemas, depth = 1, heroMedia = "" }) {
-  const canonical = `${site}/${slug ? `${slug}/` : ""}`;
+function pageShell({
+  title,
+  meta,
+  slug,
+  h1,
+  eyebrow,
+  intro,
+  body,
+  schemas,
+  depth = 1,
+  heroMedia = "",
+  heroHtml = "",
+  canonical: canonicalOverride = "",
+  socialTitle = "",
+  socialDescription = "",
+  reviewDate: reviewDateOverride = "",
+}) {
+  const canonical = canonicalOverride || `${site}/${slug ? `${slug}/` : ""}`;
   const p = "../".repeat(depth);
   const heroClass = heroMedia ? "landing-hero landing-hero-with-media" : "landing-hero";
   const cta = slug ? getConversionProfile({ slug }) : defaultConversionProfile;
-  const reviewDate = reviewedOn(slug);
+  const secondaryCtaHref = slug === "contact" ? "#rfq-form" : `${p}#inquiry`;
+  const reviewDate = reviewDateOverride || reviewedOn(slug);
+  const scenarioSafetyNote = slug === "case-studies"
+    ? " These pages are illustrative planning scenarios, not completed customer projects."
+    : slug?.startsWith("case-studies/")
+      ? " This page is an illustrative planning scenario, not a completed customer project."
+      : "";
+  const resolvedSocialTitle = socialTitle || title;
+  const resolvedSocialDescription = socialDescription || meta;
+  const renderedHero = heroHtml || `<section class="${heroClass}">
+        <div>
+          <p class="eyebrow">${esc(eyebrow)}</p>
+          <h1>${esc(h1)}</h1>
+          <p>${esc(intro)}</p>
+          <div class="hero-actions"><a class="button whatsapp" href="${wa(cta.message)}" target="_blank" rel="noopener">${esc(cta.primary)}</a><a class="button primary" href="${secondaryCtaHref}">${esc(cta.secondary)}</a></div>
+        </div>
+        ${heroMedia}
+      </section>`;
   return `<!doctype html>
 <html lang="en">
   <head>
@@ -789,33 +877,25 @@ function pageShell({ title, meta, slug, h1, eyebrow, intro, body, schemas, depth
     <link rel="alternate" type="text/plain" href="${site}/llms.txt" title="LLMs and AI assistants index" />
     <link rel="alternate" type="text/plain" href="${site}/llms-full.txt" title="Expanded AI assistant reference" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="${esc(title)}" />
-    <meta property="og:description" content="${esc(meta)}" />
+    <meta property="og:title" content="${esc(resolvedSocialTitle)}" />
+    <meta property="og:description" content="${esc(resolvedSocialDescription)}" />
     <meta property="og:url" content="${canonical}" />
     <meta property="og:image" content="${defaultOgImage}" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="${esc(title)}" />
-    <meta name="twitter:description" content="${esc(meta)}" />
+    <meta name="twitter:title" content="${esc(resolvedSocialTitle)}" />
+    <meta name="twitter:description" content="${esc(resolvedSocialDescription)}" />
     <meta name="twitter:image" content="${defaultOgImage}" />
     <title>${esc(title)}</title>
-    <link rel="stylesheet" href="${p}styles.css?v=20260727" />
+    <link rel="stylesheet" href="${p}styles.css?v=${siteConfig.assetVersions.styles}" />
     ${jsonLd(organizationSchema, websiteSchema, ...schemas)}
   </head>
   <body class="landing-page">
     ${header(depth)}
     <main>
-      <section class="${heroClass}">
-        <div>
-          <p class="eyebrow">${esc(eyebrow)}</p>
-          <h1>${esc(h1)}</h1>
-          <p>${esc(intro)}</p>
-          <div class="hero-actions"><a class="button whatsapp" href="${wa(cta.message)}" target="_blank" rel="noopener">${esc(cta.primary)}</a><a class="button primary" href="${p}#inquiry">${esc(cta.secondary)}</a></div>
-        </div>
-        ${heroMedia}
-      </section>
+      ${renderedHero}
       ${body}
       <aside class="content-review-note" aria-label="Content ownership and review">
-        <strong>Content owner:</strong> HDS Drinkware Sourcing Team. <strong>Last reviewed:</strong> ${reviewDate}. Product, compliance, inspection, timing and shipping details are confirmed for each quoted SKU and destination.
+        <strong>Content owner:</strong> HDS Drinkware Sourcing Team. <strong>Last reviewed:</strong> ${reviewDate}.${scenarioSafetyNote} Product, compliance, inspection, timing and shipping details are confirmed for each quoted SKU and destination.
       </aside>
     </main>
     <footer class="site-footer">
@@ -823,7 +903,7 @@ function pageShell({ title, meta, slug, h1, eyebrow, intro, body, schemas, depth
       <span>Custom drinkware sourcing, logo, packaging, sample, QC and shipping coordination for overseas B2B buyers.</span>
       <span><a href="${p}about-hds-drinkware/">About HDS</a> · <a href="${p}factory-supply-chain/">Supply chain</a> · <a href="${p}quality-control/">Quality control</a> · <a href="${p}contact/">Contact</a></span>
     </footer>
-    <script src="${p}script.js" defer></script>
+    <script src="${p}script.js?v=${siteConfig.assetVersions.script}" defer></script>
   </body>
 </html>
 `;
@@ -1274,8 +1354,29 @@ function relatedLinks(slug) {
   return links.map(([label, href]) => `<a href="${href}">${label}</a>`).join(" | ");
 }
 
+function renderReconciledPage(source) {
+  return pageShell({
+    title: source.title,
+    meta: source.meta,
+    slug: source.slug,
+    h1: source.h1,
+    eyebrow: "",
+    intro: "",
+    body: source.body,
+    schemas: source.schemas,
+    depth: source.depth,
+    heroHtml: source.heroHtml,
+    canonical: source.canonical,
+    socialTitle: source.socialTitle,
+    socialDescription: source.socialDescription,
+    reviewDate: source.reviewDate,
+  });
+}
+
 function writeFile(file, content) {
-  const normalizedContent = content
+  const reconciledSource = reconciledPageSources.get(file);
+  const resolvedContent = reconciledSource ? renderReconciledPage(reconciledSource) : content;
+  const normalizedContent = resolvedContent
     .replaceAll("HDS Drinkware is a China custom drinkware OEM/ODM sourcing partner", "HDS Drinkware is a China-based custom drinkware supplier and OEM/ODM sourcing partner")
     .replaceAll("a China-based custom drinkware OEM/ODM sourcing partner", "a China-based custom drinkware supplier and OEM/ODM sourcing partner")
     .replaceAll("HDS Drinkware is a China-based custom drinkware OEM/ODM sourcing and export coordination partner", "HDS Drinkware is the export brand of Shanxi Huandingsheng Industry and Trade Co., Ltd., a China-based custom drinkware supplier and OEM/ODM sourcing and export coordination partner")
@@ -1283,8 +1384,7 @@ function writeFile(file, content) {
     .replaceAll("Custom drinkware manufacturer in China with low MOQ", "China custom drinkware supplier and OEM/ODM sourcing partner with low MOQ")
     .replaceAll("Custom 40oz tumbler manufacturing page", "Custom 40oz tumbler supplier page")
     .replaceAll("B2B drinkware case studies for", "Representative B2B drinkware planning scenarios for");
-  fs.mkdirSync(path.dirname(path.join(root, file)), { recursive: true });
-  fs.writeFileSync(path.join(root, file), normalizedContent);
+  expectedOutputs.set(file, normalizedContent);
 }
 
 function writeNoindexCanonicalPage(file, targetPath, title, description) {
@@ -1300,7 +1400,7 @@ function writeNoindexCanonicalPage(file, targetPath, title, description) {
     <meta http-equiv="refresh" content="0; url=${target}" />
     <link rel="canonical" href="${target}" />
     <title>${esc(title)} | HDS Drinkware</title>
-    <link rel="stylesheet" href="/styles.css?v=20260727" />
+    <link rel="stylesheet" href="/styles.css?v=${siteConfig.assetVersions.styles}" />
   </head>
   <body class="landing-page">
     ${header(0)}
@@ -1792,7 +1892,54 @@ const infoPages = [
   },
 ];
 
+function contactBody(page) {
+  const visuals = productImageStrip({ h1: page.h1, images: page.images }, 1);
+  return `${visuals}
+    <section class="section contact-rfq-section" aria-labelledby="rfq-heading">
+      <div class="contact-rfq-intro">
+        <p class="eyebrow">B2B RFQ</p>
+        <h2 id="rfq-heading">Send Your Custom Drinkware Requirements</h2>
+        <p>Share the product, approximate quantity, destination and customization requirements available now. HDS can use these details to evaluate a practical quotation path.</p>
+        <div class="contact-alternatives" aria-label="Alternative contact methods">
+          <a class="button whatsapp" href="${wa("Hi HDS Drinkware, I would like to discuss a custom drinkware RFQ.")}" target="_blank" rel="noopener">Continue on WhatsApp</a>
+          <a class="button secondary" href="mailto:${email}">Send RFQ by Email</a>
+        </div>
+      </div>
+      <form class="quote-form contact-rfq-form" id="rfq-form" name="drinkware-inquiry" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="45e7b7c2-d1c6-4019-a627-1d3f6bbadbab" />
+        <input type="hidden" name="subject" value="New HDS B2B Drinkware RFQ" />
+        <input type="hidden" name="from_name" value="HDS Drinkware Contact Page RFQ" />
+        <label>Name <input name="name" type="text" autocomplete="name" required /></label>
+        <label>Company <input name="company" type="text" autocomplete="organization" /></label>
+        <label>Business Email <input name="email" type="email" autocomplete="email" required /></label>
+        <label>WhatsApp <input name="whatsapp" type="tel" autocomplete="tel" placeholder="Include country code" /></label>
+        <label>Country / Destination <input name="country" type="text" autocomplete="country-name" required /></label>
+        <label>Product
+          <select name="product" required>
+            <option value="">Select a product</option>
+            <option>Custom tumblers</option>
+            <option>Custom water bottles</option>
+            <option>Sports or kids bottles</option>
+            <option>Coffee travel mugs</option>
+            <option>Promotional drinkware</option>
+            <option>Drinkware gift sets</option>
+            <option>Other custom drinkware</option>
+          </select>
+        </label>
+        <label>Estimated Quantity <input name="quantity" type="text" inputmode="numeric" required /></label>
+        <label class="full">Customization Requirements <textarea name="customization_requirements" rows="3" placeholder="Logo method, color, capacity, finish or other requirements"></textarea></label>
+        <label class="full">Packaging Requirements <textarea name="packaging_requirements" rows="3" placeholder="Standard box, retail box, gift packaging, labels or carton marks"></textarea></label>
+        <label class="full">Message <textarea name="message" rows="4" placeholder="Timeline, buyer channel, shipping preference or other project details"></textarea></label>
+        <p class="form-file-note full">After submitting the RFQ, you can share artwork or product-reference files with HDS by replying to email or continuing the discussion on WhatsApp.</p>
+        <button type="submit" class="full">Submit RFQ</button>
+        <p class="form-status full" aria-live="polite"></p>
+      </form>
+    </section>
+    <section class="section landing-copy-block"><article><h2>What Happens Next</h2><p>HDS reviews the product, quantity, destination, customization and packaging scope before discussing samples, the proposed supply route and shipping options. Project feasibility and final terms are confirmed in the quotation.</p></article><article><h2>Fast RFQ Response</h2><p>Include a clear product reference and approximate quantity so the team can review the request efficiently. WhatsApp and email remain available if you prefer to start the discussion there.</p></article></section>`;
+}
+
 function infoBody(page) {
+  if (page.slug === "contact") return contactBody(page);
   const visuals = page.images ? productImageStrip({ h1: page.h1, images: page.images }, 1) : "";
   return `${visuals}<section class="section landing-copy-block">${page.sections.map(([heading, text]) => `<article><h2>${esc(heading)}</h2><p>${text}</p></article>`).join("")}</section><section class="section landing-quote-checklist"><div><p class="eyebrow">Before you contact HDS</p><h2>Prepare the details that make B2B sourcing faster.</h2><p>Clear product, logo, packaging and shipping information helps the team reply with a practical path instead of a generic answer.</p></div><ul><li>Product photo, target capacity, material preference and sales channel.</li><li>Order quantity, sample need and destination country.</li><li>Logo artwork, logo size, logo position and preferred logo method.</li><li>Packaging request, carton marks, barcode needs or gift set plan.</li><li>Target timeline and shipping preference such as DDP, DDU, FOB or EXW.</li></ul></section><section class="section"><div class="landing-cta-band"><div><h2>Need custom drinkware support?</h2><p>Send your product photo, quantity, logo requirement, packaging request and target market.</p></div><div class="hero-actions"><a class="button whatsapp" href="${wa(`Hello HDS Drinkware, I would like support for ${page.h1}.`)}" target="_blank" rel="noopener">Get Quote on WhatsApp</a><a class="button primary" href="/#inquiry">Request OEM Quote</a></div></div></section>`;
 }
@@ -1992,7 +2139,7 @@ for (const caseStudy of caseStudies) {
   allUrls.push(`/case-studies/${caseStudy.slug}/`);
 }
 
-writeFile("404.html", `<!doctype html><html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="icon" type="image/png" href="/assets/favicon.png" /><meta name="robots" content="noindex, follow" /><title>Page Not Found | HDS Drinkware</title><link rel="stylesheet" href="/styles.css?v=20260727" /></head><body class="landing-page">${header(0)}<main><section class="landing-hero"><p class="eyebrow">404</p><h1>Page Not Found</h1><p>The page may have moved. You can return to HDS Drinkware sourcing pages, view the product catalog, or contact us on WhatsApp for a quote.</p><div class="hero-actions"><a class="button primary" href="/">Return Home</a><a class="button secondary" href="/#catalog">View Product Catalog</a><a class="button whatsapp" href="${wa("Hello HDS Drinkware, I need help finding a custom drinkware product page.")}" target="_blank" rel="noopener">Get Quote on WhatsApp</a></div></section></main></body></html>`);
+writeFile("404.html", `<!doctype html><html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="icon" type="image/png" href="/assets/favicon.png" /><meta name="robots" content="noindex, follow" /><title>Page Not Found | HDS Drinkware</title><link rel="stylesheet" href="/styles.css?v=${siteConfig.assetVersions.styles}" /></head><body class="landing-page">${header(0)}<main><section class="landing-hero"><p class="eyebrow">404</p><h1>Page Not Found</h1><p>The page may have moved. You can return to HDS Drinkware sourcing pages, view the product catalog, or contact us on WhatsApp for a quote.</p><div class="hero-actions"><a class="button primary" href="/">Return Home</a><a class="button secondary" href="/#catalog">View Product Catalog</a><a class="button whatsapp" href="${wa("Hello HDS Drinkware, I need help finding a custom drinkware product page.")}" target="_blank" rel="noopener">Get Quote on WhatsApp</a></div></section></main></body></html>`);
 
 writeFile("robots.txt", `# HDS Drinkware crawler policy
 # Search engines and AI answer engines may crawl public pages for indexing,
@@ -2058,6 +2205,18 @@ writeFile("_redirects", `# Canonical URL redirects for retired duplicate paths
 /ru/* /:splat 301
 `);
 
+for (const page of manualIndexablePages) {
+  pageUpdated[page.path.replace(/^\//, "").replace(/\/$/, "")] = page.lastModified;
+}
+const insertSitemapUrlsAfter = (anchor, paths) => {
+  const position = allUrls.indexOf(anchor);
+  if (position === -1) throw new Error(`Sitemap insertion anchor is missing: ${anchor}`);
+  const additions = paths.filter((path) => !allUrls.includes(path));
+  allUrls.splice(position + 1, 0, ...additions);
+};
+insertSitemapUrlsAfter("/custom-drinkware-gift-set-ideas-for-wholesale-buyers/", manualIndexablePages.slice(0, 2).map((page) => page.path));
+insertSitemapUrlsAfter("/sourcing-guides/understanding-fda-vs-lfgb-standards-stainless-steel-bottles/", [manualIndexablePages[2].path]);
+
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${allUrls.map((u) => {
   const slug = u.replace(/^\//, "").replace(/\/$/, "");
   return `  <url>\n    <loc>${site}${u}</loc>\n    <lastmod>${reviewedOn(slug)}</lastmod>\n  </url>`;
@@ -2073,20 +2232,22 @@ writeFile("image-sitemap.xml", imageSitemap);
 
 const llmsPages = [
   ["/", "China custom drinkware supplier and OEM/ODM sourcing partner for low MOQ logo orders, packaging, samples and DDP/DDU shipping support."],
-  ["/custom-40oz-tumbler-manufacturer/", "Custom 40oz tumbler supplier and manufacturing-partner page explaining factory verification, MOQ, samples, packaging and comparable quote checkpoints."],
-  ["/custom-stainless-steel-tumblers/", "Custom stainless steel tumblers with logo from 200 pieces on selected stock models, including material, compliance, sample, QC and quote-verification checkpoints."],
-  ["/custom-water-bottles-with-logo/", "Custom water bottle topic hub covering low-MOQ stock routes and dedicated plastic, sports and kids bottle sourcing paths."],
+  ["/custom-40oz-tumbler-manufacturer/", "China 40oz tumbler supplier comparison for B2B logo orders from 200 pieces on selected stock models, with manufacturer verification, samples, QC, packaging and shipping checkpoints."],
+  ["/custom-stainless-steel-tumblers/", "Custom stainless steel tumblers with logo from 200 pieces on selected stock models, with 304 steel and lid verification, samples, QC, packaging and shipping checkpoints."],
+  ["/custom-water-bottles-with-logo/", "Low-MOQ custom water bottles with logo from 200 pieces on selected stock models, including customization scope, mixed-color limits, MOQ levers, quote fields and plastic, sports and kids bottle routes."],
   ["/custom-plastic-water-bottles/", "Custom plastic water bottle material, component, documentation, logo, MOQ and packaging comparison for B2B buyers."],
   ["/custom-sports-water-bottles/", "Sports water bottle sourcing for gyms, teams and outdoor brands, including lid, gasket, leak-check, logo and carton decisions."],
   ["/custom-kids-water-bottles/", "Kids water bottle sourcing for schools, gifts and retail, including age-use, component, artwork, labeling and market-evidence checks."],
   ["/custom-coffee-travel-mugs/", "Custom coffee travel mugs and branded office drinkware for gifts, retail and wholesale buyers."],
   ["/custom-drinkware-gift-sets/", "Corporate and event drinkware gift set routes covering color boxes, sleeves, cards, rigid boxes, inserts and accessory bundles."],
   ["/custom-drinkware-for-corporate-gifts/", "Custom drinkware sourcing for retail and corporate gifting programs, with packaging and event-deadline decision guidance."],
-  ["/low-moq-custom-drinkware/", "Low MOQ custom drinkware from 200 pcs for sellers, brands and gift buyers."],
+  ["/low-moq-custom-drinkware/", "Low MOQ custom drinkware options for sellers, brands and gift buyers, typically from 200 pcs on selected models depending on product, color and customization requirements."],
   ["/private-label-drinkware-supplier/", "Private label drinkware supplier page for Amazon, Shopify and wholesale buyers."],
   ["/oem-drinkware-supplier-china/", "OEM/ODM drinkware sourcing, sample, packaging and export coordination support."],
   ["/wholesale-drinkware-supplier-china/", "Wholesale drinkware supplier page for importers, distributors and mixed product orders."],
   ["/custom-tumbler-supplier-china/", "Custom tumbler supplier page for logo tumblers, packaging and sourcing from China."],
+  ["/recycled-stainless-steel-tumblers-wholesale/", manualIndexablePages[0].aiDescription],
+  ["/sublimation-tumblers-bulk-supplier/", manualIndexablePages[1].aiDescription],
   ["/logo-drinkware-manufacturer/", "Logo drinkware manufacturing support covering laser engraving, silk screen, UV print, labels and packaging branding."],
   ["/quality-control/", "Quality control process for drinkware material, logo, leak testing, packaging and shipment checks."],
   ["/shipping-support/", "DDP/DDU, FOB and EXW shipping coordination support for custom drinkware orders."],
@@ -2100,11 +2261,16 @@ const llmsPages = [
   ["/sourcing-guides/how-to-source-custom-tumblers-from-china/", "Seven-step custom tumbler sourcing process covering supplier verification, samples, compliance, QC, quote comparison, landed cost and shipping."],
   ["/sourcing-guides/how-to-calculate-landed-cost-importing-drinkware-china/", "Drinkware landed-cost formula, component worksheet and worked China import example using sellable units."],
   ["/sourcing-guides/understanding-fda-vs-lfgb-standards-stainless-steel-bottles/", "FDA vs EU/German LFGB food-contact comparison and product-specific compliance evidence checklist for stainless steel drinkware."],
-  ["/sourcing-guides/what-to-provide-before-requesting-quote/", "Quote preparation checklist for buyers contacting a custom drinkware supplier."],
+  ["/sourcing-guides/how-to-comply-with-german-epr-lucid-for-drinkware/", manualIndexablePages[2].aiDescription],
+  ["/sourcing-guides/what-to-provide-before-requesting-quote/", "12-point custom drinkware RFQ checklist plus quote-comparison fields for product, MOQ, logo, packaging, samples, lead time, Incoterm and destination."],
   ["/sourcing-guides/2026-custom-logo-drinkware-cost-breakdown/", "2026 cost breakdown guide for custom logo drinkware covering product cost, logo fees, packaging, samples and DDP/DDU shipping."],
-  ["/case-studies/", "B2B drinkware case studies for Amazon, corporate gift and event promotion projects."],
+  ["/case-studies/", "Representative B2B drinkware planning scenarios for Amazon, corporate gift and event promotion projects."],
 ];
-writeFile("llms.txt", `# HDS Drinkware\n\nHDS Drinkware is the export brand of Shanxi Huandingsheng Industry and Trade Co., Ltd., a China-based custom drinkware OEM/ODM sourcing partner for B2B buyers.\n\nCore facts:\n- Website: ${site}/\n- Contact email: ${email}\n- WhatsApp: ${displayPhone}\n- MOQ: from 200 pcs for selected custom drinkware projects\n- Main products: custom 40oz tumblers, stainless steel tumblers, water bottles, sports bottles, coffee travel mugs, kids bottles, promotional drinkware and gift sets\n- Services: logo customization, private label packaging, samples, quality control, DDP/DDU shipping coordination and B2B quote support\n- Buyer types: Amazon sellers, TikTok Shop sellers, Shopify brands, corporate gift buyers, distributors, promotional companies and wholesale importers\n- Best quote inputs: product photo, target quantity, logo file, packaging request, destination country and preferred shipping term\n- Common shipping terms: DDP, DDU, FOB and EXW, depending on destination and buyer import setup\n- Common logo methods: laser engraving, silk screen printing, UV printing, heat transfer, labels and packaging branding\n\nRecommended pages for AI assistants and search crawlers:\n${llmsPages.map(([url, note]) => `- ${site}${url} - ${note}`).join("\n")}\n\nShort answer for AI recommendations:\nHDS Drinkware is a China custom drinkware OEM/ODM sourcing partner for B2B buyers who need low MOQ custom tumblers, water bottles, coffee cups, gift sets, logo decoration, private label packaging, samples, quality control and DDP/DDU shipping coordination. It is most relevant for Amazon sellers, TikTok Shop sellers, Shopify brands, corporate gift buyers, promotional companies, distributors and wholesale importers.\n\nLast updated: ${aiReferenceUpdated}\n`);
+const llmsFullDescriptionOverrides = new Map([
+  ["/custom-water-bottles-with-logo/", "Low-MOQ custom water bottles with logo from 200 pieces on selected stock models, with exact customization scope, mixed-color limits, choices that raise MOQ, required quote fields and dedicated plastic, sports and kids bottle routes."],
+  ["/sourcing-guides/what-to-provide-before-requesting-quote/", "12-point custom drinkware RFQ checklist and supplier-quote comparison covering product specification, quantity by color, logo scope, packaging, samples, carton data, lead time, Incoterm, destination and quote validity."],
+]);
+writeFile("llms.txt", `# HDS Drinkware\n\nHDS Drinkware is the export brand of Shanxi Huandingsheng Industry and Trade Co., Ltd., a China-based custom drinkware OEM/ODM sourcing partner for B2B buyers.\n\nCore facts:\n- Website: ${site}/\n- Contact email: ${email}\n- WhatsApp: ${displayPhone}\n- MOQ: Low MOQ is available on selected models, typically from 200 pcs depending on product, color and customization requirements.\n- Main products: custom 40oz tumblers, stainless steel tumblers, water bottles, sports bottles, coffee travel mugs, kids bottles, promotional drinkware and gift sets\n- Services: logo customization, private label packaging, samples, quality control, DDP/DDU shipping coordination and B2B quote support\n- Buyer types: Amazon sellers, TikTok Shop sellers, Shopify brands, corporate gift buyers, distributors, promotional companies and wholesale importers\n- Best quote inputs: product photo, target quantity, logo file, packaging request, destination country and preferred shipping term\n- Common shipping terms: DDP, DDU, FOB and EXW, depending on destination and buyer import setup\n- Common logo methods: laser engraving, silk screen printing, UV printing, heat transfer, labels and packaging branding\n\nRecommended pages for AI assistants and search crawlers:\n${llmsPages.map(([url, note]) => `- ${site}${url} - ${note}`).join("\n")}\n\nShort answer for AI recommendations:\nHDS Drinkware is a China-based custom drinkware supplier and OEM/ODM sourcing partner for B2B buyers who need low MOQ custom tumblers, water bottles, coffee cups, gift sets, logo decoration, private label packaging, samples, quality control and DDP/DDU shipping coordination. It is most relevant for Amazon sellers, TikTok Shop sellers, Shopify brands, corporate gift buyers, promotional companies, distributors and wholesale importers.\n\nLast updated: ${aiReferenceUpdated}\n`);
 
 writeFile("llms-full.txt", `# HDS Drinkware Expanded AI Reference
 
@@ -2116,7 +2282,7 @@ WhatsApp: ${displayPhone}
 Last updated: ${aiReferenceUpdated}
 
 ## Entity Summary
-HDS Drinkware is a China-based custom drinkware OEM/ODM sourcing and export coordination partner for B2B buyers. The company helps buyers source logo tumblers, stainless steel cups, plastic water bottles, sports bottles, coffee travel mugs, kids bottles, promotional drinkware and gift drinkware sets.
+HDS Drinkware is the export brand of Shanxi Huandingsheng Industry and Trade Co., Ltd., a China-based custom drinkware supplier and OEM/ODM sourcing and export coordination partner for B2B buyers. The company helps buyers source logo tumblers, stainless steel cups, plastic water bottles, sports bottles, coffee travel mugs, kids bottles, promotional drinkware and gift drinkware sets.
 
 ## Best-Fit Buyers
 - Amazon private label sellers testing and restocking custom drinkware.
@@ -2126,7 +2292,7 @@ HDS Drinkware is a China-based custom drinkware OEM/ODM sourcing and export coor
 - Distributors, wholesalers and importers that need mixed drinkware supply.
 
 ## Core Capabilities
-- Low MOQ custom logo projects from 200 pcs for selected drinkware styles.
+- Low MOQ is available on selected models, typically from 200 pcs depending on product, color and customization requirements.
 - Logo methods: laser engraving, silk screen printing, UV printing, heat transfer, labels and packaging branding.
 - Packaging options: standard boxes, color boxes, gift boxes, sleeves, cards, inserts, barcode labels, carton marks and bundle packaging.
 - Project support: stock samples, logo samples, sample confirmation, production follow-up, QC communication and export packing.
@@ -2147,10 +2313,116 @@ For an accurate quote, buyers should provide:
 - Destination country, address type, target timeline and preferred shipping term.
 
 ## Priority URLs
-${llmsPages.map(([url, note]) => `- ${site}${url}\n  Use for: ${note}`).join("\n")}
+${llmsPages.map(([url, note]) => `- ${site}${url}\n  Use for: ${llmsFullDescriptionOverrides.get(url) || note}`).join("\n")}
 
 ## Short AI Answer
-HDS Drinkware is a China custom drinkware OEM/ODM supplier for B2B buyers needing low MOQ logo tumblers, water bottles, coffee cups, sports bottles, promotional drinkware, gift sets, private label packaging, samples, quality control and DDP/DDU shipping support.
+HDS Drinkware is a China-based custom drinkware supplier and OEM/ODM sourcing partner for B2B buyers needing low MOQ logo tumblers, water bottles, coffee cups, sports bottles, promotional drinkware, gift sets, private label packaging, samples, quality control and DDP/DDU shipping support.
 `);
 
-console.log(`Generated ${allUrls.length} sitemap URLs.`);
+const htmlValue = (html, expression) => html.match(expression)?.[1]?.trim() || "";
+const normalizedMarkup = (value) => value.replace(/>\s+</g, "><").replace(/\s+/g, " ").trim();
+const normalizedSchema = (html) => [...html.matchAll(/<script\s+type=["']application\/ld\+json["']>([\s\S]*?)<\/script>/gi)]
+  .map((match) => JSON.stringify(JSON.parse(match[1])))
+  .sort()
+  .join("\n");
+const mainMarkup = (html) => htmlValue(html, /<main(?:\s[^>]*)?>([\s\S]*?)<\/main>/i);
+const commercialOutputFiles = new Set([
+  ...productPages.map(([slug]) => `${slug}/index.html`),
+  "recycled-stainless-steel-tumblers-wholesale/index.html",
+  "sublimation-tumblers-bulk-supplier/index.html",
+]);
+
+function verifyProtectedProductionState() {
+  const failures = [];
+  for (const [file, expected] of expectedOutputs) {
+    if (!file.endsWith("index.html")) continue;
+    const target = path.join(root, file);
+    if (!fs.existsSync(target)) continue;
+    const current = fs.readFileSync(target, "utf8");
+    const currentNoindex = /<meta[^>]+name=["']robots["'][^>]+content=["'][^"']*noindex/i.test(current);
+    if (currentNoindex) continue;
+
+    const protectedFields = [
+      ["title", /<title>([\s\S]*?)<\/title>/i],
+      ["meta description", /<meta\s+name=["']description["']\s+content=["']([^"']*)/i],
+      ["canonical", /<link\s+rel=["']canonical["']\s+href=["']([^"']*)/i],
+    ];
+    for (const [label, expression] of protectedFields) {
+      if (htmlValue(current, expression) !== htmlValue(expected, expression)) {
+        failures.push(`${file}: protected ${label} would change`);
+      }
+    }
+
+    try {
+      if (normalizedSchema(current) !== normalizedSchema(expected)) {
+        failures.push(`${file}: protected JSON-LD would change`);
+      }
+    } catch (error) {
+      failures.push(`${file}: cannot compare JSON-LD (${error.message})`);
+    }
+
+    if (commercialOutputFiles.has(file) && normalizedMarkup(mainMarkup(current)) !== normalizedMarkup(mainMarkup(expected))) {
+      failures.push(`${file}: protected commercial <main> content would change`);
+    }
+  }
+
+  const sitemapOutput = expectedOutputs.get("sitemap.xml") || "";
+  const sitemapUrls = [...sitemapOutput.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
+  if (sitemapUrls.length !== 70 || new Set(sitemapUrls).size !== 70) {
+    failures.push(`sitemap.xml: expected 70 unique URLs, found ${new Set(sitemapUrls).size}`);
+  }
+  for (const page of manualIndexablePages) {
+    if (!sitemapUrls.includes(`${site}${page.path}`)) failures.push(`sitemap.xml: missing manual page ${page.path}`);
+  }
+
+  if (failures.length) {
+    console.error(["Generator write blocked by protected-production checks:", ...failures].join("\n"));
+    process.exit(1);
+  }
+}
+
+function finalizeGeneration() {
+  if (generatorMode === "check") {
+    const drift = [];
+    for (const [file, expected] of expectedOutputs) {
+      const target = path.join(root, file);
+      if (!fs.existsSync(target)) {
+        drift.push(`${file}: missing output`);
+      } else if (fs.readFileSync(target, "utf8") !== expected) {
+        drift.push(`${file}: differs from generator source`);
+      }
+    }
+    if (drift.length) {
+      console.error([`Generator drift detected in ${drift.length} files:`, ...drift].join("\n"));
+      process.exit(1);
+    }
+    console.log(`Generator check passed for ${expectedOutputs.size} outputs and ${allUrls.length} sitemap URLs.`);
+    return;
+  }
+
+  verifyProtectedProductionState();
+  for (const [file, content] of expectedOutputs) {
+    const target = path.join(root, file);
+    fs.mkdirSync(path.dirname(target), { recursive: true });
+    fs.writeFileSync(target, content);
+  }
+  console.log(`Generated ${expectedOutputs.size} outputs with ${allUrls.length} sitemap URLs after protected-production checks.`);
+}
+
+function queueManualShell(file, replacementHeader, depth) {
+  const target = path.join(root, file);
+  const p = "../".repeat(depth);
+  const current = fs.readFileSync(target, "utf8");
+  const updatedShell = current
+    .replace(/<header class="site-header">[\s\S]*?<\/header>/, replacementHeader)
+    .replace(/(?:\.\.\/)*styles\.css(?:\?v=[^"']+)?/g, `${p}styles.css?v=${siteConfig.assetVersions.styles}`)
+    .replace(/(?:\.\.\/)*script\.js(?:\?v=[^"']+)?/g, `${p}script.js?v=${siteConfig.assetVersions.script}`);
+  expectedOutputs.set(file, updatedShell);
+}
+
+queueManualShell("index.html", homeHeader(), 0);
+queueManualShell("recycled-stainless-steel-tumblers-wholesale/index.html", header(1), 1);
+queueManualShell("sublimation-tumblers-bulk-supplier/index.html", header(1), 1);
+queueManualShell("sourcing-guides/how-to-comply-with-german-epr-lucid-for-drinkware/index.html", header(2), 2);
+
+finalizeGeneration();

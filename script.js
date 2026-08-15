@@ -3,6 +3,7 @@ const formStatus = document.querySelector(".form-status");
 const salesEmail = "hds.drinkware@gmail.com";
 const whatsappUrl = "https://wa.me/8613994271614?text=Hello%20HDS%20Drinkware%2C%20I%20would%20like%20to%20request%20a%20custom%20drinkware%20quotation.";
 const catalogGrid = document.querySelector("#catalog-grid");
+window.dataLayer = window.dataLayer || [];
 
 const catalogProducts = [
   ["40oz Handle Tumbler", "40oz series", "40oz-handle-tumbler.jpg"],
@@ -24,11 +25,6 @@ const catalogCopy =
   "Logo, color, packaging, sample, and bulk quotation support available for wholesale and gift buyers.";
 
 const trackConversionEvent = (eventName, params = {}) => {
-  if (typeof window.gtag === "function") {
-    window.gtag("event", eventName, params);
-    return;
-  }
-  window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({ event: eventName, ...params });
 };
 
@@ -83,6 +79,45 @@ const getAttributionData = () => {
   return values;
 };
 
+const getAnalyticsContext = () => {
+  const attribution = getAttributionData();
+  let initialReferrerDomain = "";
+  try {
+    initialReferrerDomain = attribution.initial_referrer && attribution.initial_referrer !== "(direct)"
+      ? new URL(attribution.initial_referrer).hostname
+      : "(direct)";
+  } catch (error) {
+    initialReferrerDomain = "";
+  }
+  const safeCampaignValue = (value) => String(value || "").replace(/[\r\n]/g, " ").slice(0, 100);
+  return {
+    page_path: window.location.pathname,
+    landing_page: String(attribution.landing_page || "").split("?")[0],
+    initial_referrer_domain: initialReferrerDomain,
+    utm_source: safeCampaignValue(attribution.utm_source),
+    utm_medium: safeCampaignValue(attribution.utm_medium),
+    utm_campaign: safeCampaignValue(attribution.utm_campaign),
+  };
+};
+
+const getFormEventParameters = (formElement) => ({
+  form_name: formElement.getAttribute("name") || "unknown",
+  form_location: window.location.pathname === "/contact/" ? "contact_page" : "site_page",
+  ...getAnalyticsContext(),
+});
+
+document.querySelectorAll(".mobile-navigation").forEach((menu) => {
+  const summary = menu.querySelector("summary");
+  summary?.addEventListener("keydown", (event) => {
+    if (!["Enter", " ", "Spacebar"].includes(event.key)) return;
+    event.preventDefault();
+    menu.open = !menu.open;
+  });
+  menu.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => menu.removeAttribute("open"));
+  });
+});
+
 const setHiddenFormValue = (formElement, name, value) => {
   let input = formElement.querySelector(`input[type="hidden"][name="${name}"]`);
   if (!input) {
@@ -119,7 +154,7 @@ if (catalogGrid) {
             <p>${catalogCopy}</p>
             <div class="product-actions">
               <a class="product-whatsapp" href="https://wa.me/8613994271614?text=${message}" target="_blank" rel="noopener" data-track-event="whatsapp_click" data-track-label="${name}">Ask Price on WhatsApp</a>
-              <a class="product-quote" href="#inquiry" data-track-event="quote_click" data-track-label="${name}">Request Quote</a>
+              <a class="product-quote" href="#inquiry" data-track-label="${name}">Request Quote</a>
             </div>
           </div>
         </article>
@@ -139,11 +174,11 @@ const buildMailtoUrl = (data) => {
     `Company: ${data.get("company") || ""}`,
     `Email or WhatsApp: ${contact}`,
     `Country: ${data.get("country") || ""}`,
-    `Destination: ${data.get("destination_country") || ""}`,
+    `Destination: ${data.get("country") || data.get("destination_country") || ""}`,
     `Product Interest: ${data.get("product") || ""}`,
     `Quantity: ${data.get("quantity") || ""}`,
-    `Logo Requirement: ${data.get("logo_requirement") || ""}`,
-    `Packaging Requirement: ${data.get("packaging_requirement") || ""}`,
+    `Customization Requirement: ${data.get("customization_requirements") || data.get("logo_requirement") || ""}`,
+    `Packaging Requirement: ${data.get("packaging_requirements") || data.get("packaging_requirement") || ""}`,
     `Shipping Term: ${data.get("shipping_term") || ""}`,
     `Product Photo / Link: ${data.get("photo_link_upload") || ""}`,
     `Source Page: ${data.get("page_url") || ""}`,
@@ -152,7 +187,7 @@ const buildMailtoUrl = (data) => {
     `Campaign: ${data.get("utm_campaign") || ""}`,
     "",
     "Message:",
-    data.get("details") || "",
+    data.get("message") || data.get("details") || "",
   ];
 
   const subject = encodeURIComponent("HDS custom drinkware RFQ");
@@ -167,19 +202,19 @@ document.querySelectorAll("form").forEach((formElement) => {
   formElement.addEventListener("focusin", () => {
     if (formElement.dataset.formStarted === "true") return;
     formElement.dataset.formStarted = "true";
-    trackConversionEvent("contact_form_start", {
-      form_name: formElement.getAttribute("name") || "unknown",
-      ...getAttributionData(),
-    });
+    trackConversionEvent("form_start", getFormEventParameters(formElement));
   });
 
   formElement.addEventListener("submit", async (event) => {
     event.preventDefault();
-    const attribution = prepareFormAttribution(formElement);
-    trackConversionEvent("contact_form_submit", {
-      form_name: formElement.getAttribute("name") || "unknown",
-      ...attribution,
-    });
+    if (!formElement.checkValidity()) {
+      formElement.reportValidity();
+      return;
+    }
+    prepareFormAttribution(formElement);
+    if (formElement.name === "drinkware-inquiry") {
+      trackConversionEvent("rfq_submit", getFormEventParameters(formElement));
+    }
 
     const data = new FormData(formElement);
     const submitButton = formElement.querySelector('button[type="submit"]');
@@ -196,7 +231,7 @@ document.querySelectorAll("form").forEach((formElement) => {
       successText = "Thank you! Your stock sample request has been received. We will contact you to coordinate shipping.";
     } else if (formElement.name === "drinkware-inquiry") {
       statusText = "Sending your inquiry...";
-      successText = "Thank you. Our sales team will contact you within 12 hours.";
+      successText = "Thank you. Your RFQ has been received. The HDS team will review the details and follow up using your preferred contact method.";
     }
 
     // Set status message
@@ -225,10 +260,7 @@ document.querySelectorAll("form").forEach((formElement) => {
       formElement.reset();
       statusDisplay.textContent = successText;
       statusDisplay.style.color = "var(--teal)";
-      trackConversionEvent("lead_submit_success", {
-        form_name: formElement.getAttribute("name") || "unknown",
-        ...attribution,
-      });
+      trackConversionEvent("form_submit_success", getFormEventParameters(formElement));
     } catch (error) {
       statusDisplay.classList.add("is-error");
       statusDisplay.style.color = "var(--coral)";
@@ -238,10 +270,7 @@ document.querySelectorAll("form").forEach((formElement) => {
       } else {
         statusDisplay.textContent = "Submission failed. Please email us directly at hds.drinkware@gmail.com";
       }
-      trackConversionEvent("lead_submit_error", {
-        form_name: formElement.getAttribute("name") || "unknown",
-        ...attribution,
-      });
+      trackConversionEvent("form_submit_error", getFormEventParameters(formElement));
     } finally {
       if (submitButton) submitButton.disabled = false;
     }
@@ -269,15 +298,25 @@ document.addEventListener("click", (event) => {
       // Keep the original WhatsApp link if URL parsing fails.
     }
   }
-  const explicitEvent = link.dataset.trackEvent;
-  const eventName = explicitEvent || (href.includes("wa.me") ? "whatsapp_click" : href.includes("#inquiry") ? "quote_click" : "");
+  const eventName = href.includes("wa.me") ? "whatsapp_click" : href.startsWith("mailto:") ? "email_click" : "";
   if (!eventName) return;
 
+  const linkLocation = link.closest(".site-footer")
+    ? "footer"
+    : link.closest(".site-header")
+      ? "header"
+      : link.closest("#rfq-form")
+        ? "rfq_form"
+        : link.closest(".contact-rfq-section")
+          ? "contact_page"
+          : link.closest(".catalog-card")
+            ? "product_card"
+            : "page_content";
+
   trackConversionEvent(eventName, {
-    link_text: link.textContent.trim().slice(0, 80),
-    link_url: href,
-    label: link.dataset.trackLabel || "",
-    ...getAttributionData(),
+    page_path: window.location.pathname,
+    link_location: linkLocation,
+    contact_method: eventName === "whatsapp_click" ? "whatsapp" : "email",
   });
 });
 
