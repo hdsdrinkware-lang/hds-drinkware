@@ -2,6 +2,7 @@ import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { siteConfig } from "./site-config.mjs";
+import "./test-form-analytics.mjs";
 
 const root = process.cwd();
 const siteOrigin = siteConfig.origin;
@@ -261,6 +262,7 @@ const conversionScript = fs.readFileSync(path.join(root, "script.js"), "utf8");
 for (const field of ["landing_page", "initial_referrer", "utm_source", "utm_medium", "utm_campaign", "page_url"]) if (!conversionScript.includes(field)) errors.push(`script.js: missing lead attribution field ${field}`);
 for (const eventName of ["form_start", "rfq_submit", "form_submit_success", "form_submit_error", "whatsapp_click", "email_click"]) if (!conversionScript.includes(`\"${eventName}\"`)) errors.push(`script.js: missing analytics event ${eventName}`);
 if (/trackConversionEvent\(["']qualified_rfq/i.test(conversionScript)) errors.push("script.js: qualified_rfq must not fire from frontend code");
+if (/\b(?:form|formElement|target|currentTarget)\.name\b/.test(conversionScript)) errors.push("script.js: form identity must use an explicit name attribute lookup");
 if (!conversionScript.includes("Source page:")) errors.push("script.js: WhatsApp messages do not include the source page");
 
 if (writeBaseline) {

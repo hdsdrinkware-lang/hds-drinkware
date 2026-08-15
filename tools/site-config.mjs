@@ -5,7 +5,7 @@ export const siteConfig = {
   displayPhone: "+86 13994271614",
   assetVersions: {
     styles: "20260815-phase1c",
-    script: "20260815-phase1c",
+    script: "20260815-phase1d",
   },
 };
 

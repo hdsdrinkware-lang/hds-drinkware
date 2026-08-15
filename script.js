@@ -100,8 +100,10 @@ const getAnalyticsContext = () => {
   };
 };
 
+const getFormName = (formElement) => formElement.getAttribute("name") || "";
+
 const getFormEventParameters = (formElement) => ({
-  form_name: formElement.getAttribute("name") || "unknown",
+  form_name: getFormName(formElement) || "unknown",
   form_location: window.location.pathname === "/contact/" ? "contact_page" : "site_page",
   ...getAnalyticsContext(),
 });
@@ -131,7 +133,7 @@ const setHiddenFormValue = (formElement, name, value) => {
 
 const prepareFormAttribution = (formElement) => {
   const attribution = getAttributionData();
-  setHiddenFormValue(formElement, "lead_form", formElement.getAttribute("name") || "unknown");
+  setHiddenFormValue(formElement, "lead_form", getFormName(formElement) || "unknown");
   Object.entries(attribution).forEach(([name, value]) => {
     setHiddenFormValue(formElement, name, value);
   });
@@ -212,7 +214,8 @@ document.querySelectorAll("form").forEach((formElement) => {
       return;
     }
     prepareFormAttribution(formElement);
-    if (formElement.name === "drinkware-inquiry") {
+    const formName = getFormName(formElement);
+    if (formName === "drinkware-inquiry") {
       trackConversionEvent("rfq_submit", getFormEventParameters(formElement));
     }
 
@@ -223,13 +226,13 @@ document.querySelectorAll("form").forEach((formElement) => {
     let successText = "Thank you! Your submission has been received successfully.";
 
     // Custom success texts based on form
-    if (formElement.name === "catalog-download") {
+    if (formName === "catalog-download") {
       statusText = "Preparing your catalog...";
       successText = "Thank you! Your catalog request has been received. We will email the catalog to you shortly.";
-    } else if (formElement.name === "sample-request") {
+    } else if (formName === "sample-request") {
       statusText = "Checking sample availability...";
       successText = "Thank you! Your stock sample request has been received. We will contact you to coordinate shipping.";
-    } else if (formElement.name === "drinkware-inquiry") {
+    } else if (formName === "drinkware-inquiry") {
       statusText = "Sending your inquiry...";
       successText = "Thank you. Your RFQ has been received. The HDS team will review the details and follow up using your preferred contact method.";
     }
@@ -264,7 +267,7 @@ document.querySelectorAll("form").forEach((formElement) => {
     } catch (error) {
       statusDisplay.classList.add("is-error");
       statusDisplay.style.color = "var(--coral)";
-      if (formElement.name === "drinkware-inquiry") {
+      if (formName === "drinkware-inquiry") {
         statusDisplay.textContent = "Opening email as a backup. You can send the prepared inquiry directly.";
         window.location.href = buildMailtoUrl(data);
       } else {
