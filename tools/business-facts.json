@@ -1,0 +1,212 @@
+{
+  "schemaVersion": 1,
+  "lastReviewed": "2026-08-17",
+  "publicationRule": "Only facts with public=true and status=verified or qualified may be rendered on the public website.",
+  "facts": {
+    "legalEntityChinese": {
+      "value": "山西寰鼎盛工贸有限公司",
+      "status": "verified",
+      "public": true,
+      "evidenceIds": ["EV-BUSINESS-LICENSE-001"],
+      "verifiedAt": "2026-08-17",
+      "verifiedBy": "owner and document review",
+      "scope": "organization identity",
+      "notes": "The Chinese legal company name is the verified legal entity name."
+    },
+    "englishBusinessName": {
+      "value": "Shanxi Huandingsheng Industry and Trade Co., Ltd.",
+      "status": "qualified",
+      "public": true,
+      "evidenceIds": ["EV-OWNER-CONFIRMATION-001"],
+      "verifiedAt": "2026-08-17",
+      "verifiedBy": "owner",
+      "scope": "approved English translation and business name",
+      "notes": "Do not describe this as an officially registered English legal name."
+    },
+    "brandRelationship": {
+      "value": "HDS Drinkware is the custom drinkware sourcing and OEM/ODM business operated by Shanxi Huandingsheng Industry and Trade Co., Ltd.",
+      "status": "verified",
+      "public": true,
+      "evidenceIds": ["EV-OWNER-CONFIRMATION-001"],
+      "verifiedAt": "2026-08-17",
+      "verifiedBy": "owner",
+      "scope": "brand and website identity",
+      "notes": "No trademark-registration claim is implied."
+    },
+    "establishmentDate": {
+      "value": "2025-08-04",
+      "status": "verified",
+      "public": true,
+      "evidenceIds": ["EV-BUSINESS-LICENSE-001"],
+      "verifiedAt": "2026-08-17",
+      "verifiedBy": "document review",
+      "scope": "organization",
+      "notes": "Public pages may display 2025 or the full ISO date where appropriate."
+    },
+    "publicLocation": {
+      "value": {
+        "locality": "Taiyuan",
+        "region": "Shanxi",
+        "country": "China",
+        "countryCode": "CN"
+      },
+      "status": "verified",
+      "public": true,
+      "evidenceIds": ["EV-BUSINESS-LICENSE-001"],
+      "verifiedAt": "2026-08-17",
+      "verifiedBy": "owner and document review",
+      "scope": "public organization location",
+      "notes": "The complete registered street address is not approved for publication."
+    },
+    "businessRole": {
+      "value": "Custom Drinkware Supplier & OEM/ODM Partner",
+      "status": "verified",
+      "public": true,
+      "evidenceIds": ["EV-OWNER-CONFIRMATION-001"],
+      "verifiedAt": "2026-08-17",
+      "verifiedBy": "owner",
+      "scope": "site-wide positioning",
+      "notes": "Use supplier, sourcing and manufacturing-partner language without claiming ownership of every facility."
+    },
+    "manufacturingPartnerRelationship": {
+      "value": "HDS Drinkware works with long-term manufacturing partners in Yongkang and Jinhua, Zhejiang, coordinating product sourcing, customization, production, quality control, packaging and international shipping for overseas B2B buyers.",
+      "status": "verified",
+      "public": true,
+      "evidenceIds": ["EV-OWNER-CONFIRMATION-001", "EV-YK-PRODUCTION-OVERVIEW-001"],
+      "verifiedAt": "2026-08-17",
+      "verifiedBy": "owner",
+      "scope": "supply-chain relationship",
+      "notes": "HDS does not claim ownership of every facility or production line shown."
+    },
+    "primaryMarkets": {
+      "value": ["United States", "United Kingdom", "Europe"],
+      "status": "verified",
+      "public": true,
+      "evidenceIds": ["EV-OWNER-CONFIRMATION-001"],
+      "verifiedAt": "2026-08-17",
+      "verifiedBy": "owner",
+      "scope": "primary public market positioning",
+      "notes": "Market-specific pages may remain, but the main entity description must not imply unsupported worldwide coverage."
+    },
+    "moq": {
+      "value": "Low MOQ is available on selected models, typically from around 200 pcs. Custom colors and more complex customization may require higher MOQs, commonly from around 500 pcs depending on the product and production process.",
+      "status": "qualified",
+      "public": true,
+      "evidenceIds": ["EV-OWNER-CONFIRMATION-001"],
+      "verifiedAt": "2026-08-17",
+      "verifiedBy": "owner",
+      "scope": "general business capability",
+      "notes": "Project-specific exceptions do not establish a universal MOQ."
+    },
+    "productionLeadTime": {
+      "value": "Production lead time depends on the level of customization. Selected stock-color models with standard logo customization may be completed in approximately 7–10 days after artwork approval, while custom colors, complex full-wrap printing, custom packaging or multi-variant projects require a project-specific schedule and can take significantly longer. Final production timing is confirmed after product specifications, quantity, artwork, colors and packaging requirements are reviewed.",
+      "status": "qualified",
+      "public": true,
+      "evidenceIds": ["EV-OWNER-CONFIRMATION-001", "EV-US-40OZ-ACTIVE-OWNER-001"],
+      "verifiedAt": "2026-08-17",
+      "verifiedBy": "owner",
+      "scope": "general lead-time model",
+      "notes": "The 60–70 day schedule belongs only to the active US project and is not a universal promise."
+    },
+    "customizationMethods": {
+      "value": ["laser engraving", "screen printing", "UV printing", "full-wrap UV printing", "heat transfer or heat printing", "labels", "custom inserts", "custom color", "packaging customization"],
+      "status": "qualified",
+      "public": true,
+      "evidenceIds": ["EV-YK-LASER-001", "EV-YK-UV-001", "EV-YK-HEAT-TRANSFER-001", "EV-OWNER-CONFIRMATION-001"],
+      "verifiedAt": "2026-08-17",
+      "verifiedBy": "owner and image review",
+      "scope": "project-dependent capabilities",
+      "notes": "Availability depends on product, material, artwork and order requirements."
+    },
+    "packagingSupport": {
+      "value": ["custom color boxes", "gift boxes", "sleeves", "inserts", "cards", "carton marks", "protective packaging"],
+      "status": "qualified",
+      "public": true,
+      "evidenceIds": ["EV-YK-PACKING-LINE-001", "EV-YK-CARTON-WAREHOUSE-001", "EV-OWNER-CONFIRMATION-001"],
+      "verifiedAt": "2026-08-17",
+      "verifiedBy": "owner and image review",
+      "scope": "project-dependent packaging",
+      "notes": "Availability depends on product, quantity and packaging design."
+    },
+    "qualityControlResponsibility": {
+      "value": "HDS coordinates product-specific quality control with manufacturing partners across pre-production confirmation, production follow-up and pre-shipment review. The exact inspection scope is confirmed by product and project.",
+      "status": "qualified",
+      "public": true,
+      "evidenceIds": ["EV-YK-WORKMANSHIP-INSPECTION-001", "EV-OWNER-CONFIRMATION-001"],
+      "verifiedAt": "2026-08-17",
+      "verifiedBy": "owner",
+      "scope": "quality-control coordination",
+      "notes": "No fixed AQL, laboratory, ISO or universal test claim is approved."
+    },
+    "shippingSupport": {
+      "value": {
+        "terms": ["EXW", "FOB", "DDP", "DDU", "DAP"],
+        "fobPorts": ["Ningbo", "Shanghai", "Shenzhen", "Guangzhou"],
+        "qualification": "Shipping terms and DDP availability depend on destination and project."
+      },
+      "status": "qualified",
+      "public": true,
+      "evidenceIds": ["EV-OWNER-CONFIRMATION-001"],
+      "verifiedAt": "2026-08-17",
+      "verifiedBy": "owner",
+      "scope": "project-dependent logistics support",
+      "notes": "Do not use FOB Yiwu."
+    },
+    "fbaSupport": {
+      "value": "HDS can coordinate FBA-oriented labeling, packaging and shipment preparation depending on the selected product, destination warehouse and project requirements.",
+      "status": "qualified",
+      "public": true,
+      "evidenceIds": ["EV-OWNER-CONFIRMATION-001"],
+      "verifiedAt": "2026-08-17",
+      "verifiedBy": "owner",
+      "scope": "project-dependent shipment preparation",
+      "notes": "No Amazon certification or official partnership is implied."
+    },
+    "languageSupport": {
+      "value": ["English", "Chinese"],
+      "status": "verified",
+      "public": true,
+      "evidenceIds": ["EV-OWNER-CONFIRMATION-001"],
+      "verifiedAt": "2026-08-17",
+      "verifiedBy": "owner",
+      "scope": "buyer communication",
+      "notes": "Do not claim support for all languages."
+    },
+    "certifications": {
+      "value": "No company-wide certification claim is approved for publication. Product-specific testing documents may be available depending on the selected model, manufacturing partner and destination-market requirements.",
+      "status": "not-applicable",
+      "public": true,
+      "evidenceIds": ["EV-OWNER-CONFIRMATION-001"],
+      "verifiedAt": "2026-08-17",
+      "verifiedBy": "owner",
+      "scope": "company-wide certification claims",
+      "notes": "Never publish FDA, LFGB, SGS or ISO as HDS company-level certifications without approved documents."
+    },
+    "registeredStreetAddress": {
+      "value": null,
+      "status": "not-public",
+      "public": false,
+      "evidenceIds": ["EV-BUSINESS-LICENSE-001"],
+      "verifiedAt": "2026-08-17",
+      "verifiedBy": "document review",
+      "scope": "private registration record",
+      "notes": "Intentionally omitted from the public source of truth."
+    }
+  },
+  "approvedClaims": [
+    "HDS Drinkware is the custom drinkware sourcing and OEM/ODM business operated by Shanxi Huandingsheng Industry and Trade Co., Ltd.",
+    "Custom Drinkware Supplier & OEM/ODM Partner",
+    "Production at one of HDS Drinkware's long-term manufacturing partners in Yongkang, Zhejiang, China.",
+    "Fast RFQ response"
+  ],
+  "prohibitedClaims": [
+    "HDS owns every factory or production line shown",
+    "All products start from 200 pcs",
+    "Universal 20–35 or 30–35 day production promise",
+    "Response within 12 hours",
+    "HDS is FDA, LFGB, SGS or ISO certified",
+    "All projects receive fixed laboratory or leak testing",
+    "Worldwide DDP is universally available",
+    "The active US project is completed or successful"
+  ]
+}

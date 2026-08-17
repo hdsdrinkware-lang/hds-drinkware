@@ -7,6 +7,9 @@ import "./test-form-analytics.mjs";
 const root = process.cwd();
 const siteOrigin = siteConfig.origin;
 const baselinePath = path.join(root, "tools", "seo-regression-baseline.json");
+const businessFactsPath = path.join(root, "tools", "business-facts.json");
+const evidenceRegistryPath = path.join(root, "tools", "evidence-registry.json");
+const customerProjectPath = path.join(root, "tools", "customer-projects", "us-40oz-102-active.json");
 const writeBaseline = process.argv.includes("--write-baseline");
 const errors = [];
 const warnings = [];
@@ -14,6 +17,20 @@ const ignoredDirectories = new Set([
   ".git", ".codex-deploy", "node_modules", "CAD预览",
   "Accio-Foreign-Trade-Lead-Engine", "foreign-trade-lead-engine",
 ]);
+const businessFacts = JSON.parse(fs.readFileSync(businessFactsPath, "utf8"));
+const evidenceRegistry = JSON.parse(fs.readFileSync(evidenceRegistryPath, "utf8"));
+const activeCustomerProject = JSON.parse(fs.readFileSync(customerProjectPath, "utf8"));
+const evidenceById = new Map(evidenceRegistry.evidence.map((item) => [item.evidenceId, item]));
+const publicFactStatuses = new Set(["verified", "qualified", "not-applicable"]);
+for (const [key, fact] of Object.entries(businessFacts.facts || {})) {
+  if (fact.public && !publicFactStatuses.has(fact.status)) errors.push(`tools/business-facts.json: public fact ${key} has non-publication status ${fact.status}`);
+  if (!fact.public && publicFactStatuses.has(fact.status) && fact.status !== "not-applicable") errors.push(`tools/business-facts.json: non-public fact ${key} uses public status ${fact.status}`);
+  for (const evidenceId of fact.evidenceIds || []) if (!evidenceById.has(evidenceId)) errors.push(`tools/business-facts.json: ${key} references missing evidence ${evidenceId}`);
+}
+if (activeCustomerProject.status !== "active" || activeCustomerProject.publicPage !== false || activeCustomerProject.publicationPermission !== false) {
+  errors.push("tools/customer-projects/us-40oz-102-active.json: active project must remain non-public and active");
+}
+for (const evidenceId of activeCustomerProject.evidenceIds || []) if (!evidenceById.has(evidenceId)) errors.push(`active customer project references missing evidence ${evidenceId}`);
 
 const walk = (directory) => fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
   if (ignoredDirectories.has(entry.name)) return [];
@@ -115,7 +132,17 @@ for (const file of htmlFiles) {
     else descriptionOwners.set(normalizedDescription, relative);
     if (canonicalOwners.has(canonical)) errors.push(`${relative}: duplicate canonical also used by ${canonicalOwners.get(canonical)}`);
     else canonicalOwners.set(canonical, relative);
-    if (!parsedSchemas.some((schema) => schemaContainsType(schema, "Organization"))) errors.push(`${relative}: missing Organization schema`);
+    const topLevelOrganizations = parsedSchemas.filter((schema) => schema?.["@type"] === "Organization");
+    if (topLevelOrganizations.length !== 1) errors.push(`${relative}: expected one top-level Organization schema, found ${topLevelOrganizations.length}`);
+    else {
+      const organization = topLevelOrganizations[0];
+      if (organization.name !== "HDS Drinkware") errors.push(`${relative}: Organization name must be HDS Drinkware`);
+      if (organization.legalName !== "山西寰鼎盛工贸有限公司") errors.push(`${relative}: Organization legalName does not match the verified Chinese entity`);
+      if (organization.alternateName !== "Shanxi Huandingsheng Industry and Trade Co., Ltd.") errors.push(`${relative}: Organization alternateName does not match the approved English business name`);
+      if (organization.foundingDate !== "2025-08-04") errors.push(`${relative}: Organization foundingDate is missing or inconsistent`);
+      if (organization.address?.streetAddress) errors.push(`${relative}: Organization schema exposes an unapproved street address`);
+      if (organization.address?.addressLocality !== "Taiyuan" || organization.address?.addressRegion !== "Shanxi" || organization.address?.addressCountry !== "CN") errors.push(`${relative}: Organization public location is inconsistent`);
+    }
     if (!parsedSchemas.some((schema) => schemaContainsType(schema, "BreadcrumbList"))) errors.push(`${relative}: missing BreadcrumbList schema`);
     const isArticle = route.startsWith("/sourcing-guides/") && route !== "/sourcing-guides/";
     if (isArticle && !parsedSchemas.some((schema) => schemaContainsType(schema, "Article"))) errors.push(`${relative}: missing Article schema for sourcing guide`);
@@ -129,6 +156,13 @@ for (const file of htmlFiles) {
     if (!src || /^(?:https?:|data:)/i.test(src)) continue;
     const absolute = path.resolve(path.dirname(file), src.split("?")[0]);
     if (!fs.existsSync(absolute)) errors.push(`${relative}: missing image ${src}`);
+  }
+  for (const figure of html.matchAll(/<figure\b[^>]*\bdata-evidence-id=["']([^"']+)["'][^>]*>([\s\S]*?)<\/figure>/gi)) {
+    const evidenceId = figure[1];
+    const evidence = evidenceById.get(evidenceId);
+    if (!evidence) { errors.push(`${relative}: public figure references missing evidence ${evidenceId}`); continue; }
+    if (!String(evidence.publicUseStatus).startsWith("approved")) errors.push(`${relative}: evidence ${evidenceId} is not approved for public use`);
+    if (!/<source\b[^>]+type=["']image\/avif["']/i.test(figure[2]) || !/<source\b[^>]+type=["']image\/webp["']/i.test(figure[2])) errors.push(`${relative}: evidence ${evidenceId} is missing AVIF/WebP sources`);
   }
 
   for (const css of html.matchAll(/(?:href|src)=["'][^"']*styles\.css(?:\?v=([^"'&]+))?/gi)) {
@@ -154,10 +188,25 @@ for (const file of htmlFiles) {
     }
   }
   const claimText = normalizeText(main.replace(/<aside\b[\s\S]*?<\/aside>/gi, " "));
+  const isScopedBusinessPage = route === "/" || (route.split("/").filter(Boolean).length === 1 && route !== "/case-studies/");
+  if (isScopedBusinessPage) {
+    const prohibitedBusinessClaims = [
+      [/within\s+12\s+hours/i, "absolute 12-hour response promise"],
+      [/\ball products\s+(?:start|starting)\s+from\s+200\s+(?:pcs|pieces)/i, "universal 200-piece MOQ"],
+      [/\bMOQ\s*:\s*200\s+(?:pcs|pieces)\b/i, "unqualified 200-piece MOQ"],
+      [/\bMOQ starts from 200\s+(?:pcs|pieces)\b/i, "unqualified MOQ starts-from claim"],
+      [/\b(?:20[–-]35|30[–-]35)\s+days\b/i, "universal production lead-time promise"],
+      [/\b(?:FDA|LFGB|SGS|ISO)\s+Certified\b/i, "unapproved company-level certification claim"],
+      [/\b(?:HDS|we)\s+(?:owns?|operates?)\s+(?:every|all|the)\s+(?:factory|production line)/i, "unapproved factory-ownership claim"],
+      [/\bFOB\s+Yiwu\b/i, "unsupported FOB Yiwu term"],
+    ];
+    for (const [pattern, label] of prohibitedBusinessClaims) if (pattern.test(claimText)) errors.push(`${relative}: ${label}`);
+  }
   const claimPattern = /[^.!?]{0,110}\b(?:\d[\d,.]*\s*(?:%|pcs|pieces|units|days?|hours?|years?|orders?|containers?|m²|sqm)|(?:within|in)\s+\d+\s+(?:days?|hours?))\b[^.!?]{0,110}[.!?]?/gi;
   for (const claim of claimText.matchAll(claimPattern)) {
     const text = normalizeText(claim[0]);
     if (!text) continue;
+    if (/\baround\s+(?:200|500)\s+(?:pcs|pieces)\b/i.test(text) || /\b7[–-]10\s+days\b/i.test(text)) continue;
     const key = fingerprint(text.toLowerCase());
     const record = numericClaimOccurrences.get(key) || { text, pages: new Set() };
     record.pages.add(relative);
@@ -201,6 +250,14 @@ for (const url of sitemapUrls) {
   if (!indexableUrls.has(url)) errors.push(`sitemap: URL is not an indexable canonical ${url}`);
 }
 for (const url of indexableUrls) if (!sitemapUrls.includes(url)) errors.push(`sitemap: missing indexable canonical ${url}`);
+if (sitemapUrls.some((url) => url.includes("/customer-projects/"))) errors.push("sitemap: active customer project must not be published");
+
+const publicTextFiles = ["index.html", "llms.txt", "llms-full.txt", ...pages.map(({ relative }) => relative)];
+for (const relative of new Set(publicTextFiles)) {
+  const content = fs.readFileSync(path.join(root, relative), "utf8");
+  if (/Wanguocheng|Changfeng West Street|No\. 2402/i.test(content)) errors.push(`${relative}: exposes the unapproved complete registered address`);
+  if (/US-40OZ-102-ACTIVE|Gitty Elbaum/i.test(content)) errors.push(`${relative}: exposes an internal customer-project identifier or customer identity`);
+}
 
 const duplicateParagraphDebt = Object.fromEntries([...paragraphOccurrences]
   .filter(([, record]) => record.pages.size >= 3)
@@ -252,6 +309,8 @@ if (/Download PDF/i.test(homeHtml)) errors.push("index.html: catalog CTA promise
 const contactHtml = fs.readFileSync(path.join(root, "contact", "index.html"), "utf8");
 const contactForm = contactHtml.match(/<form\b[^>]*id=["']rfq-form["'][\s\S]*?<\/form>/i)?.[0] || "";
 if (contactForm) {
+  if (!/action=["']https:\/\/api\.web3forms\.com\/submit["']/i.test(contactForm) || !/method=["']POST["']/i.test(contactForm)) errors.push("contact/index.html: Web3Forms endpoint or method changed");
+  if (!/<input\b[^>]*name=["']access_key["'][^>]*value=["']45e7b7c2-d1c6-4019-a627-1d3f6bbadbab["']/i.test(contactForm)) errors.push("contact/index.html: existing Web3Forms access-key configuration changed");
   const requiredNames = [...contactForm.matchAll(/<(?:input|select|textarea)\b(?=[^>]*\brequired\b)[^>]*\bname=["']([^"']+)/gi)].map((item) => item[1]).sort();
   const expectedRequiredNames = ["country", "email", "name", "product", "quantity"].sort();
   if (requiredNames.join("|") !== expectedRequiredNames.join("|")) errors.push(`contact/index.html: RFQ required fields are ${requiredNames.join(", ") || "missing"}`);

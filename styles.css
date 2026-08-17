@@ -2634,6 +2634,95 @@ h3 {
   }
 }
 
+/* Phase 2B entity and evidence presentation */
+.evidence-workflow {
+  display: grid;
+  gap: 28px;
+}
+
+.evidence-step {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.72fr) minmax(0, 1.28fr);
+  gap: 28px;
+  align-items: start;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--white);
+}
+
+.evidence-step-copy h2,
+.entity-contact-context h2 {
+  margin-top: 0;
+}
+
+.evidence-step-copy p,
+.entity-contact-context p {
+  color: var(--steel);
+  line-height: 1.72;
+}
+
+.evidence-step-media {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.evidence-step-media figure,
+.landing-product-visuals figure {
+  margin: 0;
+}
+
+.evidence-step-media picture,
+.evidence-step-media img,
+.landing-product-visuals picture {
+  display: block;
+  width: 100%;
+}
+
+.evidence-step-media img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: auto;
+  border-radius: 9px;
+  object-fit: cover;
+}
+
+.evidence-step-media figcaption {
+  margin-top: 9px;
+  color: var(--steel);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.entity-contact-context {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.entity-contact-context > div {
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--cloud);
+}
+
+@media (max-width: 820px) {
+  .evidence-step,
+  .entity-contact-context {
+    grid-template-columns: 1fr;
+  }
+
+  .evidence-step {
+    padding: 20px;
+  }
+
+  .evidence-step-media {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Lead Hooks Styles */
 .lead-hooks-box {
   margin-top: 36px;

@@ -4,7 +4,7 @@ export const siteConfig = {
   whatsappNumber: "8613994271614",
   displayPhone: "+86 13994271614",
   assetVersions: {
-    styles: "20260815-phase1c",
+    styles: "20260817-phase2b",
     script: "20260815-phase1d",
   },
 };
@@ -43,7 +43,6 @@ export const reconciledPageSourceFiles = [
   "custom-stainless-steel-tumblers/index.html",
   "custom-tumbler-supplier-china/index.html",
   "custom-water-bottles-with-logo/index.html",
-  "factory-supply-chain/index.html",
   "faq/index.html",
   "private-label-drinkware-supplier/index.html",
   "promotional-drinkware-supplier/index.html",
