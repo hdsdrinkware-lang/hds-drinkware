@@ -39,7 +39,7 @@ const reconciledPageSources = new Map(reconciledPageSourceFiles.map((file) => {
 const updated = "2026-07-18";
 const aiReferenceUpdated = "2026-08-17";
 const pageUpdated = {
-  "": "2026-08-11",
+  "": "2026-08-20",
   "custom-40oz-tumbler-manufacturer": "2026-07-25",
   "custom-stainless-steel-tumblers": "2026-08-01",
   "custom-water-bottles-with-logo": "2026-08-14",

@@ -4,7 +4,7 @@ export const siteConfig = {
   whatsappNumber: "8613994271614",
   displayPhone: "+86 13994271614",
   assetVersions: {
-    styles: "20260817-phase2b",
+    styles: "20260820-phase2b-evidence",
     script: "20260815-phase1d",
   },
 };
