@@ -3,9 +3,14 @@ export const siteConfig = {
   email: "hds.drinkware@gmail.com",
   whatsappNumber: "8613994271614",
   displayPhone: "+86 13994271614",
+  analytics: {
+    mode: "direct-ga4-temporary",
+    ga4MeasurementId: "G-2ST51EB9GY",
+    futureGtmContainerId: "GTM-5TKCQVL",
+  },
   assetVersions: {
     styles: "20260820-phase2b-evidence",
-    script: "20260815-phase1d",
+    script: "20260820-analytics",
   },
 };
 

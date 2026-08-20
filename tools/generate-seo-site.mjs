@@ -14,6 +14,23 @@ const site = siteConfig.origin;
 const email = siteConfig.email;
 const whatsapp = siteConfig.whatsappNumber;
 const displayPhone = siteConfig.displayPhone;
+const ga4MeasurementId = siteConfig.analytics.ga4MeasurementId;
+
+function installAnalytics(html) {
+  if (!html.includes("<head")) return html;
+  const cleanedHtml = html
+    .replace(/\s*<!-- Google Tag Manager -->[\s\S]*?<!-- End Google Tag Manager -->/g, "")
+    .replace(/\s*<!-- Google Tag Manager \(noscript\) -->[\s\S]*?<!-- End Google Tag Manager \(noscript\) -->/g, "")
+    .replace(/\s*<!-- Temporary direct Google tag \(gtag\.js\)[\s\S]*?<!-- End temporary direct Google tag -->/g, "")
+    .replace(new RegExp(`\\s*<!-- Google tag \\(gtag\\.js\\):[\\s\\S]*?gtag\\('config','${ga4MeasurementId}'\\);<\\/script>`, "g"), "");
+  const headTags = `
+    <!-- Temporary direct Google tag (gtag.js); remove before enabling GA4 collection in GTM. -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=${ga4MeasurementId}"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=window.gtag||gtag;gtag('js',new Date());gtag('config','${ga4MeasurementId}',{send_page_view:true});</script>
+    <!-- End temporary direct Google tag -->`;
+  return cleanedHtml
+    .replace(/(<head(?:\s[^>]*)?>)/i, `$1${headTags}`);
+}
 const businessFactSource = JSON.parse(fs.readFileSync(path.join(root, "tools", "business-facts.json"), "utf8"));
 const evidenceRegistry = JSON.parse(fs.readFileSync(path.join(root, "tools", "evidence-registry.json"), "utf8"));
 const publicFact = (key) => {
@@ -1488,7 +1505,7 @@ function writeFile(file, content) {
     .replaceAll("Custom drinkware manufacturer in China with low MOQ", "China custom drinkware supplier and OEM/ODM sourcing partner with low MOQ")
     .replaceAll("Custom 40oz tumbler manufacturing page", "Custom 40oz tumbler supplier page")
     .replaceAll("B2B drinkware case studies for", "Representative B2B drinkware planning scenarios for");
-  expectedOutputs.set(file, file.endsWith(".html") ? harmonizeStructuredData(normalizedContent) : normalizedContent);
+  expectedOutputs.set(file, file.endsWith(".html") ? installAnalytics(harmonizeStructuredData(normalizedContent)) : normalizedContent);
 }
 
 function writeNoindexCanonicalPage(file, targetPath, title, description) {
@@ -2657,7 +2674,7 @@ function queueManualShell(file, replacementHeader, depth) {
     .replace(/<header class="site-header">[\s\S]*?<\/header>/, replacementHeader)
     .replace(/(?:\.\.\/)*styles\.css(?:\?v=[^"']+)?/g, `${p}styles.css?v=${siteConfig.assetVersions.styles}`)
     .replace(/(?:\.\.\/)*script\.js(?:\?v=[^"']+)?/g, `${p}script.js?v=${siteConfig.assetVersions.script}`);
-  expectedOutputs.set(file, harmonizeStructuredData(updatedShell, true));
+  expectedOutputs.set(file, installAnalytics(harmonizeStructuredData(updatedShell, true)));
 }
 
 queueManualShell("index.html", homeHeader(), 0);

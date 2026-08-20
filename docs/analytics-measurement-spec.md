@@ -1,6 +1,14 @@
-# RFQ measurement specification
+# Analytics and RFQ measurement specification
 
-The site exposes a neutral `window.dataLayer` contract. No analytics vendor is installed.
+## Current production architecture
+
+The approved temporary production path is:
+
+`website dataLayer → direct Google tag → GA4 G-2ST51EB9GY`
+
+The site preserves a neutral `window.dataLayer` contract, but it does not load GTM in this release. The reserved future container is `GTM-5TKCQVL`. Its published container must remain inactive until it contains a reviewed Google tag and event mappings.
+
+There must be exactly one analytics consumer. Before migrating to `website dataLayer → GTM → GA4`, remove the temporary direct Google tag, publish the reviewed GTM container, and validate that page views and lead events are not duplicated.
 
 | Event | Trigger | Interpretation |
 | --- | --- | --- |
@@ -10,6 +18,8 @@ The site exposes a neutral `window.dataLayer` contract. No analytics vendor is i
 | `form_submit_error` | The endpoint rejects the request, returns an unsuccessful result, or the network request fails | Failed submission |
 | `whatsapp_click` | A visitor activates a `wa.me` link | Contact intent, not a successful lead |
 | `email_click` | A visitor activates a `mailto:` link | Contact intent, not a successful lead |
+
+Direct GA4 receives the six neutral events above. It receives one additional recommended event, `generate_lead`, only after `form_submit_success`. A click, submission attempt, WhatsApp click or email click must never emit `generate_lead`.
 
 ## Approved parameters
 
@@ -35,3 +45,15 @@ For `email_click` and `whatsapp_click`, use only `page_path`, a fixed `link_loca
 A qualified RFQ is a genuine B2B sourcing inquiry with a valid contact method, identifiable product requirement, approximate or confirmed quantity, and sufficient purchasing intent for HDS to evaluate quotation feasibility.
 
 Qualification is manual until a future CRM or server-side workflow is approved. A future implementation should record the original submission identifier and send the event from the trusted CRM/server environment, without placing customer PII in analytics.
+
+## Consent and privacy readiness
+
+**PRIVACY FOLLOW-UP REQUIRED**
+
+This release does not add a cookie banner or third-party consent-management platform. The temporary direct Google tag starts before a consent-management layer and may use Google Analytics first-party identifiers and cookies, including `_ga` and property-specific `_ga_*` cookies, when analytics storage is available. It also transmits ordinary measurement metadata such as page URL, referrer, device/browser information and pseudonymous identifiers to Google. The approved custom event parameters remain limited to the non-PII list above.
+
+Before treating analytics as a permanent UK/EU production setup, the owner must approve a consent approach and privacy disclosure. The intended integration point is before the analytics loader in `<head>`. A future consent implementation should set the default consent state before Google tags load, update that state from an owner-approved CMP or first-party consent interface, and be verified with Google Tag Assistant. Do not add a CMP or claim UK/EU consent compliance without owner approval and legal review.
+
+If analytics must be disabled pending consent review, remove or feature-disable the temporary direct loader through `siteConfig.analytics.mode`, regenerate the site and redeploy. Do not merely hide UI while leaving the loader active.
+
+The privacy policy will need to disclose at least: the analytics purpose; Google as the measurement provider; categories of technical and event data; cookies or local identifiers used; retention settings; relevant international data transfers; the applicable legal basis and consent mechanism; how visitors can withdraw consent or disable analytics; and a contact route for privacy requests. Google documents Analytics cookie usage at https://developers.google.com/tag-platform/security/guides/cookies and Consent Mode at https://support.google.com/tagmanager/answer/10000067.

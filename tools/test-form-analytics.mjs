@@ -57,6 +57,7 @@ class TestFormData {
 }
 
 let fetchCount = 0;
+const ga4Calls = [];
 const context = {
   console,
   URL,
@@ -88,6 +89,7 @@ const context = {
 };
 context.window = {
   dataLayer: [],
+  gtag(...args) { ga4Calls.push(args); },
   location: {
     href: "https://www.hdsdrinkware.com/contact/#rfq-form",
     origin: "https://www.hdsdrinkware.com",
@@ -114,6 +116,12 @@ assert.deepEqual(
   ["form_start", "rfq_submit", "form_submit_success"],
   "RFQ analytics events must fire in order",
 );
+assert.deepEqual(
+  ga4Calls.map(([command, eventName]) => [command, eventName]),
+  [["event", "form_start"], ["event", "rfq_submit"], ["event", "form_submit_success"], ["event", "generate_lead"]],
+  "PII-safe RFQ events must preserve the neutral event model and add generate_lead only after confirmed success",
+);
+assert.equal(ga4Calls.filter(([, eventName]) => eventName === "generate_lead").length, 1, "one successful RFQ must emit exactly one generate_lead event");
 assert.equal(
   statusDisplay.textContent,
   "Thank you. Your RFQ has been received. The HDS team will review the details and follow up using your preferred contact method.",
@@ -121,8 +129,10 @@ assert.equal(
 );
 
 const analyticsPayload = JSON.stringify(context.window.dataLayer);
+const ga4Payload = JSON.stringify(ga4Calls);
 for (const value of testValues.values()) {
   assert.equal(analyticsPayload.includes(value), false, `analytics payload must not contain form value: ${value}`);
+  assert.equal(ga4Payload.includes(value), false, `GA4 payload must not contain form value: ${value}`);
 }
 assert.equal(analyticsPayload.includes("qualified_rfq"), false, "qualified_rfq must never be emitted by frontend code");
 console.log("Validated RFQ form-name clobbering regression and analytics PII safety.");

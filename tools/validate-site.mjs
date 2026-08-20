@@ -87,6 +87,14 @@ for (const file of htmlFiles) {
   const relative = path.relative(root, file).replaceAll(path.sep, "/");
   const route = routeFromFile(file);
   const noindex = /<meta[^>]+name=["']robots["'][^>]+content=["'][^"']*noindex/i.test(html);
+  const gtmLoaderCount = [...html.matchAll(/www\.googletagmanager\.com\/(?:gtm\.js|ns\.html)/g)].length;
+  const ga4LoaderCount = [...html.matchAll(new RegExp(`www\\.googletagmanager\\.com/gtag/js\\?id=${siteConfig.analytics.ga4MeasurementId}`, "g"))].length;
+  const ga4ConfigCount = [...html.matchAll(new RegExp(`gtag\\('config','${siteConfig.analytics.ga4MeasurementId}'`, "g"))].length;
+  const explicitPageViewCount = [...html.matchAll(/gtag\(['"]event['"],['"]page_view['"]/g)].length;
+  if (siteConfig.analytics.mode !== "direct-ga4-temporary") errors.push("site-config: unsupported production analytics mode");
+  if (gtmLoaderCount !== 0) errors.push(`${relative}: GTM must not load while the published container is empty`);
+  if (ga4LoaderCount !== 1 || ga4ConfigCount !== 1) errors.push(`${relative}: expected exactly one direct GA4 loader and config command`);
+  if (explicitPageViewCount !== 0) errors.push(`${relative}: direct GA4 config already sends page_view; explicit page_view would duplicate it`);
   const title = match(html, /<title>([\s\S]*?)<\/title>/i);
   const description = match(html, /<meta\s+name=["']description["']\s+content=["']([^"']*)/i);
   const canonical = match(html, /<link\s+rel=["']canonical["']\s+href=["']([^"']*)/i);

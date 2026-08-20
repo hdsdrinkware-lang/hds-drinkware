@@ -26,6 +26,11 @@ const catalogCopy =
 
 const trackConversionEvent = (eventName, params = {}) => {
   window.dataLayer.push({ event: eventName, ...params });
+  if (typeof window.gtag !== "function") return;
+  window.gtag("event", eventName, params);
+  if (eventName === "form_submit_success") {
+    window.gtag("event", "generate_lead", params);
+  }
 };
 
 const attributionParameterNames = [
