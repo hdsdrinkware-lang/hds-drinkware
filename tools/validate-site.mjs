@@ -3,6 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { siteConfig } from "./site-config.mjs";
 import "./test-form-analytics.mjs";
+import "./test-consent-foundation.mjs";
 
 const root = process.cwd();
 const siteOrigin = siteConfig.origin;
@@ -88,13 +89,17 @@ for (const file of htmlFiles) {
   const route = routeFromFile(file);
   const noindex = /<meta[^>]+name=["']robots["'][^>]+content=["'][^"']*noindex/i.test(html);
   const gtmLoaderCount = [...html.matchAll(/www\.googletagmanager\.com\/(?:gtm\.js|ns\.html)/g)].length;
-  const ga4LoaderCount = [...html.matchAll(new RegExp(`www\\.googletagmanager\\.com/gtag/js\\?id=${siteConfig.analytics.ga4MeasurementId}`, "g"))].length;
-  const ga4ConfigCount = [...html.matchAll(new RegExp(`gtag\\('config','${siteConfig.analytics.ga4MeasurementId}'`, "g"))].length;
+  const ga4LoaderCount = html.includes('loader.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(measurementId)') ? 1 : 0;
+  const ga4ConfigCount = html.includes('window.gtag("config", measurementId, { send_page_view: true })') ? 1 : 0;
   const explicitPageViewCount = [...html.matchAll(/gtag\(['"]event['"],['"]page_view['"]/g)].length;
   if (siteConfig.analytics.mode !== "direct-ga4-temporary") errors.push("site-config: unsupported production analytics mode");
   if (gtmLoaderCount !== 0) errors.push(`${relative}: GTM must not load while the published container is empty`);
-  if (ga4LoaderCount !== 1 || ga4ConfigCount !== 1) errors.push(`${relative}: expected exactly one direct GA4 loader and config command`);
+  if (ga4LoaderCount !== 1 || ga4ConfigCount !== 1) errors.push(`${relative}: expected exactly one consent-gated direct GA4 loader and config command`);
   if (explicitPageViewCount !== 0) errors.push(`${relative}: direct GA4 config already sends page_view; explicit page_view would duplicate it`);
+  if (!html.includes('gtag("consent", "default"')) errors.push(`${relative}: missing default consent initialization`);
+  if (!html.includes('analytics_storage: "denied"') || !html.includes('ad_storage: "denied"')) errors.push(`${relative}: default consent must deny analytics and advertising storage`);
+  if (!html.includes('id="hds-consent-banner"') || !html.includes('data-consent-accept') || !html.includes('data-consent-reject')) errors.push(`${relative}: missing accessible consent banner controls`);
+  if (!html.includes('data-consent-settings') || !html.includes(`${siteOrigin}/privacy-policy/`)) errors.push(`${relative}: missing persistent Cookie Settings or privacy link`);
   const title = match(html, /<title>([\s\S]*?)<\/title>/i);
   const description = match(html, /<meta\s+name=["']description["']\s+content=["']([^"']*)/i);
   const canonical = match(html, /<link\s+rel=["']canonical["']\s+href=["']([^"']*)/i);
@@ -195,8 +200,8 @@ for (const file of htmlFiles) {
       paragraphOccurrences.set(key, record);
     }
   }
-  const claimText = normalizeText(main.replace(/<aside\b[\s\S]*?<\/aside>/gi, " "));
-  const isScopedBusinessPage = route === "/" || (route.split("/").filter(Boolean).length === 1 && route !== "/case-studies/");
+  const claimText = noindex ? "" : normalizeText(main.replace(/<aside\b[\s\S]*?<\/aside>/gi, " "));
+  const isScopedBusinessPage = !noindex && (route === "/" || (route.split("/").filter(Boolean).length === 1 && route !== "/case-studies/"));
   if (isScopedBusinessPage) {
     const prohibitedBusinessClaims = [
       [/within\s+12\s+hours/i, "absolute 12-hour response promise"],
@@ -331,6 +336,14 @@ for (const eventName of ["form_start", "rfq_submit", "form_submit_success", "for
 if (/trackConversionEvent\(["']qualified_rfq/i.test(conversionScript)) errors.push("script.js: qualified_rfq must not fire from frontend code");
 if (/\b(?:form|formElement|target|currentTarget)\.name\b/.test(conversionScript)) errors.push("script.js: form identity must use an explicit name attribute lookup");
 if (!conversionScript.includes("Source page:")) errors.push("script.js: WhatsApp messages do not include the source page");
+if (!conversionScript.includes("window.hdsAnalyticsReady !== true")) errors.push("script.js: analytics events are not blocked until consent");
+if (!conversionScript.includes('"generate_lead"')) errors.push("script.js: generate_lead lead event is missing");
+
+const privacyPolicy = fs.readFileSync(path.join(root, "privacy-policy", "index.html"), "utf8");
+if (!/<meta[^>]+name=["']robots["'][^>]+noindex/i.test(privacyPolicy)) errors.push("privacy-policy/index.html: privacy information must remain owner-review noindex");
+for (const phrase of ["Google Analytics 4", "Web3Forms", "Cookie Settings", "UK/EU", "RFQ form content"]) {
+  if (!privacyPolicy.includes(phrase)) errors.push(`privacy-policy/index.html: missing factual disclosure ${phrase}`);
+}
 
 if (writeBaseline) {
   if (errors.length) { console.error(errors.join("\n")); process.exit(1); }

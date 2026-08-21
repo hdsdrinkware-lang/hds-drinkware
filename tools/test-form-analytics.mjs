@@ -89,6 +89,7 @@ const context = {
 };
 context.window = {
   dataLayer: [],
+  hdsAnalyticsReady: true,
   gtag(...args) { ga4Calls.push(args); },
   location: {
     href: "https://www.hdsdrinkware.com/contact/#rfq-form",

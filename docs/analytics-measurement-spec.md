@@ -4,9 +4,11 @@
 
 The approved temporary production path is:
 
-`website dataLayer → direct Google tag → GA4 G-2ST51EB9GY`
+`website dataLayer → consent-first direct Google tag → GA4 G-2ST51EB9GY`
 
-The site preserves a neutral `window.dataLayer` contract, but it does not load GTM in this release. The reserved future container is `GTM-5TKCQVL`. Its published container must remain inactive until it contains a reviewed Google tag and event mappings.
+The site preserves a neutral `window.dataLayer` contract and does not load GTM in this release. The reserved future container is `GTM-5TKCQVL`; its published container must remain inactive until it contains reviewed mappings.
+
+Before a visitor chooses, the shared bootstrap sets `analytics_storage`, `ad_storage`, `ad_user_data` and `ad_personalization` to `denied`, and does not append the GA4 loader or send page views/events. `Accept Analytics` stores only `{choice, updatedAt}` in local storage for 180 days, then loads the direct tag once. `Reject Optional` stores the rejection and keeps GA4 blocked. Cookie Settings can grant or withdraw the choice; withdrawal disables future GA4 collection on that browser. Advertising storage remains denied in every state.
 
 There must be exactly one analytics consumer. Before migrating to `website dataLayer → GTM → GA4`, remove the temporary direct Google tag, publish the reviewed GTM container, and validate that page views and lead events are not duplicated.
 
@@ -50,10 +52,12 @@ Qualification is manual until a future CRM or server-side workflow is approved. 
 
 **PRIVACY FOLLOW-UP REQUIRED**
 
-This release does not add a cookie banner or third-party consent-management platform. The temporary direct Google tag starts before a consent-management layer and may use Google Analytics first-party identifiers and cookies, including `_ga` and property-specific `_ga_*` cookies, when analytics storage is available. It also transmits ordinary measurement metadata such as page URL, referrer, device/browser information and pseudonymous identifiers to Google. The approved custom event parameters remain limited to the non-PII list above.
+This release adds a lightweight first-party consent banner and persistent Cookie Settings link. It is not a third-party CMP and does not claim full UK/EU consent compliance. When accepted, Google Analytics may use first-party identifiers such as `_ga` and property-specific `_ga_*` cookies and transmit ordinary measurement metadata such as page path, referrer domain, device/browser information and pseudonymous identifiers. The approved custom event parameters remain limited to the non-PII list above.
+
+The RFQ form remains an independent Web3Forms business-processing path. Buyer-entered name, email, phone, WhatsApp number, company details, message and artwork fields may be sent to Web3Forms as required to process the inquiry; they are not analytics parameters. No RFQ form content, full mailto URL, full WhatsApp URL or user-entered value may be sent to GA4. The owner should also disable GA4 Enhanced Measurement outbound-click collection if the property would otherwise transmit complete contact URLs.
 
 Before treating analytics as a permanent UK/EU production setup, the owner must approve a consent approach and privacy disclosure. The intended integration point is before the analytics loader in `<head>`. A future consent implementation should set the default consent state before Google tags load, update that state from an owner-approved CMP or first-party consent interface, and be verified with Google Tag Assistant. Do not add a CMP or claim UK/EU consent compliance without owner approval and legal review.
 
-If analytics must be disabled pending consent review, remove or feature-disable the temporary direct loader through `siteConfig.analytics.mode`, regenerate the site and redeploy. Do not merely hide UI while leaving the loader active.
+If analytics must be disabled pending consent review, set the stored choice to rejected or feature-disable the direct loader through `siteConfig.analytics.mode`, regenerate the site and redeploy. Do not merely hide UI while leaving the loader active.
 
-The privacy policy will need to disclose at least: the analytics purpose; Google as the measurement provider; categories of technical and event data; cookies or local identifiers used; retention settings; relevant international data transfers; the applicable legal basis and consent mechanism; how visitors can withdraw consent or disable analytics; and a contact route for privacy requests. Google documents Analytics cookie usage at https://developers.google.com/tag-platform/security/guides/cookies and Consent Mode at https://support.google.com/tagmanager/answer/10000067.
+The factual implementation page is `/privacy-policy/` and remains `noindex` pending owner/legal approval. The final privacy policy will need to disclose at least: the analytics purpose; Google as the measurement provider; categories of technical and event data; cookies or local identifiers used; retention settings; relevant international data transfers; the applicable legal basis and consent mechanism; how visitors can withdraw consent or disable analytics; Web3Forms as a separate RFQ processor; and a contact route for privacy requests. Google documents Analytics cookie usage at https://developers.google.com/tag-platform/security/guides/cookies and Consent Mode at https://support.google.com/tagmanager/answer/10000067.

@@ -1,10 +1,83 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Temporary direct Google tag (gtag.js); remove before enabling GA4 collection in GTM. -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2ST51EB9GY"></script>
-    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=window.gtag||gtag;gtag('js',new Date());gtag('config','G-2ST51EB9GY',{send_page_view:true});</script>
-    <!-- End temporary direct Google tag -->
+    <!-- HDS consent-first direct GA4 foundation; GTM remains inactive. -->
+    <script>
+      (() => {
+        const measurementId = "G-2ST51EB9GY";
+        const consentKey = "hds_analytics_consent";
+        const denied = { analytics_storage: "denied", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" };
+        const granted = { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" };
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = window.gtag || function gtag() { window.dataLayer.push(arguments); };
+        window.hdsAnalyticsReady = false;
+        window.gtag("consent", "default", { ...denied, wait_for_update: 500 });
+        let analyticsLoaded = false;
+        let analyticsConfigured = false;
+        const readChoice = () => {
+          try {
+            const stored = JSON.parse(window.localStorage.getItem(consentKey) || "null");
+            if (!stored || !["accepted", "rejected"].includes(stored.choice)) return "";
+            const age = Date.now() - Number(stored.updatedAt || 0);
+            return age >= 0 && age < 180 * 24 * 60 * 60 * 1000 ? stored.choice : "";
+          } catch (error) { return ""; }
+        };
+        const writeChoice = (choice) => {
+          try { window.localStorage.setItem(consentKey, JSON.stringify({ choice, updatedAt: Date.now() })); } catch (error) { /* continue without persistence */ }
+        };
+        const updateConsent = (choice) => window.gtag("consent", "update", choice === "accepted" ? granted : denied);
+        const disableAnalytics = () => {
+          window.hdsAnalyticsReady = false;
+          window["ga-disable-" + measurementId] = true;
+          updateConsent("rejected");
+        };
+        const loadAnalytics = () => {
+          window["ga-disable-" + measurementId] = false;
+          updateConsent("accepted");
+          if (!analyticsLoaded) {
+            analyticsLoaded = true;
+            const loader = document.createElement("script");
+            loader.async = true;
+            loader.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(measurementId);
+            document.head.appendChild(loader);
+          }
+          if (!analyticsConfigured) {
+            window.gtag("js", new Date());
+            window.gtag("config", measurementId, { send_page_view: true });
+            analyticsConfigured = true;
+          }
+          window.hdsAnalyticsReady = true;
+        };
+        const setChoice = (choice) => {
+          writeChoice(choice);
+          if (choice === "accepted") loadAnalytics(); else disableAnalytics();
+          document.dispatchEvent(new CustomEvent("hds:consent-changed", { detail: { choice } }));
+          const banner = document.querySelector("#hds-consent-banner");
+          if (banner) banner.hidden = true;
+        };
+        window.hdsConsent = {
+          getChoice: readChoice,
+          hasAnalyticsConsent: () => readChoice() === "accepted",
+          acceptAnalytics: () => setChoice("accepted"),
+          rejectOptional: () => setChoice("rejected"),
+          openSettings: () => {
+            const banner = document.querySelector("#hds-consent-banner");
+            if (banner) { banner.hidden = false; banner.querySelector("button")?.focus(); }
+          },
+        };
+        const choice = readChoice();
+        if (choice === "accepted") loadAnalytics();
+        else if (choice === "rejected") disableAnalytics();
+        document.addEventListener("DOMContentLoaded", () => {
+          const banner = document.querySelector("#hds-consent-banner");
+          if (banner && !choice) banner.hidden = false;
+          document.querySelectorAll("[data-consent-settings]").forEach((button) => button.addEventListener("click", () => window.hdsConsent.openSettings()));
+          banner?.querySelector("[data-consent-accept]")?.addEventListener("click", () => window.hdsConsent.acceptAnalytics());
+          banner?.querySelector("[data-consent-reject]")?.addEventListener("click", () => window.hdsConsent.rejectOptional());
+        });
+      })();
+    </script>
+    <!-- End HDS consent-first direct GA4 foundation -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="../assets/favicon.png" />
@@ -21,7 +94,7 @@
     <meta property="og:image" content="https://www.hdsdrinkware.com/assets/catalog/20oz-straight-tumbler.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
     <title>Sublimation Tumblers Bulk Supplier | HDS</title>
-    <link rel="stylesheet" href="../styles.css?v=20260820-phase2b-evidence" />
+    <link rel="stylesheet" href="../styles.css?v=20260821-phase3c-consent" />
     <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.hdsdrinkware.com/#organization","name":"Shanxi Huandingsheng Industry and Trade Co., Ltd.","alternateName":"HDS Drinkware","url":"https://www.hdsdrinkware.com/","email":"hds.drinkware@gmail.com","telephone":"+86 13994271614","logo":"https://www.hdsdrinkware.com/assets/company-logo.png"},{"@type":"WebSite","@id":"https://www.hdsdrinkware.com/#website","name":"HDS Drinkware","url":"https://www.hdsdrinkware.com/","publisher":{"@id":"https://www.hdsdrinkware.com/#organization"},"inLanguage":"en"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.hdsdrinkware.com/"},{"@type":"ListItem","position":2,"name":"Sublimation Tumblers Bulk Supplier","item":"https://www.hdsdrinkware.com/sublimation-tumblers-bulk-supplier/"}]},{"@type":"Service","name":"Bulk sublimation tumbler sourcing","serviceType":"B2B blank and custom tumbler sourcing","provider":{"@id":"https://www.hdsdrinkware.com/#organization"},"audience":{"@type":"BusinessAudience","audienceType":"print shops, custom brands, marketplace sellers and distributors"},"areaServed":"Worldwide"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What should buyers verify when sourcing sublimation tumblers in bulk?","acceptedAnswer":{"@type":"Answer","text":"Verify the blank's coating, printable dimensions, straightness, lid and straw set, carton protection, and the supplier's recommended time and temperature range. Test the actual blank with your press, paper and ink before bulk use."}},{"@type":"Question","name":"Can I order a sample before a bulk sublimation tumbler order?","acceptedAnswer":{"@type":"Answer","text":"Yes. A sample lets the buyer check the coating, transfer result, color consistency, fit in the press, lid function and packing before confirming the bulk specification."}},{"@type":"Question","name":"What is the MOQ for sublimation tumblers?","acceptedAnswer":{"@type":"Answer","text":"Selected stock-based tumbler projects may start from around 200 pieces. Final MOQ depends on the model, packaging, accessories, quantity per color and whether additional factory decoration is required."}},{"@type":"Question","name":"Can HDS provide retail-ready packaging?","acceptedAnswer":{"@type":"Answer","text":"Depending on the project, HDS can coordinate individual boxes, barcode labels, color boxes, gift packaging and shipping cartons. Packaging dimensions and protection should be approved with the sample."}}]}]}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://www.hdsdrinkware.com/#organization","name":"HDS Drinkware","alternateName":"Shanxi Huandingsheng Industry and Trade Co., Ltd.","legalName":"山西寰鼎盛工贸有限公司","url":"https://www.hdsdrinkware.com/","foundingDate":"2025-08-04","email":"hds.drinkware@gmail.com","telephone":"+86 13994271614","logo":"https://www.hdsdrinkware.com/assets/company-logo.png","image":"https://www.hdsdrinkware.com/assets/hero-premium-custom-drinkware-gift-packaging.jpg","description":"HDS Drinkware is the custom drinkware sourcing and OEM/ODM business operated by Shanxi Huandingsheng Industry and Trade Co., Ltd. HDS works with long-term manufacturing partners in Yongkang and Jinhua to coordinate sourcing, customization, production, project-specific quality control, packaging and international shipping for B2B buyers.","address":{"@type":"PostalAddress","addressLocality":"Taiyuan","addressRegion":"Shanxi","addressCountry":"CN"},"contactPoint":[{"@type":"ContactPoint","contactType":"sales","email":"hds.drinkware@gmail.com","telephone":"+86 13994271614","availableLanguage":["English","Chinese"]}]}</script>
   </head>
@@ -77,8 +150,12 @@
       <aside class="content-review-note" aria-label="Content ownership and review"><strong>Content owner:</strong> HDS Drinkware Sourcing Team. <strong>Last reviewed:</strong> 2026-07-28. Transfer settings and product specifications must be confirmed for the exact blank and the buyer's equipment.</aside>
       <section class="section"><div class="landing-cta-band"><div><h2>Need a bulk sublimation tumbler shortlist?</h2><p>Send your shape, quantity, accessory, packaging and destination requirements.</p></div><a class="button whatsapp" href="https://wa.me/8613994271614?text=Hi%2C%20I%20need%20bulk%20sublimation%20tumblers.%20Please%20share%20models%2C%20MOQ%20and%20sample%20options." target="_blank" rel="noopener">Request Options</a></div></section>
     </main>
-    <footer class="site-footer"><strong>Shanxi Huandingsheng Industry and Trade Co., Ltd.</strong><span>Custom drinkware sourcing, logo, packaging, sample, QC and shipping coordination for overseas B2B buyers.</span><span><a href="../about-hds-drinkware/">About HDS</a> · <a href="../quality-control/">Quality control</a> · <a href="../contact/">Contact</a></span></footer>
+    <footer class="site-footer"><strong>Shanxi Huandingsheng Industry and Trade Co., Ltd.</strong><span>Custom drinkware sourcing, logo, packaging, sample, QC and shipping coordination for overseas B2B buyers.</span><span><a href="../about-hds-drinkware/">About HDS</a> · <a href="../quality-control/">Quality control</a> · <a href="../contact/">Contact</a></span><span class="cookie-settings-wrap"><button type="button" class="cookie-settings-button" data-consent-settings>Cookie Settings</button> · <a href="https://www.hdsdrinkware.com/privacy-policy/">Privacy Policy</a></span></footer>
     <a class="floating-whatsapp" href="https://wa.me/8613994271614?text=Hi%2C%20I%20need%20bulk%20sublimation%20tumblers.%20Please%20share%20models%2C%20MOQ%20and%20sample%20options." target="_blank" rel="noopener" aria-label="Contact HDS on WhatsApp">WA</a>
-    <script src="../script.js?v=20260820-analytics" defer></script>
+    <script src="../script.js?v=20260821-phase3c-consent" defer></script>
+    <section id="hds-consent-banner" class="consent-banner" role="dialog" aria-modal="false" aria-labelledby="hds-consent-title" aria-describedby="hds-consent-description" hidden>
+      <div class="consent-banner-copy"><h2 id="hds-consent-title">Optional analytics cookies</h2><p id="hds-consent-description">HDS Drinkware uses optional analytics cookies to understand site usage and improve the buyer experience. We do not send RFQ form content or contact details to Google Analytics.</p><a href="https://www.hdsdrinkware.com/privacy-policy/">Read the privacy policy</a></div>
+      <div class="consent-banner-actions"><button type="button" class="button primary" data-consent-accept>Accept Analytics</button><button type="button" class="button secondary" data-consent-reject>Reject Optional</button></div>
+    </section>
   </body>
 </html>

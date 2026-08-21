@@ -22,14 +22,98 @@ function installAnalytics(html) {
     .replace(/\s*<!-- Google Tag Manager -->[\s\S]*?<!-- End Google Tag Manager -->/g, "")
     .replace(/\s*<!-- Google Tag Manager \(noscript\) -->[\s\S]*?<!-- End Google Tag Manager \(noscript\) -->/g, "")
     .replace(/\s*<!-- Temporary direct Google tag \(gtag\.js\)[\s\S]*?<!-- End temporary direct Google tag -->/g, "")
-    .replace(new RegExp(`\\s*<!-- Google tag \\(gtag\\.js\\):[\\s\\S]*?gtag\\('config','${ga4MeasurementId}'\\);<\\/script>`, "g"), "");
+    .replace(new RegExp(`\\s*<!-- Google tag \\(gtag\\.js\\):[\\s\\S]*?gtag\\('config','${ga4MeasurementId}'\\);<\\/script>`, "g"), "")
+    .replace(/\s*<!-- HDS consent-first direct GA4 foundation; GTM remains inactive\. -->[\s\S]*?<!-- End HDS consent-first direct GA4 foundation -->/g, "")
+    .replace(/\s*<span class="cookie-settings-wrap">[\s\S]*?<\/span>/g, "")
+    .replace(/\s*<section id="hds-consent-banner"[\s\S]*?<\/section>/g, "");
   const headTags = `
-    <!-- Temporary direct Google tag (gtag.js); remove before enabling GA4 collection in GTM. -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=${ga4MeasurementId}"></script>
-    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=window.gtag||gtag;gtag('js',new Date());gtag('config','${ga4MeasurementId}',{send_page_view:true});</script>
-    <!-- End temporary direct Google tag -->`;
+    <!-- HDS consent-first direct GA4 foundation; GTM remains inactive. -->
+    <script>
+      (() => {
+        const measurementId = ${JSON.stringify(ga4MeasurementId)};
+        const consentKey = "hds_analytics_consent";
+        const denied = { analytics_storage: "denied", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" };
+        const granted = { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" };
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = window.gtag || function gtag() { window.dataLayer.push(arguments); };
+        window.hdsAnalyticsReady = false;
+        window.gtag("consent", "default", { ...denied, wait_for_update: 500 });
+        let analyticsLoaded = false;
+        let analyticsConfigured = false;
+        const readChoice = () => {
+          try {
+            const stored = JSON.parse(window.localStorage.getItem(consentKey) || "null");
+            if (!stored || !["accepted", "rejected"].includes(stored.choice)) return "";
+            const age = Date.now() - Number(stored.updatedAt || 0);
+            return age >= 0 && age < 180 * 24 * 60 * 60 * 1000 ? stored.choice : "";
+          } catch (error) { return ""; }
+        };
+        const writeChoice = (choice) => {
+          try { window.localStorage.setItem(consentKey, JSON.stringify({ choice, updatedAt: Date.now() })); } catch (error) { /* continue without persistence */ }
+        };
+        const updateConsent = (choice) => window.gtag("consent", "update", choice === "accepted" ? granted : denied);
+        const disableAnalytics = () => {
+          window.hdsAnalyticsReady = false;
+          window["ga-disable-" + measurementId] = true;
+          updateConsent("rejected");
+        };
+        const loadAnalytics = () => {
+          window["ga-disable-" + measurementId] = false;
+          updateConsent("accepted");
+          if (!analyticsLoaded) {
+            analyticsLoaded = true;
+            const loader = document.createElement("script");
+            loader.async = true;
+            loader.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(measurementId);
+            document.head.appendChild(loader);
+          }
+          if (!analyticsConfigured) {
+            window.gtag("js", new Date());
+            window.gtag("config", measurementId, { send_page_view: true });
+            analyticsConfigured = true;
+          }
+          window.hdsAnalyticsReady = true;
+        };
+        const setChoice = (choice) => {
+          writeChoice(choice);
+          if (choice === "accepted") loadAnalytics(); else disableAnalytics();
+          document.dispatchEvent(new CustomEvent("hds:consent-changed", { detail: { choice } }));
+          const banner = document.querySelector("#hds-consent-banner");
+          if (banner) banner.hidden = true;
+        };
+        window.hdsConsent = {
+          getChoice: readChoice,
+          hasAnalyticsConsent: () => readChoice() === "accepted",
+          acceptAnalytics: () => setChoice("accepted"),
+          rejectOptional: () => setChoice("rejected"),
+          openSettings: () => {
+            const banner = document.querySelector("#hds-consent-banner");
+            if (banner) { banner.hidden = false; banner.querySelector("button")?.focus(); }
+          },
+        };
+        const choice = readChoice();
+        if (choice === "accepted") loadAnalytics();
+        else if (choice === "rejected") disableAnalytics();
+        document.addEventListener("DOMContentLoaded", () => {
+          const banner = document.querySelector("#hds-consent-banner");
+          if (banner && !choice) banner.hidden = false;
+          document.querySelectorAll("[data-consent-settings]").forEach((button) => button.addEventListener("click", () => window.hdsConsent.openSettings()));
+          banner?.querySelector("[data-consent-accept]")?.addEventListener("click", () => window.hdsConsent.acceptAnalytics());
+          banner?.querySelector("[data-consent-reject]")?.addEventListener("click", () => window.hdsConsent.rejectOptional());
+        });
+      })();
+    </script>
+    <!-- End HDS consent-first direct GA4 foundation -->`;
+  const consentUi = `
+    <section id="hds-consent-banner" class="consent-banner" role="dialog" aria-modal="false" aria-labelledby="hds-consent-title" aria-describedby="hds-consent-description" hidden>
+      <div class="consent-banner-copy"><h2 id="hds-consent-title">Optional analytics cookies</h2><p id="hds-consent-description">HDS Drinkware uses optional analytics cookies to understand site usage and improve the buyer experience. We do not send RFQ form content or contact details to Google Analytics.</p><a href="${site}/privacy-policy/">Read the privacy policy</a></div>
+      <div class="consent-banner-actions"><button type="button" class="button primary" data-consent-accept>Accept Analytics</button><button type="button" class="button secondary" data-consent-reject>Reject Optional</button></div>
+    </section>`;
+  const settingsUi = `<span class="cookie-settings-wrap"><button type="button" class="cookie-settings-button" data-consent-settings>Cookie Settings</button> · <a href="${site}/privacy-policy/">Privacy Policy</a></span>`;
   return cleanedHtml
-    .replace(/(<head(?:\s[^>]*)?>)/i, `$1${headTags}`);
+    .replace(/(<head(?:\s[^>]*)?>)/i, `$1${headTags}`)
+    .replace(/<\/footer>/i, `${settingsUi}</footer>`)
+    .replace(/\s*<\/body>/i, `${consentUi}\n  </body>`);
 }
 const businessFactSource = JSON.parse(fs.readFileSync(path.join(root, "tools", "business-facts.json"), "utf8"));
 const evidenceRegistry = JSON.parse(fs.readFileSync(path.join(root, "tools", "evidence-registry.json"), "utf8"));
@@ -1876,6 +1960,19 @@ writeNoindexCanonicalPage(
   "2026 US Drinkware Tariff Sourcing Guide",
   "This guide has moved to the canonical sourcing guide URL for buyers reviewing tariff impact, landed cost and China drinkware sourcing."
 );
+
+// Available for consent decisions and legal review; excluded from the
+// commercial sitemap until the owner approves final legal publication status.
+writeFile("privacy-policy/index.html", pageShell({
+  title: "Privacy Policy and Analytics Choices | HDS Drinkware",
+  meta: "Factual information about HDS Drinkware analytics consent, Google Analytics, Web3Forms RFQ processing and buyer privacy choices.",
+  slug: "privacy-policy",
+  h1: "Privacy Policy and Analytics Choices",
+  eyebrow: "Privacy information",
+  intro: "This factual implementation note explains the current website measurement and inquiry-processing paths. Owner and legal review are required before treating it as final legal advice.",
+  body: `<section class="section landing-detail"><article><h2>What this site collects</h2><p>HDS Drinkware uses optional Google Analytics 4 only after a visitor chooses Accept Analytics. Before a choice, analytics storage and advertising storage are denied and the GA4 loader does not run. Advertising features remain denied.</p><h2>Analytics cookies and storage</h2><p>When analytics is accepted, Google Analytics may use first-party cookies and browser storage to measure page views and approved non-personal context such as page path, landing path, referrer domain, campaign labels, form name and form location. The consent choice is stored locally as an accepted or rejected value with a timestamp for up to 180 days. No buyer name, email, phone, WhatsApp number, company-entered contact data, message text, artwork URL, full contact URL or other RFQ field is sent to GA4.</p><h2>RFQ processing</h2><p>The RFQ form independently sends the buyer-entered fields needed to process a business inquiry to the approved Web3Forms endpoint. This is the requested business-form workflow, not an analytics transmission. Web3Forms processing and its own privacy terms should be reviewed by the owner.</p><h2>Your choices</h2><p>Select Reject Optional to keep analytics disabled. Use Cookie Settings in the footer at any time to withdraw or grant analytics consent. Withdrawal stops future GA4 collection on this browser; it does not delete an RFQ already submitted to Web3Forms.</p><h2>Future consent and legal review</h2><p>This lightweight banner is a measurement foundation, not a complete UK/EU compliance determination. The owner should confirm the required privacy-policy disclosure, retention details, Google data-processing terms and whether Consent Mode or an approved CMP is needed before making analytics permanent for UK and European visitors.</p></article></section>`,
+  schemas: [breadcrumbSchema([{ name: "Home", url: `${site}/` }, { name: "Privacy Policy", url: `${site}/privacy-policy/` }])],
+}).replace('<meta name="robots" content="index, follow" />', '<meta name="robots" content="noindex, follow" />').replace(/^[ \t]+$/gm, ""));
 
 const faqItems = [
   ["What is the MOQ for custom drinkware?", `${approvedMoq} If you are testing a new market, share your target quantity and sales channel so HDS can review a practical low-MOQ route.`],
