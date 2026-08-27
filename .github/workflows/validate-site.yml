@@ -25,5 +25,8 @@ jobs:
       - name: Validate SEO, links, schemas, assets and regression baseline
         run: node tools/validate-site.mjs
 
+      - name: Validate Phase 4C structured-data architecture
+        run: node tools/validate-schema.mjs
+
       - name: Confirm generated outputs match their source
         run: node tools/generate-seo-site.mjs --check

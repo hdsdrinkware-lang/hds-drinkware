@@ -69,6 +69,8 @@ const schemaContainsType = (value, type) => {
   if (schemaType === type || (Array.isArray(schemaType) && schemaType.includes(type))) return true;
   return Object.values(value).some((item) => schemaContainsType(item, type));
 };
+const topLevelSchemaNodes = (schemas) => schemas.flatMap((schema) => Array.isArray(schema?.["@graph"]) ? schema["@graph"] : [schema]);
+const schemaNodeHasType = (schema, type) => schema?.["@type"] === type || (Array.isArray(schema?.["@type"]) && schema["@type"].includes(type));
 
 const pages = [];
 const titleOwners = new Map();
@@ -145,20 +147,24 @@ for (const file of htmlFiles) {
     else descriptionOwners.set(normalizedDescription, relative);
     if (canonicalOwners.has(canonical)) errors.push(`${relative}: duplicate canonical also used by ${canonicalOwners.get(canonical)}`);
     else canonicalOwners.set(canonical, relative);
-    const topLevelOrganizations = parsedSchemas.filter((schema) => schema?.["@type"] === "Organization");
-    if (topLevelOrganizations.length !== 1) errors.push(`${relative}: expected one top-level Organization schema, found ${topLevelOrganizations.length}`);
-    else {
-      const organization = topLevelOrganizations[0];
-      if (organization.name !== "HDS Drinkware") errors.push(`${relative}: Organization name must be HDS Drinkware`);
-      if (organization.legalName !== "山西寰鼎盛工贸有限公司") errors.push(`${relative}: Organization legalName does not match the verified Chinese entity`);
-      if (organization.alternateName !== "Shanxi Huandingsheng Industry and Trade Co., Ltd.") errors.push(`${relative}: Organization alternateName does not match the approved English business name`);
-      if (organization.foundingDate !== "2025-08-04") errors.push(`${relative}: Organization foundingDate is missing or inconsistent`);
-      if (organization.address?.streetAddress) errors.push(`${relative}: Organization schema exposes an unapproved street address`);
-      if (organization.address?.addressLocality !== "Taiyuan" || organization.address?.addressRegion !== "Shanxi" || organization.address?.addressCountry !== "CN") errors.push(`${relative}: Organization public location is inconsistent`);
+    const schemaNodes = topLevelSchemaNodes(parsedSchemas);
+    const organizationNodes = schemaNodes.filter((schema) => schemaNodeHasType(schema, "Organization"));
+    const websiteNodes = schemaNodes.filter((schema) => schemaNodeHasType(schema, "WebSite"));
+    if (route === "/") {
+      if (organizationNodes.length !== 1) errors.push(`${relative}: homepage must contain exactly one Organization entity, found ${organizationNodes.length}`);
+      if (websiteNodes.length !== 1) errors.push(`${relative}: homepage must contain exactly one WebSite entity, found ${websiteNodes.length}`);
+    } else {
+      if (organizationNodes.length !== 0) errors.push(`${relative}: Organization entity must be defined on homepage only`);
+      if (websiteNodes.length !== 0) errors.push(`${relative}: WebSite entity must be defined on homepage only`);
     }
-    if (!parsedSchemas.some((schema) => schemaContainsType(schema, "BreadcrumbList"))) errors.push(`${relative}: missing BreadcrumbList schema`);
+    if (schemaNodes.some((schema) => schemaContainsType(schema, "FAQPage"))) errors.push(`${relative}: FAQPage schema is not permitted in Phase 4C`);
+    const breadcrumbNodes = schemaNodes.filter((schema) => schemaNodeHasType(schema, "BreadcrumbList"));
+    if (route === "/" && breadcrumbNodes.length !== 0) errors.push(`${relative}: homepage must not contain BreadcrumbList schema`);
+    if (route !== "/" && breadcrumbNodes.length !== 1) errors.push(`${relative}: expected one BreadcrumbList schema, found ${breadcrumbNodes.length}`);
     const isArticle = route.startsWith("/sourcing-guides/") && route !== "/sourcing-guides/";
-    if (isArticle && !parsedSchemas.some((schema) => schemaContainsType(schema, "Article"))) errors.push(`${relative}: missing Article schema for sourcing guide`);
+    const articleNodes = schemaNodes.filter((schema) => schemaNodeHasType(schema, "Article"));
+    if (isArticle && articleNodes.length !== 1) errors.push(`${relative}: expected one Article schema for sourcing guide, found ${articleNodes.length}`);
+    if (!isArticle && articleNodes.length !== 0) errors.push(`${relative}: Article schema is only permitted on sourcing guide detail pages`);
     pages.push({ canonical, file, html, main, relative, route });
   }
 
