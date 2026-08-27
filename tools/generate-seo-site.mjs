@@ -1599,6 +1599,7 @@ function applyBusinessFactConsistency(content, file) {
     .replaceAll("MOQ starts from 200 pcs for selected custom drinkware projects. The final MOQ depends on material, color, logo method, packaging, sample needs and current supply chain availability.", approvedMoq)
     .replaceAll("Our MOQ starts from 200 pcs for selected custom drinkware styles. This allows Amazon, Shopify, and TikTok Shop sellers to validate demand and test custom brand features before scaling up.", approvedMoq)
     .replaceAll("MOQ starts from 200 pcs with logo, color, packaging, sample, and", `${approvedMoq} Logo, color, packaging, sample and`)
+    .replaceAll("Low MOQ from 200 pcs", "Low MOQ on selected models")
     .replaceAll("MOQ from 200 pcs", "Low MOQ on selected models")
     .replaceAll("<dd>200 pcs</dd>", "<dd>Selected-model low MOQ</dd>")
     .replaceAll("placeholder=\"MOQ starts from 200 pcs\"", "placeholder=\"Approximate quantity\"")
@@ -2690,6 +2691,7 @@ const htmlValue = (html, expression) => html.match(expression)?.[1]?.trim() || "
 const normalizedMarkup = (value) => value.replace(/>\s+</g, "><").replace(/\s+/g, " ").trim();
 const mainMarkup = (html) => htmlValue(html, /<main(?:\s[^>]*)?>([\s\S]*?)<\/main>/i);
 const protectedCommercialMain = (html) => normalizedMarkup(mainMarkup(html))
+  .replaceAll("Low Low MOQ on selected models", "Low MOQ on selected models")
   .replace(/<section class="section landing-copy-block"><article><h2>Related Sourcing Guides and Pages<\/h2>[\s\S]*?<\/article><\/section>/gi, "")
   .trim();
 const commercialOutputFiles = new Set([
