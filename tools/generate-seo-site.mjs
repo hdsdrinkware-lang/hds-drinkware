@@ -690,16 +690,40 @@ const relatedClusters = {
   "custom-stainless-steel-tumblers": [["40oz tumbler manufacturing partner", "/custom-40oz-tumbler-manufacturer/"], ["FDA vs LFGB compliance guide", "/sourcing-guides/understanding-fda-vs-lfgb-standards-stainless-steel-bottles/"], ["How to source custom tumblers", "/sourcing-guides/how-to-source-custom-tumblers-from-china/"], ["Calculate drinkware landed cost", "/sourcing-guides/how-to-calculate-landed-cost-importing-drinkware-china/"], ["Drinkware quality control", "/quality-control/"]],
   "custom-water-bottles-with-logo": [["Custom plastic water bottles", "/custom-plastic-water-bottles/"], ["Custom sports water bottles", "/custom-sports-water-bottles/"], ["Custom kids water bottles", "/custom-kids-water-bottles/"], ["Water bottle supplier China", "/custom-water-bottle-supplier-china/"], ["MOQ guide", "/sourcing-guides/what-is-moq-for-custom-drinkware/"]],
   "custom-plastic-water-bottles": [["Custom water bottles with logo", "/custom-water-bottles-with-logo/"], ["Custom sports water bottles", "/custom-sports-water-bottles/"], ["Custom kids water bottles", "/custom-kids-water-bottles/"], ["Plastic vs stainless steel bottles", "/sourcing-guides/stainless-steel-vs-plastic-water-bottles/"], ["Logo method guide", "/sourcing-guides/how-to-choose-logo-method-for-custom-drinkware/"]],
-  "custom-sports-water-bottles": [["Custom water bottles with logo", "/custom-water-bottles-with-logo/"], ["Custom plastic water bottles", "/custom-plastic-water-bottles/"], ["Custom kids water bottles", "/custom-kids-water-bottles/"], ["Drinkware quality control", "/quality-control/"], ["Logo method guide", "/sourcing-guides/how-to-choose-logo-method-for-custom-drinkware/"]],
+  "custom-sports-water-bottles": [["Custom water bottles with logo", "/custom-water-bottles-with-logo/"], ["Custom plastic water bottles", "/custom-plastic-water-bottles/"], ["Custom kids water bottles", "/custom-kids-water-bottles/"], ["Drinkware quality control", "/quality-control/"], ["Logo method guide", "/sourcing-guides/how-to-choose-logo-method-for-custom-drinkware/"], ["Drinkware QC checklist", "/custom-drinkware-quality-control-checklist/"]],
   "custom-kids-water-bottles": [["Custom water bottles with logo", "/custom-water-bottles-with-logo/"], ["Custom plastic water bottles", "/custom-plastic-water-bottles/"], ["Custom sports water bottles", "/custom-sports-water-bottles/"], ["Drinkware quality control", "/quality-control/"], ["Packaging options", "/sourcing-guides/custom-drinkware-packaging-options/"]],
-  "custom-promotional-drinkware": [["Promotional supplier", "/promotional-drinkware-supplier/"], ["Promotional companies", "/custom-drinkware-for-promotional-companies/"], ["Event gifts", "/custom-drinkware-for-event-gifts/"], ["Packaging options", "/sourcing-guides/custom-drinkware-packaging-options/"]],
+  "custom-promotional-drinkware": [["Promotional supplier", "/promotional-drinkware-supplier/"], ["Promotional companies", "/custom-drinkware-for-promotional-companies/"], ["Event gifts", "/custom-drinkware-for-event-gifts/"], ["Packaging options", "/sourcing-guides/custom-drinkware-packaging-options/"], ["Logo drinkware manufacturer", "/logo-drinkware-manufacturer/"]],
   "promotional-drinkware-supplier": [["Promotional drinkware categories", "/custom-promotional-drinkware/"], ["Logo drinkware manufacturer", "/logo-drinkware-manufacturer/"], ["Corporate gifts", "/custom-drinkware-for-corporate-gifts/"], ["Logo method guide", "/sourcing-guides/how-to-choose-logo-method-for-custom-drinkware/"]],
   "custom-drinkware-gift-sets": [["Corporate gifting", "/custom-drinkware-for-corporate-gifts/"], ["Event gifts", "/custom-drinkware-for-event-gifts/"], ["Corporate gift bottles", "/custom-water-bottles-for-corporate-gifts/"], ["Packaging guide", "/sourcing-guides/custom-drinkware-packaging-options/"]],
   "custom-drinkware-for-corporate-gifts": [["Gift sets and packaging", "/custom-drinkware-gift-sets/"], ["Corporate gift bottles", "/custom-water-bottles-for-corporate-gifts/"], ["Event gifts", "/custom-drinkware-for-event-gifts/"], ["Packaging guide", "/sourcing-guides/custom-drinkware-packaging-options/"]],
-  "low-moq-custom-drinkware": [["Low MOQ logo bottles", "/custom-water-bottles-with-logo/"], ["Low MOQ logo tumblers", "/low-moq-custom-tumblers-with-logo/"], ["MOQ guide", "/sourcing-guides/what-is-moq-for-custom-drinkware/"], ["Request quote checklist", "/sourcing-guides/what-to-provide-before-requesting-quote/"]],
-  "oem-drinkware-supplier-china": [["Private label drinkware", "/private-label-drinkware-supplier/"], ["Wholesale supplier China", "/wholesale-drinkware-supplier-china/"], ["Factory and supply chain", "/factory-supply-chain/"], ["Production timeline", "/sourcing-guides/custom-drinkware-production-timeline/"]],
-  "wholesale-drinkware-supplier-china": [["Distributors drinkware", "/custom-drinkware-for-distributors/"], ["OEM drinkware supplier", "/oem-drinkware-supplier-china/"], ["Shipping support", "/shipping-support/"], ["DDP/DDU shipping guide", "/sourcing-guides/ddp-ddu-shipping-for-custom-drinkware/"]],
+  "low-moq-custom-drinkware": [["Low MOQ logo bottles", "/custom-water-bottles-with-logo/"], ["Low MOQ logo tumblers", "/low-moq-custom-tumblers-with-logo/"], ["MOQ guide", "/sourcing-guides/what-is-moq-for-custom-drinkware/"], ["Request quote checklist", "/sourcing-guides/what-to-provide-before-requesting-quote/"], ["Low MOQ water bottle scenario", "/case-studies/low-moq-custom-water-bottles-for-startup-brand/"]],
+  "oem-drinkware-supplier-china": [["Private label drinkware", "/private-label-drinkware-supplier/"], ["Wholesale supplier China", "/wholesale-drinkware-supplier-china/"], ["Factory and supply chain", "/factory-supply-chain/"], ["Production timeline", "/sourcing-guides/custom-drinkware-production-timeline/"], ["China drinkware sourcing agent", "/drinkware-sourcing-agent-china/"]],
+  "wholesale-drinkware-supplier-china": [["Distributors drinkware", "/custom-drinkware-for-distributors/"], ["OEM drinkware supplier", "/oem-drinkware-supplier-china/"], ["Shipping support", "/shipping-support/"], ["DDP/DDU shipping guide", "/sourcing-guides/ddp-ddu-shipping-for-custom-drinkware/"], ["China drinkware sourcing agent", "/drinkware-sourcing-agent-china/"], ["German EPR and LUCID guide", "/sourcing-guides/how-to-comply-with-german-epr-lucid-for-drinkware/"]],
   "drinkware-sourcing-agent-china": [["Factory supply chain", "/factory-supply-chain/"], ["Quality control", "/quality-control/"], ["OEM drinkware supplier", "/oem-drinkware-supplier-china/"], ["How to source tumblers", "/sourcing-guides/how-to-source-custom-tumblers-from-china/"]],
+  "custom-coffee-travel-mugs": [["Stainless steel tumblers", "/custom-stainless-steel-tumblers/"], ["Custom tumbler supplier China", "/custom-tumbler-supplier-china/"], ["Custom drinkware for distributors", "/custom-drinkware-for-distributors/"], ["Bulk sublimation tumblers", "/sublimation-tumblers-bulk-supplier/"]],
+  "custom-drinkware-for-amazon-sellers": [["40oz tumbler manufacturing", "/custom-40oz-tumbler-manufacturer/"], ["Amazon FBA sourcing guide", "/sourcing-guides/amazon-drinkware-sourcing-guide-2026/"], ["Low MOQ custom tumblers", "/low-moq-custom-tumblers-with-logo/"], ["Custom tumbler packaging guide", "/custom-tumbler-packaging-guide/"], ["Drinkware QC checklist", "/custom-drinkware-quality-control-checklist/"], ["Amazon 40oz planning scenario", "/case-studies/custom-40oz-tumblers-for-amazon-seller/"]],
+  "custom-drinkware-for-shopify-brands": [["Private label drinkware supplier", "/private-label-drinkware-supplier/"], ["Shopify and Amazon sourcing", "/custom-drinkware-for-amazon-sellers/"], ["Custom tumbler packaging guide", "/custom-tumbler-packaging-guide/"], ["Artwork preparation guide", "/sourcing-guides/artwork-preparation-for-custom-drinkware/"]],
+  "custom-drinkware-for-event-gifts": [["Promotional drinkware categories", "/custom-promotional-drinkware/"], ["Custom drinkware gift sets", "/custom-drinkware-gift-sets/"], ["Corporate gift drinkware", "/custom-drinkware-for-corporate-gifts/"], ["Promotional company sourcing", "/custom-drinkware-for-promotional-companies/"], ["Event gift planning scenario", "/case-studies/custom-drinkware-gift-sets-for-event-promotion/"]],
+  "custom-drinkware-for-distributors": [["Wholesale drinkware supplier", "/wholesale-drinkware-supplier-china/"], ["Custom coffee travel mugs", "/custom-coffee-travel-mugs/"], ["DDP drinkware shipping", "/ddp-shipping-for-custom-drinkware-orders/"], ["US tariff and landed-cost guide", "/sourcing-guides/2026-us-section-301-tariffs-impact-on-drinkware/"], ["Brazil drinkware logistics guide", "/sourcing-guides/sourcing-drinkware-for-brazil-brazil/"]],
+  "custom-drinkware-for-promotional-companies": [["Promotional drinkware categories", "/custom-promotional-drinkware/"], ["Event gift drinkware", "/custom-drinkware-for-event-gifts/"], ["Distributor drinkware sourcing", "/custom-drinkware-for-distributors/"], ["Custom tumbler packaging guide", "/custom-tumbler-packaging-guide/"]],
+  "private-label-stainless-steel-tumblers-china": [["Custom stainless steel tumblers", "/custom-stainless-steel-tumblers/"], ["Private label drinkware supplier", "/private-label-drinkware-supplier/"], ["Shopify brand drinkware", "/custom-drinkware-for-shopify-brands/"], ["Recycled stainless steel tumblers", "/recycled-stainless-steel-tumblers-wholesale/"], ["Low MOQ logo tumblers", "/low-moq-custom-tumblers-with-logo/"], ["Drinkware cost breakdown", "/sourcing-guides/2026-custom-logo-drinkware-cost-breakdown/"], ["Corporate tumbler gift scenario", "/case-studies/custom-stainless-steel-tumblers-for-corporate-gift-buyer/"]],
+  "logo-drinkware-manufacturer": [["Logo application and decoration", "/sourcing-guides/how-to-choose-logo-method-for-custom-drinkware/"], ["Laser vs screen vs UV guide", "/sourcing-guides/laser-engraving-vs-silk-screen-vs-uv-printing/"], ["Artwork preparation guide", "/sourcing-guides/artwork-preparation-for-custom-drinkware/"], ["Custom tumbler supplier China", "/custom-tumbler-supplier-china/"]],
+  "custom-tumbler-packaging-guide": [["Custom drinkware gift sets", "/custom-drinkware-gift-sets/"], ["Custom tumbler packaging options", "/sourcing-guides/custom-drinkware-packaging-options/"], ["Custom tumbler supplier China", "/custom-tumbler-supplier-china/"], ["Amazon FBA drinkware sourcing", "/custom-drinkware-for-amazon-sellers/"]],
+  "ddp-shipping-for-custom-drinkware-orders": [["Shipping support", "/shipping-support/"], ["Wholesale drinkware supplier", "/wholesale-drinkware-supplier-china/"], ["Distributors drinkware sourcing", "/custom-drinkware-for-distributors/"], ["DDP drinkware planning scenario", "/case-studies/ddp-shipping-drinkware-order-to-overseas-buyer/"], ["German EPR and LUCID guide", "/sourcing-guides/how-to-comply-with-german-epr-lucid-for-drinkware/"]],
+  "custom-drinkware-quality-control-checklist": [["Drinkware quality control", "/quality-control/"], ["40oz tumbler manufacturing", "/custom-40oz-tumbler-manufacturer/"], ["Amazon FBA drinkware sourcing", "/custom-drinkware-for-amazon-sellers/"], ["Sports bottle quality checks", "/custom-sports-water-bottles/"]],
+  "custom-drinkware-gift-set-ideas-for-wholesale-buyers": [["Custom drinkware gift sets", "/custom-drinkware-gift-sets/"], ["Wholesale drinkware supplier", "/wholesale-drinkware-supplier-china/"], ["Corporate gift drinkware", "/custom-drinkware-for-corporate-gifts/"]],
+};
+
+const guideRelatedClusters = {
+  "sourcing-drinkware-for-brazil-brazil": [["Custom water bottles with logo", "/custom-water-bottles-with-logo/"], ["DDP/DDU shipping guide", "/sourcing-guides/ddp-ddu-shipping-for-custom-drinkware/"]],
+  "2026-us-section-301-tariffs-impact-on-drinkware": [["Landed-cost formula", "/sourcing-guides/how-to-calculate-landed-cost-importing-drinkware-china/"], ["Amazon FBA drinkware sourcing", "/custom-drinkware-for-amazon-sellers/"]],
+  "amazon-drinkware-sourcing-guide-2026": [["Amazon seller drinkware page", "/custom-drinkware-for-amazon-sellers/"], ["Low MOQ custom tumblers", "/sourcing-guides/custom-tumblers-for-amazon-sellers/"]],
+  "laser-engraving-vs-silk-screen-vs-uv-printing": [["Logo drinkware manufacturer", "/logo-drinkware-manufacturer/"], ["Choose a logo method", "/sourcing-guides/how-to-choose-logo-method-for-custom-drinkware/"]],
+  "custom-tumblers-for-amazon-sellers": [["Amazon seller drinkware page", "/custom-drinkware-for-amazon-sellers/"], ["Low MOQ custom tumblers", "/low-moq-custom-tumblers-with-logo/"]],
+  "artwork-preparation-for-custom-drinkware": [["Logo drinkware manufacturer", "/logo-drinkware-manufacturer/"], ["Choose a logo method", "/sourcing-guides/how-to-choose-logo-method-for-custom-drinkware/"]],
+  "custom-drinkware-production-timeline": [["OEM drinkware supplier", "/oem-drinkware-supplier-china/"], ["Private label drinkware supplier", "/private-label-drinkware-supplier/"]],
+  "2026-custom-logo-drinkware-cost-breakdown": [["Custom stainless steel tumblers", "/custom-stainless-steel-tumblers/"], ["Landed-cost formula", "/sourcing-guides/how-to-calculate-landed-cost-importing-drinkware-china/"]],
+  "ddp-ddu-shipping-for-custom-drinkware": [["DDP shipping support", "/ddp-shipping-for-custom-drinkware-orders/"], ["Shipping support", "/shipping-support/"]],
 };
 
 const conversionProfiles = {
@@ -1531,6 +1555,12 @@ function relatedLinks(slug) {
   return links.map(([label, href]) => `<a href="${href}">${label}</a>`).join(" | ");
 }
 
+function guideRelatedLinks(slug) {
+  const links = guideRelatedClusters[slug];
+  if (!links?.length) return "";
+  return `<section class="section landing-copy-block landing-internal-links"><article><h2>Related Buyer Resources</h2><p>${links.map(([label, href]) => `<a href="${href}">${label}</a>`).join(" | ")}</p></article></section>`;
+}
+
 function renderReconciledPage(source) {
   return pageShell({
     title: source.title,
@@ -1943,7 +1973,7 @@ for (const [slug, title, topic] of guides) {
     h1: title,
     eyebrow: "Sourcing guide",
     intro: guideIntroOverrides[slug] || `This guide explains ${topic} for B2B buyers sourcing custom drinkware from China. It is written for buyers who need clear MOQ, logo, packaging, sample and shipping preparation before requesting a quote.`,
-    body: guide.body,
+    body: `${guide.body}${guideRelatedLinks(slug)}`,
     depth: 2,
     schemas: [
       breadcrumbSchema([{ name: "Home", url: `${site}/` }, { name: "Sourcing Guides", url: `${site}/sourcing-guides/` }, { name: title, url: `${site}/sourcing-guides/${slug}/` }]),
@@ -2659,6 +2689,9 @@ HDS Drinkware is the custom drinkware sourcing and OEM/ODM business operated by 
 const htmlValue = (html, expression) => html.match(expression)?.[1]?.trim() || "";
 const normalizedMarkup = (value) => value.replace(/>\s+</g, "><").replace(/\s+/g, " ").trim();
 const mainMarkup = (html) => htmlValue(html, /<main(?:\s[^>]*)?>([\s\S]*?)<\/main>/i);
+const protectedCommercialMain = (html) => normalizedMarkup(mainMarkup(html))
+  .replace(/<section class="section landing-copy-block"><article><h2>Related Sourcing Guides and Pages<\/h2>[\s\S]*?<\/article><\/section>/gi, "")
+  .trim();
 const commercialOutputFiles = new Set([
   ...productPages.map(([slug]) => `${slug}/index.html`),
   "recycled-stainless-steel-tumblers-wholesale/index.html",
@@ -2691,8 +2724,8 @@ function verifyProtectedProductionState() {
       }
     }
 
-    const normalizedCurrentMain = normalizedMarkup(mainMarkup(currentWithApprovedFacts));
-    if (commercialOutputFiles.has(file) && !approvedIdentityTitleFiles.has(file) && normalizedCurrentMain !== normalizedMarkup(mainMarkup(expected))) {
+    const normalizedCurrentMain = protectedCommercialMain(currentWithApprovedFacts);
+    if (commercialOutputFiles.has(file) && !approvedIdentityTitleFiles.has(file) && normalizedCurrentMain !== protectedCommercialMain(expected)) {
       failures.push(`${file}: protected commercial <main> content would change`);
     }
   }
