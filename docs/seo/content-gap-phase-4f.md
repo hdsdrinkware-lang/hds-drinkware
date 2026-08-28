@@ -196,7 +196,7 @@ Eight ideas were rejected: geography variants; supplier/manufacturer/factory key
 
 ## Deployment and indexing
 
-Implementation changed the homepage output and generator consistency rule. The work was committed and pushed normally to `main`; no force push or reset was used. The production page should be checked after Pages deployment for the corrected homepage phrase, and the validation workflow plus IndexNow workflow should be recorded against the new commit.
+Implementation changed the homepage output and generator consistency rule. The work was committed and pushed normally to `main`; no force push or reset was used. GitHub Pages deployment, static SEO validation and IndexNow all completed successfully for the new commit. Live checks confirmed the homepage now serves `Low MOQ on selected models`, with `index, follow` and a self-canonical; the primary 40oz commercial page also retained its title, H1, canonical, robots and JSON-LD.
 
 No new URL requires indexing. The materially updated existing URL is:
 
