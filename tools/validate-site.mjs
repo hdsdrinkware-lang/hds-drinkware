@@ -4,6 +4,7 @@ import path from "node:path";
 import { siteConfig } from "./site-config.mjs";
 import "./test-form-analytics.mjs";
 import "./test-consent-foundation.mjs";
+import "./test-cta-analytics.mjs";
 
 const root = process.cwd();
 const siteOrigin = siteConfig.origin;
@@ -322,7 +323,9 @@ for (const file of scenarioFiles) {
 const homeHtml = fs.readFileSync(path.join(root, "index.html"), "utf8");
 const homeQuoteForm = homeHtml.match(/<form\s+class=["']quote-form["'][\s\S]*?<\/form>/i)?.[0] || "";
 const requiredHomeFields = [...homeQuoteForm.matchAll(/<(?:input|select|textarea)\b[^>]*\brequired\b/gi)];
-if (requiredHomeFields.length !== 4) errors.push(`index.html: homepage quote form must keep exactly 4 required fields, found ${requiredHomeFields.length}`);
+if (homeHtml.includes('name="drinkware-inquiry"')) errors.push("index.html: canonical drinkware RFQ must live on contact/index.html only");
+if (!homeHtml.includes('href="contact/#rfq-form"') || !homeHtml.includes(">Request a Quote</a>")) errors.push("index.html: homepage must expose a direct canonical RFQ CTA");
+if (requiredHomeFields.length !== 0) errors.push(`index.html: homepage must not duplicate canonical RFQ fields, found ${requiredHomeFields.length}`);
 if (/Download PDF/i.test(homeHtml)) errors.push("index.html: catalog CTA promises an immediate PDF download");
 
 const contactHtml = fs.readFileSync(path.join(root, "contact", "index.html"), "utf8");
@@ -331,14 +334,14 @@ if (contactForm) {
   if (!/action=["']https:\/\/api\.web3forms\.com\/submit["']/i.test(contactForm) || !/method=["']POST["']/i.test(contactForm)) errors.push("contact/index.html: Web3Forms endpoint or method changed");
   if (!/<input\b[^>]*name=["']access_key["'][^>]*value=["']45e7b7c2-d1c6-4019-a627-1d3f6bbadbab["']/i.test(contactForm)) errors.push("contact/index.html: existing Web3Forms access-key configuration changed");
   const requiredNames = [...contactForm.matchAll(/<(?:input|select|textarea)\b(?=[^>]*\brequired\b)[^>]*\bname=["']([^"']+)/gi)].map((item) => item[1]).sort();
-  const expectedRequiredNames = ["country", "email", "name", "product", "quantity"].sort();
+  const expectedRequiredNames = ["email", "name", "product", "quantity"].sort();
   if (requiredNames.join("|") !== expectedRequiredNames.join("|")) errors.push(`contact/index.html: RFQ required fields are ${requiredNames.join(", ") || "missing"}`);
   if (/type=["']file["']/i.test(contactForm)) errors.push("contact/index.html: file upload field must not be present in Phase 1");
 }
 
 const conversionScript = fs.readFileSync(path.join(root, "script.js"), "utf8");
 for (const field of ["landing_page", "initial_referrer", "utm_source", "utm_medium", "utm_campaign", "page_url"]) if (!conversionScript.includes(field)) errors.push(`script.js: missing lead attribution field ${field}`);
-for (const eventName of ["form_start", "rfq_submit", "form_submit_success", "form_submit_error", "whatsapp_click", "email_click"]) if (!conversionScript.includes(`\"${eventName}\"`)) errors.push(`script.js: missing analytics event ${eventName}`);
+for (const eventName of ["form_start", "rfq_submit", "form_submit_success", "form_submit_error", "whatsapp_click", "email_click", "cta_click"]) if (!conversionScript.includes(`\"${eventName}\"`)) errors.push(`script.js: missing analytics event ${eventName}`);
 if (/trackConversionEvent\(["']qualified_rfq/i.test(conversionScript)) errors.push("script.js: qualified_rfq must not fire from frontend code");
 if (/\b(?:form|formElement|target|currentTarget)\.name\b/.test(conversionScript)) errors.push("script.js: form identity must use an explicit name attribute lookup");
 if (!conversionScript.includes("Source page:")) errors.push("script.js: WhatsApp messages do not include the source page");

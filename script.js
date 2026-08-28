@@ -25,8 +25,8 @@ const catalogCopy =
   "Logo, color, packaging, sample, and bulk quotation support available for wholesale and gift buyers.";
 
 const trackConversionEvent = (eventName, params = {}) => {
-  window.dataLayer.push({ event: eventName, ...params });
   if (window.hdsAnalyticsReady !== true || typeof window.gtag !== "function") return;
+  window.dataLayer.push({ event: eventName, ...params });
   window.gtag("event", eventName, params);
   if (eventName === "form_submit_success") {
     window.gtag("event", "generate_lead", params);
@@ -105,6 +105,32 @@ const getAnalyticsContext = () => {
   };
 };
 
+const getPageIntent = () => {
+  const path = window.location.pathname.toLowerCase();
+  if (path.includes("40oz")) return "40oz_tumbler";
+  if (path.includes("stainless-steel-tumbler")) return "stainless_tumbler";
+  if (path.includes("gift-set")) return "gift_set";
+  if (path.includes("wholesale")) return "wholesale";
+  if (path.includes("low-moq")) return "low_moq_test";
+  if (path.includes("oem")) return "oem_odm";
+  if (path.includes("water-bottle") || path.includes("water-bottles")) return "water_bottle";
+  return "general";
+};
+
+const safeContextValue = (value, fallback = "") => {
+  const normalized = String(value || "").replace(/[\r\n]/g, " ").trim().slice(0, 120);
+  return normalized || fallback;
+};
+
+const getRfqContext = () => {
+  const search = new URLSearchParams(window.location.search);
+  return {
+    rfq_source_page: safeContextValue(search.get("source_page"), window.location.pathname || "/"),
+    rfq_inquiry_type: safeContextValue(search.get("inquiry_type"), getPageIntent()),
+    rfq_product: safeContextValue(search.get("product")),
+  };
+};
+
 const getFormName = (formElement) => formElement.getAttribute("name") || "";
 
 const getFormEventParameters = (formElement) => ({
@@ -115,6 +141,15 @@ const getFormEventParameters = (formElement) => ({
 
 document.querySelectorAll(".mobile-navigation").forEach((menu) => {
   const summary = menu.querySelector("summary");
+  const mobileNav = menu.querySelector("nav");
+  if (mobileNav && !mobileNav.querySelector(".mobile-menu-cta")) {
+    const quoteLink = document.createElement("a");
+    quoteLink.className = "mobile-menu-cta";
+    quoteLink.href = "/contact/#rfq-form";
+    quoteLink.dataset.ctaType = "rfq";
+    quoteLink.textContent = "Request a Quote";
+    mobileNav.prepend(quoteLink);
+  }
   summary?.addEventListener("keydown", (event) => {
     if (!["Enter", " ", "Spacebar"].includes(event.key)) return;
     event.preventDefault();
@@ -142,6 +177,11 @@ const prepareFormAttribution = (formElement) => {
   Object.entries(attribution).forEach(([name, value]) => {
     setHiddenFormValue(formElement, name, value);
   });
+  if (getFormName(formElement) === "drinkware-inquiry") {
+    Object.entries(getRfqContext()).forEach(([name, value]) => {
+      setHiddenFormValue(formElement, name, value);
+    });
+  }
   return attribution;
 };
 
@@ -160,8 +200,8 @@ if (catalogGrid) {
             <h3>${name}</h3>
             <p>${catalogCopy}</p>
             <div class="product-actions">
-              <a class="product-whatsapp" href="https://wa.me/8613994271614?text=${message}" target="_blank" rel="noopener" data-track-event="whatsapp_click" data-track-label="${name}">Ask Price on WhatsApp</a>
-              <a class="product-quote" href="#inquiry" data-track-label="${name}">Request Quote</a>
+              <a class="product-whatsapp" href="https://wa.me/8613994271614?text=${message}" target="_blank" rel="noopener" data-cta-type="whatsapp" data-track-event="whatsapp_click" data-track-label="${name}">Ask Price on WhatsApp</a>
+              <a class="product-quote" href="/contact/#rfq-form" data-cta-type="rfq" data-rfq-product="${name}">Request a Quote</a>
             </div>
           </div>
         </article>
@@ -285,11 +325,60 @@ document.querySelectorAll("form").forEach((formElement) => {
   });
 });
 
+const getCtaLabel = (link) => String(
+  link.getAttribute("aria-label") || link.textContent || link.innerText || link.dataset.trackLabel || ""
+).replace(/\s+/g, " ").trim().slice(0, 80);
+
+const getCtaPlacement = (link) => {
+  if (link.closest?.(".mobile-navigation")) return "mobile_menu";
+  if (link.closest?.(".site-header")) return "navigation";
+  if (link.closest?.(".hero, .landing-hero")) return "hero";
+  if (link.closest?.(".product-card, .catalog-card, .line-grid")) return "product_page";
+  if (link.closest?.(".landing-cta-band, .inquiry-section, .contact-rfq-section")) return "commercial_page";
+  if (link.closest?.(".site-footer")) return "footer";
+  return "page_content";
+};
+
+const getRfqHrefWithContext = (link, href) => {
+  try {
+    const url = new URL(href, window.location.href);
+    if (url.origin !== window.location.origin || url.pathname !== "/contact/" || url.hash !== "#rfq-form") return href;
+    url.searchParams.set("source_page", window.location.pathname || "/");
+    url.searchParams.set("inquiry_type", link.dataset.rfqIntent || getPageIntent());
+    if (link.dataset.rfqProduct) url.searchParams.set("product", link.dataset.rfqProduct);
+    return `${url.pathname}${url.search}${url.hash}`;
+  } catch (error) {
+    return href;
+  }
+};
+
+const getCtaType = (link, href, label) => {
+  if (link.dataset.ctaType) return link.dataset.ctaType;
+  if (href.includes("wa.me")) return "whatsapp";
+  if (href.startsWith("mailto:")) return "email";
+  if ((href.includes("/contact/") && href.includes("#rfq-form")) || /request (a )?quote|send .*quote|send .*details|submit rfq/i.test(label)) return "rfq";
+  if (href === "#products" || /view products|explore products/i.test(label)) return "product_navigation";
+  return "";
+};
+
+const getDestinationType = (ctaType) => ({
+  rfq: "rfq",
+  whatsapp: "whatsapp",
+  email: "email",
+  product_navigation: "product_navigation",
+})[ctaType] || "internal_page";
+
 document.addEventListener("click", (event) => {
   const link = event.target.closest("a[href], button");
   if (!link) return;
 
   let href = link.getAttribute("href") || "";
+  const label = getCtaLabel(link);
+  const rfqHref = getRfqHrefWithContext(link, href);
+  if (rfqHref !== href) {
+    href = rfqHref;
+    link.setAttribute("href", href);
+  }
   if (href.includes("wa.me")) {
     try {
       const whatsappLink = new URL(href);
@@ -305,6 +394,16 @@ document.addEventListener("click", (event) => {
     } catch (error) {
       // Keep the original WhatsApp link if URL parsing fails.
     }
+  }
+  const ctaType = getCtaType(link, href, label);
+  if (ctaType) {
+    trackConversionEvent("cta_click", {
+      cta_type: ctaType,
+      cta_label: label,
+      page_path: window.location.pathname,
+      destination_type: getDestinationType(ctaType),
+      placement: getCtaPlacement(link),
+    });
   }
   const eventName = href.includes("wa.me") ? "whatsapp_click" : href.startsWith("mailto:") ? "email_click" : "";
   if (!eventName) return;
@@ -325,6 +424,8 @@ document.addEventListener("click", (event) => {
     page_path: window.location.pathname,
     link_location: linkLocation,
     contact_method: eventName === "whatsapp_click" ? "whatsapp" : "email",
+    cta_label: label,
+    placement: getCtaPlacement(link),
   });
 });
 

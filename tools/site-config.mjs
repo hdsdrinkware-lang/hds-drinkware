@@ -9,8 +9,8 @@ export const siteConfig = {
     futureGtmContainerId: "GTM-5TKCQVL",
   },
   assetVersions: {
-    styles: "20260821-phase3c-consent",
-    script: "20260821-phase3c-consent",
+    styles: "20260828-phase5b-cta-rfq",
+    script: "20260828-phase5b-cta-rfq",
   },
 };
 

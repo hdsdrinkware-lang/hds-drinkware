@@ -159,6 +159,16 @@ a {
   outline-offset: 3px;
 }
 
+.mobile-navigation nav .mobile-menu-cta {
+  color: var(--white);
+  background: var(--coral);
+}
+
+.mobile-navigation nav .mobile-menu-cta:hover {
+  color: var(--white);
+  background: #aa4c38;
+}
+
 .header-cta,
 .header-whatsapp,
 .button,
@@ -1821,6 +1831,34 @@ h3 {
   flex-wrap: wrap;
   gap: 12px;
   margin-top: 24px;
+}
+
+.inquiry-canonical-route {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  padding: 28px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.inquiry-canonical-route .eyebrow,
+.inquiry-canonical-route .canonical-route-heading,
+.inquiry-canonical-route p:not(.eyebrow) {
+  margin-bottom: 0;
+}
+
+.inquiry-canonical-route .canonical-route-heading {
+  color: var(--ink);
+  font-size: 24px;
+  font-weight: 850;
+  line-height: 1.2;
+}
+
+.inquiry-canonical-route p:not(.eyebrow) {
+  color: var(--muted);
 }
 
 .inquiry-priority-note {
