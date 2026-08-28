@@ -334,7 +334,7 @@ if (contactForm) {
   if (!/action=["']https:\/\/api\.web3forms\.com\/submit["']/i.test(contactForm) || !/method=["']POST["']/i.test(contactForm)) errors.push("contact/index.html: Web3Forms endpoint or method changed");
   if (!/<input\b[^>]*name=["']access_key["'][^>]*value=["']45e7b7c2-d1c6-4019-a627-1d3f6bbadbab["']/i.test(contactForm)) errors.push("contact/index.html: existing Web3Forms access-key configuration changed");
   const requiredNames = [...contactForm.matchAll(/<(?:input|select|textarea)\b(?=[^>]*\brequired\b)[^>]*\bname=["']([^"']+)/gi)].map((item) => item[1]).sort();
-  const expectedRequiredNames = ["email", "name", "product", "quantity"].sort();
+  const expectedRequiredNames = ["country", "name", "quantity"].sort();
   if (requiredNames.join("|") !== expectedRequiredNames.join("|")) errors.push(`contact/index.html: RFQ required fields are ${requiredNames.join(", ") || "missing"}`);
   if (/type=["']file["']/i.test(contactForm)) errors.push("contact/index.html: file upload field must not be present in Phase 1");
 }

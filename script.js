@@ -261,6 +261,16 @@ document.querySelectorAll("form").forEach((formElement) => {
     prepareFormAttribution(formElement);
     const formName = getFormName(formElement);
     if (formName === "drinkware-inquiry") {
+      const contactData = new FormData(formElement);
+      const emailValue = String(contactData.get("email") || "").trim();
+      const whatsappValue = String(contactData.get("whatsapp") || "").trim();
+      if (!emailValue && !whatsappValue) {
+        const contactStatus = formElement.querySelector(".form-status");
+        if (contactStatus) contactStatus.textContent = "Please provide an email address or WhatsApp number so HDS can reply.";
+        return;
+      }
+    }
+    if (formName === "drinkware-inquiry") {
       trackConversionEvent("rfq_submit", getFormEventParameters(formElement));
     }
 

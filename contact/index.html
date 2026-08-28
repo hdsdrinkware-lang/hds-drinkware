@@ -117,8 +117,8 @@
     <section class="section contact-rfq-section" aria-labelledby="rfq-heading">
       <div class="contact-rfq-intro">
         <p class="eyebrow">B2B RFQ</p>
-        <h2 id="rfq-heading">Send Your Custom Drinkware Requirements</h2>
-        <p>Share the product, approximate quantity, destination and customization requirements available now. HDS can use these details to evaluate a practical quotation path.</p>
+        <h2 id="rfq-heading">Send a Product Photo or Requirement</h2>
+        <p>Share the product reference, approximate quantity and destination. HDS will help identify the product, customization method, MOQ and quotation path. Email or WhatsApp is enough to start.</p>
         <div class="contact-alternatives" aria-label="Alternative contact methods">
           <a class="button whatsapp" href="https://wa.me/8613994271614?text=Hi%20HDS%20Drinkware%2C%20I%20would%20like%20to%20discuss%20a%20custom%20drinkware%20RFQ." target="_blank" rel="noopener">WhatsApp Us</a>
           <a class="button secondary" href="mailto:hds.drinkware@gmail.com">Email Us</a>
@@ -129,13 +129,12 @@
         <input type="hidden" name="subject" value="New HDS B2B Drinkware RFQ" />
         <input type="hidden" name="from_name" value="HDS Drinkware Contact Page RFQ" />
         <label>Name <input name="name" type="text" autocomplete="name" required /></label>
-        <label>Company <input name="company" type="text" autocomplete="organization" /></label>
-        <label>Business Email <input name="email" type="email" autocomplete="email" required /></label>
+        <label>Business Email <input name="email" type="email" autocomplete="email" placeholder="Or provide WhatsApp below" /></label>
         <label>WhatsApp <input name="whatsapp" type="tel" autocomplete="tel" placeholder="Include country code" /></label>
-        <label>Country / Destination <input name="country" type="text" autocomplete="country-name" placeholder="Optional for first quote" /></label>
+        <label>Destination Country <input name="country" type="text" autocomplete="country-name" required /></label>
         <label>Product
-          <select name="product" required>
-            <option value="">Select a product</option>
+          <select name="product">
+            <option value="">Select if known</option>
             <option>Custom tumblers</option>
             <option>Custom water bottles</option>
             <option>Sports or kids bottles</option>
@@ -145,12 +144,12 @@
             <option>Other custom drinkware</option>
           </select>
         </label>
-        <label>Estimated Quantity <input name="quantity" type="text" inputmode="numeric" required /></label>
-        <label class="full">Customization Requirements <textarea name="customization_requirements" rows="3" placeholder="Logo method, color, capacity, finish or other requirements"></textarea></label>
-        <label class="full">Packaging Requirements <textarea name="packaging_requirements" rows="3" placeholder="Standard box, retail box, gift packaging, labels or carton marks"></textarea></label>
-        <label class="full">Message <textarea name="message" rows="4" placeholder="Timeline, buyer channel, shipping preference or other project details"></textarea></label>
-        <p class="form-file-note full">After submitting the RFQ, you can share artwork or product-reference files with HDS by replying to email or continuing the discussion on WhatsApp.</p>
-        <button type="submit" class="full">Submit RFQ</button>
+        <label>Estimated Quantity <input name="quantity" type="text" inputmode="numeric" placeholder="For example: 200 pcs" required /></label>
+        <label class="full">Product Photo / Reference Link <input name="photo_link_upload" type="url" placeholder="Paste a product page, image link or marketplace URL if available" /></label>
+        <label class="full">Packaging Requirements <textarea name="packaging_requirements" rows="2" placeholder="Standard box, retail box, gift packaging, labels or carton marks (optional)"></textarea></label>
+        <label class="full">Message <textarea name="message" rows="3" placeholder="Logo, color, capacity, finish, buyer channel, timeline or other details (optional)"></textarea></label>
+        <p class="form-file-note full">This static form does not upload files directly. After submitting, reply by email or continue on WhatsApp to send artwork or product-reference images.</p>
+        <button type="submit" class="full">Send My Quote Request</button>
         <p class="form-status full" aria-live="polite"></p>
       </form>
     </section>
