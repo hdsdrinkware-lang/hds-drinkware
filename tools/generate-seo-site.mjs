@@ -1601,6 +1601,7 @@ function applyBusinessFactConsistency(content, file) {
     .replaceAll("MOQ starts from 200 pcs with logo, color, packaging, sample, and", `${approvedMoq} Logo, color, packaging, sample and`)
     .replaceAll("Low MOQ from 200 pcs", "Low MOQ on selected models")
     .replaceAll("MOQ from 200 pcs", "Low MOQ on selected models")
+    .replaceAll("Low Low MOQ on selected models", "Low MOQ on selected models")
     .replaceAll("<dd>200 pcs</dd>", "<dd>Selected-model low MOQ</dd>")
     .replaceAll("placeholder=\"MOQ starts from 200 pcs\"", "placeholder=\"Approximate quantity\"")
     .replaceAll("Bulk production is commonly planned around 30-35 days after approval, with DDP/DDU, FOB or EXW shipping coordination discussed by project.", approvedLeadTime)
