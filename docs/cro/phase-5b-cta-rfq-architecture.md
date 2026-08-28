@@ -82,6 +82,10 @@ No WhatsApp message, email, RFQ submission or file upload was sent during valida
 - Desktop contact QA (`1280×720`): PASS — canonical form begins at approximately `727px` document position.
 - Representative commercial route QA: PASS — direct canonical RFQ route and source-context query handoff verified.
 
+## Production Commit
+
+The Phase 5B implementation was released in commit `cb93e11` and pushed to `origin/main`. The live site was rechecked after deployment and after the cache-key update; the homepage, contact RFQ and representative commercial route served the new architecture.
+
 ## SEO Regression
 
 Titles, descriptions, canonicals, H1 counts, sitemap URLs, robots behavior and JSON-LD validation remain green. The repository’s generator drift check already reports all 74 static outputs as differing from its protected/stale generator source at the `491afee` baseline; this pre-existing condition is recorded separately and was not expanded by the Phase 5B architecture. The site and schema validators are the release checks used for this change.
