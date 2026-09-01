@@ -157,12 +157,12 @@ const pageUpdated = {
   "custom-drinkware-gift-sets": "2026-08-01",
   "custom-drinkware-for-corporate-gifts": "2026-07-27",
   "low-moq-custom-drinkware": "2026-07-20",
-  "custom-drinkware-for-tiktok-shop-sellers": "2026-07-23",
+  "custom-drinkware-for-tiktok-shop-sellers": "2026-09-01",
   "sourcing-guides/2026-us-section-301-tariffs-impact-on-drinkware": "2026-07-23",
   "sourcing-guides/amazon-drinkware-sourcing-guide-2026": "2026-07-23",
   "sourcing-guides/q4-2026-drinkware-trends": "2026-07-23",
   "sourcing-guides/custom-drinkware-for-corporate-gifts": "2026-07-23",
-  "sourcing-guides/how-to-source-custom-tumblers-from-china": "2026-07-22",
+  "sourcing-guides/how-to-source-custom-tumblers-from-china": "2026-09-01",
   "sourcing-guides/how-to-calculate-landed-cost-importing-drinkware-china": "2026-07-22",
   "sourcing-guides/understanding-fda-vs-lfgb-standards-stainless-steel-bottles": "2026-07-22",
   "sourcing-guides/lfgb-certification-drinkware": "2026-09-01",
@@ -1670,7 +1670,10 @@ function writeFile(file, content) {
     .replaceAll("Custom drinkware manufacturer in China with low MOQ", "China custom drinkware supplier and OEM/ODM sourcing partner with low MOQ")
     .replaceAll("Custom 40oz tumbler manufacturing page", "Custom 40oz tumbler supplier page")
     .replaceAll("B2B drinkware case studies for", "Representative B2B drinkware planning scenarios for");
-  expectedOutputs.set(file, file.endsWith(".html") ? installAnalytics(normalizedContent) : normalizedContent);
+  const finalContent = file === "sourcing-guides/lfgb-certification-drinkware/index.html"
+    ? normalizedContent.replace(/[ \t]+$/gm, "")
+    : normalizedContent;
+  expectedOutputs.set(file, file.endsWith(".html") ? installAnalytics(finalContent) : finalContent);
 }
 
 function writeNoindexCanonicalPage(file, targetPath, title, description) {
