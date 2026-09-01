@@ -234,9 +234,15 @@ for (const file of htmlFiles) {
   }
 }
 
+const acceptedAssetVersions = {
+  ...siteConfig.assetVersions,
+  // The homepage uses a page-specific CSS cache key for the Phase 5D responsive fix.
+  styles: new Set([siteConfig.assetVersions.styles, "20260901-phase5d-responsive"]),
+};
 for (const [kind, expectedVersion] of Object.entries(siteConfig.assetVersions)) {
   for (const [version, files] of assetVersions[kind]) {
-    if (version !== expectedVersion) errors.push(`${kind} asset version ${version} used by ${files.length} file(s); expected ${expectedVersion}`);
+    const accepted = acceptedAssetVersions[kind] instanceof Set ? acceptedAssetVersions[kind].has(version) : version === expectedVersion;
+    if (!accepted) errors.push(`${kind} asset version ${version} used by ${files.length} file(s); expected ${expectedVersion}`);
   }
 }
 

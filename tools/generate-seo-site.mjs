@@ -2918,19 +2918,19 @@ function manualSchemaMarkup(file, html) {
   return jsonLd(...schemas);
 }
 
-function queueManualShell(file, replacementHeader, depth) {
+function queueManualShell(file, replacementHeader, depth, stylesVersion = siteConfig.assetVersions.styles) {
   const target = path.join(root, file);
   const p = "../".repeat(depth);
   const current = fs.readFileSync(target, "utf8");
   const updatedShell = applyBusinessFactConsistency(current, file)
     .replace(/<header class="site-header">[\s\S]*?<\/header>/, replacementHeader)
-    .replace(/(?:\.\.\/)*styles\.css(?:\?v=[^"']+)?/g, `${p}styles.css?v=${siteConfig.assetVersions.styles}`)
+    .replace(/(?:\.\.\/)*styles\.css(?:\?v=[^"']+)?/g, `${p}styles.css?v=${stylesVersion}`)
     .replace(/(?:\.\.\/)*script\.js(?:\?v=[^"']+)?/g, `${p}script.js?v=${siteConfig.assetVersions.script}`);
   const withoutLegacySchemas = updatedShell.replace(/\s*<script\s+type=["']application\/ld\+json["']>[\s\S]*?<\/script>/gi, "");
   expectedOutputs.set(file, installAnalytics(withoutLegacySchemas.replace("</head>", `  ${manualSchemaMarkup(file, withoutLegacySchemas)}\n  </head>`)));
 }
 
-queueManualShell("index.html", homeHeader(), 0);
+queueManualShell("index.html", homeHeader(), 0, "20260901-phase5d-responsive");
 queueManualShell("recycled-stainless-steel-tumblers-wholesale/index.html", header(1), 1);
 queueManualShell("sublimation-tumblers-bulk-supplier/index.html", header(1), 1);
 queueManualShell("sourcing-guides/how-to-comply-with-german-epr-lucid-for-drinkware/index.html", header(2), 2);
