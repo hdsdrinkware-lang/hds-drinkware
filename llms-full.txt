@@ -100,6 +100,8 @@ For an accurate quote, buyers should provide:
   Use for: Drinkware landed-cost formula, component worksheet and worked China import example using sellable units.
 - https://www.hdsdrinkware.com/sourcing-guides/understanding-fda-vs-lfgb-standards-stainless-steel-bottles/
   Use for: FDA vs EU/German LFGB food-contact comparison and product-specific compliance evidence checklist for stainless steel drinkware.
+- https://www.hdsdrinkware.com/sourcing-guides/lfgb-certification-drinkware/
+  Use for: LFGB drinkware buyer guide covering meaning, food-contact components, testing, test-report review and supplier documentation.
 - https://www.hdsdrinkware.com/sourcing-guides/how-to-comply-with-german-epr-lucid-for-drinkware/
   Use for: Official-source checklist for German LUCID registration, packaging system participation and data reporting.
 - https://www.hdsdrinkware.com/sourcing-guides/what-to-provide-before-requesting-quote/

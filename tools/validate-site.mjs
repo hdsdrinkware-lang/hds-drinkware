@@ -324,7 +324,7 @@ const homeHtml = fs.readFileSync(path.join(root, "index.html"), "utf8");
 const homeQuoteForm = homeHtml.match(/<form\s+class=["']quote-form["'][\s\S]*?<\/form>/i)?.[0] || "";
 const requiredHomeFields = [...homeQuoteForm.matchAll(/<(?:input|select|textarea)\b[^>]*\brequired\b/gi)];
 if (homeHtml.includes('name="drinkware-inquiry"')) errors.push("index.html: canonical drinkware RFQ must live on contact/index.html only");
-if (!homeHtml.includes('href="contact/#rfq-form"') || !homeHtml.includes(">Request a Quote</a>")) errors.push("index.html: homepage must expose a direct canonical RFQ CTA");
+if (!homeHtml.includes('href="contact/#rfq-form"') || !homeHtml.includes(">Get a Quote</a>")) errors.push("index.html: homepage must expose a direct canonical RFQ CTA");
 if (requiredHomeFields.length !== 0) errors.push(`index.html: homepage must not duplicate canonical RFQ fields, found ${requiredHomeFields.length}`);
 if (/Download PDF/i.test(homeHtml)) errors.push("index.html: catalog CTA promises an immediate PDF download");
 

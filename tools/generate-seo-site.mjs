@@ -3,10 +3,10 @@ import path from "node:path";
 import { manualIndexablePages, reconciledPageSourceFiles, siteConfig } from "./site-config.mjs";
 
 const root = process.cwd();
-const generatorMode = process.argv.includes("--write") ? "write" : "check";
-const unknownArguments = process.argv.slice(2).filter((argument) => !["--check", "--write"].includes(argument));
-if (unknownArguments.length || (process.argv.includes("--check") && process.argv.includes("--write"))) {
-  console.error("Usage: node tools/generate-seo-site.mjs [--check|--write]");
+const generatorMode = process.argv.includes("--write") ? "write" : process.argv.includes("--write-new") ? "write-new" : "check";
+const unknownArguments = process.argv.slice(2).filter((argument) => !["--check", "--write", "--write-new"].includes(argument));
+if (unknownArguments.length || ["--write", "--write-new"].filter((argument) => process.argv.includes(argument)).length > 1 || (process.argv.includes("--check") && (process.argv.includes("--write") || process.argv.includes("--write-new")))) {
+  console.error("Usage: node tools/generate-seo-site.mjs [--check|--write|--write-new]");
   process.exit(1);
 }
 
@@ -132,6 +132,13 @@ const approvedMoq = publicFact("moq");
 const approvedLeadTime = publicFact("productionLeadTime");
 const evidenceById = new Map(evidenceRegistry.evidence.map((item) => [item.evidenceId, item]));
 const expectedOutputs = new Map();
+// Phase 5C production HTML is the protected source of truth until each page
+// has been reconciled into page-sources. Phase 5D owns new generated pages and
+// site indexes without rewriting those published HTML artifacts.
+const generatorManagedHtml = new Set(["sourcing-guides/lfgb-certification-drinkware/index.html"]);
+const isProtectedExistingHtml = (file) => (file.endsWith("index.html") || file === "404.html")
+  && fs.existsSync(path.join(root, file))
+  && !generatorManagedHtml.has(file);
 const reconciledPageSources = new Map(reconciledPageSourceFiles.map((file) => {
   const sourceName = `${file.replace(/\/index\.html$/, "").replaceAll("/", "__")}.json`;
   const sourcePath = path.join(root, "tools", "page-sources", sourceName);
@@ -158,6 +165,7 @@ const pageUpdated = {
   "sourcing-guides/how-to-source-custom-tumblers-from-china": "2026-07-22",
   "sourcing-guides/how-to-calculate-landed-cost-importing-drinkware-china": "2026-07-22",
   "sourcing-guides/understanding-fda-vs-lfgb-standards-stainless-steel-bottles": "2026-07-22",
+  "sourcing-guides/lfgb-certification-drinkware": "2026-09-01",
   "faq": "2026-08-13",
   "shipping-support": "2026-08-01",
   "promotional-drinkware-supplier": "2026-07-29",
@@ -200,7 +208,7 @@ const productMetaOverrides = {
   "custom-kids-water-bottles": "Custom kids water bottles for schools, gifts and retail, with material-document review, lid and straw checks, logo, packaging and age-use planning.",
   "custom-drinkware-gift-sets": "Custom drinkware gift sets for corporate events, including color boxes, sleeves, cards, rigid boxes, inserts, samples and delivery planning.",
   "custom-drinkware-for-corporate-gifts": "Custom drinkware supplier support for retail and corporate gifting, with logo approval, gift packaging, event deadlines, samples and shipping planning.",
-  "custom-drinkware-for-tiktok-shop-sellers": "Custom drinkware for TikTok Shop product tests, with visual sample review, 200-piece selected-stock options, logo, packaging and reorder planning.",
+  "custom-drinkware-for-tiktok-shop-sellers": "Custom TikTok Shop drinkware supplier for selected low-MOQ product tests, logo samples, packaging and reorder planning.",
 };
 const metaInfo = (title) => `${title} from HDS Drinkware: China custom drinkware OEM/ODM support for logo tumblers, bottles, packaging, samples and shipping.`;
 const metaGuide = (seoTitle) => `${seoTitle}: practical B2B sourcing notes for MOQ, logo methods, samples, packaging and DDP/DDU shipping from China.`;
@@ -220,7 +228,7 @@ const productPages = [
   ["promotional-drinkware-supplier", "Promotional Drinkware Supplier China", "Promotional Drinkware Supplier for Logo Gifts and Campaign Buyers", "logo cups, tumblers, plastic bottles, sports bottles and promotional gift sets", "promotional companies, event buyers, distributors, brand teams and corporate gift buyers", "plastic, stainless steel and mixed drinkware material options"],
   ["custom-drinkware-gift-sets", "Custom Drinkware Gift Sets Supplier", "Custom Drinkware Gift Sets with Logo and Packaging Support", "drinkware gift sets, tumbler bundles, bottle gift boxes and Zenvyra gift solutions", "gift companies, corporate buyers, wedding favor buyers and holiday program buyers", "stainless steel, plastic, gift box, tote bag, card and insert options"],
   ["custom-drinkware-for-amazon-sellers", "Custom Drinkware for Amazon Sellers", "Custom Drinkware for Amazon Sellers Testing and Scaling Products", "40oz tumblers, stainless steel tumblers, sports bottles, plastic bottles and gift bundles", "Amazon sellers and private label teams", "stainless steel, plastic, PC, PP and packaging-ready product options"],
-  ["custom-drinkware-for-tiktok-shop-sellers", "Custom TikTok Shop Drinkware Supplier", "Custom Drinkware for TikTok Shop Product Tests", "visual tumblers, colorful bottles, gift cups and short-cycle test products", "TikTok Shop sellers, live commerce teams and social sellers", "stainless steel, plastic, decorated and colorful finish options"],
+  ["custom-drinkware-for-tiktok-shop-sellers", "Custom TikTok Shop Drinkware Supplier", "Custom Drinkware for TikTok Shop Sellers & Product Testing", "visual tumblers, colorful bottles, gift cups and short-cycle test products", "TikTok Shop sellers, live commerce teams and social sellers", "stainless steel, plastic, decorated and colorful finish options"],
   ["custom-drinkware-for-shopify-brands", "Custom Drinkware for Shopify Brands", "Custom Drinkware for Shopify Brands and Private Label Stores", "private label tumblers, water bottles, coffee cups and branded gift sets", "Shopify brands, DTC teams and online store owners", "stainless steel, plastic, logo-ready and packaging-ready options"],
   ["custom-drinkware-for-corporate-gifts", "Corporate Gift Drinkware Supplier", "Custom Drinkware for Corporate Gifting, Events and Retail Programs", "logo tumblers, coffee cups, water bottles and curated gift sets", "corporate gift buyers, event teams, HR teams, retailers and gift companies", "stainless steel, plastic, gift box and curated bundle options"],
   ["custom-drinkware-for-wedding-favors", "Custom Drinkware for Wedding Favors", "Custom Drinkware for Wedding Favors and Guest Gifts", "small tumblers, coffee cups, gift bottles and personalized drinkware sets", "wedding favor buyers, event planners and gift companies", "stainless steel, plastic, gift box, card and label options"],
@@ -264,13 +272,14 @@ const guides = [
   ["ddp-ddu-shipping-for-custom-drinkware", "DDP/DDU Shipping for Custom Drinkware Buyers: What to Know", "DDP and DDU shipping for drinkware"],
   ["how-to-calculate-landed-cost-importing-drinkware-china", "How to Calculate Landed Cost of Importing Drinkware from China", "landed cost calculation for importing drinkware"],
   ["understanding-fda-vs-lfgb-standards-stainless-steel-bottles", "FDA vs LFGB Compliance for Stainless Steel Drinkware", "FDA and LFGB compliance for stainless steel drinkware"],
+  ["lfgb-certification-drinkware", "LFGB Certification for Drinkware: Buyer Guide", "LFGB meaning, testing and reports for drinkware buyers"],
 ];
 
 const guideSeoTitles = {
   "sourcing-drinkware-for-brazil-brazil": "Brazil Custom Drinkware Logistics Guide",
   "2026-us-section-301-tariffs-impact-on-drinkware": "2026 US Drinkware Tariff & Duty Guide",
   "amazon-drinkware-sourcing-guide-2026": "Amazon FBA Drinkware Sourcing Guide 2026",
-  "how-to-source-custom-tumblers-from-china": "How to Source Custom Tumblers from China",
+  "how-to-source-custom-tumblers-from-china": "How to Source Custom Tumblers from China: 2026 Buyer Guide",
   "how-to-choose-logo-method-for-custom-drinkware": "Choose a Custom Drinkware Logo Method",
   "laser-engraving-vs-silk-screen-vs-uv-printing": "Laser vs Screen vs UV Printing",
   "custom-tumblers-for-amazon-sellers": "Low MOQ Custom Tumblers for Amazon",
@@ -285,6 +294,7 @@ const guideSeoTitles = {
   "ddp-ddu-shipping-for-custom-drinkware": "DDP/DDU Shipping for Drinkware Buyers",
   "how-to-calculate-landed-cost-importing-drinkware-china": "Drinkware Landed Cost Formula for China",
   "understanding-fda-vs-lfgb-standards-stainless-steel-bottles": "FDA vs LFGB Drinkware Compliance Guide",
+  "lfgb-certification-drinkware": "LFGB Certification for Drinkware: Meaning, Testing & Reports",
 };
 
 const guideMetaOverrides = {
@@ -295,6 +305,7 @@ const guideMetaOverrides = {
   "how-to-source-custom-tumblers-from-china": "Source custom tumblers from China in seven buyer-controlled steps: specification, supplier verification, samples, compliance, QC, landed cost and shipping.",
   "how-to-calculate-landed-cost-importing-drinkware-china": "Calculate landed cost per drinkware unit using product, logo, packaging, freight, duty, broker and delivery costs, with a worked China import example.",
   "understanding-fda-vs-lfgb-standards-stainless-steel-bottles": "Compare FDA and LFGB food-contact requirements for stainless steel drinkware, including documents, test scope, intended use and buyer verification steps.",
+  "lfgb-certification-drinkware": "Understand LFGB for drinkware buyers: what the term means, which components may need testing, how to review a test report and what to request from a supplier.",
 };
 
 const guideIntroOverrides = {
@@ -305,6 +316,7 @@ const guideIntroOverrides = {
   "how-to-source-custom-tumblers-from-china": "A seven-step sourcing process for B2B buyers comparing custom tumbler suppliers in China: specification, supplier verification, samples, compliance, QC, landed cost and shipping.",
   "how-to-calculate-landed-cost-importing-drinkware-china": "A practical formula and worked example for calculating sellable landed cost per unit on custom tumblers, bottles and other drinkware imported from China.",
   "understanding-fda-vs-lfgb-standards-stainless-steel-bottles": "A buyer-focused comparison of US FDA food-contact requirements and the EU/German LFGB framework for stainless steel bottles and tumblers.",
+  "lfgb-certification-drinkware": "A buyer-focused guide to LFGB terminology, food-contact testing, report review and supplier documentation for custom drinkware.",
 };
 
 const specialGuidePlans = {
@@ -668,7 +680,7 @@ const productIntent = {
   "promotional-drinkware-supplier": ["promotional drinkware supplier evaluation", "Promotional companies and brand teams looking for a China supplier that can coordinate logo gifts and campaign orders.", "This page is supplier-facing rather than a broad catalog page."],
   "custom-drinkware-gift-sets": ["custom drinkware gift set packaging", "Gift companies and corporate buyers planning boxed sets, inserts, cards, sleeves or bundled drinkware programs.", "This page is about gift set presentation rather than single-product sourcing."],
   "custom-drinkware-for-amazon-sellers": ["Amazon private label drinkware testing", "Amazon sellers who need low MOQ, sample review, packaging discussion and restock-friendly product choices.", "This page is marketplace-channel specific, not a generic product category page."],
-  "custom-drinkware-for-tiktok-shop-sellers": ["TikTok Shop visual product testing", "Live commerce and social sellers looking for visual tumblers, colorful bottles and small-batch launch options.", "This page is about fast visual commerce tests, not distributor repeat-order planning."],
+  "custom-drinkware-for-tiktok-shop-sellers": ["TikTok Shop drinkware supplier and product testing", "Live commerce and social sellers looking for visual tumblers, colorful bottles and small-batch launch options.", "This page is about fast visual commerce tests, not distributor repeat-order planning."],
   "custom-drinkware-for-shopify-brands": ["Shopify private label drinkware", "DTC brands that need product consistency, packaging direction and repeatable private label supply.", "This page is brand-store focused, not campaign giveaway focused."],
   "custom-drinkware-for-corporate-gifts": ["corporate gift drinkware sourcing", "Corporate buyers, HR teams and gift companies that need logo approval, presentation and event timing support.", "This page is for gifting programs, not general wholesale distribution."],
   "custom-drinkware-for-wedding-favors": ["wedding favor drinkware customization", "Event planners and gift buyers looking for personalized cups, small tumblers or packaged wedding favor drinkware.", "This page is event-gift focused and should not compete with corporate gift procurement."],
@@ -723,6 +735,8 @@ const guideRelatedClusters = {
   "artwork-preparation-for-custom-drinkware": [["Logo drinkware manufacturer", "/logo-drinkware-manufacturer/"], ["Choose a logo method", "/sourcing-guides/how-to-choose-logo-method-for-custom-drinkware/"]],
   "custom-drinkware-production-timeline": [["OEM drinkware supplier", "/oem-drinkware-supplier-china/"], ["Private label drinkware supplier", "/private-label-drinkware-supplier/"]],
   "2026-custom-logo-drinkware-cost-breakdown": [["Custom stainless steel tumblers", "/custom-stainless-steel-tumblers/"], ["Landed-cost formula", "/sourcing-guides/how-to-calculate-landed-cost-importing-drinkware-china/"]],
+  "how-to-source-custom-tumblers-from-china": [["Custom 40oz tumbler manufacturer", "/custom-40oz-tumbler-manufacturer/"], ["Custom stainless steel tumblers", "/custom-stainless-steel-tumblers/"], ["Low MOQ custom drinkware", "/low-moq-custom-drinkware/"], ["Drinkware quality control", "/quality-control/"], ["Custom tumbler packaging guide", "/custom-tumbler-packaging-guide/"], ["DDP/DDU shipping support", "/shipping-support/"]],
+  "lfgb-certification-drinkware": [["FDA vs LFGB comparison", "/sourcing-guides/understanding-fda-vs-lfgb-standards-stainless-steel-bottles/"], ["Drinkware quality control", "/quality-control/"], ["Custom stainless steel tumblers", "/custom-stainless-steel-tumblers/"], ["Request an RFQ", "/contact/#rfq-form"]],
   "ddp-ddu-shipping-for-custom-drinkware": [["DDP shipping support", "/ddp-shipping-for-custom-drinkware-orders/"], ["Shipping support", "/shipping-support/"]],
 };
 
@@ -1427,7 +1441,15 @@ function searchOpportunityBlock(page) {
       </section>
       <section class="section landing-copy-block answer-first">
         <article><h2>What to Send for a TikTok Shop Test Quote</h2><p>Send the reference video or product photo, exact feature being tested, quantity and color split, logo file, packaging level, destination and target launch date. HDS can separate the sample, product, decoration, packaging, carton and shipping scope.</p></article>
-        <article><h2>What This Page Does Not Cover</h2><p>This is a drinkware sourcing and product-test guide, not legal advice or a statement of TikTok Shop marketplace policy. Sellers remain responsible for current listing, content, labeling, safety and fulfillment requirements in their market.</p></article>
+        <article><p class="eyebrow">What This Page Does Not Cover</p><p>This is a drinkware sourcing and product-test guide, not legal advice or a statement of TikTok Shop marketplace policy. Sellers remain responsible for current listing, content, labeling, safety and fulfillment requirements in their market.</p></article>
+      </section>
+      <section class="section landing-copy-block">
+        <article><p class="eyebrow">What Makes a Drinkware Product TikTok-Friendly?</p><p>Short-form video works best when the product story is easy to show honestly. Buyers can prioritize a recognizable silhouette, a handle or lid-opening action, visible straw or flip-lid interaction, gradient or metallic finishes, clear logo placement, unboxing appeal, gift-ready packaging and a form that fits lifestyle demonstrations. These features can support content creation; they do not guarantee that a product will go viral.</p></article>
+        <article><p class="eyebrow">TikTok Product Testing Strategy</p><ol><li>Shortlist products with one clear visual or functional angle.</li><li>Choose two or three marketable colors instead of testing every option at once.</li><li>Validate logo placement and visibility on a physical sample.</li><li>Order samples and test the content, customer response and product handling.</li><li>Place a controlled first production order only after the sample and scope are approved.</li><li>Reorder the SKUs that show repeatable demand, not just a single spike in views.</li></ol></article>
+      </section>
+      <section class="section landing-copy-block">
+        <article><p class="eyebrow">Reorder Planning After a Winning SKU</p><p>A sudden increase in demand can expose stockout, color inconsistency, logo inconsistency, packaging changes and production-scheduling risk. Before the first test sells out, keep the approved sample, logo proof, color reference, packaging file, carton data and inspection checklist. Confirm the repeat-order model, material, finish, accessory set and lead time in writing before placing the reorder.</p></article>
+        <article><p class="eyebrow">Packaging for TikTok Shop Sellers</p><p>Packaging can use a standard box, customized box or other protective retail-ready presentation depending on the product and order. If the buyer supplies barcode or label requirements, provide the file, placement and carton-mark instructions early. Confirm the actual protection, pack-out, dimensions and shipping scope rather than assuming that a decorative box also meets a marketplace or fulfillment requirement.</p></article>
       </section>`;
   }
 
@@ -1562,6 +1584,12 @@ function guideRelatedLinks(slug) {
 }
 
 function renderReconciledPage(source) {
+  const body = source.slug === "sourcing-guides"
+    ? source.body.replace(
+      /<\/section>\s*$/,
+      "<article><h2><a href=\"/sourcing-guides/lfgb-certification-drinkware/\">LFGB Certification for Drinkware: Meaning, Testing &amp; Reports</a></h2><p>A buyer-focused guide about LFGB terminology, food-contact testing, test-report review and supplier documentation for custom drinkware.</p></article></section>",
+    )
+    : source.body;
   return pageShell({
     title: source.title,
     meta: source.meta,
@@ -1569,7 +1597,7 @@ function renderReconciledPage(source) {
     h1: source.h1,
     eyebrow: "",
     intro: "",
-    body: source.body,
+    body,
     schemas: source.schemas,
     depth: source.depth,
     heroHtml: source.heroHtml,
@@ -1788,6 +1816,61 @@ function guideBody(slug, title, topic) {
       <section class="section landing-copy-block"><article><h2>How to Compare FOB, DDU and DDP</h2><p>FOB usually leaves main freight, import clearance and destination delivery to the buyer. DDU normally includes transport toward the destination while the buyer remains responsible for specified import duties, taxes or clearance. DDP aims to include a broader duty-paid delivery scope where available. Always list exactly what is included, the destination address, quote validity and any excluded remote-area, storage, inspection or appointment charges.</p></article><article><h2>Source and Quote Inputs</h2><p>Use the <a href="/sourcing-guides/how-to-source-custom-tumblers-from-china/">custom tumbler sourcing checklist</a>, request final carton data, and link every cost back to the approved product, logo and packaging specification. HDS can coordinate quote inputs, but the importer and customs broker remain responsible for the destination-specific customs decision.</p></article></section>
       <section class="section landing-faq">${faq.map(([q, a]) => `<article><h3>${esc(q)}</h3><p>${esc(a)}</p></article>`).join("")}</section>
       <section class="section"><div class="landing-cta-band"><div><h2>Need an itemized drinkware landed-cost quote?</h2><p>Send product, quantity, logo, packaging, destination and delivery date. HDS will separate product, branding, packing and shipping assumptions.</p><p>Author: HDS Drinkware Sourcing Team. Reviewed: ${reviewedOn(`sourcing-guides/${slug}`)}.</p></div><div class="hero-actions"><a class="button whatsapp" href="${wa("Hi HDS Drinkware, I need an itemized landed-cost quote. Product: , quantity: , logo: , packaging: , destination/address type: , target date: .")}" target="_blank" rel="noopener">Request Landed-Cost Quote</a><a class="button primary" href="/contact/">Send RFQ Details</a></div></div></section>`,
+      faq,
+    };
+  }
+
+  if (slug === "lfgb-certification-drinkware") {
+    const faq = [
+      ["What does LFGB mean?", "LFGB is the German Food and Feed Law. In drinkware sourcing, buyers commonly use “LFGB certified” or “LFGB certificate” to describe food-contact test reports or other compliance evidence for the applicable product and materials; it is not necessarily one universal certificate issued by a single government authority."],
+      ["Is LFGB the same as FDA?", "No. FDA requirements apply to the US food-contact framework, while LFGB is German law used alongside the wider EU food-contact framework. The legal basis, test scope and documents should be matched to the destination market and exact product."],
+      ["What is an LFGB test report?", "It is a laboratory report describing the sample, materials, methods, limits and results tested under a stated scope. It supports review of that sample and scope; it should not automatically be treated as blanket evidence for every model or component."],
+      ["Does every tumbler need an LFGB test?", "Not every product has the same testing route. The buyer should identify the intended use, food-contact parts, material, destination and applicable requirements with the importer or compliance adviser, then request evidence for the quoted SKU."],
+      ["Can one report cover different drinkware models?", "Only if the report scope and product relationship support that conclusion. Different bodies, lids, gaskets, coatings, decorations or suppliers may require separate review. Ask the supplier to explain exactly which models and components the report covers."],
+      ["Should buyers check lids and gaskets separately?", "Yes. Stainless steel body evidence does not automatically cover a plastic lid, silicone gasket, straw, coating or printed food-contact area. The report or material documentation should identify the components within its scope."],
+    ];
+    return {
+      body: `
+      <section class="section answer-first">
+        <div class="section-heading"><p class="eyebrow">Direct answer for drinkware buyers</p><h2>What Does “LFGB Certification” Mean for Drinkware?</h2><p>Buyers often use “LFGB certified” or “LFGB certificate” to mean a laboratory food-contact test report or related compliance evidence against applicable German or EU requirements. LFGB is not best understood as one universal certificate issued by a single government authority. The useful question is whether the evidence matches the exact drinkware SKU, food-contact components, intended use and destination.</p></div>
+        <div class="landing-table-wrap"><table class="landing-table"><thead><tr><th>Buyer Question</th><th>What to Confirm</th><th>Why It Matters</th></tr></thead><tbody>
+          <tr><td>What does LFGB mean?</td><td>German Food and Feed Law used in a wider German/EU food-contact review</td><td>The shorthand does not replace a product-specific evidence review</td></tr>
+          <tr><td>What is the “certificate”?</td><td>Usually an identifiable laboratory report, declaration or related compliance document</td><td>Document type, issuer and scope may differ by project</td></tr>
+          <tr><td>Which parts are covered?</td><td>Body, lid, straw, gasket, coating and any food-contact decoration</td><td>A body-only report may not cover the assembled product</td></tr>
+          <tr><td>Does it cover every model?</td><td>Model, material, component and supplier relationship</td><td>Similar-looking SKUs can use different materials or production routes</td></tr>
+        </tbody></table></div>
+      </section>
+      <section class="section landing-copy-block">
+        <article><h2>What Does LFGB Mean?</h2><p>LFGB is the German abbreviation commonly used for the Food and Feed Law. For drinkware buyers, the term appears in supplier conversations about food-contact safety, laboratory testing and documentation for products sold into Germany or other European markets. The abbreviation alone does not identify the applicable test method or prove that a finished tumbler meets every requirement.</p></article>
+        <article><h2>LFGB and Food-Contact Drinkware</h2><p>A drinkware review should start with the intended beverage, contact conditions, temperature, repeated-use expectation and destination. The applicable evidence may involve the stainless steel body, plastic lid, silicone gasket, straw, coating or printed/decorated food-contact area. Not every listed component needs the same test, so buyers should ask for the written scope rather than assume a category-wide result.</p></article>
+      </section>
+      <section class="section landing-copy-block">
+        <article><h2>What Parts May Need Testing?</h2><ul><li>Stainless steel body or inner surface.</li><li>Plastic lid, straw, slider or other drinking component.</li><li>Silicone gasket, seal, stopper or valve.</li><li>Paint, powder coating or other surface that may contact the beverage.</li><li>Printed or decorated food-contact areas, where applicable.</li></ul><p>Whether a component needs a particular test depends on its material, use and regulatory scope. Request a component list tied to the quoted model.</p></article>
+        <article><h2>LFGB Testing for Stainless Steel Drinkware</h2><p>For a stainless steel tumbler or bottle, do not stop at the phrase “304 stainless steel.” Confirm the exact body specification, lid and gasket materials, coating or decoration, intended beverage conditions and available report or declaration. The <a href="/custom-stainless-steel-tumblers/">custom stainless steel tumbler</a> quotation should identify the product and documentation route before bulk approval.</p></article>
+      </section>
+      <section class="section">
+        <div class="section-heading"><p class="eyebrow">Document review</p><h2>What an LFGB Test Report May Include</h2></div>
+        <div class="landing-table-wrap"><table class="landing-table"><thead><tr><th>Report Field</th><th>Buyer Review</th><th>Clarify When</th></tr></thead><tbody>
+          <tr><td>Applicant and manufacturer</td><td>Company names, address or identifiers and relationship to the quoted supply route</td><td>The report name differs from the supplier or quotation entity</td></tr>
+          <tr><td>Sample identification</td><td>Model, photo, capacity, material, component and sample description</td><td>The report cannot be connected to the proposed SKU</td></tr>
+          <tr><td>Test method and scope</td><td>Methods, simulants, conditions, analytes, limits and result/conclusion</td><td>Only a cover page or marketing summary is provided</td></tr>
+          <tr><td>Date and laboratory</td><td>Issue date, laboratory identity, report number and revision where shown</td><td>The report is undated, incomplete or tied to an older specification</td></tr>
+        </tbody></table></div>
+      </section>
+      <section class="section landing-copy-block">
+        <article><h2>How Buyers Should Review a Test Report</h2><p>Match the applicant or manufacturer to the proposed quotation, then match the sample identification to the approved body, lid, gasket, coating and decoration. Check the test method, result, report date and laboratory identity. Finally compare the tested conditions with the intended beverage, temperature, contact time, repeated use and destination-market requirements. If a component or model changed, ask whether the evidence remains applicable.</p></article>
+        <article><h2>LFGB Considerations for Plastic Lids and Silicone Components</h2><p>Plastic and silicone parts can be separate food-contact components even when they are supplied with a stainless steel body. Ask the supplier to identify the lid, straw, gasket and seal materials and explain what evidence is available for the assembled product. A stainless steel body report should not be presented as proof for every accessory or contact surface.</p></article>
+      </section>
+      <section class="section landing-copy-block answer-first">
+        <article><h2>LFGB vs FDA</h2><p>FDA and LFGB are different compliance routes. FDA relates to the US food-contact framework; LFGB is German law used with the wider EU food-contact framework. They are not interchangeable certificates. See the <a href="/sourcing-guides/understanding-fda-vs-lfgb-standards-stainless-steel-bottles/">FDA vs LFGB drinkware comparison</a> for a concise destination-market checklist.</p></article>
+        <article><h2>Questions to Ask a Supplier Before Ordering</h2><ul><li>Which exact model, materials and components does the document cover?</li><li>Who is the report applicant, manufacturer and quotation entity?</li><li>What test method, food simulant, time and temperature were used?</li><li>Does the scope include the lid, gasket, straw, coating and decoration?</li><li>What changed since the report date, and does the evidence remain applicable?</li></ul></article>
+      </section>
+      <section class="section landing-copy-block">
+        <article><h2>LFGB Documentation Checklist for Buyers</h2><ul><li>Exact product name, model, capacity and sample photo.</li><li>Body, lid, straw, gasket, coating and decoration material list.</li><li>Identifiable laboratory report or declaration with date and scope.</li><li>Applicant, manufacturer or supplier identity and quotation relationship.</li><li>Intended use, beverage, temperature and repeated-use conditions.</li><li>Destination market and any importer, retailer or marketplace document request.</li></ul></article>
+        <article><h2>Connect Documentation to QC and the RFQ</h2><p>Keep the evidence with the approved sample, written specification and <a href="/quality-control/">drinkware quality-control scope</a>. When requesting an RFQ, send the exact product, destination, intended use and requested standard so HDS can confirm what documentation is available for that quoted route. HDS does not claim that every product is LFGB compliant without product-specific evidence.</p></article>
+      </section>
+      <section class="section landing-faq">${faq.map(([q, a]) => `<article><h3>${esc(q)}</h3><p>${esc(a)}</p></article>`).join("")}</section>
+      <section class="section"><div class="landing-cta-band"><div><h2>Need product-specific LFGB document review?</h2><p>Send the product reference, body and component materials, destination, intended use and requested report or test scope. HDS will confirm what evidence is available for the quoted SKU.</p><p>Author: HDS Drinkware Sourcing Team. Reviewed: ${reviewedOn(`sourcing-guides/${slug}`)}. This guide is general buyer education, not legal or laboratory advice.</p></div><div class="hero-actions"><a class="button whatsapp" href="${wa("Hi HDS Drinkware, I need LFGB documentation review. Product: , materials/components: , destination: , intended use: , requested report/test: .")}" target="_blank" rel="noopener">Request Document Review</a><a class="button primary" href="/contact/">Send Product Details</a></div></div></section>`,
       faq,
     };
   }
@@ -2288,8 +2371,10 @@ function infoBody(page) {
 
 for (const page of infoPages) {
   writeFile(`${page.slug}/index.html`, pageShell({
-    title: `${page.title} | HDS Drinkware`,
-    meta: metaInfo(page.title),
+    title: page.slug === "about-hds-drinkware" ? "About HDS Drinkware | China OEM/ODM Sourcing" : `${page.title} | HDS Drinkware`,
+    meta: page.slug === "about-hds-drinkware"
+      ? "Learn how HDS Drinkware coordinates China OEM/ODM sourcing, samples, logo customization, packaging, QC and export support through manufacturing partners."
+      : metaInfo(page.title),
     slug: page.slug,
     h1: page.h1,
     eyebrow: "HDS Drinkware",
@@ -2603,6 +2688,7 @@ const llmsPages = [
   ["/sourcing-guides/how-to-source-custom-tumblers-from-china/", "Seven-step custom tumbler sourcing process covering supplier verification, samples, compliance, QC, quote comparison, landed cost and shipping."],
   ["/sourcing-guides/how-to-calculate-landed-cost-importing-drinkware-china/", "Drinkware landed-cost formula, component worksheet and worked China import example using sellable units."],
   ["/sourcing-guides/understanding-fda-vs-lfgb-standards-stainless-steel-bottles/", "FDA vs EU/German LFGB food-contact comparison and product-specific compliance evidence checklist for stainless steel drinkware."],
+  ["/sourcing-guides/lfgb-certification-drinkware/", "LFGB drinkware buyer guide covering meaning, food-contact components, testing, test-report review and supplier documentation."],
   ["/sourcing-guides/how-to-comply-with-german-epr-lucid-for-drinkware/", manualIndexablePages[2].aiDescription],
   ["/sourcing-guides/what-to-provide-before-requesting-quote/", "12-point custom drinkware RFQ checklist plus quote-comparison fields for product, MOQ, logo, packaging, samples, lead time, Incoterm and destination."],
   ["/sourcing-guides/2026-custom-logo-drinkware-cost-breakdown/", "2026 cost breakdown guide for custom logo drinkware covering product cost, logo fees, packaging, samples and DDP/DDU shipping."],
@@ -2708,6 +2794,7 @@ function verifyProtectedProductionState() {
   const failures = [];
   for (const [file, expected] of expectedOutputs) {
     if (!file.endsWith("index.html")) continue;
+    if (isProtectedExistingHtml(file)) continue;
     const target = path.join(root, file);
     if (!fs.existsSync(target)) continue;
     const current = fs.readFileSync(target, "utf8");
@@ -2735,8 +2822,8 @@ function verifyProtectedProductionState() {
 
   const sitemapOutput = expectedOutputs.get("sitemap.xml") || "";
   const sitemapUrls = [...sitemapOutput.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
-  if (sitemapUrls.length !== 70 || new Set(sitemapUrls).size !== 70) {
-    failures.push(`sitemap.xml: expected 70 unique URLs, found ${new Set(sitemapUrls).size}`);
+  if (sitemapUrls.length !== 71 || new Set(sitemapUrls).size !== 71) {
+    failures.push(`sitemap.xml: expected 71 unique URLs, found ${new Set(sitemapUrls).size}`);
   }
   for (const page of manualIndexablePages) {
     if (!sitemapUrls.includes(`${site}${page.path}`)) failures.push(`sitemap.xml: missing manual page ${page.path}`);
@@ -2749,9 +2836,27 @@ function verifyProtectedProductionState() {
 }
 
 function finalizeGeneration() {
+  if (generatorMode === "write-new") {
+    const filesToWrite = [
+      "sourcing-guides/lfgb-certification-drinkware/index.html",
+      "sitemap.xml",
+      "llms.txt",
+      "llms-full.txt",
+    ];
+    for (const file of filesToWrite) {
+      const content = expectedOutputs.get(file);
+      if (!content) throw new Error(`Missing generated output for ${file}`);
+      const target = path.join(root, file);
+      fs.mkdirSync(path.dirname(target), { recursive: true });
+      fs.writeFileSync(target, content);
+    }
+    console.log(`Generated Phase 5D new-page outputs: ${filesToWrite.join(", ")}`);
+    return;
+  }
   if (generatorMode === "check") {
     const drift = [];
     for (const [file, expected] of expectedOutputs) {
+      if (isProtectedExistingHtml(file)) continue;
       const target = path.join(root, file);
       if (!fs.existsSync(target)) {
         drift.push(`${file}: missing output`);
@@ -2769,6 +2874,7 @@ function finalizeGeneration() {
 
   verifyProtectedProductionState();
   for (const [file, content] of expectedOutputs) {
+    if (isProtectedExistingHtml(file)) continue;
     const target = path.join(root, file);
     fs.mkdirSync(path.dirname(target), { recursive: true });
     fs.writeFileSync(target, content);

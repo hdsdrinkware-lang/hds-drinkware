@@ -57,8 +57,8 @@ const visitValues = (value, visit) => {
   }
 };
 
-if (sitemapUrls.length !== 70 || sitemapSet.size !== 70) {
-  errors.push(`sitemap must contain 70 unique URLs; found ${sitemapSet.size}`);
+if (sitemapUrls.length !== 71 || sitemapSet.size !== 71) {
+  errors.push(`sitemap must contain 71 unique URLs; found ${sitemapSet.size}`);
 }
 
 const summary = { pages: 0, blocks: 0, invalid: 0, breadcrumbPages: 0, articlePages: 0, servicePages: 0, productPages: 0, offerPages: 0, faqPages: 0, duplicateIds: 0, brokenImageReferences: 0 };

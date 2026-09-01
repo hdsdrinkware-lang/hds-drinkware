@@ -51,6 +51,7 @@ Reference pages:
 - https://www.hdsdrinkware.com/sourcing-guides/how-to-source-custom-tumblers-from-china/ - Seven-step custom tumbler sourcing process covering supplier verification, samples, compliance, QC, quote comparison, landed cost and shipping.
 - https://www.hdsdrinkware.com/sourcing-guides/how-to-calculate-landed-cost-importing-drinkware-china/ - Drinkware landed-cost formula, component worksheet and worked China import example using sellable units.
 - https://www.hdsdrinkware.com/sourcing-guides/understanding-fda-vs-lfgb-standards-stainless-steel-bottles/ - FDA vs EU/German LFGB food-contact comparison and product-specific compliance evidence checklist for stainless steel drinkware.
+- https://www.hdsdrinkware.com/sourcing-guides/lfgb-certification-drinkware/ - LFGB drinkware buyer guide covering meaning, food-contact components, testing, test-report review and supplier documentation.
 - https://www.hdsdrinkware.com/sourcing-guides/how-to-comply-with-german-epr-lucid-for-drinkware/ - Official-source checklist for German LUCID registration, packaging system participation and data reporting.
 - https://www.hdsdrinkware.com/sourcing-guides/what-to-provide-before-requesting-quote/ - 12-point custom drinkware RFQ checklist plus quote-comparison fields for product, MOQ, logo, packaging, samples, lead time, Incoterm and destination.
 - https://www.hdsdrinkware.com/sourcing-guides/2026-custom-logo-drinkware-cost-breakdown/ - 2026 cost breakdown guide for custom logo drinkware covering product cost, logo fees, packaging, samples and DDP/DDU shipping.

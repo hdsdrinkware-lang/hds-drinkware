@@ -2487,6 +2487,11 @@ h3 {
   .hero-media {
     min-height: 320px;
     padding: 24px 22px 18px;
+    order: 2;
+  }
+
+  .hero-copy {
+    order: 1;
   }
 
   .hero-media img {
