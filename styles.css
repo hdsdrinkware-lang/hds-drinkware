@@ -2482,16 +2482,19 @@ h3 {
 
   .hero {
     min-height: auto;
+    grid-template-areas:
+      "copy"
+      "media";
   }
 
   .hero-media {
     min-height: 320px;
     padding: 24px 22px 18px;
-    order: 2;
+    grid-area: media;
   }
 
   .hero-copy {
-    order: 1;
+    grid-area: copy;
   }
 
   .hero-media img {
