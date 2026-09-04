@@ -5,6 +5,7 @@ import { siteConfig } from "./site-config.mjs";
 const root = process.cwd();
 const site = siteConfig.origin;
 const errors = [];
+const warnings = [];
 const sitemap = fs.readFileSync(path.join(root, "sitemap.xml"), "utf8");
 const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
 const sitemapSet = new Set(sitemapUrls);
@@ -20,6 +21,7 @@ const hasType = (schema, type) => schema?.["@type"] === type || (Array.isArray(s
 const nodesOfType = (nodes, type) => nodes.filter((node) => hasType(node, type));
 const canonicalFromHtml = (html) => html.match(/<link\s+rel=["']canonical["']\s+href=["']([^"']+)/i)?.[1] || "";
 const h1FromHtml = (html) => normalizeText(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1] || "");
+const metaDescriptionFromHtml = (html) => normalizeText(html.match(/<meta\s+name=["']description["']\s+content=["']([^"']*)/i)?.[1] || "");
 const slugFromRoute = (route) => route.replace(/^\/+|\/+$/g, "");
 const localFileForUrl = (url) => {
   try {
@@ -47,6 +49,11 @@ const allowedServicePages = new Set([
   "/factory-supply-chain/", "/quality-control/", "/packaging-solutions/", "/shipping-support/",
 ]);
 const forbiddenTypes = new Set(["FAQPage", "Product", "Offer", "AggregateOffer", "AggregateRating", "Review"]);
+const priorityArticleMetadata = new Map([
+  ["/sourcing-guides/lfgb-certification-drinkware/", { datePublished: "2026-09-01", dateModified: "2026-09-01" }],
+  ["/sourcing-guides/how-to-source-custom-tumblers-from-china/", { datePublished: "2026-06-26", dateModified: "2026-09-01" }],
+  ["/sourcing-guides/understanding-fda-vs-lfgb-standards-stainless-steel-bottles/", { datePublished: "2026-06-26", dateModified: "2026-07-22" }],
+]);
 const urlKeys = new Set(["@id", "url", "item", "logo", "image"]);
 const visitValues = (value, visit) => {
   if (Array.isArray(value)) return value.forEach((item) => visitValues(item, visit));
@@ -73,6 +80,7 @@ for (const url of sitemapUrls) {
   summary.pages += 1;
   const html = fs.readFileSync(file, "utf8");
   const h1 = h1FromHtml(html);
+  const metaDescription = metaDescriptionFromHtml(html);
   const schemas = [];
   for (const match of html.matchAll(/<script\s+type=["']application\/ld\+json["']>([\s\S]*?)<\/script>/gi)) {
     summary.blocks += 1;
@@ -170,8 +178,15 @@ for (const url of sitemapUrls) {
     if (article.headline !== h1 || article.mainEntityOfPage?.["@id"] !== `${canonical}#webpage` || article.author?.["@id"] !== `${site}/#organization` || article.publisher?.["@id"] !== `${site}/#organization`) {
       errors.push(`${route}: Article relationships or headline are inconsistent`);
     }
-    if (article.datePublished !== undefined) errors.push(`${route}: Article must not invent datePublished`);
+    if (article.datePublished === undefined) warnings.push(`${route}: Article datePublished is not yet supported by repository evidence`);
+    else if (!/^\d{4}-\d{2}-\d{2}$/.test(article.datePublished)) errors.push(`${route}: Article datePublished must be an evidence-backed ISO date`);
     if (!/^\d{4}-\d{2}-\d{2}$/.test(article.dateModified || "")) errors.push(`${route}: Article dateModified must be an approved ISO date`);
+    if (article.datePublished && article.dateModified && article.datePublished > article.dateModified) errors.push(`${route}: Article datePublished cannot be later than dateModified`);
+    if (!article.image) warnings.push(`${route}: Article image deferred until a legitimate representative image is available`);
+    const expectedMetadata = priorityArticleMetadata.get(route);
+    if (expectedMetadata && (article.datePublished !== expectedMetadata.datePublished || article.dateModified !== expectedMetadata.dateModified || article.description !== metaDescription)) {
+      errors.push(`${route}: priority Article dates or description do not match approved repository evidence`);
+    }
   }
   if (serviceNodes.length && !allowedServicePages.has(route)) errors.push(`${route}: Service schema is not approved for this page class`);
   if (serviceNodes.length > 1) errors.push(`${route}: expected at most one Service entity`);
@@ -187,4 +202,5 @@ if (errors.length) {
   process.exit(1);
 }
 
+if (warnings.length) console.warn(`Schema completeness warnings (${warnings.length}):\n${warnings.join("\n")}`);
 console.log(`Schema validation passed: ${summary.pages} pages, ${summary.blocks} JSON-LD blocks, ${summary.breadcrumbPages} breadcrumbs, ${summary.articlePages} articles, ${summary.servicePages} services, ${summary.productPages} products, ${summary.offerPages} offers, ${summary.faqPages} FAQPage schemas, ${summary.brokenImageReferences} broken image references.`);

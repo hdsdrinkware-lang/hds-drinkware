@@ -184,6 +184,22 @@ const pageUpdated = {
   "case-studies/ddp-shipping-drinkware-order-to-overseas-buyer": "2026-08-11",
 };
 const reviewedOn = (slug = "") => pageUpdated[slug] || updated;
+// Publication dates come from repository history. Keep this list curated rather
+// than deriving dates from local file metadata or applying one date to all guides.
+const articleMetadata = {
+  "sourcing-guides/lfgb-certification-drinkware": {
+    datePublished: "2026-09-01",
+    dateModified: "2026-09-01",
+  },
+  "sourcing-guides/how-to-source-custom-tumblers-from-china": {
+    datePublished: "2026-06-26",
+    dateModified: "2026-09-01",
+  },
+  "sourcing-guides/understanding-fda-vs-lfgb-standards-stainless-steel-bottles": {
+    datePublished: "2026-06-26",
+    dateModified: "2026-07-22",
+  },
+};
 const defaultOgImage = `${site}/assets/hero-premium-custom-drinkware-gift-packaging.jpg`;
 
 const wa = (text) => {
@@ -969,18 +985,23 @@ const pageSchema = ({ canonical, name, schemaType = "WebPage" }) => ({
   inLanguage: "en",
 });
 
-const articleSchema = (slug, name, canonical) => ({
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "@id": `${canonical}#article`,
-  headline: schemaText(name),
-  url: canonical,
-  mainEntityOfPage: { "@id": `${canonical}#webpage` },
-  author: { "@id": `${site}/#organization` },
-  dateModified: reviewedOn(slug),
-  inLanguage: "en",
-  publisher: { "@id": `${site}/#organization` },
-});
+const articleSchema = (slug, name, canonical, description = "") => {
+  const metadata = articleMetadata[slug];
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "@id": `${canonical}#article`,
+    headline: schemaText(name),
+    ...(description ? { description: schemaText(description) } : {}),
+    url: canonical,
+    mainEntityOfPage: { "@id": `${canonical}#webpage` },
+    author: { "@id": `${site}/#organization` },
+    ...(metadata?.datePublished ? { datePublished: metadata.datePublished } : {}),
+    dateModified: metadata?.dateModified || reviewedOn(slug),
+    inLanguage: "en",
+    publisher: { "@id": `${site}/#organization` },
+  };
+};
 
 const pageBreadcrumbSchema = (slug, name, canonical) => {
   const items = [{ name: "Home", url: `${site}/` }];
@@ -1057,7 +1078,7 @@ function pageShell({
   const pageSchemas = [
     pageSchema({ canonical, name: h1, schemaType }),
     ...(servicePageSlugs.has(slug) ? [serviceSchema({ slug, h1 })] : []),
-    ...(slug.startsWith("sourcing-guides/") ? [articleSchema(slug, h1, canonical)] : []),
+    ...(slug.startsWith("sourcing-guides/") ? [articleSchema(slug, h1, canonical, meta)] : []),
     ...(canonical === `${site}/` ? [] : [pageBreadcrumbSchema(slug, h1, canonical)]),
     ...pageSpecificSchemas(schemas, slug),
   ];
@@ -2889,6 +2910,7 @@ function manualSchemaMarkup(file, html) {
   const canonical = htmlValue(html, /<link\s+rel=["']canonical["']\s+href=["']([^"']*)/i);
   const route = new URL(canonical || `${site}/`).pathname;
   const name = schemaText(htmlValue(html, /<h1\b[^>]*>([\s\S]*?)<\/h1>/i).replace(/<[^>]+>/g, "").trim());
+  const description = schemaText(htmlValue(html, /<meta\s+name=["']description["']\s+content=["']([^"']*)/i));
   const pageEntity = pageSchema({ canonical, name: name || "HDS Drinkware", schemaType: "WebPage" });
   if (route === "/") return jsonLd(organizationSchema, websiteSchema, pageEntity);
 
@@ -2905,18 +2927,7 @@ function manualSchemaMarkup(file, html) {
   const schemas = [pageEntity, breadcrumbSchema(breadcrumbItems)];
   if (route.startsWith("/sourcing-guides/") && route !== "/sourcing-guides/") {
     const slug = route.replace(/^\/|\/$/g, "");
-    schemas.push({
-      "@context": "https://schema.org",
-      "@type": "Article",
-      "@id": `${canonical}#article`,
-      headline: name || "Sourcing Guide",
-      url: canonical,
-      mainEntityOfPage: { "@id": `${canonical}#webpage` },
-      author: { "@id": `${site}/#organization` },
-      dateModified: reviewedOn(slug),
-      inLanguage: "en",
-      publisher: { "@id": `${site}/#organization` },
-    });
+    schemas.push(articleSchema(slug, name || "Sourcing Guide", canonical, description));
   }
   return jsonLd(...schemas);
 }
