@@ -54,6 +54,7 @@ class TestFormData {
     for (const [name, input] of hiddenInputs) this.values.set(name, input.value || "");
   }
   get(name) { return this.values.get(name) || ""; }
+  set(name, value) { this.values.set(name, value); }
 }
 
 let fetchCount = 0;
