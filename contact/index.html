@@ -151,7 +151,7 @@
             <div class="design-upload-option">
               <label for="design-file">Upload Design File</label>
               <input id="design-file" type="file" accept=".pdf,.jpg,.jpeg,.png,.webp,application/pdf,image/jpeg,image/png,image/webp" aria-describedby="design-file-help design-file-status" />
-              <p id="design-file-help" class="form-field-help">PDF, JPG/JPEG, PNG or WEBP · max 10 MB. Secure direct upload is not enabled on this form yet.</p>
+              <p id="design-file-help" class="form-field-help">PDF, JPG/JPEG, PNG or WEBP · max 10 MB. The file is uploaded only after server-side type, signature, Turnstile and rate-limit checks.</p>
               <p id="design-file-status" class="design-file-status" role="status" aria-live="polite"></p>
             </div>
             <div class="design-link-option">
@@ -161,9 +161,10 @@
             </div>
           </div>
         </fieldset>
+        <input type="hidden" name="turnstile_token" value="" autocomplete="off" />
         <label class="full">Packaging Requirements <textarea name="packaging_requirements" rows="2" placeholder="Standard box, retail box, gift packaging, labels or carton marks (optional)"></textarea></label>
         <label class="full">Message <textarea name="message" rows="3" placeholder="Logo, color, capacity, finish, buyer channel, timeline or other details (optional)"></textarea></label>
-        <p class="form-file-note full">You can select a file to check it on this device, but this static form does not transmit selected files yet. Submit the RFQ, then reply to our email with the file or continue on WhatsApp. A public HTTPS design link can be sent with the RFQ.</p>
+        <p class="form-file-note full">Secure file delivery is available only when this environment has the private R2, Turnstile and rate-limit bindings configured. If upload verification or storage is unavailable, the RFQ will stop before Web3Forms and you can retry, remove the file, or send it by email/WhatsApp. A public HTTPS design link can also be sent with the RFQ.</p>
         <button type="submit" class="full">Send My Quote Request</button>
         <p class="form-status full" aria-live="polite"></p>
       </form>

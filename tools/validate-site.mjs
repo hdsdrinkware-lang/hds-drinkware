@@ -345,6 +345,7 @@ if (contactForm) {
   if (!/id=["']design-file["'][^>]*type=["']file["']/i.test(contactForm)) errors.push("contact/index.html: design file chooser is missing");
   if (!/id=["']design-file["'][^>]*accept=["'][^"']*application\/pdf[^"']*image\/webp/i.test(contactForm)) errors.push("contact/index.html: design file chooser must declare the approved file types");
   if (!/name=["']design_link["'][^>]*type=["']url["']/i.test(contactForm)) errors.push("contact/index.html: HTTPS design link field is missing");
+  if (!/name=["']turnstile_token["']/i.test(contactForm)) errors.push("contact/index.html: secure upload Turnstile token field is missing");
   if (!/Local computer file paths(?: cannot be opened by our team| such as)/i.test(contactForm)) errors.push("contact/index.html: local file path warning is missing");
 }
 
@@ -356,6 +357,21 @@ if (/\b(?:form|formElement|target|currentTarget)\.name\b/.test(conversionScript)
 if (!conversionScript.includes("Source page:")) errors.push("script.js: WhatsApp messages do not include the source page");
 if (!conversionScript.includes("window.hdsAnalyticsReady !== true")) errors.push("script.js: analytics events are not blocked until consent");
 if (!conversionScript.includes('"generate_lead"')) errors.push("script.js: generate_lead lead event is missing");
+if (!conversionScript.includes('fetch("/api/rfq/upload"')) errors.push("script.js: secure RFQ upload endpoint is not connected");
+if (!conversionScript.includes("cleanupUploadedFile")) errors.push("script.js: Web3Forms failure cleanup path is missing");
+if (!conversionScript.includes('data.delete("turnstile_token")')) errors.push("script.js: Turnstile token must not be forwarded to Web3Forms");
+if (!conversionScript.includes("design_download_url")) errors.push("script.js: secure design download metadata is missing");
+
+const uploadFunction = fs.readFileSync(path.join(root, "functions", "api", "rfq", "upload.js"), "utf8");
+const downloadFunction = fs.readFileSync(path.join(root, "functions", "api", "rfq", "download.js"), "utf8");
+const sharedUploadSecurity = fs.readFileSync(path.join(root, "functions", "_shared", "rfq.js"), "utf8");
+for (const [label, source, checks] of [
+  ["functions/api/rfq/upload.js", uploadFunction, ["onRequestPost", "onRequestDelete", "RFQ_UPLOADS"]],
+  ["functions/api/rfq/download.js", downloadFunction, ["onRequestGet", "attachmentHeaders", "validateSignedRequest"]],
+  ["functions/_shared/rfq.js", sharedUploadSecurity, ["MAX_FILE_BYTES", "hasSignature", "isSafeObjectKey", "HMAC", "TURNSTILE_SECRET_KEY", "RFQ_UPLOAD_LIMITER", "nosniff", "private, no-store"]],
+]) {
+  for (const check of checks) if (!source.includes(check)) errors.push(`${label}: missing secure upload control ${check}`);
+}
 
 const privacyPolicy = fs.readFileSync(path.join(root, "privacy-policy", "index.html"), "utf8");
 if (!/<meta[^>]+name=["']robots["'][^>]+noindex/i.test(privacyPolicy)) errors.push("privacy-policy/index.html: privacy information must remain owner-review noindex");

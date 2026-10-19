@@ -55,6 +55,7 @@ class TestFormData {
   }
   get(name) { return this.values.get(name) || ""; }
   set(name, value) { this.values.set(name, value); }
+  delete(name) { this.values.delete(name); }
 }
 
 let fetchCount = 0;

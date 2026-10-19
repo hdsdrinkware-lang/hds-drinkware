@@ -262,6 +262,7 @@ const buildMailtoUrl = (data) => {
   const email = data.get("email") || "";
   const whatsapp = data.get("whatsapp") || "";
   const contact = [email, whatsapp].filter(Boolean).join(" / ") || data.get("contact") || "";
+  const designReference = data.get("design_link") || data.get("design_download_url") || "";
   const lines = [
     "New drinkware inquiry for Shanxi Huandingsheng Industry and Trade Co., Ltd. / HDS Drinkware",
     "",
@@ -275,7 +276,9 @@ const buildMailtoUrl = (data) => {
     `Customization Requirement: ${data.get("customization_requirements") || data.get("logo_requirement") || ""}`,
     `Packaging Requirement: ${data.get("packaging_requirements") || data.get("packaging_requirement") || ""}`,
     `Shipping Term: ${data.get("shipping_term") || ""}`,
-    `Design Reference Link: ${data.get("design_link") || ""}`,
+    `Design Reference Link: ${designReference}`,
+    `Design File Name: ${data.get("design_file_name") || ""}`,
+    `Design File Size: ${data.get("design_file_size") || ""}`,
     `Design File Status: ${data.get("design_file_status") || "not_provided"}`,
     `Source Page: ${data.get("page_url") || ""}`,
     `Landing Page: ${data.get("landing_page") || ""}`,
@@ -291,6 +294,37 @@ const buildMailtoUrl = (data) => {
   return `mailto:${salesEmail}?subject=${subject}&body=${body}`;
 };
 
+const uploadDesignFile = async (file, formElement) => {
+  const uploadData = new FormData();
+  uploadData.append("file", file, file.name);
+  const token = formElement.querySelector('[name="turnstile_token"]')?.value || window.hdsTurnstileToken || "";
+  if (token) uploadData.append("turnstile_token", token);
+  const response = await fetch("/api/rfq/upload", { method: "POST", body: uploadData });
+  const result = await response.json().catch(() => ({}));
+  if (!response.ok || !result.success) {
+    const error = new Error(result.message || "Secure file upload failed.");
+    error.code = result.error || "upload_failed";
+    throw error;
+  }
+  return result;
+};
+
+const cleanupUploadedFile = async (cleanupUrl) => {
+  if (!cleanupUrl) return false;
+  try {
+    const response = await fetch(cleanupUrl, { method: "DELETE" });
+    const result = await response.json().catch(() => ({}));
+    return response.ok && result.success === true;
+  } catch (error) {
+    return false;
+  }
+};
+
+window.hdsSetTurnstileToken = (token) => {
+  window.hdsTurnstileToken = String(token || "");
+  document.querySelectorAll('[name="turnstile_token"]').forEach((input) => { input.value = window.hdsTurnstileToken; });
+};
+
 // Generic form submit handler for Web3Forms static hosting compatibility
 document.querySelectorAll("form").forEach((formElement) => {
   prepareFormAttribution(formElement);
@@ -299,6 +333,7 @@ document.querySelectorAll("form").forEach((formElement) => {
   const designFileStatus = formElement.querySelector("#design-file-status");
   const designLinkInput = formElement.querySelector("#design-link");
   let selectedDesignFile = null;
+  let uploadedDesign = null;
 
   const setDesignFileStatus = (message, isError = false) => {
     if (!designFileStatus) return;
@@ -308,6 +343,7 @@ document.querySelectorAll("form").forEach((formElement) => {
 
   designFileInput?.addEventListener("change", async () => {
     selectedDesignFile = designFileInput.files?.[0] || null;
+    uploadedDesign = null;
     if (!selectedDesignFile) {
       setDesignFileStatus("");
       return;
@@ -329,7 +365,7 @@ document.querySelectorAll("form").forEach((formElement) => {
       setDesignFileStatus("We could not verify that file. Please choose a PDF, JPG/JPEG, PNG, or WEBP design file.", true);
       return;
     }
-    setDesignFileStatus(`${selectedDesignFile.name} · ${(selectedDesignFile.size / 1024 / 1024).toFixed(2)} MB selected. It will not be uploaded by this form yet; please attach it by email after submitting.`);
+    setDesignFileStatus(`${selectedDesignFile.name} · ${(selectedDesignFile.size / 1024 / 1024).toFixed(2)} MB selected. Secure upload will run after server-side verification when you submit.`);
   });
 
   designLinkInput?.addEventListener("input", () => {
@@ -379,6 +415,7 @@ document.querySelectorAll("form").forEach((formElement) => {
     formElement.dataset.submitting = "true";
     let statusText = "Sending your request...";
     let successText = "Thank you! Your submission has been received successfully.";
+    let uploadFailure = false;
 
     // Custom success texts based on form
     if (formName === "catalog-download") {
@@ -404,6 +441,29 @@ document.querySelectorAll("form").forEach((formElement) => {
     statusDisplay.textContent = statusText;
 
     try {
+      data.delete("turnstile_token");
+      if (formName === "drinkware-inquiry" && selectedDesignFile) {
+        statusDisplay.textContent = "Verifying and uploading your design file...";
+        try {
+          uploadedDesign = await uploadDesignFile(selectedDesignFile, formElement);
+        } catch (error) {
+          uploadFailure = true;
+          throw error;
+        }
+        setHiddenFormValue(formElement, "design_file_status", "uploaded");
+        setHiddenFormValue(formElement, "design_reference_type", "private_r2_attachment");
+        setHiddenFormValue(formElement, "design_file_name", uploadedDesign.filename);
+        setHiddenFormValue(formElement, "design_file_size", String(uploadedDesign.size));
+        setHiddenFormValue(formElement, "design_file_type", uploadedDesign.content_type);
+        setHiddenFormValue(formElement, "design_download_url", uploadedDesign.download_url);
+        data.set("design_file_status", "uploaded");
+        data.set("design_reference_type", "private_r2_attachment");
+        data.set("design_file_name", uploadedDesign.filename);
+        data.set("design_file_size", String(uploadedDesign.size));
+        data.set("design_file_type", uploadedDesign.content_type);
+        data.set("design_download_url", uploadedDesign.download_url);
+        setDesignFileStatus(`${uploadedDesign.filename} · ${(uploadedDesign.size / 1024 / 1024).toFixed(2)} MB uploaded securely. A short-lived private download link will be included in the RFQ notification.`);
+      }
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         body: data
@@ -417,6 +477,7 @@ document.querySelectorAll("form").forEach((formElement) => {
 
       formElement.reset();
       selectedDesignFile = null;
+      uploadedDesign = null;
       setDesignFileStatus("");
       statusDisplay.textContent = successText;
       if (formName === "drinkware-inquiry" && data.get("design_file_status") === "selected_but_not_uploaded") {
@@ -427,7 +488,18 @@ document.querySelectorAll("form").forEach((formElement) => {
     } catch (error) {
       statusDisplay.classList.add("is-error");
       statusDisplay.style.color = "var(--coral)";
-      if (formName === "drinkware-inquiry") {
+      if (uploadFailure) {
+        statusDisplay.textContent = "Secure file upload could not be completed. Please retry the upload, remove the file and submit again, or send the file by email/WhatsApp.";
+      } else if (formName === "drinkware-inquiry") {
+        if (uploadedDesign?.cleanup_url) {
+          const cleaned = await cleanupUploadedFile(uploadedDesign.cleanup_url);
+          if (cleaned) {
+            data.set("design_file_status", "upload_cleaned_after_web3forms_failure");
+            data.delete("design_download_url");
+          } else {
+            data.set("design_file_status", "uploaded_web3forms_failed_cleanup_pending");
+          }
+        }
         statusDisplay.textContent = "Opening email as a backup. You can send the prepared inquiry directly.";
         window.location.href = buildMailtoUrl(data);
       } else {
