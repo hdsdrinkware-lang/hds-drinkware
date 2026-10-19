@@ -3,7 +3,54 @@ const formStatus = document.querySelector(".form-status");
 const salesEmail = "hds.drinkware@gmail.com";
 const whatsappUrl = "https://wa.me/8613994271614?text=Hello%20HDS%20Drinkware%2C%20I%20would%20like%20to%20request%20a%20custom%20drinkware%20quotation.";
 const catalogGrid = document.querySelector("#catalog-grid");
+const designFileMaxBytes = 10 * 1024 * 1024;
+const designFileTypeRules = new Map([
+  ["pdf", { mime: "application/pdf", label: "PDF" }],
+  ["jpg", { mime: "image/jpeg", label: "JPG/JPEG" }],
+  ["jpeg", { mime: "image/jpeg", label: "JPG/JPEG" }],
+  ["png", { mime: "image/png", label: "PNG" }],
+  ["webp", { mime: "image/webp", label: "WEBP" }],
+]);
 window.dataLayer = window.dataLayer || [];
+
+const getDesignFileExtension = (fileName = "") => String(fileName).split(".").pop()?.toLowerCase() || "";
+
+const validateDesignFile = (file) => {
+  if (!file) return "";
+  if (file.size > designFileMaxBytes) return "Please choose a design file smaller than 10 MB.";
+  const extension = getDesignFileExtension(file.name);
+  const rule = designFileTypeRules.get(extension);
+  if (!rule || (file.type && file.type !== rule.mime)) {
+    return "Please choose a PDF, JPG/JPEG, PNG, or WEBP design file.";
+  }
+  return "";
+};
+
+const validateDesignFileSignature = (bytes, extension) => {
+  const matchesAt = (values, offset = 0) => values.every((value, index) => bytes[index + offset] === value);
+  if (extension === "pdf") return matchesAt([0x25, 0x50, 0x44, 0x46, 0x2d]);
+  if (extension === "jpg" || extension === "jpeg") return matchesAt([0xff, 0xd8, 0xff]);
+  if (extension === "png") return matchesAt([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
+  if (extension === "webp") return matchesAt([0x52, 0x49, 0x46, 0x46]) && matchesAt([0x57, 0x45, 0x42, 0x50], 8);
+  return false;
+};
+
+const validateDesignLink = (value) => {
+  const normalized = String(value || "").trim();
+  if (!normalized) return "";
+  if (/^file:/i.test(normalized) || /^[a-z]:[\\/]/i.test(normalized) || /^\\\\/.test(normalized)) {
+    return "Please upload your file or provide a publicly accessible HTTPS link. Local computer file paths cannot be opened by our team.";
+  }
+  try {
+    const url = new URL(normalized);
+    if (url.protocol !== "https:" || !url.hostname || url.username || url.password) throw new Error("unsafe design link");
+    return "";
+  } catch (error) {
+    return "Please provide a publicly accessible HTTPS design link, for example https://example.com/your-design.pdf.";
+  }
+};
+
+window.hdsRfqValidation = { validateDesignFile, validateDesignFileSignature, validateDesignLink, designFileMaxBytes };
 
 const catalogProducts = [
   ["40oz Handle Tumbler", "40oz series", "40oz-handle-tumbler.jpg"],
@@ -174,6 +221,7 @@ const setHiddenFormValue = (formElement, name, value) => {
 const prepareFormAttribution = (formElement) => {
   const attribution = getAttributionData();
   setHiddenFormValue(formElement, "lead_form", getFormName(formElement) || "unknown");
+  setHiddenFormValue(formElement, "form_page", window.location.pathname || "/");
   Object.entries(attribution).forEach(([name, value]) => {
     setHiddenFormValue(formElement, name, value);
   });
@@ -246,6 +294,47 @@ const buildMailtoUrl = (data) => {
 document.querySelectorAll("form").forEach((formElement) => {
   prepareFormAttribution(formElement);
 
+  const designFileInput = formElement.querySelector("#design-file");
+  const designFileStatus = formElement.querySelector("#design-file-status");
+  const designLinkInput = formElement.querySelector("#design-link");
+  let selectedDesignFile = null;
+
+  const setDesignFileStatus = (message, isError = false) => {
+    if (!designFileStatus) return;
+    designFileStatus.textContent = message;
+    designFileStatus.classList.toggle("is-error", isError);
+  };
+
+  designFileInput?.addEventListener("change", async () => {
+    selectedDesignFile = designFileInput.files?.[0] || null;
+    if (!selectedDesignFile) {
+      setDesignFileStatus("");
+      return;
+    }
+    const basicError = validateDesignFile(selectedDesignFile);
+    if (basicError) {
+      designFileInput.value = "";
+      selectedDesignFile = null;
+      setDesignFileStatus(basicError, true);
+      return;
+    }
+    try {
+      const header = new Uint8Array(await selectedDesignFile.slice(0, 12).arrayBuffer());
+      const extension = getDesignFileExtension(selectedDesignFile.name);
+      if (!validateDesignFileSignature(header, extension)) throw new Error("signature mismatch");
+    } catch (error) {
+      designFileInput.value = "";
+      selectedDesignFile = null;
+      setDesignFileStatus("We could not verify that file. Please choose a PDF, JPG/JPEG, PNG, or WEBP design file.", true);
+      return;
+    }
+    setDesignFileStatus(`${selectedDesignFile.name} · ${(selectedDesignFile.size / 1024 / 1024).toFixed(2)} MB selected. It will not be uploaded by this form yet; please attach it by email after submitting.`);
+  });
+
+  designLinkInput?.addEventListener("input", () => {
+    designLinkInput.setCustomValidity(validateDesignLink(designLinkInput.value));
+  });
+
   formElement.addEventListener("focusin", () => {
     if (formElement.dataset.formStarted === "true") return;
     formElement.dataset.formStarted = "true";
@@ -254,6 +343,8 @@ document.querySelectorAll("form").forEach((formElement) => {
 
   formElement.addEventListener("submit", async (event) => {
     event.preventDefault();
+    if (formElement.dataset.submitting === "true") return;
+    if (designLinkInput) designLinkInput.setCustomValidity(validateDesignLink(designLinkInput.value));
     if (!formElement.checkValidity()) {
       formElement.reportValidity();
       return;
@@ -269,14 +360,22 @@ document.querySelectorAll("form").forEach((formElement) => {
         if (contactStatus) contactStatus.textContent = "Please provide an email address or WhatsApp number so HDS can reply.";
         return;
       }
+      if (emailValue) setHiddenFormValue(formElement, "replyto", emailValue);
     }
     if (formName === "drinkware-inquiry") {
       trackConversionEvent("rfq_submit", getFormEventParameters(formElement));
     }
 
     const data = new FormData(formElement);
+    if (formName === "drinkware-inquiry") {
+      setHiddenFormValue(formElement, "design_file_status", selectedDesignFile ? "selected_but_not_uploaded" : "not_provided");
+      setHiddenFormValue(formElement, "design_reference_type", designLinkInput?.value.trim() ? "https_link" : selectedDesignFile ? "local_file_selected_for_follow_up" : "none");
+      data.set("design_file_status", selectedDesignFile ? "selected_but_not_uploaded" : "not_provided");
+      data.set("design_reference_type", designLinkInput?.value.trim() ? "https_link" : selectedDesignFile ? "local_file_selected_for_follow_up" : "none");
+    }
     const submitButton = formElement.querySelector('button[type="submit"]');
     if (submitButton) submitButton.disabled = true;
+    formElement.dataset.submitting = "true";
     let statusText = "Sending your request...";
     let successText = "Thank you! Your submission has been received successfully.";
 
@@ -316,7 +415,12 @@ document.querySelectorAll("form").forEach((formElement) => {
       }
 
       formElement.reset();
+      selectedDesignFile = null;
+      setDesignFileStatus("");
       statusDisplay.textContent = successText;
+      if (formName === "drinkware-inquiry" && data.get("design_file_status") === "selected_but_not_uploaded") {
+        statusDisplay.textContent = `${successText} Your selected file was not uploaded by this form. Please reply to our email to attach it.`;
+      }
       statusDisplay.style.color = "var(--teal)";
       trackConversionEvent("form_submit_success", getFormEventParameters(formElement));
     } catch (error) {
@@ -330,6 +434,7 @@ document.querySelectorAll("form").forEach((formElement) => {
       }
       trackConversionEvent("form_submit_error", getFormEventParameters(formElement));
     } finally {
+      formElement.dataset.submitting = "false";
       if (submitButton) submitButton.disabled = false;
     }
   });
