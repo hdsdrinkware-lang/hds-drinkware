@@ -126,7 +126,7 @@
       </div>
       <form class="quote-form contact-rfq-form" id="rfq-form" name="drinkware-inquiry" action="https://api.web3forms.com/submit" method="POST">
         <input type="hidden" name="access_key" value="45e7b7c2-d1c6-4019-a627-1d3f6bbadbab" />
-        <input type="hidden" name="subject" value="New HDS B2B Drinkware RFQ" />
+        <input type="hidden" name="subject" value="HDS Drinkware — New Customer Inquiry" />
         <input type="hidden" name="from_name" value="HDS Drinkware Contact Page RFQ" />
         <label>Name <input name="name" type="text" autocomplete="name" required /></label>
         <label>Business Email <input name="email" type="email" autocomplete="email" placeholder="Or provide WhatsApp below" /></label>
@@ -145,10 +145,25 @@
           </select>
         </label>
         <label>Estimated Quantity <input name="quantity" type="text" inputmode="numeric" placeholder="For example: 200 pcs" required /></label>
-        <label class="full">Product Photo / Reference Link <input name="photo_link_upload" type="url" placeholder="Paste a product page, image link or marketplace URL if available" /></label>
+        <fieldset class="design-reference full">
+          <legend>Design Reference <span>(optional)</span></legend>
+          <div class="design-reference-options">
+            <div class="design-upload-option">
+              <label for="design-file">Upload Design File</label>
+              <input id="design-file" type="file" accept=".pdf,.jpg,.jpeg,.png,.webp,application/pdf,image/jpeg,image/png,image/webp" aria-describedby="design-file-help design-file-status" />
+              <p id="design-file-help" class="form-field-help">PDF, JPG/JPEG, PNG or WEBP · max 10 MB. Secure direct upload is not enabled on this form yet.</p>
+              <p id="design-file-status" class="design-file-status" role="status" aria-live="polite"></p>
+            </div>
+            <div class="design-link-option">
+              <label for="design-link">Share Design Link</label>
+              <input id="design-link" name="design_link" type="url" inputmode="url" autocomplete="url" placeholder="https://example.com/your-design.pdf" aria-describedby="design-link-help" />
+              <p id="design-link-help" class="form-field-help">Use a publicly accessible HTTPS link. Local computer file paths such as file:///C:/... cannot be opened by our team.</p>
+            </div>
+          </div>
+        </fieldset>
         <label class="full">Packaging Requirements <textarea name="packaging_requirements" rows="2" placeholder="Standard box, retail box, gift packaging, labels or carton marks (optional)"></textarea></label>
         <label class="full">Message <textarea name="message" rows="3" placeholder="Logo, color, capacity, finish, buyer channel, timeline or other details (optional)"></textarea></label>
-        <p class="form-file-note full">This static form does not upload files directly. After submitting, reply by email or continue on WhatsApp to send artwork or product-reference images.</p>
+        <p class="form-file-note full">You can select a file to check it on this device, but this static form does not transmit selected files yet. Submit the RFQ, then reply to our email with the file or continue on WhatsApp. A public HTTPS design link can be sent with the RFQ.</p>
         <button type="submit" class="full">Send My Quote Request</button>
         <p class="form-status full" aria-live="polite"></p>
       </form>
