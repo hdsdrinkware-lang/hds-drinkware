@@ -342,7 +342,10 @@ if (contactForm) {
   const requiredNames = [...contactForm.matchAll(/<(?:input|select|textarea)\b(?=[^>]*\brequired\b)[^>]*\bname=["']([^"']+)/gi)].map((item) => item[1]).sort();
   const expectedRequiredNames = ["country", "name", "quantity"].sort();
   if (requiredNames.join("|") !== expectedRequiredNames.join("|")) errors.push(`contact/index.html: RFQ required fields are ${requiredNames.join(", ") || "missing"}`);
-  if (/type=["']file["']/i.test(contactForm)) errors.push("contact/index.html: file upload field must not be present in Phase 1");
+  if (!/id=["']design-file["'][^>]*type=["']file["']/i.test(contactForm)) errors.push("contact/index.html: design file chooser is missing");
+  if (!/id=["']design-file["'][^>]*accept=["'][^"']*application\/pdf[^"']*image\/webp/i.test(contactForm)) errors.push("contact/index.html: design file chooser must declare the approved file types");
+  if (!/name=["']design_link["'][^>]*type=["']url["']/i.test(contactForm)) errors.push("contact/index.html: HTTPS design link field is missing");
+  if (!/Local computer file paths(?: cannot be opened by our team| such as)/i.test(contactForm)) errors.push("contact/index.html: local file path warning is missing");
 }
 
 const conversionScript = fs.readFileSync(path.join(root, "script.js"), "utf8");
