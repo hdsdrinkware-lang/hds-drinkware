@@ -18,11 +18,11 @@ export const jsonResponse = (payload, status = 200, headers = {}) => new Respons
   { status, headers: { ...jsonHeaders, ...headers } },
 );
 
-export const errorResponse = (code, message, status) => jsonResponse({
+export const errorResponse = (code, message, status, headers = {}) => jsonResponse({
   success: false,
   error: code,
   message,
-}, status);
+}, status, headers);
 
 export const getFileExtension = (name = "") => String(name).split(/[\\/]/).pop().split(".").pop()?.toLowerCase() || "";
 
@@ -156,6 +156,30 @@ export const getClientIp = (request) => request.headers.get("CF-Connecting-IP")
   || request.headers.get("X-Forwarded-For")?.split(",")[0].trim()
   || "unknown";
 
+const normalizeHostname = (value) => String(value || "")
+  .trim()
+  .toLowerCase()
+  .replace(/\.$/, "");
+
+const isExactHostname = (value) => {
+  if (!value || value.includes("*") || value.includes("/") || value.includes(":")) return false;
+  return /^(?=.{1,253}$)[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)*$/i.test(value);
+};
+
+export const getTurnstileAllowedHostnames = (request, env) => {
+  let requestHostname = "";
+  try {
+    requestHostname = normalizeHostname(new URL(request.url).hostname);
+  } catch (error) {
+    return new Set();
+  }
+  const configured = String(env?.TURNSTILE_ALLOWED_HOSTNAMES || env?.TURNSTILE_ALLOWED_HOSTNAME || "")
+    .split(",")
+    .map(normalizeHostname)
+    .filter(isExactHostname);
+  return new Set([requestHostname, ...configured].filter(isExactHostname));
+};
+
 export const rateLimitKey = async (request) => {
   const digest = await crypto.subtle.digest("SHA-256", textEncoder.encode(getClientIp(request)));
   return `rfq-upload:${base64UrlEncode(new Uint8Array(digest))}`;
@@ -179,7 +203,9 @@ export const verifyTurnstile = async (env, request, token) => {
     const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", { method: "POST", body });
     if (!response.ok) return false;
     const result = await response.json();
-    return result?.success === true;
+    if (result?.success !== true) return false;
+    const hostname = normalizeHostname(result?.hostname);
+    return Boolean(hostname && getTurnstileAllowedHostnames(request, env).has(hostname));
   } catch (error) {
     return false;
   }

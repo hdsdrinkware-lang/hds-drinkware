@@ -297,8 +297,13 @@ const buildMailtoUrl = (data) => {
 const uploadDesignFile = async (file, formElement) => {
   const uploadData = new FormData();
   uploadData.append("file", file, file.name);
-  const token = formElement.querySelector('[name="turnstile_token"]')?.value || window.hdsTurnstileToken || "";
-  if (token) uploadData.append("turnstile_token", token);
+  const token = String(formElement.querySelector('[name="turnstile_token"]')?.value || window.hdsTurnstileToken || "").trim();
+  if (!token) {
+    const error = new Error("Please complete the security check before uploading a design file.");
+    error.code = "turnstile_token_missing";
+    throw error;
+  }
+  uploadData.append("turnstile_token", token);
   const response = await fetch("/api/rfq/upload", { method: "POST", body: uploadData });
   const result = await response.json().catch(() => ({}));
   if (!response.ok || !result.success) {
@@ -320,14 +325,103 @@ const cleanupUploadedFile = async (cleanupUrl) => {
   }
 };
 
+const turnstileScriptUrl = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+
+const getTurnstileToken = (formElement) => String(
+  formElement.querySelector('[name="turnstile_token"]')?.value || ""
+).trim();
+
 window.hdsSetTurnstileToken = (token) => {
   window.hdsTurnstileToken = String(token || "");
   document.querySelectorAll('[name="turnstile_token"]').forEach((input) => { input.value = window.hdsTurnstileToken; });
 };
 
+window.hdsClearTurnstileToken = () => window.hdsSetTurnstileToken("");
+
+const loadTurnstileApi = () => {
+  if (window.turnstile?.render) return Promise.resolve(window.turnstile);
+  if (window.hdsTurnstileApiPromise) return window.hdsTurnstileApiPromise;
+  window.hdsTurnstileApiPromise = new Promise((resolve, reject) => {
+    const existing = document.querySelector('script[data-hds-turnstile-loader="true"]') || document.querySelector("#hds-turnstile-script");
+    const script = existing || document.createElement("script");
+    if (!existing) {
+      script.id = "hds-turnstile-script";
+      script.src = turnstileScriptUrl;
+      script.async = true;
+      script.defer = true;
+      script.dataset.hdsTurnstileLoader = "true";
+      document.head.appendChild(script);
+    }
+    if (existing && script.readyState === "complete" && !window.turnstile?.render) {
+      reject(new Error("Turnstile API unavailable"));
+      return;
+    }
+    script.addEventListener("load", () => window.turnstile?.render ? resolve(window.turnstile) : reject(new Error("Turnstile API unavailable")), { once: true });
+    script.addEventListener("error", () => reject(new Error("Turnstile script failed to load")), { once: true });
+    if (window.turnstile?.render) resolve(window.turnstile);
+  });
+  return window.hdsTurnstileApiPromise;
+};
+
+const setTurnstileStatus = (formElement, message, isError = false) => {
+  const status = formElement.querySelector("#rfq-turnstile-status");
+  if (!status) return;
+  status.textContent = message;
+  status.classList.toggle("is-error", isError);
+};
+
+const initializeRfqTurnstile = async (formElement) => {
+  const widgetElement = formElement.querySelector("#rfq-turnstile-widget");
+  if (!widgetElement) return;
+  try {
+    const response = await fetch("/api/rfq/turnstile-config", { cache: "no-store", headers: { Accept: "application/json" } });
+    const config = await response.json().catch(() => ({}));
+    const siteKey = String(config.site_key || "").trim();
+    if (!response.ok || !config.success || !siteKey) throw new Error("Turnstile site key unavailable");
+    const turnstile = await loadTurnstileApi();
+    const widgetId = turnstile.render(widgetElement, {
+      sitekey: siteKey,
+      "before-interactive-callback": () => window.hdsClearTurnstileToken(),
+      callback: (token) => {
+        window.hdsSetTurnstileToken(token);
+        setTurnstileStatus(formElement, "Security check complete.");
+      },
+      "expired-callback": () => {
+        window.hdsClearTurnstileToken();
+        setTurnstileStatus(formElement, "Security check expired. Complete it again before uploading a file.", true);
+      },
+      "error-callback": () => {
+        window.hdsClearTurnstileToken();
+        setTurnstileStatus(formElement, "Security check could not be completed. Please retry before uploading a file.", true);
+      },
+      "timeout-callback": () => {
+        window.hdsClearTurnstileToken();
+        setTurnstileStatus(formElement, "Security check timed out. Please complete it again before uploading a file.", true);
+      },
+    });
+    formElement.dataset.turnstileWidgetId = String(widgetId);
+    formElement.dataset.turnstileAvailable = "true";
+    setTurnstileStatus(formElement, "Complete the security check before attaching a design file.");
+  } catch (error) {
+    formElement.dataset.turnstileAvailable = "false";
+    window.hdsClearTurnstileToken();
+    setTurnstileStatus(formElement, "Security verification is unavailable. Remove the file or contact HDS by email/WhatsApp.", true);
+  }
+};
+
+const resetRfqTurnstile = (formElement) => {
+  window.hdsClearTurnstileToken();
+  const widgetId = formElement.dataset.turnstileWidgetId;
+  if (widgetId && window.turnstile?.reset) {
+    try { window.turnstile.reset(widgetId); } catch (error) { /* continue without a widget reset */ }
+  }
+};
+
 // Generic form submit handler for Web3Forms static hosting compatibility
 document.querySelectorAll("form").forEach((formElement) => {
   prepareFormAttribution(formElement);
+
+  if (getFormName(formElement) === "drinkware-inquiry") initializeRfqTurnstile(formElement);
 
   const designFileInput = formElement.querySelector("#design-file");
   const designFileStatus = formElement.querySelector("#design-file-status");
@@ -478,6 +572,7 @@ document.querySelectorAll("form").forEach((formElement) => {
       formElement.reset();
       selectedDesignFile = null;
       uploadedDesign = null;
+      resetRfqTurnstile(formElement);
       setDesignFileStatus("");
       statusDisplay.textContent = successText;
       if (formName === "drinkware-inquiry" && data.get("design_file_status") === "selected_but_not_uploaded") {
@@ -489,7 +584,12 @@ document.querySelectorAll("form").forEach((formElement) => {
       statusDisplay.classList.add("is-error");
       statusDisplay.style.color = "var(--coral)";
       if (uploadFailure) {
-        statusDisplay.textContent = "Secure file upload could not be completed. Please retry the upload, remove the file and submit again, or send the file by email/WhatsApp.";
+        if (error?.code === "turnstile_token_missing") {
+          statusDisplay.textContent = "Please complete the security check before uploading a design file.";
+          setDesignFileStatus("Please complete the security check before uploading a design file.", true);
+        } else {
+          statusDisplay.textContent = "Secure file upload could not be completed. Please retry the upload, remove the file and submit again, or send the file by email/WhatsApp.";
+        }
       } else if (formName === "drinkware-inquiry") {
         if (uploadedDesign?.cleanup_url) {
           const cleaned = await cleanupUploadedFile(uploadedDesign.cleanup_url);

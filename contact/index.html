@@ -99,6 +99,7 @@
     <meta name="twitter:image" content="https://www.hdsdrinkware.com/assets/hero-premium-custom-drinkware-gift-packaging.jpg" />
     <title>Contact HDS Drinkware | HDS Drinkware</title>
     <link rel="stylesheet" href="../styles.css?v=20260828-phase5b-cta-rfq" />
+    <script id="hds-turnstile-script" src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"ContactPage","@id":"https://www.hdsdrinkware.com/contact/#webpage","name":"Contact HDS Drinkware","url":"https://www.hdsdrinkware.com/contact/","isPartOf":{"@id":"https://www.hdsdrinkware.com/#website"},"publisher":{"@id":"https://www.hdsdrinkware.com/#organization"},"inLanguage":"en"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","@id":"https://www.hdsdrinkware.com/contact/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.hdsdrinkware.com/"},{"@type":"ListItem","position":2,"name":"Contact HDS Drinkware","item":"https://www.hdsdrinkware.com/contact/"}]}</script>
   </head>
@@ -162,6 +163,9 @@
           </div>
         </fieldset>
         <input type="hidden" name="turnstile_token" value="" autocomplete="off" />
+        <div id="rfq-turnstile-widget" class="full" aria-describedby="rfq-turnstile-help"></div>
+        <p id="rfq-turnstile-help" class="form-field-help full">Security verification is required only when you attach a design file. Complete the check before sending an upload.</p>
+        <p id="rfq-turnstile-status" class="form-field-help full" role="status" aria-live="polite"></p>
         <label class="full">Packaging Requirements <textarea name="packaging_requirements" rows="2" placeholder="Standard box, retail box, gift packaging, labels or carton marks (optional)"></textarea></label>
         <label class="full">Message <textarea name="message" rows="3" placeholder="Logo, color, capacity, finish, buyer channel, timeline or other details (optional)"></textarea></label>
         <p class="form-file-note full">Secure file delivery is available only when this environment has the private R2, Turnstile and rate-limit bindings configured. If upload verification or storage is unavailable, the RFQ will stop before Web3Forms and you can retry, remove the file, or send it by email/WhatsApp. A public HTTPS design link can also be sent with the RFQ.</p>

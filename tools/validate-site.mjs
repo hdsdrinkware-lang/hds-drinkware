@@ -5,6 +5,7 @@ import { siteConfig } from "./site-config.mjs";
 import "./test-form-analytics.mjs";
 import "./test-consent-foundation.mjs";
 import "./test-cta-analytics.mjs";
+import "./test-turnstile-widget.mjs";
 
 const root = process.cwd();
 const siteOrigin = siteConfig.origin;
@@ -346,6 +347,8 @@ if (contactForm) {
   if (!/id=["']design-file["'][^>]*accept=["'][^"']*application\/pdf[^"']*image\/webp/i.test(contactForm)) errors.push("contact/index.html: design file chooser must declare the approved file types");
   if (!/name=["']design_link["'][^>]*type=["']url["']/i.test(contactForm)) errors.push("contact/index.html: HTTPS design link field is missing");
   if (!/name=["']turnstile_token["']/i.test(contactForm)) errors.push("contact/index.html: secure upload Turnstile token field is missing");
+  if (!/id=["']rfq-turnstile-widget["']/i.test(contactForm)) errors.push("contact/index.html: Turnstile widget container is missing");
+  if (!/challenges\.cloudflare\.com\/turnstile\/v0\/api\.js\?render=explicit/i.test(contactHtml)) errors.push("contact/index.html: official Turnstile explicit script is missing");
   if (!/Local computer file paths(?: cannot be opened by our team| such as)/i.test(contactForm)) errors.push("contact/index.html: local file path warning is missing");
 }
 
@@ -364,11 +367,13 @@ if (!conversionScript.includes("design_download_url")) errors.push("script.js: s
 
 const uploadFunction = fs.readFileSync(path.join(root, "functions", "api", "rfq", "upload.js"), "utf8");
 const downloadFunction = fs.readFileSync(path.join(root, "functions", "api", "rfq", "download.js"), "utf8");
+const turnstileConfigFunction = fs.readFileSync(path.join(root, "functions", "api", "rfq", "turnstile-config.js"), "utf8");
 const sharedUploadSecurity = fs.readFileSync(path.join(root, "functions", "_shared", "rfq.js"), "utf8");
 for (const [label, source, checks] of [
-  ["functions/api/rfq/upload.js", uploadFunction, ["onRequestPost", "onRequestDelete", "RFQ_UPLOADS"]],
+  ["functions/api/rfq/upload.js", uploadFunction, ["onRequestPost", "onRequestDelete", "RFQ_UPLOADS", "readBoundedBody", "MAX_REQUEST_BYTES", "verifyRateLimit"]],
   ["functions/api/rfq/download.js", downloadFunction, ["onRequestGet", "attachmentHeaders", "validateSignedRequest"]],
-  ["functions/_shared/rfq.js", sharedUploadSecurity, ["MAX_FILE_BYTES", "hasSignature", "isSafeObjectKey", "HMAC", "TURNSTILE_SECRET_KEY", "RFQ_UPLOAD_LIMITER", "nosniff", "private, no-store"]],
+  ["functions/api/rfq/turnstile-config.js", turnstileConfigFunction, ["onRequestGet", "TURNSTILE_SITE_KEY", "no-store", "site_key"]],
+  ["functions/_shared/rfq.js", sharedUploadSecurity, ["MAX_FILE_BYTES", "MAX_REQUEST_BYTES", "hasSignature", "isSafeObjectKey", "HMAC", "TURNSTILE_SECRET_KEY", "TURNSTILE_ALLOWED_HOSTNAMES", "RFQ_UPLOAD_LIMITER", "nosniff", "private, no-store"]],
 ]) {
   for (const check of checks) if (!source.includes(check)) errors.push(`${label}: missing secure upload control ${check}`);
 }

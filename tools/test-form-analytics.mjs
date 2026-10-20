@@ -22,6 +22,8 @@ const statusDisplay = {
   textContent: "",
 };
 const submitButton = { disabled: false };
+const turnstileInput = { type: "hidden", name: "turnstile_token", value: "" };
+hiddenInputs.set("turnstile_token", turnstileInput);
 const buyerNameControl = { name: "name", value: testValues.get("name") };
 const form = {
   // Deliberately reproduce named-property clobbering from <input name="name">.
@@ -39,6 +41,7 @@ const form = {
   querySelector(selector) {
     const hiddenName = selector.match(/^input\[type="hidden"\]\[name="([^"]+)"\]$/)?.[1];
     if (hiddenName) return hiddenInputs.get(hiddenName) || null;
+    if (selector === '[name="turnstile_token"]') return turnstileInput;
     if (selector === 'button[type="submit"]') return submitButton;
     if (selector === ".form-status") return statusDisplay;
     return null;
@@ -81,6 +84,7 @@ const context = {
     },
     querySelectorAll(selector) {
       if (selector === "form") return [form];
+      if (selector === '[name="turnstile_token"]') return [turnstileInput];
       return [];
     },
     createElement(tagName) {
@@ -109,6 +113,11 @@ context.window = {
 
 vm.runInNewContext(scriptSource, context, { filename: "script.js" });
 assert.equal(form.name, buyerNameControl, "test fixture must preserve the clobbered form.name property");
+
+context.window.hdsSetTurnstileToken("synthetic-widget-token");
+assert.equal(turnstileInput.value, "synthetic-widget-token", "Turnstile success callback must populate the hidden upload token");
+context.window.hdsClearTurnstileToken();
+assert.equal(turnstileInput.value, "", "Turnstile expiry/error callbacks must clear the hidden upload token");
 
 formListeners.get("focusin")();
 await formListeners.get("submit")({ preventDefault() {} });

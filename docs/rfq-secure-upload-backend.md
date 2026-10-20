@@ -7,6 +7,7 @@ This change adds Cloudflare Pages Functions for private RFQ design references. I
 - `POST /api/rfq/upload`: accepts one PDF, JPG/JPEG, PNG or WEBP file up to 10 MiB. It validates multipart content type, request size, extension, MIME type and file signature before writing a random `rfq/YYYY/MM/<uuid>.<extension>` key to R2.
 - `GET /api/rfq/download`: validates a seven-day HMAC-SHA-256 signature, an allowed key prefix and expiry. It always returns `application/octet-stream` with `Content-Disposition: attachment`, `X-Content-Type-Options: nosniff` and private no-store caching.
 - `DELETE /api/rfq/upload`: accepts only a separate short-lived signed cleanup URL so a Web3Forms failure can remove the newly stored object.
+- `GET /api/rfq/turnstile-config`: returns only the Preview environment's public `TURNSTILE_SITE_KEY` with `Cache-Control: no-store`; it never returns a secret.
 
 ## Required Preview configuration
 
@@ -18,8 +19,12 @@ Configure these in the Cloudflare Pages project for the Preview environment, the
 | `RFQ_UPLOAD_LIMITER` | Workers Rate Limiting binding | Anonymous upload protection; start with a conservative per-client limit such as 5 calls per 60 seconds and review observed traffic. |
 | `RFQ_DOWNLOAD_SIGNING_SECRET` | Secret | HMAC-SHA-256 signing key; use a new high-entropy value per environment. |
 | `TURNSTILE_SECRET_KEY` | Secret | Server-side Turnstile verification secret. |
+| `TURNSTILE_SITE_KEY` | Public environment variable | Public site key returned by `/api/rfq/turnstile-config`; configure it only in the intended Preview environment. |
+| `TURNSTILE_ALLOWED_HOSTNAMES` | Environment variable | Optional comma-separated exact hostnames accepted from Siteverify; no wildcard values are accepted. The current request hostname is always accepted when Siteverify returns that same hostname. |
 
-The public Turnstile site key is not committed here. Configure a Preview-only widget for the Preview hostname and call `window.hdsSetTurnstileToken(token)` from the widget callback. The server rejects uploads when the secret, token, R2 binding or rate-limit binding is absent; it never defaults to allow.
+The contact page loads the official Turnstile script with explicit rendering, fetches the public site key at runtime, and calls `window.hdsSetTurnstileToken(token)` only from the widget success callback. Expired, errored and timed-out challenges clear the hidden token. The server rejects uploads when the secret, token, hostname, R2 binding or rate-limit binding is absent; it never defaults to allow.
+
+Request protection is ordered as follows: the rate-limit binding runs before any multipart parsing, then the request body is read through a bounded stream capped at `MAX_REQUEST_BYTES` (10 MiB plus 128 KiB multipart overhead), and only then is `formData()` called. This protects requests that omit `Content-Length` or provide an untrusted smaller value.
 
 ## Retention and cleanup
 
