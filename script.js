@@ -5,6 +5,23 @@ const whatsappUrl = "https://wa.me/8613994271614?text=Hello%20HDS%20Drinkware%2C
 const catalogGrid = document.querySelector("#catalog-grid");
 window.dataLayer = window.dataLayer || [];
 
+const validateDesignLink = (value) => {
+  const normalized = String(value || "").trim();
+  if (!normalized) return "";
+  const invalidMessage = "Please provide a valid HTTPS design link, for example https://example.com/your-design.pdf.";
+  if (/^file:/i.test(normalized) || /^[a-z]:[\\/]/i.test(normalized) || /^\\\\/.test(normalized)) return "Please use an HTTPS share link. Local computer file paths cannot be opened by our team.";
+  if (!/^https:\/\//i.test(normalized) || /\s/.test(normalized)) return invalidMessage;
+  try {
+    const url = new URL(normalized);
+    if (url.protocol !== "https:" || !url.hostname || url.username || url.password) throw new Error("unsafe design link");
+    return "";
+  } catch (error) {
+    return invalidMessage;
+  }
+};
+
+window.hdsRfqValidation = { validateDesignLink };
+
 const catalogProducts = [
   ["40oz Handle Tumbler", "40oz series", "40oz-handle-tumbler.jpg"],
   ["40oz Ice Tumbler", "40oz series", "40oz-ice-tumbler.jpg"],
@@ -174,6 +191,7 @@ const setHiddenFormValue = (formElement, name, value) => {
 const prepareFormAttribution = (formElement) => {
   const attribution = getAttributionData();
   setHiddenFormValue(formElement, "lead_form", getFormName(formElement) || "unknown");
+  setHiddenFormValue(formElement, "form_page", window.location.pathname || "/");
   Object.entries(attribution).forEach(([name, value]) => {
     setHiddenFormValue(formElement, name, value);
   });
@@ -214,6 +232,7 @@ const buildMailtoUrl = (data) => {
   const email = data.get("email") || "";
   const whatsapp = data.get("whatsapp") || "";
   const contact = [email, whatsapp].filter(Boolean).join(" / ") || data.get("contact") || "";
+  const designReference = data.get("design_link") || "";
   const lines = [
     "New drinkware inquiry for Shanxi Huandingsheng Industry and Trade Co., Ltd. / HDS Drinkware",
     "",
@@ -227,7 +246,7 @@ const buildMailtoUrl = (data) => {
     `Customization Requirement: ${data.get("customization_requirements") || data.get("logo_requirement") || ""}`,
     `Packaging Requirement: ${data.get("packaging_requirements") || data.get("packaging_requirement") || ""}`,
     `Shipping Term: ${data.get("shipping_term") || ""}`,
-    `Product Photo / Link: ${data.get("photo_link_upload") || ""}`,
+    `Design Reference Link: ${designReference}`,
     `Source Page: ${data.get("page_url") || ""}`,
     `Landing Page: ${data.get("landing_page") || ""}`,
     `Initial Referrer: ${data.get("initial_referrer") || ""}`,
@@ -245,6 +264,11 @@ const buildMailtoUrl = (data) => {
 // Generic form submit handler for Web3Forms static hosting compatibility
 document.querySelectorAll("form").forEach((formElement) => {
   prepareFormAttribution(formElement);
+  const designLinkInput = formElement.querySelector("#design-link");
+
+  designLinkInput?.addEventListener("input", () => {
+    designLinkInput.setCustomValidity(validateDesignLink(designLinkInput.value));
+  });
 
   formElement.addEventListener("focusin", () => {
     if (formElement.dataset.formStarted === "true") return;
@@ -254,6 +278,8 @@ document.querySelectorAll("form").forEach((formElement) => {
 
   formElement.addEventListener("submit", async (event) => {
     event.preventDefault();
+    if (formElement.dataset.submitting === "true") return;
+    if (designLinkInput) designLinkInput.setCustomValidity(validateDesignLink(designLinkInput.value));
     if (!formElement.checkValidity()) {
       formElement.reportValidity();
       return;
@@ -269,6 +295,7 @@ document.querySelectorAll("form").forEach((formElement) => {
         if (contactStatus) contactStatus.textContent = "Please provide an email address or WhatsApp number so HDS can reply.";
         return;
       }
+      if (emailValue) setHiddenFormValue(formElement, "replyto", emailValue);
     }
     if (formName === "drinkware-inquiry") {
       trackConversionEvent("rfq_submit", getFormEventParameters(formElement));
@@ -277,6 +304,7 @@ document.querySelectorAll("form").forEach((formElement) => {
     const data = new FormData(formElement);
     const submitButton = formElement.querySelector('button[type="submit"]');
     if (submitButton) submitButton.disabled = true;
+    formElement.dataset.submitting = "true";
     let statusText = "Sending your request...";
     let successText = "Thank you! Your submission has been received successfully.";
 
@@ -289,7 +317,7 @@ document.querySelectorAll("form").forEach((formElement) => {
       successText = "Thank you! Your stock sample request has been received. We will contact you to coordinate shipping.";
     } else if (formName === "drinkware-inquiry") {
       statusText = "Sending your inquiry...";
-      successText = "Thank you. Your RFQ has been received. The HDS team will review the details and follow up using your preferred contact method.";
+      successText = "Thank you. Your RFQ has been received. The HDS team will review the details and follow up using your preferred contact method. If you have a design file saved on your device, please email it to hds.drinkware@gmail.com or send it via WhatsApp with your name and product so we can match it to your RFQ.";
     }
 
     // Set status message
@@ -330,6 +358,7 @@ document.querySelectorAll("form").forEach((formElement) => {
       }
       trackConversionEvent("form_submit_error", getFormEventParameters(formElement));
     } finally {
+      formElement.dataset.submitting = "false";
       if (submitButton) submitButton.disabled = false;
     }
   });

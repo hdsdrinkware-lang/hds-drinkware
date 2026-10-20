@@ -13,6 +13,7 @@ const testValues = new Map([
   ["country", "United States"],
   ["product", "Other custom drinkware"],
   ["quantity", "200"],
+  ["design_link", "https://files.example.test/design.pdf"],
   ["message", "Private RFQ regression test message"],
 ]);
 
@@ -23,6 +24,7 @@ const statusDisplay = {
 };
 const submitButton = { disabled: false };
 const buyerNameControl = { name: "name", value: testValues.get("name") };
+const designLinkControl = { value: "", addEventListener() {}, setCustomValidity() {} };
 const form = {
   // Deliberately reproduce named-property clobbering from <input name="name">.
   name: buyerNameControl,
@@ -39,6 +41,7 @@ const form = {
   querySelector(selector) {
     const hiddenName = selector.match(/^input\[type="hidden"\]\[name="([^"]+)"\]$/)?.[1];
     if (hiddenName) return hiddenInputs.get(hiddenName) || null;
+    if (selector === "#design-link") return designLinkControl;
     if (selector === 'button[type="submit"]') return submitButton;
     if (selector === ".form-status") return statusDisplay;
     return null;
@@ -51,6 +54,7 @@ const form = {
 class TestFormData {
   constructor() {
     this.values = new Map(testValues);
+    this.values.set("design_link", designLinkControl.value);
     for (const [name, input] of hiddenInputs) this.values.set(name, input.value || "");
   }
   get(name) { return this.values.get(name) || ""; }
@@ -125,9 +129,24 @@ assert.deepEqual(
 assert.equal(ga4Calls.filter(([, eventName]) => eventName === "generate_lead").length, 1, "one successful RFQ must emit exactly one generate_lead event");
 assert.equal(
   statusDisplay.textContent,
-  "Thank you. Your RFQ has been received. The HDS team will review the details and follow up using your preferred contact method.",
+  "Thank you. Your RFQ has been received. The HDS team will review the details and follow up using your preferred contact method. If you have a design file saved on your device, please email it to hds.drinkware@gmail.com or send it via WhatsApp with your name and product so we can match it to your RFQ.",
   "successful RFQ must use the HDS-specific success message",
 );
+
+context.window.dataLayer.length = 0;
+ga4Calls.length = 0;
+form.dataset.formStarted = "false";
+designLinkControl.value = testValues.get("design_link");
+formListeners.get("focusin")();
+await formListeners.get("submit")({ preventDefault() {} });
+assert.equal(fetchCount, 2, "RFQ with a valid HTTPS design link must make one additional Web3Forms request");
+assert.deepEqual(
+  context.window.dataLayer.map(({ event }) => event),
+  ["form_start", "rfq_submit", "form_submit_success"],
+  "RFQ with a valid HTTPS design link must preserve the success event order",
+);
+assert.equal(JSON.stringify(context.window.dataLayer).includes(testValues.get("design_link")), false, "design link must not enter the analytics data layer");
+assert.equal(JSON.stringify(ga4Calls).includes(testValues.get("design_link")), false, "design link must not enter GA4 payloads");
 
 const analyticsPayload = JSON.stringify(context.window.dataLayer);
 const ga4Payload = JSON.stringify(ga4Calls);

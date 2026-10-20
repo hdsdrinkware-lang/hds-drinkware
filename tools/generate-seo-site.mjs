@@ -2368,9 +2368,10 @@ function contactBody(page) {
         </label>
         <label>Estimated Quantity <input name="quantity" type="text" inputmode="numeric" required /></label>
         <label class="full">Customization Requirements <textarea name="customization_requirements" rows="3" placeholder="Logo method, color, capacity, finish or other requirements"></textarea></label>
+        <label class="full">Design File or Product Reference Link <input name="design_link" type="url" inputmode="url" autocomplete="url" placeholder="https://example.com/your-design.pdf" /></label>
         <label class="full">Packaging Requirements <textarea name="packaging_requirements" rows="3" placeholder="Standard box, retail box, gift packaging, labels or carton marks"></textarea></label>
         <label class="full">Message <textarea name="message" rows="4" placeholder="Timeline, buyer channel, shipping preference or other project details"></textarea></label>
-        <p class="form-file-note full">After submitting the RFQ, you can share artwork or product-reference files with HDS by replying to email or continuing the discussion on WhatsApp.</p>
+        <p class="design-reference-note full">Design files are not uploaded through this form. You can submit the RFQ without a design file, provide an HTTPS share link, or send a local file to ${email} or via WhatsApp after submitting.</p>
         <button type="submit" class="full">Submit RFQ</button>
         <p class="form-status full" aria-live="polite"></p>
       </form>

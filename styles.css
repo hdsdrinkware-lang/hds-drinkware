@@ -1986,7 +1986,7 @@ h3 {
   scroll-margin-top: calc(var(--header-height) + 24px);
 }
 
-.form-file-note {
+.design-reference-note {
   margin: 0;
   padding: 13px 15px;
   color: var(--muted);
@@ -1995,6 +1995,88 @@ h3 {
   background: #f7fafb;
   border: 1px solid var(--line);
   border-radius: 4px;
+}
+
+.design-reference {
+  min-width: 0;
+  margin: 0;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: #f7fafb;
+}
+
+.design-reference legend {
+  padding: 0 6px;
+  color: #334452;
+  font-size: 13px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.design-reference legend span {
+  color: var(--muted);
+  font-weight: 600;
+  text-transform: none;
+}
+
+.design-reference-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.design-link-option {
+  min-width: 0;
+}
+
+.design-reference-contact {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+}
+
+.design-reference-contact-title {
+  margin: 0;
+  color: #334452;
+  font-size: 13px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.design-reference-contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.design-reference label {
+  display: grid;
+  gap: 8px;
+  color: #334452;
+  font-size: 13px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.design-reference input {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  color: var(--ink);
+  background: var(--white);
+  border: 1px solid #cfd9de;
+  border-radius: 4px;
+  font: inherit;
+}
+
+.form-field-help {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
 }
 
 .site-footer {
@@ -2555,8 +2637,13 @@ h3 {
   .landing-quote-checklist,
   .landing-faq,
   .faq-grid,
-  .quote-form {
+  .quote-form,
+  .design-reference-options {
     grid-template-columns: 1fr;
+  }
+
+  .design-reference {
+    padding: 14px;
   }
 
   .quote-form label,

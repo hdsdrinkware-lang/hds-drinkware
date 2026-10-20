@@ -3,6 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { siteConfig } from "./site-config.mjs";
 import "./test-form-analytics.mjs";
+import "./test-rfq-input-validation.mjs";
 import "./test-consent-foundation.mjs";
 import "./test-cta-analytics.mjs";
 
@@ -342,7 +343,13 @@ if (contactForm) {
   const requiredNames = [...contactForm.matchAll(/<(?:input|select|textarea)\b(?=[^>]*\brequired\b)[^>]*\bname=["']([^"']+)/gi)].map((item) => item[1]).sort();
   const expectedRequiredNames = ["country", "name", "quantity"].sort();
   if (requiredNames.join("|") !== expectedRequiredNames.join("|")) errors.push(`contact/index.html: RFQ required fields are ${requiredNames.join(", ") || "missing"}`);
-  if (/type=["']file["']/i.test(contactForm)) errors.push("contact/index.html: file upload field must not be present in Phase 1");
+  if (/type=["']file["']/i.test(contactForm)) errors.push("contact/index.html: local file picker must not be present");
+  if (!/label for=["']design-link["'][^>]*>Design File or Product Reference Link<\/label>/i.test(contactForm)) errors.push("contact/index.html: HTTPS design link label is missing");
+  if (!/name=["']design_link["'][^>]*type=["']url["']/i.test(contactForm)) errors.push("contact/index.html: optional HTTPS design link field is missing");
+  if (!/placeholder=["']https:\/\/example\.com\/your-design\.pdf["']/i.test(contactForm)) errors.push("contact/index.html: design link placeholder is missing");
+  if (!/Have a design file saved on your device\? Submit your inquiry first/i.test(contactForm)) errors.push("contact/index.html: local-file email/WhatsApp workflow is missing");
+  if (!/Please use a share link that gives our team permission to access the file\./i.test(contactForm)) errors.push("contact/index.html: HTTPS access guidance is missing");
+  if (/turnstile_token|rfq-turnstile-widget|challenges\.cloudflare\.com\/turnstile|private R2|uploaded securely|automatically attached/i.test(contactForm + contactHtml)) errors.push("contact/index.html: upload-only security or storage language remains");
 }
 
 const conversionScript = fs.readFileSync(path.join(root, "script.js"), "utf8");
@@ -353,6 +360,10 @@ if (/\b(?:form|formElement|target|currentTarget)\.name\b/.test(conversionScript)
 if (!conversionScript.includes("Source page:")) errors.push("script.js: WhatsApp messages do not include the source page");
 if (!conversionScript.includes("window.hdsAnalyticsReady !== true")) errors.push("script.js: analytics events are not blocked until consent");
 if (!conversionScript.includes('"generate_lead"')) errors.push("script.js: generate_lead lead event is missing");
+for (const forbidden of ["uploadDesignFile", "cleanupUploadedFile", "selectedDesignFile", "uploadedDesign", "/api/rfq/", "design_download_url", "turnstile_token", "RFQ_UPLOADS", "TURNSTILE_SECRET_KEY"]) {
+  if (conversionScript.includes(forbidden)) errors.push(`script.js: upload-only dependency remains (${forbidden})`);
+}
+if (!conversionScript.includes("validateDesignLink")) errors.push("script.js: HTTPS design-link validation is missing");
 
 const privacyPolicy = fs.readFileSync(path.join(root, "privacy-policy", "index.html"), "utf8");
 if (!/<meta[^>]+name=["']robots["'][^>]+noindex/i.test(privacyPolicy)) errors.push("privacy-policy/index.html: privacy information must remain owner-review noindex");

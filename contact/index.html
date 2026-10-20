@@ -126,7 +126,7 @@
       </div>
       <form class="quote-form contact-rfq-form" id="rfq-form" name="drinkware-inquiry" action="https://api.web3forms.com/submit" method="POST">
         <input type="hidden" name="access_key" value="45e7b7c2-d1c6-4019-a627-1d3f6bbadbab" />
-        <input type="hidden" name="subject" value="New HDS B2B Drinkware RFQ" />
+        <input type="hidden" name="subject" value="HDS Drinkware — New Customer Inquiry" />
         <input type="hidden" name="from_name" value="HDS Drinkware Contact Page RFQ" />
         <label>Name <input name="name" type="text" autocomplete="name" required /></label>
         <label>Business Email <input name="email" type="email" autocomplete="email" placeholder="Or provide WhatsApp below" /></label>
@@ -145,10 +145,27 @@
           </select>
         </label>
         <label>Estimated Quantity <input name="quantity" type="text" inputmode="numeric" placeholder="For example: 200 pcs" required /></label>
-        <label class="full">Product Photo / Reference Link <input name="photo_link_upload" type="url" placeholder="Paste a product page, image link or marketplace URL if available" /></label>
+        <fieldset class="design-reference full">
+          <legend>Design Reference <span>(Optional)</span></legend>
+          <div class="design-reference-options">
+            <div class="design-link-option">
+              <label for="design-link">Design File or Product Reference Link</label>
+              <input id="design-link" name="design_link" type="url" inputmode="url" autocomplete="url" placeholder="https://example.com/your-design.pdf" aria-describedby="design-link-help" />
+              <p id="design-link-help" class="form-field-help">Please use a share link that gives our team permission to access the file. Links requiring additional sign-in may not be accessible.</p>
+              <p class="form-field-help">Have a design file saved on your device? Submit your inquiry first, then email the file to hds.drinkware@gmail.com or send it via WhatsApp. Please include your name and product so we can match the file to your request.</p>
+            </div>
+            <div class="design-reference-contact">
+              <p class="design-reference-contact-title">Need to send a local design file?</p>
+              <div class="design-reference-contact-actions">
+                <a class="button secondary" href="mailto:hds.drinkware@gmail.com?subject=Design%20file%20for%20my%20HDS%20Drinkware%20RFQ">Email Design File</a>
+                <a class="button whatsapp" href="https://wa.me/8613994271614?text=Hi%20HDS%20Drinkware%2C%20I%20submitted%20an%20RFQ%20and%20would%20like%20to%20send%20my%20design%20file.%20I%20will%20include%20my%20name%20and%20product." target="_blank" rel="noopener">Send via WhatsApp</a>
+              </div>
+            </div>
+          </div>
+        </fieldset>
         <label class="full">Packaging Requirements <textarea name="packaging_requirements" rows="2" placeholder="Standard box, retail box, gift packaging, labels or carton marks (optional)"></textarea></label>
         <label class="full">Message <textarea name="message" rows="3" placeholder="Logo, color, capacity, finish, buyer channel, timeline or other details (optional)"></textarea></label>
-        <p class="form-file-note full">This static form does not upload files directly. After submitting, reply by email or continue on WhatsApp to send artwork or product-reference images.</p>
+        <p class="design-reference-note full">Design files are not uploaded through this form. You can submit your RFQ without a design file, provide an HTTPS share link, or send a local file by email or WhatsApp after submitting.</p>
         <button type="submit" class="full">Send My Quote Request</button>
         <p class="form-status full" aria-live="polite"></p>
       </form>
