@@ -99,7 +99,6 @@
     <meta name="twitter:image" content="https://www.hdsdrinkware.com/assets/hero-premium-custom-drinkware-gift-packaging.jpg" />
     <title>Contact HDS Drinkware | HDS Drinkware</title>
     <link rel="stylesheet" href="../styles.css?v=20260828-phase5b-cta-rfq" />
-    <script id="hds-turnstile-script" src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"ContactPage","@id":"https://www.hdsdrinkware.com/contact/#webpage","name":"Contact HDS Drinkware","url":"https://www.hdsdrinkware.com/contact/","isPartOf":{"@id":"https://www.hdsdrinkware.com/#website"},"publisher":{"@id":"https://www.hdsdrinkware.com/#organization"},"inLanguage":"en"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","@id":"https://www.hdsdrinkware.com/contact/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.hdsdrinkware.com/"},{"@type":"ListItem","position":2,"name":"Contact HDS Drinkware","item":"https://www.hdsdrinkware.com/contact/"}]}</script>
   </head>
@@ -147,28 +146,26 @@
         </label>
         <label>Estimated Quantity <input name="quantity" type="text" inputmode="numeric" placeholder="For example: 200 pcs" required /></label>
         <fieldset class="design-reference full">
-          <legend>Design Reference <span>(optional)</span></legend>
+          <legend>Design Reference <span>(Optional)</span></legend>
           <div class="design-reference-options">
-            <div class="design-upload-option">
-              <label for="design-file">Upload Design File</label>
-              <input id="design-file" type="file" accept=".pdf,.jpg,.jpeg,.png,.webp,application/pdf,image/jpeg,image/png,image/webp" aria-describedby="design-file-help design-file-status" />
-              <p id="design-file-help" class="form-field-help">PDF, JPG/JPEG, PNG or WEBP · max 10 MB. The file is uploaded only after server-side type, signature, Turnstile and rate-limit checks.</p>
-              <p id="design-file-status" class="design-file-status" role="status" aria-live="polite"></p>
-            </div>
             <div class="design-link-option">
-              <label for="design-link">Share Design Link</label>
+              <label for="design-link">Design File or Product Reference Link</label>
               <input id="design-link" name="design_link" type="url" inputmode="url" autocomplete="url" placeholder="https://example.com/your-design.pdf" aria-describedby="design-link-help" />
-              <p id="design-link-help" class="form-field-help">Use a publicly accessible HTTPS link. Local computer file paths such as file:///C:/... cannot be opened by our team.</p>
+              <p id="design-link-help" class="form-field-help">Please use a share link that gives our team permission to access the file. Links requiring additional sign-in may not be accessible.</p>
+              <p class="form-field-help">Have a design file saved on your device? Submit your inquiry first, then email the file to hds.drinkware@gmail.com or send it via WhatsApp. Please include your name and product so we can match the file to your request.</p>
+            </div>
+            <div class="design-reference-contact">
+              <p class="design-reference-contact-title">Need to send a local design file?</p>
+              <div class="design-reference-contact-actions">
+                <a class="button secondary" href="mailto:hds.drinkware@gmail.com?subject=Design%20file%20for%20my%20HDS%20Drinkware%20RFQ">Email Design File</a>
+                <a class="button whatsapp" href="https://wa.me/8613994271614?text=Hi%20HDS%20Drinkware%2C%20I%20submitted%20an%20RFQ%20and%20would%20like%20to%20send%20my%20design%20file.%20I%20will%20include%20my%20name%20and%20product." target="_blank" rel="noopener">Send via WhatsApp</a>
+              </div>
             </div>
           </div>
         </fieldset>
-        <input type="hidden" name="turnstile_token" value="" autocomplete="off" />
-        <div id="rfq-turnstile-widget" class="full" aria-describedby="rfq-turnstile-help"></div>
-        <p id="rfq-turnstile-help" class="form-field-help full">Security verification is required only when you attach a design file. Complete the check before sending an upload.</p>
-        <p id="rfq-turnstile-status" class="form-field-help full" role="status" aria-live="polite"></p>
         <label class="full">Packaging Requirements <textarea name="packaging_requirements" rows="2" placeholder="Standard box, retail box, gift packaging, labels or carton marks (optional)"></textarea></label>
         <label class="full">Message <textarea name="message" rows="3" placeholder="Logo, color, capacity, finish, buyer channel, timeline or other details (optional)"></textarea></label>
-        <p class="form-file-note full">Secure file delivery is available only when this environment has the private R2, Turnstile and rate-limit bindings configured. If upload verification or storage is unavailable, the RFQ will stop before Web3Forms and you can retry, remove the file, or send it by email/WhatsApp. A public HTTPS design link can also be sent with the RFQ.</p>
+        <p class="design-reference-note full">Design files are not uploaded through this form. You can submit your RFQ without a design file, provide an HTTPS share link, or send a local file by email or WhatsApp after submitting.</p>
         <button type="submit" class="full">Send My Quote Request</button>
         <p class="form-status full" aria-live="polite"></p>
       </form>

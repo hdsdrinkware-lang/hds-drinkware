@@ -3,9 +3,9 @@ import fs from "node:fs";
 import path from "node:path";
 import { siteConfig } from "./site-config.mjs";
 import "./test-form-analytics.mjs";
+import "./test-rfq-input-validation.mjs";
 import "./test-consent-foundation.mjs";
 import "./test-cta-analytics.mjs";
-import "./test-turnstile-widget.mjs";
 
 const root = process.cwd();
 const siteOrigin = siteConfig.origin;
@@ -343,13 +343,13 @@ if (contactForm) {
   const requiredNames = [...contactForm.matchAll(/<(?:input|select|textarea)\b(?=[^>]*\brequired\b)[^>]*\bname=["']([^"']+)/gi)].map((item) => item[1]).sort();
   const expectedRequiredNames = ["country", "name", "quantity"].sort();
   if (requiredNames.join("|") !== expectedRequiredNames.join("|")) errors.push(`contact/index.html: RFQ required fields are ${requiredNames.join(", ") || "missing"}`);
-  if (!/id=["']design-file["'][^>]*type=["']file["']/i.test(contactForm)) errors.push("contact/index.html: design file chooser is missing");
-  if (!/id=["']design-file["'][^>]*accept=["'][^"']*application\/pdf[^"']*image\/webp/i.test(contactForm)) errors.push("contact/index.html: design file chooser must declare the approved file types");
-  if (!/name=["']design_link["'][^>]*type=["']url["']/i.test(contactForm)) errors.push("contact/index.html: HTTPS design link field is missing");
-  if (!/name=["']turnstile_token["']/i.test(contactForm)) errors.push("contact/index.html: secure upload Turnstile token field is missing");
-  if (!/id=["']rfq-turnstile-widget["']/i.test(contactForm)) errors.push("contact/index.html: Turnstile widget container is missing");
-  if (!/challenges\.cloudflare\.com\/turnstile\/v0\/api\.js\?render=explicit/i.test(contactHtml)) errors.push("contact/index.html: official Turnstile explicit script is missing");
-  if (!/Local computer file paths(?: cannot be opened by our team| such as)/i.test(contactForm)) errors.push("contact/index.html: local file path warning is missing");
+  if (/type=["']file["']/i.test(contactForm)) errors.push("contact/index.html: local file picker must not be present");
+  if (!/label for=["']design-link["'][^>]*>Design File or Product Reference Link<\/label>/i.test(contactForm)) errors.push("contact/index.html: HTTPS design link label is missing");
+  if (!/name=["']design_link["'][^>]*type=["']url["']/i.test(contactForm)) errors.push("contact/index.html: optional HTTPS design link field is missing");
+  if (!/placeholder=["']https:\/\/example\.com\/your-design\.pdf["']/i.test(contactForm)) errors.push("contact/index.html: design link placeholder is missing");
+  if (!/Have a design file saved on your device\? Submit your inquiry first/i.test(contactForm)) errors.push("contact/index.html: local-file email/WhatsApp workflow is missing");
+  if (!/Please use a share link that gives our team permission to access the file\./i.test(contactForm)) errors.push("contact/index.html: HTTPS access guidance is missing");
+  if (/turnstile_token|rfq-turnstile-widget|challenges\.cloudflare\.com\/turnstile|private R2|uploaded securely|automatically attached/i.test(contactForm + contactHtml)) errors.push("contact/index.html: upload-only security or storage language remains");
 }
 
 const conversionScript = fs.readFileSync(path.join(root, "script.js"), "utf8");
@@ -360,28 +360,10 @@ if (/\b(?:form|formElement|target|currentTarget)\.name\b/.test(conversionScript)
 if (!conversionScript.includes("Source page:")) errors.push("script.js: WhatsApp messages do not include the source page");
 if (!conversionScript.includes("window.hdsAnalyticsReady !== true")) errors.push("script.js: analytics events are not blocked until consent");
 if (!conversionScript.includes('"generate_lead"')) errors.push("script.js: generate_lead lead event is missing");
-if (!conversionScript.includes('fetch("/api/rfq/upload"')) errors.push("script.js: secure RFQ upload endpoint is not connected");
-if (!conversionScript.includes("cleanupUploadedFile")) errors.push("script.js: Web3Forms failure cleanup path is missing");
-if (!conversionScript.includes('data.delete("turnstile_token")')) errors.push("script.js: Turnstile token must not be forwarded to Web3Forms");
-if (!conversionScript.includes("design_download_url")) errors.push("script.js: secure design download metadata is missing");
-
-const uploadFunction = fs.readFileSync(path.join(root, "functions", "api", "rfq", "upload.js"), "utf8");
-const downloadFunction = fs.readFileSync(path.join(root, "functions", "api", "rfq", "download.js"), "utf8");
-const turnstileConfigFunction = fs.readFileSync(path.join(root, "functions", "api", "rfq", "turnstile-config.js"), "utf8");
-const sharedUploadSecurity = fs.readFileSync(path.join(root, "functions", "_shared", "rfq.js"), "utf8");
-const limiterWorker = fs.readFileSync(path.join(root, "workers", "rfq-upload-limiter", "src", "index.js"), "utf8");
-const limiterConfig = fs.readFileSync(path.join(root, "workers", "rfq-upload-limiter", "wrangler.toml.example"), "utf8");
-for (const [label, source, checks] of [
-  ["functions/api/rfq/upload.js", uploadFunction, ["onRequestPost", "onRequestDelete", "RFQ_UPLOADS", "readBoundedBody", "MAX_REQUEST_BYTES", "verifyRateLimit"]],
-  ["functions/api/rfq/download.js", downloadFunction, ["onRequestGet", "attachmentHeaders", "validateSignedRequest"]],
-  ["functions/api/rfq/turnstile-config.js", turnstileConfigFunction, ["onRequestGet", "TURNSTILE_SITE_KEY", "no-store", "site_key"]],
-  ["functions/_shared/rfq.js", sharedUploadSecurity, ["MAX_FILE_BYTES", "MAX_REQUEST_BYTES", "hasSignature", "isSafeObjectKey", "HMAC", "TURNSTILE_SECRET_KEY", "TURNSTILE_ALLOWED_HOSTNAMES", "RFQ_UPLOAD_LIMITER_SERVICE", "RATE_LIMIT_SERVICE_PATH", "nosniff", "private, no-store"]],
-  ["workers/rfq-upload-limiter/src/index.js", limiterWorker, ["__internal/rfq/upload/limit", "X-HDS-RFQ-Limiter-Protocol", "RFQ_UPLOAD_LIMITER", "rate_limit_unavailable"]],
-  ["workers/rfq-upload-limiter/wrangler.toml.example", limiterConfig, ["workers_dev = false", "ratelimits", "namespace_id = \"22022026\"", "limit = 5", "period = 60"]],
-]) {
-  for (const check of checks) if (!source.includes(check)) errors.push(`${label}: missing secure upload control ${check}`);
+for (const forbidden of ["uploadDesignFile", "cleanupUploadedFile", "selectedDesignFile", "uploadedDesign", "/api/rfq/", "design_download_url", "turnstile_token", "RFQ_UPLOADS", "TURNSTILE_SECRET_KEY"]) {
+  if (conversionScript.includes(forbidden)) errors.push(`script.js: upload-only dependency remains (${forbidden})`);
 }
-if (!/namespace_id\s*=\s*"22022026"/.test(limiterConfig)) errors.push("workers/rfq-upload-limiter/wrangler.toml.example: verified Preview namespace is missing");
+if (!conversionScript.includes("validateDesignLink")) errors.push("script.js: HTTPS design-link validation is missing");
 
 const privacyPolicy = fs.readFileSync(path.join(root, "privacy-policy", "index.html"), "utf8");
 if (!/<meta[^>]+name=["']robots["'][^>]+noindex/i.test(privacyPolicy)) errors.push("privacy-policy/index.html: privacy information must remain owner-review noindex");
