@@ -13,11 +13,10 @@ binding responses.
 ## Account-gated setup
 
 1. Check the current Wrangler CLI and Cloudflare account configuration.
-2. Verify an unused positive integer namespace ID for this account. Do not
-   guess or reuse an ID; the example config intentionally contains no usable
-   namespace ID.
-3. Copy `wrangler.toml.example` to `wrangler.toml`, replace the placeholder,
-   uncomment the `ratelimits` block, and validate with `wrangler deploy --dry-run`.
+2. The current account inventory found no accessible Worker scripts or existing
+   Rate Limiting bindings; namespace `22022026` is reserved for this Preview
+   Worker and recorded in both config files.
+3. Validate with `wrangler deploy --dry-run` before deployment.
 4. Deploy only the Preview Worker with `workers_dev = false`.
 5. Add a Preview-only Pages Service Binding named
    `RFQ_UPLOAD_LIMITER_SERVICE` pointing to this Worker, then redeploy Pages.

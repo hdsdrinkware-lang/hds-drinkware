@@ -377,11 +377,11 @@ for (const [label, source, checks] of [
   ["functions/api/rfq/turnstile-config.js", turnstileConfigFunction, ["onRequestGet", "TURNSTILE_SITE_KEY", "no-store", "site_key"]],
   ["functions/_shared/rfq.js", sharedUploadSecurity, ["MAX_FILE_BYTES", "MAX_REQUEST_BYTES", "hasSignature", "isSafeObjectKey", "HMAC", "TURNSTILE_SECRET_KEY", "TURNSTILE_ALLOWED_HOSTNAMES", "RFQ_UPLOAD_LIMITER_SERVICE", "RATE_LIMIT_SERVICE_PATH", "nosniff", "private, no-store"]],
   ["workers/rfq-upload-limiter/src/index.js", limiterWorker, ["__internal/rfq/upload/limit", "X-HDS-RFQ-Limiter-Protocol", "RFQ_UPLOAD_LIMITER", "rate_limit_unavailable"]],
-  ["workers/rfq-upload-limiter/wrangler.toml.example", limiterConfig, ["workers_dev = false", "ratelimits", "REPLACE_AFTER_ACCOUNT_CHECK", "limit = 5", "period = 60"]],
+  ["workers/rfq-upload-limiter/wrangler.toml.example", limiterConfig, ["workers_dev = false", "ratelimits", "namespace_id = \"22022026\"", "limit = 5", "period = 60"]],
 ]) {
   for (const check of checks) if (!source.includes(check)) errors.push(`${label}: missing secure upload control ${check}`);
 }
-if (/namespace_id\s*=\s*"\d+"/.test(limiterConfig)) errors.push("workers/rfq-upload-limiter/wrangler.toml.example: must not commit an unverified namespace ID");
+if (!/namespace_id\s*=\s*"22022026"/.test(limiterConfig)) errors.push("workers/rfq-upload-limiter/wrangler.toml.example: verified Preview namespace is missing");
 
 const privacyPolicy = fs.readFileSync(path.join(root, "privacy-policy", "index.html"), "utf8");
 if (!/<meta[^>]+name=["']robots["'][^>]+noindex/i.test(privacyPolicy)) errors.push("privacy-policy/index.html: privacy information must remain owner-review noindex");

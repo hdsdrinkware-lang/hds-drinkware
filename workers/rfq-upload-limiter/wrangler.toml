@@ -1,0 +1,12 @@
+name = "hds-rfq-upload-limiter-preview"
+main = "src/index.js"
+compatibility_date = "2026-10-19"
+workers_dev = false
+
+[[ratelimits]]
+name = "RFQ_UPLOAD_LIMITER"
+namespace_id = "22022026"
+
+[ratelimits.simple]
+limit = 5
+period = 60
