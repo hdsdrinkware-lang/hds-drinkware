@@ -8,6 +8,7 @@ import {
 import { onRequestDelete, onRequestPost } from "../functions/api/rfq/upload.js";
 import { onRequestGet } from "../functions/api/rfq/download.js";
 import { onRequestGet as onRequestTurnstileConfig } from "../functions/api/rfq/turnstile-config.js";
+import rateLimiterWorker from "../workers/rfq-upload-limiter/src/index.js";
 
 const makeBytes = (signature, size = signature.length) => {
   const bytes = new Uint8Array(size);
@@ -55,11 +56,19 @@ class MockR2 {
 }
 
 const r2 = new MockR2();
+const makeRateLimiterService = (limit) => ({
+  fetch: async (request) => rateLimiterWorker.fetch(request, {
+    RFQ_UPLOAD_LIMITER: { limit },
+  }),
+});
 const env = {
   RFQ_UPLOADS: r2,
   RFQ_DOWNLOAD_SIGNING_SECRET: "synthetic-download-secret",
   TURNSTILE_SECRET_KEY: "synthetic-turnstile-secret",
-  RFQ_UPLOAD_LIMITER: { limit: async () => ({ success: true }) },
+  RFQ_UPLOAD_LIMITER_SERVICE: makeRateLimiterService(async ({ key }) => {
+    assert.match(key, /^rfq-upload:[A-Za-z0-9_-]{43}$/, "Pages must calculate the internal key");
+    return { success: true };
+  }),
 };
 
 const originalFetch = globalThis.fetch;
@@ -105,6 +114,50 @@ const makeRawMultipartRequest = (fileBytes, extraHeaders = {}) => {
     body,
   });
 };
+
+const validInternalLimiterRequest = (body = { key: `rfq-upload:${"a".repeat(43)}` }) => new Request(
+  "https://rfq-upload-limiter.internal/__internal/rfq/upload/limit",
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-HDS-RFQ-Limiter-Protocol": "v1",
+    },
+    body: JSON.stringify(body),
+  },
+);
+
+let workerResponse = await rateLimiterWorker.fetch(
+  new Request("https://rfq-upload-limiter.internal/public", { method: "GET" }),
+  { RFQ_UPLOAD_LIMITER: { limit: async () => ({ success: true }) } },
+);
+assert.equal(workerResponse.status, 400, "the limiter Worker must reject public or malformed routes");
+workerResponse = await rateLimiterWorker.fetch(
+  validInternalLimiterRequest({ key: "client-supplied" }),
+  { RFQ_UPLOAD_LIMITER: { limit: async () => ({ success: true }) } },
+);
+assert.equal(workerResponse.status, 400, "the limiter Worker must reject malformed keys");
+workerResponse = await rateLimiterWorker.fetch(
+  validInternalLimiterRequest(),
+  { RFQ_UPLOAD_LIMITER: { limit: async () => ({ success: true }) } },
+);
+assert.deepEqual(await responseJson(workerResponse), { success: true, allowed: true }, "the limiter Worker must allow valid requests");
+workerResponse = await rateLimiterWorker.fetch(
+  validInternalLimiterRequest(),
+  { RFQ_UPLOAD_LIMITER: { limit: async () => ({ success: false }) } },
+);
+assert.equal(workerResponse.status, 429, "the limiter Worker must return 429 for a denied request");
+assert.deepEqual(await responseJson(workerResponse), { success: true, allowed: false }, "the limiter Worker must return an explicit deny result");
+workerResponse = await rateLimiterWorker.fetch(
+  validInternalLimiterRequest(),
+  { RFQ_UPLOAD_LIMITER: { limit: async () => ({ unexpected: true }) } },
+);
+assert.equal(workerResponse.status, 503, "malformed native limiter results must fail closed");
+workerResponse = await rateLimiterWorker.fetch(
+  validInternalLimiterRequest(),
+  { RFQ_UPLOAD_LIMITER: { limit: async () => { throw new Error("synthetic limiter outage"); } } },
+);
+assert.equal(workerResponse.status, 503, "native limiter exceptions must fail closed");
 
 let configResponse = await onRequestTurnstileConfig({
   request: new Request("https://preview.example/api/rfq/turnstile-config"),
@@ -194,21 +247,27 @@ const rateLimitedRequest = {
 };
 response = await onRequestPost({
   request: rateLimitedRequest,
-  env: { ...env, RFQ_UPLOAD_LIMITER: { limit: async () => ({ success: false }) } },
+  env: { ...env, RFQ_UPLOAD_LIMITER_SERVICE: makeRateLimiterService(async () => ({ success: false })) },
 });
 assert.equal(response.status, 429, "rate-limited requests must return 429");
 assert.equal(bodyRead, false, "rate limiting must occur before multipart body parsing");
 
 response = await onRequestPost({
   request: makeUploadRequest("limiter-outage.pdf", "application/pdf", signatures.pdf),
-  env: { ...env, RFQ_UPLOAD_LIMITER: { limit: async () => { throw new Error("synthetic limiter outage"); } } },
+  env: { ...env, RFQ_UPLOAD_LIMITER_SERVICE: { fetch: async () => { throw new Error("synthetic limiter outage"); } } },
 });
 assert.equal(response.status, 503, "rate-limit outages must fail closed");
+
+response = await onRequestPost({
+  request: makeUploadRequest("malformed-limiter-response.pdf", "application/pdf", signatures.pdf),
+  env: { ...env, RFQ_UPLOAD_LIMITER_SERVICE: { fetch: async () => Response.json({ success: true }) } },
+});
+assert.equal(response.status, 503, "malformed Service Binding responses must fail closed");
 
 response = await onRequestPost({ request: makeUploadRequest("missing-r2.pdf", "application/pdf", signatures.pdf), env: { ...env, RFQ_UPLOADS: undefined } });
 assert.equal(response.status, 503, "missing R2 binding must block upload");
 
-response = await onRequestPost({ request: makeUploadRequest("missing-limit.pdf", "application/pdf", signatures.pdf), env: { ...env, RFQ_UPLOAD_LIMITER: undefined } });
+response = await onRequestPost({ request: makeUploadRequest("missing-limit.pdf", "application/pdf", signatures.pdf), env: { ...env, RFQ_UPLOAD_LIMITER_SERVICE: undefined } });
 assert.equal(response.status, 503, "missing rate-limit binding must block upload");
 
 response = await onRequestPost({ request: makeUploadRequest("r2-failure.pdf", "application/pdf", signatures.pdf), env: { ...env, RFQ_UPLOADS: new MockR2({ failPut: true }) } });

@@ -2,6 +2,7 @@ export const MAX_FILE_BYTES = 10 * 1024 * 1024;
 export const MAX_REQUEST_BYTES = MAX_FILE_BYTES + 128 * 1024;
 export const DOWNLOAD_TTL_SECONDS = 7 * 24 * 60 * 60;
 export const RFQ_KEY_PREFIX = "rfq/";
+export const RATE_LIMIT_SERVICE_PATH = "/__internal/rfq/upload/limit";
 
 export const ALLOWED_FILE_TYPES = Object.freeze({
   pdf: { mime: "application/pdf", label: "PDF" },
@@ -146,8 +147,8 @@ export const requiredBindingError = (env) => {
   if (!env.TURNSTILE_SECRET_KEY) {
     return ["turnstile_secret_missing", "Upload verification is not configured for this environment.", 503];
   }
-  if (!env.RFQ_UPLOAD_LIMITER || typeof env.RFQ_UPLOAD_LIMITER.limit !== "function") {
-    return ["rate_limit_binding_missing", "Upload rate limiting is not configured for this environment.", 503];
+  if (!env.RFQ_UPLOAD_LIMITER_SERVICE || typeof env.RFQ_UPLOAD_LIMITER_SERVICE.fetch !== "function") {
+    return ["rate_limit_service_missing", "Upload rate limiting is not configured for this environment.", 503];
   }
   return null;
 };
@@ -186,9 +187,26 @@ export const rateLimitKey = async (request) => {
 };
 
 export const verifyRateLimit = async (env, request) => {
+  if (!env?.RFQ_UPLOAD_LIMITER_SERVICE || typeof env.RFQ_UPLOAD_LIMITER_SERVICE.fetch !== "function") return null;
   try {
-    const result = await env.RFQ_UPLOAD_LIMITER.limit({ key: await rateLimitKey(request) });
-    return result?.success === true;
+    const key = await rateLimitKey(request);
+    const response = await env.RFQ_UPLOAD_LIMITER_SERVICE.fetch(new Request(
+      `https://rfq-upload-limiter.internal${RATE_LIMIT_SERVICE_PATH}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-HDS-RFQ-Limiter-Protocol": "v1",
+        },
+        body: JSON.stringify({ key }),
+      },
+    ));
+    if (!response || (response.status !== 200 && response.status !== 429)) return null;
+    const result = await response.json();
+    if (result?.success !== true || typeof result.allowed !== "boolean") return null;
+    if (response.status === 200 && result.allowed !== true) return null;
+    if (response.status === 429 && result.allowed !== false) return null;
+    return result.allowed;
   } catch (error) {
     return null;
   }

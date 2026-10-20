@@ -1,0 +1,19 @@
+# Preview-only Worker configuration template.
+# Do not deploy this file until the Cloudflare account has confirmed an unused
+# positive integer namespace_id and the Preview Service Binding is ready.
+
+name = "hds-rfq-upload-limiter-preview"
+main = "src/index.js"
+compatibility_date = "2026-10-19"
+workers_dev = false
+
+# The Rate Limiting API is a Workers binding, not a Pages Functions binding.
+# Uncomment this block only after replacing the placeholder with an account-
+# verified, unique positive integer. Never reuse an ID without checking it.
+# [[ratelimits]]
+# name = "RFQ_UPLOAD_LIMITER"
+# namespace_id = "REPLACE_AFTER_ACCOUNT_CHECK"
+#
+# [ratelimits.simple]
+# limit = 5
+# period = 60
